@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Fit | AI Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:       #0A0A0A;
+    --s1:       #111111;
+    --s2:       #161616;
+    --s3:       #1C1C1C;
+    --s4:       #222222;
+    --border:   #2A2A2A;
+    --border2:  #333333;
+    --green:    #22C55E;
+    --gdim:     rgba(34,197,94,0.10);
+    --gglow:    rgba(34,197,94,0.06);
+    --gline:    rgba(34,197,94,0.20);
+    --text:     #F5F5F5;
+    --sub:      #888888;
+    --faint:    #444444;
+    --input:    #0D0D0D;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HEADER ────────────────────────────────────── */
+  .header {
+    background: var(--s1);
+    border-bottom: 1px solid var(--border);
+    padding: 0 28px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+  }
+
+  .logo-icon {
+    width: 32px; height: 32px;
+    background: var(--s3);
+    border: 1px solid var(--border2);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg { width: 18px; height: 18px; }
+
+  .logo-word { font-size: 16px; font-weight: 400; letter-spacing: 0.3px; color: var(--text); }
+  .logo-word b { font-weight: 800; }
+
+  .header-badge {
+    background: var(--gdim);
+    border: 1px solid var(--gline);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--green);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .live-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(34,197,94,.8);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ── TAB NAV ───────────────────────────────────── */
+  .tabs {
+    background: var(--s1);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    padding: 0 18px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #FFFFFF;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all .18s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    opacity: 0.5;
+  }
+
+  .tab:hover { opacity: 0.85; }
+
+  .tab.on {
+    color: #FFFFFF;
+    border-bottom-color: var(--green);
+    opacity: 1;
+  }
+
+  .tab-ico { font-size: 14px; }
+
+  .tab-num {
+    background: var(--s3);
+    border-radius: 4px;
+    width: 18px; height: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--sub);
+  }
+
+  .tab.on .tab-num { background: var(--gdim); color: var(--green); }
+
+  /* ── CONTENT ───────────────────────────────────── */
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  .tool { display: none; animation: fadeUp .25s ease; }
+  .tool.on { display: block; }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(8px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ── TOOL BANNER ───────────────────────────────── */
+  .banner {
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 24px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+
+  .banner-inner {
+    background: var(--s2);
+    padding: 28px 28px 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 120px;
+  }
+
+  .banner-inner::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(34,197,94,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .banner-logo {
+    display: flex; align-items: center; gap: 7px;
+    margin-bottom: 12px;
+  }
+
+  .b-ico {
+    width: 24px; height: 24px;
+    background: var(--s4);
+    border: 1px solid var(--border2);
+    border-radius: 5px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .b-ico svg { width: 14px; height: 14px; }
+
+  .b-brand { font-size: 12px; font-weight: 400; color: #999; }
+  .b-brand b { font-weight: 800; color: #ccc; }
+
+  .banner-title {
+    font-size: 52px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.12);
+    line-height: 1;
+    letter-spacing: -1px;
+    padding-bottom: 20px;
+  }
+
+  .banner-foot {
+    background: var(--s1);
+    border-top: 1px solid var(--border);
+    padding: 18px 24px;
+  }
+
+  .banner-foot-title {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  .banner-foot-desc {
+    font-size: 13.5px;
+    color: var(--sub);
+    line-height: 1.6;
+  }
+
+  /* ── CARDS ─────────────────────────────────────── */
+  .card {
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 26px;
+    margin-bottom: 16px;
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--sub);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 11px;
+  }
+
+  /* ── FORM ELEMENTS ─────────────────────────────── */
+  .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .f3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .f1 { margin-bottom: 12px; }
+
+  .fg { display: flex; flex-direction: column; gap: 5px; }
+
+  .fl {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--faint);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .fi, .fs {
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 14px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    width: 100%;
+    appearance: none;
+  }
+
+  .fi:focus, .fs:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.08);
+  }
+
+  .fi::placeholder { color: #333; }
+  .fs option { background: #111; }
+
+  /* ── UNIT TOGGLE ───────────────────────────────── */
+  .unit-toggle {
+    display: flex;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .ut-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sub);
+    cursor: pointer;
+    transition: all .15s;
+  }
+
+  .ut-btn.on { background: var(--gdim); color: var(--green); }
+
+  /* ── BUTTONS ───────────────────────────────────── */
+  .btn {
+    background: var(--green);
+    color: #0A0A0A;
+    border: none;
+    padding: 13px 28px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 9px;
+    transition: opacity .15s, transform .15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+    margin-top: 6px;
+  }
+
+  .btn:hover { opacity: .9; transform: translateY(-1px); }
+  .btn:active { transform: translateY(0); }
+
+  .btn-sm {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  /* ── RESULT / TDEE OUTPUT ──────────────────────── */
+  .result-panel {
+    display: none;
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    animation: fadeUp .3s ease;
+  }
+
+  .result-panel.show { display: block; }
+
+  .rp-head {
+    background: var(--gdim);
+    border-bottom: 1px solid var(--gline);
+    padding: 14px 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+  }
+
+  .rp-body {
+    padding: 22px 24px;
+    font-size: 14px;
+    line-height: 1.85;
+    color: #C0C0C0;
+    white-space: pre-wrap;
+  }
+
+  /* TDEE specific */
+  .tdee-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 20px 22px;
+  }
+
+  .tdee-tile {
+    background: var(--s3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    text-align: center;
+  }
+
+  .tdee-tile.main {
+    background: var(--gdim);
+    border-color: var(--gline);
+  }
+
+  .tdee-label { font-size: 10px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .tdee-val { font-size: 36px; font-weight: 900; color: var(--text); line-height: 1; margin-bottom: 4px; }
+  .tdee-tile.main .tdee-val { color: var(--green); }
+  .tdee-unit { font-size: 11px; color: var(--sub); }
+
+  .tdee-recs {
+    padding: 0 22px 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .tdee-rec {
+    background: var(--s3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .tdee-rec-label { font-size: 10px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .tdee-rec-val { font-size: 20px; font-weight: 800; color: var(--text); }
+  .tdee-rec-note { font-size: 11px; color: var(--sub); margin-top: 2px; }
+
+  .tdee-note {
+    padding: 14px 22px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--sub);
+    line-height: 1.6;
+  }
+
+  /* ── LOADING ───────────────────────────────────── */
+  .loading {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 48px 24px;
+    color: var(--sub);
+    font-size: 13.5px;
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .loading.show { display: flex; }
+
+  .spin {
+    width: 26px; height: 26px;
+    border: 2px solid var(--border2);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin .7s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── CHIPS ─────────────────────────────────────── */
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 16px; }
+
+  .chip {
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 15px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--sub);
+    cursor: pointer;
+    transition: all .15s;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .chip:hover { border-color: var(--green); color: var(--green); background: var(--gdim); }
+
+  /* ── CHAT ──────────────────────────────────────── */
+  .chat-wrap {
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .chat-head {
+    background: var(--s1);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
+
+  .c-av {
+    width: 38px; height: 38px;
+    background: var(--gdim);
+    border: 1.5px solid var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px; flex-shrink: 0;
+  }
+
+  .c-name { font-size: 14px; font-weight: 700; }
+  .c-status { font-size: 11px; color: var(--green); display: flex; align-items: center; gap: 5px; font-weight: 600; margin-top: 2px; }
+
+  .msgs {
+    min-height: 360px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    scroll-behavior: smooth;
+    background: var(--bg);
+  }
+
+  .msg { display: flex; gap: 9px; max-width: 85%; animation: fadeUp .2s ease; }
+  .msg.u { margin-left: auto; flex-direction: row-reverse; }
+
+  .mav {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; flex-shrink: 0;
+  }
+
+  .mav.c { background: var(--gdim); border: 1px solid var(--green); color: var(--green); font-size: 13px; }
+  .mav.u { background: var(--s3); color: var(--sub); }
+
+  .bub {
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .msg.u .bub { background: var(--gdim); border-color: var(--gline); }
+
+  .mt { font-size: 10px; color: #2A2A2A; margin-top: 3px; }
+
+  .chat-foot {
+    background: var(--s1);
+    border-top: 1px solid var(--border);
+    padding: 13px 16px;
+    display: flex;
+    gap: 9px;
+  }
+
+  .cin {
+    flex: 1;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    resize: none;
+    min-height: 42px;
+    max-height: 100px;
+  }
+
+  .cin:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(34,197,94,0.07);
+  }
+
+  .cin::placeholder { color: #2E2E2E; }
+
+  .tdot { width: 5px; height: 5px; background: #444; border-radius: 50%; animation: tb 1.2s infinite; }
+  .tdot:nth-child(2) { animation-delay: .2s; }
+  .tdot:nth-child(3) { animation-delay: .4s; }
+
+  @keyframes tb {
+    0%,60%,100% { transform: translateY(0); opacity: .3; }
+    30% { transform: translateY(-5px); opacity: 1; }
+  }
+
+  /* ── SCROLLBAR ─────────────────────────────────── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ── RESPONSIVE ────────────────────────────────── */
+  @media (max-width: 600px) {
+    .f2, .f3 { grid-template-columns: 1fr; }
+    .tdee-grid { grid-template-columns: 1fr 1fr; }
+    .tdee-recs { grid-template-columns: 1fr; }
+    .banner-title { font-size: 36px; }
+    .wrap { padding: 20px 14px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────── -->
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">
+      <svg viewBox="0 0 18 18" fill="none">
+        <path d="M3 3L15 15M15 3L3 15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-word">zenith<b>fit</b></span>
+  </div>
+  <div class="header-badge">
+    <span class="live-dot"></span>
+    AI Tools
+  </div>
+</header>
+
+<!-- ── TABS ────────────────────────────────────────── -->
+<nav class="tabs" id="tab-nav">
+  <div class="tab on" onclick="switchTab('coach',this)">
+    <span class="tab-ico">💪</span> AI Coach
+  </div>
+  <div class="tab" onclick="switchTab('recipe',this)">
+    <span class="tab-ico">🍳</span> Recipe Generator
+  </div>
+  <div class="tab" onclick="switchTab('plan',this)">
+    <span class="tab-ico">📋</span> Meal Planner
+  </div>
+</nav>
+
+<!-- ── CONTENT ─────────────────────────────────────── -->
+<div class="wrap">
+
+<!-- ════════════════════════════════════════
+     TOOL 1 — AI COACH
+════════════════════════════════════════ -->
+<div class="tool on" id="tool-coach">
+
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-logo">
+        <div class="b-ico">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M3 3L15 15M15 3L3 15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="b-brand">zenith<b>fit</b></span>
+      </div>
+      <div class="banner-title">AI Coach</div>
+    </div>
+    <div class="banner-foot">
+      <div class="banner-foot-title">💪 Ask Mark Anything</div>
+      <div class="banner-foot-desc">Built on 12 years of coaching and Mark's full philosophy. Ask it exactly what you'd drop into WhatsApp. Training, nutrition, mindset, a rough week — all of it.</div>
+    </div>
+  </div>
+
+  <div class="chips">
+    <div class="chip" onclick="useChip(this)">I've missed my workouts this week</div>
+    <div class="chip" onclick="useChip(this)">How much protein do I actually need?</div>
+    <div class="chip" onclick="useChip(this)">I'm struggling with weekend eating</div>
+    <div class="chip" onclick="useChip(this)">I've hit a fat loss plateau</div>
+    <div class="chip" onclick="useChip(this)">I feel guilty after eating badly</div>
+    <div class="chip" onclick="useChip(this)">I haven't got time to train today</div>
+    <div class="chip" onclick="useChip(this)">How do I stop craving junk food at night?</div>
+    <div class="chip" onclick="useChip(this)">Is alcohol going to ruin my progress?</div>
+  </div>
+
+  <div class="chat-wrap">
+    <div class="chat-head">
+      <div class="c-av">💪</div>
+      <div>
+        <div class="c-name">Mark — Zenith Fit Coach</div>
+        <div class="c-status"><span class="live-dot"></span> Active now</div>
+      </div>
+    </div>
+
+    <div class="msgs" id="msgs">
+      <div class="msg">
+        <div class="mav c">M</div>
+        <div>
+          <div class="bub">Right, what's going on? Ask me anything — training, nutrition, mindset, a week that's gone sideways. No stupid questions here. That's what I'm here for. 💪</div>
+          <div class="mt">Today</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chat-foot">
+      <textarea class="cin" id="cin" placeholder="Ask Mark anything..." rows="1" onkeydown="ckbd(event)"></textarea>
+      <button class="btn btn-sm" onclick="sendMsg()">Send</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+     TOOL 2 — RECIPE GENERATOR
+════════════════════════════════════════ -->
+<div class="tool" id="tool-recipe">
+
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-logo">
+        <div class="b-ico">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M3 3L15 15M15 3L3 15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="b-brand">zenith<b>fit</b></span>
+      </div>
+      <div class="banner-title">Recipe<br>Generator</div>
+    </div>
+    <div class="banner-foot">
+      <div class="banner-foot-title">🍳 Real Food. Real Numbers. Real Supermarkets.</div>
+      <div class="banner-foot-desc">Enter your targets and preferences. Get a proper recipe built around UK ingredients you can buy from Tesco, Asda, Sainsbury's or Aldi tonight.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Recipe Details</div>
+
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Calories per meal (kcal)</label>
+        <input class="fi" id="r-kcal" type="number" placeholder="e.g. 500">
+      </div>
+      <div class="fg">
+        <label class="fl">Protein target (g)</label>
+        <input class="fi" id="r-prot" type="number" placeholder="e.g. 40">
+      </div>
+    </div>
+
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Meal Type</label>
+        <select class="fs" id="r-type">
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch">Lunch</option>
+          <option value="dinner">Dinner</option>
+          <option value="snack">Snack</option>
+          <option value="post-workout meal">Post-workout</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Max prep time</label>
+        <select class="fs" id="r-time">
+          <option value="under 15 minutes">Under 15 mins</option>
+          <option value="under 30 minutes">Under 30 mins</option>
+          <option value="up to 45 minutes">Up to 45 mins</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="f1">
+      <div class="fg">
+        <label class="fl">Preferences / intolerances / anything to avoid</label>
+        <input class="fi" id="r-pref" placeholder="e.g. no dairy, gluten free, vegetarian, high volume, no fish...">
+      </div>
+    </div>
+
+    <button class="btn" onclick="genRecipe()">Generate Recipe →</button>
+  </div>
+
+  <div class="loading" id="r-load">
+    <div class="spin"></div>
+    <span>Building your recipe...</span>
+  </div>
+
+  <div class="result-panel" id="r-result">
+    <div class="rp-head">🍳 Your Recipe</div>
+    <div class="rp-body" id="r-out"></div>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════
+     TOOL 4 — MEAL PLANNER
+════════════════════════════════════════ -->
+<div class="tool" id="tool-plan">
+
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-logo">
+        <div class="b-ico">
+          <svg viewBox="0 0 18 18" fill="none">
+            <path d="M3 3L15 15M15 3L3 15" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="b-brand">zenith<b>fit</b></span>
+      </div>
+      <div class="banner-title">Meal<br>Planner</div>
+    </div>
+    <div class="banner-foot">
+      <div class="banner-foot-title">📋 7 Days. Built Around Your Numbers.</div>
+      <div class="banner-foot-desc">Use the calorie and protein targets Mark has already given you. Add your preferences, intolerances, and diet type and get a full week of real UK meals with clear macros every day.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your Plan Details</div>
+
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Your daily calorie target (given by Mark)</label>
+        <input class="fi" id="p-kcal" type="number" placeholder="Enter the target Mark set you">
+      </div>
+      <div class="fg">
+        <label class="fl">Your daily protein target (given by Mark)</label>
+        <input class="fi" id="p-prot" type="number" placeholder="Enter the target Mark set you">
+      </div>
+    </div>
+
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Goal</label>
+        <select class="fs" id="p-goal">
+          <option value="fat loss">Fat Loss</option>
+          <option value="body recomposition">Body Recomposition</option>
+          <option value="muscle building">Muscle Building</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Diet type</label>
+        <select class="fs" id="p-diet">
+          <option value="no restrictions">No restrictions</option>
+          <option value="vegetarian">Vegetarian</option>
+          <option value="vegan">Vegan</option>
+          <option value="pescatarian">Pescatarian</option>
+          <option value="gluten free">Gluten Free</option>
+          <option value="dairy free">Dairy Free</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="f2">
+      <div class="fg">
+        <label class="fl">Cooking time available</label>
+        <select class="fs" id="p-time">
+          <option value="minimal — quick meals, batch cooking preferred">Minimal</option>
+          <option value="moderate — 30 mins per meal max">Moderate</option>
+          <option value="plenty — happy to cook properly">Plenty</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label class="fl">Budget</label>
+        <select class="fs" id="p-budget">
+          <option value="budget-conscious, Aldi and Lidl friendly">Budget (Aldi/Lidl)</option>
+          <option value="mid-range, Tesco and Sainsbury's friendly" selected>Mid-range (Tesco/Sainsbury's)</option>
+          <option value="flexible budget, any supermarket">Flexible</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="f1">
+      <div class="fg">
+        <label class="fl">Food intolerances / things to avoid</label>
+        <input class="fi" id="p-avoid" placeholder="e.g. no nuts, lactose intolerant, hate mushrooms, no eggs...">
+      </div>
+    </div>
+
+    <button class="btn" onclick="genPlan()">Generate 7-Day Plan →</button>
+  </div>
+
+  <div class="loading" id="p-load">
+    <div class="spin"></div>
+    <span>Building your 7-day plan...</span>
+  </div>
+
+  <div class="result-panel" id="p-result">
+    <div class="rp-head">📋 Your 7-Day Meal Plan</div>
+    <div class="rp-body" id="p-out"></div>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ══════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════
+function switchTab(id, el) {
+  document.querySelectorAll('.tool').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.getElementById('tool-' + id).classList.add('on');
+  el.classList.add('on');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ══════════════════════════════════════════════
+// MARK'S SYSTEM PROMPT — built from transcripts
+// ══════════════════════════════════════════════
+const MARK = `You are Mark, founder of Zenith Fit, a UK online coaching business. You are talking to one of your clients through your Zenith Fit AI tools inside your Skool community.
+
+YOUR STORY: You were a chubby teenager who went the other way and became anorexic. You became a professional athlete at 16 and struggled massively with the emotional and mental pressure of that. You channelled all your stress and anxiety into exercise and made every mistake possible. You built Zenith Fit so your clients do not have to go through what you went through. 12 years of coaching experience. Severely empathetic but not soft.
+
+YOUR COACHING PHILOSOPHY — these are non-negotiable beliefs you come back to constantly:
+Consistency beats perfection every single time. A plan that works on your worst week beats a perfect plan you abandon. The 80/20 rule is how you live and how you coach. 80% aligned with your goals, 20% for real life, flexibility, enjoyment. Never miss twice. One bad meal or missed session — you get straight back on it at the very next opportunity. You do not wait until Monday. All or nothing thinking is the fastest way to fail. You have seen it ruin more people than anything else. Control is the goal, not restriction. The difference between someone who gets lean and stays lean is not willpower — it is control. What gets scheduled gets done. If it is not in the diary it becomes optional and optional means it gets skipped when life gets busy. Confidence comes from evidence not motivation. You stack small wins and they compound into something real. Stop negotiating with yourself every day. The basics are not a decision — they are locked in.
+
+YOUR FIVE PILLARS: Nutrition. Steps and Activity. Structured Workouts. Hydration. Sleep. Everything comes back to these five.
+
+YOUR VOICE — this is critical:
+Direct and honest. You do not soften things until they become useless. You tell people what they need to hear, not just what they want to hear. Deeply empathetic because you have been through it yourself. You always acknowledge the reality a person is in before you push back or reframe. Conversational and real — you talk like a normal person, not a corporate coach. Evidence-based always. No detox teas, no fat burners, no nonsense. You occasionally swear mildly when it fits naturally. You use 💪 now and then. You sometimes say things like "I'll be honest with you", "right", "look", "here is the thing", "mate", "bloody hell", "to be fair". You use rhetorical questions. You keep things tight — short punchy sentences mixed with longer explanatory ones when depth is needed.
+
+WHEN CLIENTS ARE STRUGGLING OR FEEL GUILTY:
+Acknowledge their reality first — do not skip past it. Reframe the guilt without dismissing the feeling. Give one or two concrete next steps they can actually do right now. Close with forward momentum. Keep it human and real.
+
+UK SPECIFIC — always:
+British English. Stone and lbs for bodyweight. Grams for food portions. Kcal for calories. UK supermarkets: Tesco, Sainsbury's, Asda, Aldi, Lidl, Morrisons, Waitrose, M&S. UK foods: porridge, jacket potato, baked beans, chicken thighs, beef mince, naan, Greek yoghurt, rice cakes, cottage pie, stir fry, beans on toast, Weetabix. UK brands: Grenade bars, Fulfil, Trek, PhD, MyProtein, Bulk, Quorn, Alpro. Meal deals from Tesco or Sainsbury's for quick on-the-go options.
+
+NEVER: Use dashes in text. Use generic coaching clichés. Sound like an AI or a fitness app. Be preachy or repeat yourself. Use excessive bullet points when normal sentences work better. Pad responses with unnecessary fluff.`;
+
+// ══════════════════════════════════════════════
+// CHAT
+// ══════════════════════════════════════════════
+let hist = [];
+const API_KEY = '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';
+
+function useChip(el) {
+  document.getElementById('cin').value = el.textContent;
+  sendMsg();
+}
+
+function ckbd(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMsg(); }
+}
+
+async function sendMsg() {
+  const inp = document.getElementById('cin');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+  addMsg(txt, 'u');
+  hist.push({ role: 'user', content: txt });
+  const ti = showTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: MARK, messages: hist })
+    });
+    const d = await res.json();
+    const reply = d.content[0].text;
+    hist.push({ role: 'assistant', content: reply });
+    ti.remove();
+    addMsg(reply, 'c');
+  } catch {
+    ti.remove();
+    addMsg("Something's gone wrong my end. Give it another go.", 'c');
+  }
+}
+
+function addMsg(txt, role) {
+  const c = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg' + (role === 'u' ? ' u' : '');
+  d.innerHTML = `<div class="mav ${role === 'c' ? 'c' : 'u'}">${role === 'c' ? 'M' : 'You'}</div><div><div class="bub">${txt.replace(/\n/g,'<br>')}</div><div class="mt">Just now</div></div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function showTyping() {
+  const c = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg'; d.id = 'typing';
+  d.innerHTML = `<div class="mav c">M</div><div style="display:flex;align-items:center;gap:4px;padding:10px 14px;background:var(--s2);border:1px solid var(--border);border-radius:10px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  c.appendChild(d); c.scrollTop = c.scrollHeight;
+  return d;
+}
+
+// ══════════════════════════════════════════════
+// RECIPE GENERATOR
+// ══════════════════════════════════════════════
+const RECIPE_SYS = `You are a nutrition expert writing recipe content for Zenith Fit, a UK-based fitness coaching platform. Write in a clear, direct, practical tone. No dashes in text. No AI clichés. No fluff. Real food that busy people in the UK will actually cook and enjoy. Always use UK ingredients and UK supermarkets: Tesco, Sainsbury's, Asda, Aldi, Lidl, Morrisons. British English throughout. Use grams and ml for measurements, kcal for calories. Make the food sound genuinely good, not like diet food. Lead with protein always. Be specific with quantities.`;
+
+async function genRecipe() {
+  const kcal = document.getElementById('r-kcal').value;
+  const prot = document.getElementById('r-prot').value;
+  const type = document.getElementById('r-type').value;
+  const time = document.getElementById('r-time').value;
+  const pref = document.getElementById('r-pref').value;
+
+  if (!kcal) { alert('Enter a calorie target first.'); return; }
+
+  document.getElementById('r-result').classList.remove('show');
+  document.getElementById('r-load').classList.add('show');
+
+  const prompt = `Create a ${type} recipe for a UK client with the following:
+
+Target: ${kcal} kcal
+Protein: ${prot ? prot + 'g minimum' : 'maximise it as high as possible'}
+Prep time: ${time}
+Preferences / intolerances: ${pref || 'none'}
+
+Format exactly as follows:
+
+RECIPE NAME
+[name here]
+
+WHY THIS WORKS
+[2 sentences — practical reasons around satiety, protein, and supporting their goals]
+
+INGREDIENTS
+[list with quantities in grams/ml]
+
+METHOD
+[numbered steps, clear and simple]
+
+MACROS
+Calories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg
+
+Where to buy: [note the main ingredients and which UK supermarket to find them in — Tesco, Asda, Sainsbury's, Aldi, Lidl]
+
+Keep it realistic for a busy person. Real food that tastes good. No obscure ingredients.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: RECIPE_SYS, messages: [{ role: 'user', content: prompt }] })
+    });
+    const d = await res.json();
+    document.getElementById('r-load').classList.remove('show');
+    document.getElementById('r-out').textContent = d.content[0].text;
+    document.getElementById('r-result').classList.add('show');
+  } catch {
+    document.getElementById('r-load').classList.remove('show');
+    alert('Something went wrong. Try again.');
+  }
+}
+
+// ══════════════════════════════════════════════
+// MEAL PLANNER
+// ══════════════════════════════════════════════
+const PLAN_SYS = `You are a nutrition expert creating meal plans for Zenith Fit, a UK-based fitness coaching platform. British English throughout. Always kcal for calories. Grams for portions. Use UK foods and UK supermarkets exclusively. Use real British meals people recognise: porridge, jacket potato, baked beans, chicken thighs, beef mince, stir fry, Greek yoghurt, rice cakes, cottage pie, Weetabix, beans on toast, chicken tikka, naan bread. UK protein brands: Grenade, Fulfil, Trek, MyProtein, Bulk, PhD. No dashes in text. No AI clichés. High protein always. 80/20 balance — mostly whole foods with some flexibility. Meals must be genuinely enjoyable, not diet food. Be specific. Always include approximate kcal and protein for each meal in brackets.`;
+
+async function genPlan() {
+  const kcal   = document.getElementById('p-kcal').value;
+  const prot   = document.getElementById('p-prot').value;
+  const goal   = document.getElementById('p-goal').value;
+  const diet   = document.getElementById('p-diet').value;
+  const time   = document.getElementById('p-time').value;
+  const budget = document.getElementById('p-budget').value;
+  const avoid  = document.getElementById('p-avoid').value;
+
+  if (!kcal) { alert('Enter a daily calorie target first.'); return; }
+
+  document.getElementById('p-result').classList.remove('show');
+  document.getElementById('p-load').classList.add('show');
+
+  const prompt = `Create a full 7-day meal plan for a UK client:
+
+Daily calories: ${kcal} kcal
+Daily protein: ${prot ? prot + 'g' : 'maximise, aim for at least 2g per kg bodyweight'}
+Goal: ${goal}
+Diet type: ${diet}
+Cooking time: ${time}
+Budget: ${budget}
+Foods to avoid / intolerances: ${avoid || 'none'}
+
+For each day list Breakfast, Lunch, Dinner, and one Snack. After each meal name show the approximate calories and protein in brackets like this: (420 kcal / 38g protein).
+
+Show a daily total at the bottom of each day.
+
+At the end add a PRACTICAL TIPS section with 3 short, actionable points specifically to help a busy UK person actually stick to this plan.
+
+Use a wide variety of meals across the 7 days. No meal should repeat more than twice. Keep it genuinely enjoyable and realistic.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': API_KEY, 'anthropic-version': '2023-06-01' },
+      body: JSON.stringify({ model: 'claude-sonnet-4-20250514', max_tokens: 1000, system: PLAN_SYS, messages: [{ role: 'user', content: prompt }] })
+    });
+    const d = await res.json();
+    document.getElementById('p-load').classList.remove('show');
+    document.getElementById('p-out').textContent = d.content[0].text;
+    document.getElementById('p-result').classList.add('show');
+  } catch {
+    document.getElementById('p-load').classList.remove('show');
+    alert('Something went wrong. Try again.');
+  }
+}
+</script>
+</body>
+</html>
