@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Fit | AI Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#111113;--s1:#18181B;--s2:#1E1E22;--s3:#242428;--border:#2C2C32;
+  --border2:#38383F;--acc:#D4D4D4;--adim:rgba(212,212,212,0.07);
+  --aline:rgba(212,212,212,0.13);--text:#F0F0F0;--sub:#72727A;
+  --faint:#48484F;--label:#909098;--input:#0A0A0C;--white:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;display:flex;-webkit-font-smoothing:antialiased;}
+.sidebar{width:220px;min-height:100vh;background:#0D0D0F;border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100;}
+.sb-logo{padding:22px 18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.sb-logo-box{width:36px;height:36px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+.sb-logo-box img{width:100%;height:100%;object-fit:cover;border-radius:8px;}
+.sb-logo-text{font-size:15px;font-weight:800;color:var(--white);}
+.sb-logo-text span{color:var(--acc);}
+.sb-section{padding:16px 14px 4px;}
+.sb-section-label{font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--sub);transition:all .15s;margin-bottom:2px;}
+.sb-item:hover{background:var(--s2);color:var(--text);}
+.sb-item.on{background:var(--adim);color:var(--white);border:1px solid var(--aline);}
+.sb-item-ico{font-size:14px;width:18px;text-align:center;flex-shrink:0;}
+.sb-foot{margin-top:auto;padding:14px;border-top:1px solid var(--border);}
+.sb-foot-note{font-size:11px;color:var(--faint);line-height:1.5;text-align:center;}
+.main{margin-left:220px;flex:1;min-height:100vh;display:flex;flex-direction:column;}
+.topbar{height:56px;background:#0D0D0F;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;}
+.topbar-title{font-size:16px;font-weight:800;color:var(--white);}
+.topbar-pill{display:flex;align-items:center;gap:6px;background:var(--adim);border:1px solid var(--aline);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--acc);letter-spacing:.5px;}
+.live-dot{width:5px;height:5px;background:var(--acc);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.content{padding:28px;flex:1;}
+.page{display:none;animation:fadeUp .2s ease;}
+.page.on{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.page-hdr{margin-bottom:24px;}
+.page-hdr-top{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.page-ico{width:40px;height:40px;background:var(--s2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.page-title{font-size:22px;font-weight:800;color:var(--white);letter-spacing:-.3px;}
+.page-desc{font-size:13px;color:var(--sub);line-height:1.6;max-width:560px;}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:20px 22px;margin-bottom:16px;}
+.card-title{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:16px;}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.f1{margin-bottom:12px;}
+.fg{display:flex;flex-direction:column;gap:5px;}
+.fl{font-size:11px;font-weight:700;color:var(--label);text-transform:uppercase;letter-spacing:.8px;}
+.fi,.fs{background:var(--input);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:500;outline:none;transition:border-color .15s,box-shadow .15s;width:100%;appearance:none;}
+.fi:focus,.fs:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(212,212,212,.06);}
+.fi::placeholder{color:#6A6A74;}
+.fs option{background:#18181B;}
+.btn{background:var(--white);color:#111113;border:none;padding:11px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s,transform .15s;display:inline-flex;align-items:center;gap:7px;margin-top:6px;}
+.btn:hover{opacity:.88;transform:translateY(-1px);}
+.loading{display:none;flex-direction:column;align-items:center;gap:12px;padding:44px;color:var(--sub);font-size:13px;background:var(--s1);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
+.loading.on{display:flex;}
+.spin{width:22px;height:22px;border:2px solid var(--border2);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result{display:none;background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px;animation:fadeUp .3s ease;}
+.result.on{display:block;}
+.result-head{background:var(--adim);border-bottom:1px solid var(--aline);padding:11px 20px;font-size:11px;font-weight:700;color:var(--acc);letter-spacing:1.2px;text-transform:uppercase;}
+.recipe-img-wrap{width:100%;height:220px;overflow:hidden;background:var(--s3);}
+.recipe-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .4s ease;opacity:0;}
+.recipe-img-wrap img.loaded{opacity:1;}
+.result-body{padding:22px;font-size:13.5px;line-height:1.88;color:#BCBCC4;white-space:pre-wrap;}
+.result-actions{padding:16px 22px;border-top:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.btn-download{background:var(--s3);color:var(--text);border:1px solid var(--border2);padding:10px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;border-radius:8px;transition:all .15s;display:flex;align-items:center;gap:7px;}
+.btn-download:hover{background:var(--s2);border-color:var(--acc);color:var(--white);}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px;}
+.chip{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:6px 13px;font-size:12px;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.chip:hover{border-color:var(--acc);color:var(--acc);}
+.chat-box{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.chat-head{background:#0D0D0F;border-bottom:1px solid var(--border);padding:13px 18px;display:flex;align-items:center;gap:11px;}
+.chat-av{width:36px;height:36px;background:var(--adim);border:1.5px solid var(--aline);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.chat-name{font-size:14px;font-weight:800;color:var(--white);}
+.chat-status{font-size:11px;color:#4ADE80;display:flex;align-items:center;gap:5px;margin-top:2px;font-weight:600;}
+.status-dot{width:5px;height:5px;border-radius:50%;background:#4ADE80;box-shadow:0 0 5px rgba(74,222,128,.7);}
+.msgs{min-height:320px;max-height:320px;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:13px;scroll-behavior:smooth;background:var(--bg);}
+.msg{display:flex;gap:9px;max-width:84%;animation:fadeUp .2s ease;}
+.msg.u{margin-left:auto;flex-direction:row-reverse;}
+.mav{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:11px;}
+.mav.m{background:var(--adim);border:1px solid var(--aline);color:var(--acc);font-size:13px;}
+.mav.u{background:var(--s3);color:var(--sub);}
+.bub{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:10px 13px;font-size:13.5px;line-height:1.65;color:var(--text);}
+.msg.u .bub{background:var(--adim);border-color:var(--aline);}
+.mt{font-size:10px;color:#222228;margin-top:3px;}
+.chat-foot{background:#0D0D0F;border-top:1px solid var(--border);padding:12px 15px;display:flex;gap:9px;}
+.cin{flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:500;outline:none;transition:border-color .15s;resize:none;min-height:42px;max-height:100px;}
+.cin:focus{border-color:var(--acc);}
+.cin::placeholder{color:#5A5A64;}
+.btn-send{background:var(--white);color:#111113;border:none;padding:10px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s;align-self:flex-end;}
+.btn-send:hover{opacity:.86;}
+.tdot{width:5px;height:5px;background:#404048;border-radius:50%;animation:tb 1.2s infinite;}
+.tdot:nth-child(2){animation-delay:.2s;}
+.tdot:nth-child(3){animation-delay:.4s;}
+@keyframes tb{0%,60%,100%{transform:translateY(0);opacity:.3}30%{transform:translateY(-5px);opacity:1}}
+.mob-toggle{display:none;background:none;border:none;color:var(--text);cursor:pointer;padding:4px;}
+@media(max-width:700px){
+  .sidebar{transform:translateX(-100%);transition:transform .2s ease;}
+  .sidebar.open{transform:translateX(0);}
+  .main{margin-left:0;}
+  .mob-toggle{display:flex;}
+  .f2{grid-template-columns:1fr;}
+  .content{padding:18px 16px;}
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:transparent;}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-box">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:36px;height:36px;background:#2A2A2A;border-radius:8px;">
+        <path d="M8 8L24 24M24 8L8 24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="sb-logo-text">zenith<span>fit</span></span>
+  </div>
+  <div class="sb-section">
+    <div class="sb-section-label">Tools</div>
+    <div class="sb-item on" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
+    <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> Meal Planner</div>
+    <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
+    <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
+    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div>
+    <div class="sb-item" onclick="goPage('bot',this)"><span class="sb-item-ico">💪</span> Mark Bot</div>
+  </div>
+  <div class="sb-foot"><div class="sb-foot-note">Zenith Fit AI Tools<br>Built for Zenith Members</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="mob-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4h14M2 9h14M2 14h14" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+      <div class="topbar-title" id="tb-title">Recipe Generator</div>
+    </div>
+    <div class="topbar-pill"><span class="live-dot"></span>AI Live</div>
+  </div>
+
+  <div class="content">
+
+    <!-- RECIPE -->
+    <div class="page on" id="page-recipe">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">🍳</div><div class="page-title">Recipe Generator</div></div>
+        <div class="page-desc">Enter the targets Mark has given you, your meal type, and any preferences. Real UK ingredients, clear macros, food that actually tastes good.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Details</div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Calories per meal (kcal)</label><input class="fi" id="r-kcal" type="number" placeholder="e.g. 500"></div>
+          <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="r-prot" type="number" placeholder="e.g. 40"></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Meal type</label><select class="fs" id="r-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
+          <div class="fg"><label class="fl">Max prep time</label><select class="fs" id="r-time"><option>Under 15 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Preferences / intolerances</label><input class="fi" id="r-pref" placeholder="e.g. no dairy, vegetarian, gluten free..."></div></div>
+        <button class="btn" onclick="genRecipe()">Generate Recipe →</button>
+      </div>
+      <div class="loading" id="r-load"><div class="spin"></div><span>Building your recipe...</span></div>
+      <div class="result" id="r-result">
+        <div class="result-head">✓ Your Recipe</div>
+        <div class="recipe-img-wrap" id="r-img-wrap"><img id="r-img" src="" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="result-body" id="r-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlRecipe()">⬇ Save Recipe</button></div>
+      </div>
+    </div>
+
+    <!-- MEAL PLANNER -->
+    <div class="page" id="page-plan">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">📋</div><div class="page-title">Meal Planner</div></div>
+        <div class="page-desc">Use the calorie and protein targets Mark has given you. Full week of real UK meals with macros every day.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Details</div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Daily calories (from Mark)</label><input class="fi" id="p-kcal" type="number" placeholder="Enter the target Mark gave you"></div>
+          <div class="fg"><label class="fl">Daily protein (from Mark)</label><input class="fi" id="p-prot" type="number" placeholder="Enter the target Mark gave you"></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Goal</label><select class="fs" id="p-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
+          <div class="fg"><label class="fl">Diet type</label><select class="fs" id="p-diet"><option>No restrictions</option><option>Vegetarian</option><option>Vegan</option><option>Pescatarian</option><option>Gluten Free</option><option>Dairy Free</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Cooking time</label><select class="fs" id="p-time"><option>Minimal</option><option>Moderate</option><option>Plenty</option></select></div>
+          <div class="fg"><label class="fl">Budget</label><select class="fs" id="p-budget"><option>Budget (Aldi/Lidl)</option><option>Mid-range (Tesco/Sainsbury's)</option><option>Flexible</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Foods to avoid / intolerances</label><input class="fi" id="p-avoid" placeholder="e.g. no nuts, hate mushrooms, no eggs..."></div></div>
+        <button class="btn" onclick="genPlan()">Generate 7-Day Plan →</button>
+      </div>
+      <div class="loading" id="p-load"><div class="spin"></div><span>Building your meal plan...</span></div>
+      <div class="result" id="p-result">
+        <div class="result-head">✓ Your 7-Day Plan</div>
+        <div class="result-body" id="p-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlPlan()">⬇ Save Plan</button></div>
+      </div>
+    </div>
+
+    <!-- GROCERY -->
+    <div class="page" id="page-grocery">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">🛒</div><div class="page-title">Grocery List Generator</div></div>
+        <div class="page-desc">Paste your meal plan or list your meals. Get a categorised shopping list ready to screenshot before you head to the supermarket.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Meals</div>
+        <div class="f1"><div class="fg"><label class="fl">Paste your meal plan or list meals for the week</label><textarea class="fi" id="g-meals" rows="5" placeholder="e.g. Monday: porridge, chicken and rice, beef stir fry..." style="resize:vertical;min-height:110px;"></textarea></div></div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Supermarket</label><select class="fs" id="g-shop"><option>Tesco</option><option>Sainsbury's</option><option>Asda</option><option>Aldi</option><option>Lidl</option><option>Morrisons</option><option>Any</option></select></div>
+          <div class="fg"><label class="fl">Number of people</label><select class="fs" id="g-people"><option>Just me</option><option>2 people</option><option>Family of 3</option><option>Family of 4</option><option>Family of 5+</option></select></div>
+        </div>
+        <button class="btn" onclick="genGrocery()">Generate Shopping List →</button>
+      </div>
+      <div class="loading" id="g-load"><div class="spin"></div><span>Building your shopping list...</span></div>
+      <div class="result" id="g-result">
+        <div class="result-head">✓ Your Shopping List</div>
+        <div class="result-body" id="g-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlGrocery()">⬇ Save List</button></div>
+      </div>
+    </div>
+
+    <!-- FOOD CHECKER -->
+    <div class="page" id="page-food">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">🔍</div><div class="page-title">Food Checker</div></div>
+        <div class="page-desc">Type any food, meal, or drink. Get calories, protein, carbs and fat back instantly. Works for anything from a Grenade bar to a pint of Guinness.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">What are you eating?</div>
+        <div class="f1"><div class="fg"><label class="fl">Food, meal or drink</label><input class="fi" id="fc-food" placeholder="e.g. large chicken tikka masala, 2 Weetabix, pint of Guinness..." onkeydown="if(event.key==='Enter')checkFood()"></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Portion size (optional)</label><input class="fi" id="fc-portion" placeholder="e.g. 400g, large, half a portion..."></div></div>
+        <button class="btn" onclick="checkFood()">Check It →</button>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="card-title" style="margin-bottom:10px;">Quick checks</div>
+          <div class="chips">
+            <div class="chip" onclick="qFood(this)">Grenade bar</div>
+            <div class="chip" onclick="qFood(this)">Tesco meal deal</div>
+            <div class="chip" onclick="qFood(this)">Pint of Guinness</div>
+            <div class="chip" onclick="qFood(this)">Large Big Mac meal</div>
+            <div class="chip" onclick="qFood(this)">Porridge with banana</div>
+            <div class="chip" onclick="qFood(this)">Chicken thighs 200g</div>
+            <div class="chip" onclick="qFood(this)">MyProtein shake</div>
+            <div class="chip" onclick="qFood(this)">Jacket potato with beans</div>
+          </div>
+        </div>
+      </div>
+      <div class="loading" id="fc-load"><div class="spin"></div><span>Checking your food...</span></div>
+      <div class="result" id="fc-result"><div class="result-head">✓ Nutrition Info</div><div class="result-body" id="fc-out"></div></div>
+    </div>
+
+    <!-- WEEKEND -->
+    <div class="page" id="page-weekend">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">📅</div><div class="page-title">Weekend Game Plan</div></div>
+        <div class="page-desc">Tell us what you've got on this weekend. You'll get a practical plan for enjoying it without undoing the week.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Weekend</div>
+        <div class="f1"><div class="fg"><label class="fl">What have you got on?</label><textarea class="fi" id="w-plans" rows="4" placeholder="e.g. Saturday night out for dinner and drinks, Sunday roast at the in-laws..." style="resize:vertical;min-height:90px;"></textarea></div></div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="w-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
+          <div class="fg"><label class="fl">How strict?</label><select class="fs" id="w-strict"><option>Relaxed</option><option selected>Moderate</option><option>Focused</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Anything else Mark should know?</label><input class="fi" id="w-extra" placeholder="e.g. I always overeat at buffets, trying to stay off alcohol..."></div></div>
+        <button class="btn" onclick="genWeekend()">Build My Game Plan →</button>
+      </div>
+      <div class="loading" id="w-load"><div class="spin"></div><span>Building your weekend game plan...</span></div>
+      <div class="result" id="w-result">
+        <div class="result-head">✓ Your Weekend Game Plan</div>
+        <div class="result-body" id="w-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlWeekend()">⬇ Save Plan</button></div>
+      </div>
+    </div>
+
+    <!-- MARK BOT -->
+    <div class="page" id="page-bot">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">💪</div><div class="page-title">Mark Bot</div></div>
+        <div class="page-desc">12 years of coaching available 24/7. Ask anything you'd ask Mark. Training, nutrition, mindset, a week that's gone sideways.</div>
+      </div>
+      <div class="chips">
+        <div class="chip" onclick="useChip(this)">I've missed my workouts this week</div>
+        <div class="chip" onclick="useChip(this)">How much protein do I need?</div>
+        <div class="chip" onclick="useChip(this)">I'm struggling with weekend eating</div>
+        <div class="chip" onclick="useChip(this)">I've hit a fat loss plateau</div>
+        <div class="chip" onclick="useChip(this)">I feel guilty after eating badly</div>
+        <div class="chip" onclick="useChip(this)">Is alcohol going to ruin my progress?</div>
+        <div class="chip" onclick="useChip(this)">I keep craving junk food at night</div>
+        <div class="chip" onclick="useChip(this)">I'm not seeing results</div>
+      </div>
+      <div class="chat-box">
+        <div class="chat-head">
+          <div class="chat-av">💪</div>
+          <div><div class="chat-name">Mark Bot</div><div class="chat-status"><span class="status-dot"></span>Active now</div></div>
+        </div>
+        <div class="msgs" id="msgs">
+          <div class="msg"><div class="mav m">M</div><div><div class="bub">Right, what's going on? Ask me anything. Training, food, mindset, a week that's fallen apart. No stupid questions here. 💪</div><div class="mt">Today</div></div></div>
+        </div>
+        <div class="chat-foot">
+          <textarea class="cin" id="cin" placeholder="Ask Mark anything..." rows="1" onkeydown="ckbd(event)"></textarea>
+          <button class="btn-send" onclick="sendMsg()">Send</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',bot:'Mark Bot'};
+
+function goPage(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('on'));
+  document.getElementById('page-'+id).classList.add('on');
+  el.classList.add('on');
+  document.getElementById('tb-title').textContent=TITLES[id];
+  document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+const API='https://api.anthropic.com/v1/messages';
+
+async function ask(system,userMsg){
+  const r=await fetch(API,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,system,messages:[{role:'user',content:userMsg}]})
+  });
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message);
+  return d.content[0].text;
+}
+
+const RSYS=`You are a nutrition expert for Zenith Fit UK. Direct, practical, no fluff. No dashes in text. UK ingredients, UK supermarkets only: Tesco, Sainsbury's, Asda, Aldi, Lidl. British English. Grams and ml. Kcal. High protein. Real food that tastes good.`;
+const PSYS=`You are a nutrition expert for Zenith Fit UK. British English. Kcal. Grams. UK supermarkets. UK foods: porridge, jacket potato, baked beans, chicken thighs, beef mince, Greek yoghurt, Weetabix. UK brands: Grenade, Fulfil, MyProtein. No dashes. High protein. 80/20 balance. Show kcal and protein per meal in brackets.`;
+const GSYS=`You are a nutrition expert for Zenith Fit UK. Create categorised grocery lists. British English. UK supermarkets. Specific quantities. No dashes. Practical.`;
+const FSYS=`You are a nutrition expert for Zenith Fit UK. Provide accurate macro info for UK foods. British English. Kcal. Honest practical context. No dashes.`;
+const WSYS=`You are Mark from Zenith Fit UK writing a personalised weekend game plan for a client. Direct, honest, empathetic. British English. 80/20 rule. Never miss twice. Control not restriction. No dashes. Specific to what they have on.`;
+const MSYS=`You are Mark Bot for Zenith Fit UK. Built on Mark's 12 years of coaching. Direct, honest, empathetic, conversational. British English. Stone and lbs for bodyweight. Kcal. UK foods and brands. Never miss twice. 80/20 rule. Consistency beats perfection. No dashes. No generic AI phrases. Say things like "right", "look", "here is the thing", "mate". Acknowledge reality before pushing back.`;
+
+let lastR='',lastP='',lastG='',lastW='';
+
+async function genRecipe(){
+  const kcal=document.getElementById('r-kcal').value;
+  if(!kcal){alert('Enter a calorie target first.');return;}
+  const prot=document.getElementById('r-prot').value;
+  const type=document.getElementById('r-type').value;
+  const time=document.getElementById('r-time').value;
+  const pref=document.getElementById('r-pref').value;
+  document.getElementById('r-result').classList.remove('on');
+  document.getElementById('r-load').classList.add('on');
+  try{
+    const reply=await ask(RSYS,`Create a ${type} recipe. Target: ${kcal} kcal. Protein: ${prot?prot+'g min':'maximise'}. Prep: ${time}. Preferences: ${pref||'none'}.\n\nFormat:\nRECIPE NAME\n[name]\n\nWHY THIS WORKS\n[2 sentences]\n\nINGREDIENTS\n[quantities in grams]\n\nMETHOD\n[numbered steps]\n\nMACROS\nCalories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg\n\nWHERE TO BUY\n[UK supermarket for main ingredients]`);
+    lastR=reply;
+    document.getElementById('r-load').classList.remove('on');
+    document.getElementById('r-out').textContent=reply;
+    document.getElementById('r-result').classList.add('on');
+    const nm=reply.match(/RECIPE NAME\s*\n([^\n]+)/i);
+    const kw=encodeURIComponent((nm?nm[1].trim():'food meal').replace(/[^a-z0-9 ]/gi,''));
+    const img=document.getElementById('r-img');
+    const wrap=document.getElementById('r-img-wrap');
+    wrap.style.display='block';
+    img.src=`https://loremflickr.com/800/400/${kw},food`;
+    img.onload=()=>img.classList.add('loaded');
+    img.onerror=()=>wrap.style.display='none';
+  }catch(e){
+    document.getElementById('r-load').classList.remove('on');
+    alert('Something went wrong: '+e.message);
+  }
+}
+
+async function genPlan(){
+  const kcal=document.getElementById('p-kcal').value;
+  if(!kcal){alert('Enter a calorie target first.');return;}
+  document.getElementById('p-result').classList.remove('on');
+  document.getElementById('p-load').classList.add('on');
+  try{
+    const reply=await ask(PSYS,`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`);
+    lastP=reply;
+    document.getElementById('p-load').classList.remove('on');
+    document.getElementById('p-out').textContent=reply;
+    document.getElementById('p-result').classList.add('on');
+  }catch(e){document.getElementById('p-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+async function genGrocery(){
+  const meals=document.getElementById('g-meals').value.trim();
+  if(!meals){alert('Tell us what meals you are having first.');return;}
+  document.getElementById('g-result').classList.remove('on');
+  document.getElementById('g-load').classList.add('on');
+  try{
+    const reply=await ask(GSYS,`Shopping list for ${document.getElementById('g-people').value} at ${document.getElementById('g-shop').value}.\n\nMeals: ${meals}\n\nOrganise into: MEAT AND FISH, DAIRY AND EGGS, FRUIT AND VEG, TINS AND JARS, GRAINS AND CARBS, SAUCES AND CONDIMENTS, SNACKS AND EXTRAS. Include quantities. End with 2 quick tips.`);
+    lastG=reply;
+    document.getElementById('g-load').classList.remove('on');
+    document.getElementById('g-out').textContent=reply;
+    document.getElementById('g-result').classList.add('on');
+  }catch(e){document.getElementById('g-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+function qFood(el){document.getElementById('fc-food').value=el.textContent;checkFood();}
+
+async function checkFood(){
+  const food=document.getElementById('fc-food').value.trim();
+  if(!food){alert('Type a food first.');return;}
+  document.getElementById('fc-result').classList.remove('on');
+  document.getElementById('fc-load').classList.add('on');
+  try{
+    const reply=await ask(FSYS,`Nutrition breakdown for: ${food}${document.getElementById('fc-portion').value?' ('+document.getElementById('fc-portion').value+')':''}.\n\nFormat:\nFOOD\n[name and portion]\n\nMACROS PER SERVING\nCalories: X kcal\nProtein: Xg\nCarbs: Xg\nFat: Xg\n\nCONTEXT\n[2 to 3 sentences about whether this supports fat loss goals]\n\nBETTER SWAP\n[Only if there is a genuinely better convenient alternative. Skip if this is already a good choice.]`);
+    document.getElementById('fc-load').classList.remove('on');
+    document.getElementById('fc-out').textContent=reply;
+    document.getElementById('fc-result').classList.add('on');
+  }catch(e){document.getElementById('fc-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+async function genWeekend(){
+  const plans=document.getElementById('w-plans').value.trim();
+  if(!plans){alert('Tell us what you have on this weekend first.');return;}
+  document.getElementById('w-result').classList.remove('on');
+  document.getElementById('w-load').classList.add('on');
+  try{
+    const reply=await ask(WSYS,`Weekend game plan. What they have on: ${plans}. Goal: ${document.getElementById('w-goal').value}. Approach: ${document.getElementById('w-strict').value}. Extra: ${document.getElementById('w-extra').value||'nothing'}.\n\nFormat: THE PLAN, SATURDAY, SUNDAY, THE NON-NEGOTIABLES (3 rules), MINDSET NOTE. Be specific to what they have on.`);
+    lastW=reply;
+    document.getElementById('w-load').classList.remove('on');
+    document.getElementById('w-out').textContent=reply;
+    document.getElementById('w-result').classList.add('on');
+  }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+let hist=[];
+function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
+function ckbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+
+async function sendMsg(){
+  const inp=document.getElementById('cin');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  inp.value='';
+  addMsg(txt,'u');
+  hist.push({role:'user',content:txt});
+  const ti=showTyping();
+  try{
+    const r=await fetch(API,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:MSYS,messages:hist})
+    });
+    const d=await r.json();
+    if(d.error)throw new Error(d.error.message);
+    const reply=d.content[0].text;
+    hist.push({role:'assistant',content:reply});
+    ti.remove();
+    addMsg(reply,'m');
+  }catch(e){ti.remove();addMsg("Something went wrong my end. Try again.",'m');}
+}
+
+function addMsg(txt,role){
+  const c=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg'+(role==='u'?' u':'');
+  d.innerHTML=`<div class="mav ${role==='m'?'m':'u'}">${role==='m'?'M':'You'}</div><div><div class="bub">${txt.replace(/\n/g,'<br>')}</div><div class="mt">Just now</div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+
+function showTyping(){
+  const c=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg';
+  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:10px 13px;background:var(--s1);border:1px solid var(--border);border-radius:10px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+
+function dl(content,filename){
+  const html=`<!DOCTYPE html><html lang="en-GB"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Zenith Fit</title><style>body{font-family:-apple-system,sans-serif;background:#f9f9f9;color:#1a1a1a;max-width:600px;margin:0 auto;padding:24px 20px}.logo{font-size:18px;font-weight:800;margin-bottom:24px}.logo span{color:#888}pre{white-space:pre-wrap;font-family:inherit;font-size:15px;line-height:1.8;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px}.foot{margin-top:20px;font-size:12px;color:#999;text-align:center}</style></head><body><div class="logo">zenith<span>fit</span></div><pre>${content}</pre><div class="foot">Zenith Fit AI Tools</div></body></html>`;
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
+  a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);
+}
+
+function dlRecipe(){if(lastR)dl(lastR,'zenithfit-recipe.html');}
+function dlPlan(){if(lastP)dl(lastP,'zenithfit-meal-plan.html');}
+function dlGrocery(){if(lastG)dl(lastG,'zenithfit-shopping-list.html');}
+function dlWeekend(){if(lastW)dl(lastW,'zenithfit-weekend-plan.html');}
+</script>
+</body>
+</html>
