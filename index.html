@@ -330,7 +330,7 @@ function goPage(id,el){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-const API='https://api.anthropic.com/v1/messages';
+const API='https://zenith-fit.mark-5a5.workers.dev';
 
 async function ask(system,userMsg){
   const r=await fetch(API,{
