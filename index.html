@@ -454,7 +454,7 @@ async function sendMsg(){
     const r=await fetch(API,{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:MSYS,messages:hist})
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:MSYS,messages:hist})
     });
     const d=await r.json();
     if(d.error)throw new Error(d.error.message);
