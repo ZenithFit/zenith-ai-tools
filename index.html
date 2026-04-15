@@ -483,9 +483,8 @@ function showTyping(){
 
 function dl(content,filename){
   const html=`<!DOCTYPE html><html lang="en-GB"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Zenith Fit</title><style>body{font-family:-apple-system,sans-serif;background:#f9f9f9;color:#1a1a1a;max-width:600px;margin:0 auto;padding:24px 20px}.logo{font-size:18px;font-weight:800;margin-bottom:24px}.logo span{color:#888}pre{white-space:pre-wrap;font-family:inherit;font-size:15px;line-height:1.8;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px}.foot{margin-top:20px;font-size:12px;color:#999;text-align:center}</style></head><body><div class="logo">zenith<span>fit</span></div><pre>${content}</pre><div class="foot">Zenith Fit AI Tools</div></body></html>`;
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));
-  a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);
+  const w=window.open('','_blank');
+  if(w){w.document.write(html);w.document.close();}
 }
 
 function dlRecipe(){if(lastR)dl(lastR,'zenithfit-recipe.html');}
