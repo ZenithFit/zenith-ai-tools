@@ -384,7 +384,7 @@ async function genRecipe(){
     const img=document.getElementById('r-img');
     const wrap=document.getElementById('r-img-wrap');
     wrap.style.display='block';
-    img.src=`https://loremflickr.com/800/400/${kw},food`;
+    img.src=`https://source.unsplash.com/800x400/?${kw},food`;
     img.style.opacity='0';
 img.onload=()=>{img.style.opacity='1';img.style.transition='opacity 0.4s';}
 img.onerror=()=>{wrap.style.display='none';}
