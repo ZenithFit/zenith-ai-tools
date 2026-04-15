@@ -385,8 +385,9 @@ async function genRecipe(){
     const wrap=document.getElementById('r-img-wrap');
     wrap.style.display='block';
     img.src=`https://loremflickr.com/800/400/${kw},food`;
-    img.onload=()=>img.classList.add('loaded');
-    img.onerror=()=>wrap.style.display='none';
+    img.style.opacity='0';
+img.onload=()=>{img.style.opacity='1';img.style.transition='opacity 0.4s';}
+img.onerror=()=>{wrap.style.display='none';}
   }catch(e){
     document.getElementById('r-load').classList.remove('on');
     alert('Something went wrong: '+e.message);
