@@ -93,7 +93,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 .cin{flex:1;background:var(--input);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:13.5px;font-weight:500;outline:none;transition:border-color .15s;resize:none;min-height:42px;max-height:100px;}
 .cin:focus{border-color:var(--acc);}
 .cin::placeholder{color:#5A5A64;}
-.btn-send{background:var(--white);color:#111113;border:none;padding:10px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s;align-self:flex-end;}
+.btn-send{background:#333333;color:#FFFFFF;border:none;padding:10px 18px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s;align-self:flex-end;}
 .btn-send:hover{opacity:.86;}
 .tdot{width:5px;height:5px;background:#404048;border-radius:50%;animation:tb 1.2s infinite;}
 .tdot:nth-child(2){animation-delay:.2s;}
@@ -320,7 +320,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
         </div>
         <div class="chat-foot">
           <textarea class="cin" id="cin" placeholder="Ask Mark anything..." rows="1" onkeydown="ckbd(event)"></textarea>
-          <button class="btn-send" onclick="sendMsg()">Send</button>
+          <button class="btn-send" onclick="sendMsg()">↵</button>
         </div>
       </div>
     </div>
