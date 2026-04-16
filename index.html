@@ -140,7 +140,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
     <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
-    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div> <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div>
+    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div> <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div> <div class="sb-item" onclick="goPage('supp',this)"><span class="sb-item-ico">💊</span> Supplement Checker</div> <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div>
     <div class="sb-item" onclick="goPage('bot',this)"><span class="sb-item-ico">💪</span> Mark Bot</div>
   </div>
   <div class="sb-foot"><div class="sb-foot-note">Zenith Fit AI Tools<br>Built for Zenith Members</div></div>
@@ -324,6 +324,86 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
         <div class="result-actions"><button class="btn-download" onclick="dlTravel()">⬇ Save Plan</button></div>
       </div>
     </div>
+      <!-- SUPPLEMENT CHECKER -->
+    <div class="page" id="page-supp">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">💊</div><div class="page-title">Supplement Checker</div></div>
+        <div class="page-desc">Type in any supplement you have seen advertised or been told to take. Get an honest, evidence-based verdict on whether it is actually worth your money.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">What supplement?</div>
+        <div class="f1"><div class="fg"><label class="fl">Supplement name</label><input class="fi" id="s-name" placeholder="e.g. fat burner, BCAAs, collagen powder, creatine, pre-workout..." onkeydown="if(event.key==='Enter')checkSupp()"></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Why are you considering it? (optional)</label><input class="fi" id="s-reason" placeholder="e.g. saw it on Instagram, someone at the gym recommended it, want more energy..."></div></div>
+        <button class="btn" onclick="checkSupp()">Get The Verdict →</button>
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
+          <div class="card-title" style="margin-bottom:10px;">Common ones to check</div>
+          <div class="chips">
+            <div class="chip" onclick="qSupp(this)">Fat burners</div>
+            <div class="chip" onclick="qSupp(this)">Creatine</div>
+            <div class="chip" onclick="qSupp(this)">BCAAs</div>
+            <div class="chip" onclick="qSupp(this)">Collagen powder</div>
+            <div class="chip" onclick="qSupp(this)">Pre-workout</div>
+            <div class="chip" onclick="qSupp(this)">Protein powder</div>
+            <div class="chip" onclick="qSupp(this)">CLA</div>
+            <div class="chip" onclick="qSupp(this)">Detox tea</div>
+            <div class="chip" onclick="qSupp(this)">Apple cider vinegar</div>
+            <div class="chip" onclick="qSupp(this)">Omega 3</div>
+          </div>
+        </div>
+      </div>
+      <div class="loading" id="s-load"><div class="spin"></div><span>Checking the evidence...</span></div>
+      <div class="result" id="s-result"><div class="result-head">💊 The Verdict</div><div class="result-body" id="s-out"></div></div>
+    </div>
+
+    <!-- EATING OUT GUIDE -->
+    <div class="page" id="page-eating">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">🍽️</div><div class="page-title">Eating Out Guide</div></div>
+        <div class="page-desc">Tell us where you are eating and what your goal is. You will get the smartest choices to make without being boring about it.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Where are you eating?</div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Restaurant type</label><select class="fs" id="e-type">
+            <option>Italian</option>
+            <option>Indian</option>
+            <option>Chinese</option>
+            <option>Japanese / Sushi</option>
+            <option>Mexican</option>
+            <option>Turkish / Mediterranean</option>
+            <option>Thai</option>
+            <option>American / Burgers</option>
+            <option>Pizza</option>
+            <option>Pub / British food</option>
+            <option>Fish and Chips</option>
+            <option>McDonalds</option>
+            <option>KFC</option>
+            <option>Nandos</option>
+            <option>Wagamama</option>
+            <option>Casual dining</option>
+            <option>Fine dining</option>
+          </select></div>
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="e-goal">
+            <option>Fat Loss</option>
+            <option>Body Recomposition</option>
+            <option>Muscle Building</option>
+            <option>Maintenance</option>
+          </select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Are you drinking?</label><select class="fs" id="e-drinks">
+            <option>No drinks</option>
+            <option>One or two drinks</option>
+            <option>A few drinks</option>
+            <option>Big night out</option>
+          </select></div>
+          <div class="fg"><label class="fl">Any intolerances?</label><input class="fi" id="e-intol" placeholder="e.g. gluten free, dairy free, no shellfish..."></div>
+        </div>
+        <button class="btn" onclick="genEating()">Get My Guide →</button>
+      </div>
+      <div class="loading" id="e-load"><div class="spin"></div><span>Building your eating out guide...</span></div>
+      <div class="result" id="e-result"><div class="result-head">🍽️ Your Eating Out Guide</div><div class="result-body" id="e-out"></div></div>
+    </div>
     <!-- MARK BOT -->
     <div class="page" id="page-bot">
       <div class="page-hdr">
@@ -359,7 +439,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 </div>
 
 <script>
-const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',bot:'Mark Bot'};
+const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',supp:'Supplement Checker',eating:'Eating Out Guide',bot:'Mark Bot'};
 
 function goPage(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
@@ -482,6 +562,69 @@ async function genWeekend(){
     document.getElementById('w-out').textContent=reply;
     document.getElementById('w-result').classList.add('on');
   }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+  const SSYS=`You are Mark from Zenith Fit UK. Evidence-based, no nonsense, direct and honest. British English. No dashes in text. You give straight honest verdicts on supplements based on the actual science. You are not trying to sell anything. You are not sponsored by anyone. You tell people the truth even if it is not what they want to hear. Your verdicts follow this format:
+
+THE VERDICT
+[One clear sentence — worth it, not worth it, or depends. No sitting on the fence.]
+
+WHAT THE EVIDENCE SAYS
+[What the actual research says. Be specific. Cite mechanisms not just opinions. Keep it simple enough for a non-scientist to understand.]
+
+WHO IT IS ACTUALLY FOR
+[Be honest about who genuinely benefits and who is wasting their money.]
+
+WHAT TO DO INSTEAD
+[If it is not worth it, what should they spend that money on instead? If it is worth it, what brand or form is best and what dose.]
+
+MARK'S TAKE
+[Your personal honest opinion in your coaching voice. Direct, no waffle, real talk.]
+
+You never bash supplements for the sake of it. If something works you say so. Creatine works. Protein powder is useful. Omega 3 is worth taking. Fat burners are largely a waste of money. Detox teas are nonsense. BCAAs are unnecessary if protein intake is adequate. Be honest about all of it.`;
+
+const ESYS=`You are Mark from Zenith Fit UK. Direct, honest, empathetic, no nonsense. British English. No dashes in text. You help clients make smart food choices when eating out without being preachy or restrictive about it. Your philosophy is 80/20. Eating out is part of life. The goal is not to order the most boring thing on the menu but to make smart choices that keep progress moving without ruining the experience. You are specific to the restaurant type. You give real menu guidance not generic advice. Format your response like this:
+
+THE APPROACH
+[One paragraph setting the right mindset for this meal. Acknowledge it is meant to be enjoyed. No guilt tripping.]
+
+BEST CHOICES
+[3 to 5 specific recommendations for this type of restaurant. Be specific — name actual dishes where possible. Explain briefly why each one works.]
+
+WHAT TO WATCH OUT FOR
+[2 to 3 things that look healthy but are not, or things that will leave them hungry an hour later. Be specific to this cuisine.]
+
+IF YOU ARE DRINKING
+[Practical advice on navigating drinks alongside the meal based on how much they said they are drinking. Smart choices not abstinence.]
+
+MARK'S TIP
+[One short punchy piece of advice specific to this restaurant type in your coaching voice.]
+
+Never make people feel guilty for eating out. Never tell them to order a salad when everyone else is having pasta. Smart choices not sad choices.`;
+
+async function checkSupp(){
+  const name=document.getElementById('s-name').value.trim();
+  if(!name){alert('Type a supplement first.');return;}
+  document.getElementById('s-result').classList.remove('on');
+  document.getElementById('s-load').classList.add('on');
+  try{
+    const reply=await ask(SSYS,`Give me an honest evidence-based verdict on: ${name}. Reason they are considering it: ${document.getElementById('s-reason').value||'not specified'}.`);
+    document.getElementById('s-load').classList.remove('on');
+    document.getElementById('s-out').textContent=reply;
+    document.getElementById('s-result').classList.add('on');
+  }catch(e){document.getElementById('s-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+function qSupp(el){document.getElementById('s-name').value=el.textContent;checkSupp();}
+
+async function genEating(){
+  document.getElementById('e-result').classList.remove('on');
+  document.getElementById('e-load').classList.add('on');
+  try{
+    const reply=await ask(ESYS,`Eating out guide for: ${document.getElementById('e-type').value}. Goal: ${document.getElementById('e-goal').value}. Drinks: ${document.getElementById('e-drinks').value}. Intolerances: ${document.getElementById('e-intol').value||'none'}.`);
+    document.getElementById('e-load').classList.remove('on');
+    document.getElementById('e-out').textContent=reply;
+    document.getElementById('e-result').classList.add('on');
+  }catch(e){document.getElementById('e-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 let lastT='';
 
