@@ -490,7 +490,7 @@ async function genRecipe(){
     const reply=await ask(RSYS,`Create a ${type} recipe. Target: ${kcal} kcal. Protein: ${prot?prot+'g min':'maximise'}. Prep: ${time}. Preferences: ${pref||'none'}.\n\nFormat:\nRECIPE NAME\n[name]\n\nWHY THIS WORKS\n[2 sentences]\n\nINGREDIENTS\n[quantities in grams]\n\nMETHOD\n[numbered steps]\n\nMACROS\nCalories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg\n\nWHERE TO BUY\n[UK supermarket for main ingredients]`);
     lastR=reply;
     document.getElementById('r-load').classList.remove('on');
-    document.getElementById('r-out').textContent=reply;
+    document.getElementById('r-out').innerHTML=formatText(reply);
     document.getElementById('r-result').classList.add('on');
     const nm=reply.match(/RECIPE NAME\s*\n([^\n]+)/i);
     const kw=encodeURIComponent((nm?nm[1].trim():'food meal').replace(/[^a-z0-9 ]/gi,''));
@@ -516,7 +516,7 @@ async function genPlan(){
     const reply=await ask(PSYS,`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`);
     lastP=reply;
     document.getElementById('p-load').classList.remove('on');
-    document.getElementById('p-out').textContent=reply;
+    document.getElementById('p-out').innerHTML=formatText(reply);
     document.getElementById('p-result').classList.add('on');
   }catch(e){document.getElementById('p-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -530,7 +530,7 @@ async function genGrocery(){
     const reply=await ask(GSYS,`Shopping list for ${document.getElementById('g-people').value} at ${document.getElementById('g-shop').value}.\n\nMeals: ${meals}\n\nOrganise into: MEAT AND FISH, DAIRY AND EGGS, FRUIT AND VEG, TINS AND JARS, GRAINS AND CARBS, SAUCES AND CONDIMENTS, SNACKS AND EXTRAS. Include quantities. End with 2 quick tips.`);
     lastG=reply;
     document.getElementById('g-load').classList.remove('on');
-    document.getElementById('g-out').textContent=reply;
+    document.getElementById('g-out').innerHTML=formatText(reply);
     document.getElementById('g-result').classList.add('on');
   }catch(e){document.getElementById('g-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -545,7 +545,7 @@ async function checkFood(){
   try{
     const reply=await ask(FSYS,`Nutrition breakdown for: ${food}${document.getElementById('fc-portion').value?' ('+document.getElementById('fc-portion').value+')':''}.\n\nFormat:\nFOOD\n[name and portion]\n\nMACROS PER SERVING\nCalories: X kcal\nProtein: Xg\nCarbs: Xg\nFat: Xg\n\nCONTEXT\n[2 to 3 sentences about whether this supports fat loss goals]\n\nBETTER SWAP\n[Only if there is a genuinely better convenient alternative. Skip if this is already a good choice.]`);
     document.getElementById('fc-load').classList.remove('on');
-    document.getElementById('fc-out').textContent=reply;
+    document.getElementById('fc-out').innerHTML=formatText(reply);
     document.getElementById('fc-result').classList.add('on');
   }catch(e){document.getElementById('fc-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -559,7 +559,7 @@ async function genWeekend(){
     const reply=await ask(WSYS,`Weekend game plan. What they have on: ${plans}. Goal: ${document.getElementById('w-goal').value}. Approach: ${document.getElementById('w-strict').value}. Extra: ${document.getElementById('w-extra').value||'nothing'}.\n\nFormat: THE PLAN, SATURDAY, SUNDAY, THE NON-NEGOTIABLES (3 rules), MINDSET NOTE. Be specific to what they have on.`);
     lastW=reply;
     document.getElementById('w-load').classList.remove('on');
-    document.getElementById('w-out').textContent=reply;
+    document.getElementById('w-out').innerHTML=formatText(reply);
     document.getElementById('w-result').classList.add('on');
   }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -609,7 +609,7 @@ async function checkSupp(){
   try{
     const reply=await ask(SSYS,`Give me an honest evidence-based verdict on: ${name}. Reason they are considering it: ${document.getElementById('s-reason').value||'not specified'}.`);
     document.getElementById('s-load').classList.remove('on');
-    document.getElementById('s-out').textContent=reply;
+    document.getElementById('s-out').innerHTML=formatText(reply);
     document.getElementById('s-result').classList.add('on');
   }catch(e){document.getElementById('s-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -622,7 +622,7 @@ async function genEating(){
   try{
     const reply=await ask(ESYS,`Eating out guide for: ${document.getElementById('e-type').value}. Goal: ${document.getElementById('e-goal').value}. Drinks: ${document.getElementById('e-drinks').value}. Intolerances: ${document.getElementById('e-intol').value||'none'}.`);
     document.getElementById('e-load').classList.remove('on');
-    document.getElementById('e-out').textContent=reply;
+    document.getElementById('e-out').innerHTML=formatText(reply);
     document.getElementById('e-result').classList.add('on');
   }catch(e){document.getElementById('e-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -649,13 +649,26 @@ async function genTravel(){
     const reply=await ask(TSYS,`Build a travel game plan for a Zenith Fit client. Destination: ${dest}. Duration: ${document.getElementById('t-duration').value}. Goal: ${document.getElementById('t-goal').value}. Holiday type: ${document.getElementById('t-type').value}. Extra context: ${document.getElementById('t-extra').value||'nothing extra'}. Be specific to this trip. Cover before the flight, the flight itself including water retention and bloating, on holiday mindset and approach, and coming home.`);
     lastT=reply;
     document.getElementById('t-load').classList.remove('on');
-    document.getElementById('t-out').textContent=reply;
+    document.getElementById('t-out').innerHTML=formatText(reply);
     document.getElementById('t-result').classList.add('on');
   }catch(e){document.getElementById('t-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
 function dlTravel(){
   if(lastT)dl(lastT,'zenithfit-travel-plan.html');
+}
+  function formatText(text){
+  return text
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^### (.+)$/gm,'<br><strong>$1</strong>')
+    .replace(/^## (.+)$/gm,'<br><strong>$1</strong>')
+    .replace(/^# (.+)$/gm,'<br><strong>$1</strong>')
+    .replace(/^\* (.+)$/gm,'&bull; $1')
+    .replace(/^- (.+)$/gm,'&bull; $1')
+    .replace(/\n/g,'<br>');
 }
 let hist=[];
 function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
