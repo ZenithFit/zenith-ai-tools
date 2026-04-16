@@ -140,7 +140,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
     <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
-    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div>
+    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div> <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div>
     <div class="sb-item" onclick="goPage('bot',this)"><span class="sb-item-ico">💪</span> Mark Bot</div>
   </div>
   <div class="sb-foot"><div class="sb-foot-note">Zenith Fit AI Tools<br>Built for Zenith Members</div></div>
@@ -293,7 +293,32 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
         <div class="result-actions"><button class="btn-download" onclick="dlWeekend()">⬇ Save Plan</button></div>
       </div>
     </div>
-
+<!-- TRAVEL GAME PLAN -->
+    <div class="page" id="page-travel">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">✈️</div><div class="page-title">Travel Game Plan</div></div>
+        <div class="page-desc">Tell us where you're going and what you have planned. You'll get a practical guide to navigating travel, flights, food, movement and coming home feeling good rather than a complete write-off.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Your Trip</div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Where are you going?</label><input class="fi" id="t-dest" placeholder="e.g. Ibiza, New York, Tenerife..."></div>
+          <div class="fg"><label class="fl">How long?</label><select class="fs" id="t-duration"><option>Long weekend (3-4 days)</option><option>One week</option><option>Two weeks</option><option>Three weeks or more</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="t-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
+          <div class="fg"><label class="fl">Type of holiday</label><select class="fs" id="t-type"><option>Beach / relaxation</option><option>City break</option><option>All inclusive</option><option>Adventure / active</option><option>Family holiday</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Anything Mark should know?</label><input class="fi" id="t-extra" placeholder="e.g. all inclusive, big nights out planned, no gym at hotel, travelling with kids..."></div></div>
+        <button class="btn" onclick="genTravel()">Build My Travel Plan →</button>
+      </div>
+      <div class="loading" id="t-load"><div class="spin"></div><span>Building your travel game plan...</span></div>
+      <div class="result" id="t-result">
+        <div class="result-head">✈️ Your Travel Game Plan</div>
+        <div class="result-body" id="t-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlTravel()">⬇ Save Plan</button></div>
+      </div>
+    </div>
     <!-- MARK BOT -->
     <div class="page" id="page-bot">
       <div class="page-hdr">
@@ -329,7 +354,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 </div>
 
 <script>
-const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',bot:'Mark Bot'};
+const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',bot:'Mark Bot'};
 
 function goPage(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
@@ -453,7 +478,37 @@ async function genWeekend(){
     document.getElementById('w-result').classList.add('on');
   }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
+let lastT='';
 
+const TSYS=`You are Mark from Zenith Fit UK. You have 12 years of coaching experience. Direct, honest, empathetic, no nonsense. British English. No dashes in text. You believe holidays are part of life and part of a sustainable lifestyle. You do not believe in dieting on holiday or punishing yourself. You believe in balance, awareness without guilt, and never missing twice. Your travel game plan covers the following areas in this order:
+
+BEFORE YOU FLY — practical prep, what to eat before a flight, hydration, what to pack food wise if relevant.
+
+THE FLIGHT — what happens to your body on a plane. Be specific and educational. Cover water retention from cabin pressure and altitude, why you feel puffy and bloated after flying, why the salty aeroplane food makes it worse, why you should drink more water than you think, why alcohol on flights dehydrates you more than normal, and why the scale will be up when you land and why that is completely normal and not fat gain.
+
+ON HOLIDAY — the mindset section. This is the most important part. Cover: holidays are part of your lifestyle not a break from it, there is no need to diet but no need to blow everything either, eating well on holiday is easy if you make sensible choices most of the time, the 80/20 rule applies here more than anywhere, enjoy the food, enjoy the drinks, enjoy the culture, just do not use holiday as an excuse to completely abandon everything you have built. Cover steps — walking on holiday is one of the best things you can do, it is free, it does not feel like exercise, and it compounds massively. Cover the gym — if the hotel has one and you want to use it great, but it is not compulsory, do not guilt trip yourself if you do not go, even two or three short sessions in a week is plenty, keep it simple, keep it enjoyable. Cover food — eat the local food, enjoy it, just anchor some protein into each meal where you can, stay hydrated, and do not treat every meal like it is your last supper.
+
+COMING HOME — what to expect when you get back. The scale will likely be up. Explain exactly why — water retention, more carbs, more sodium, less routine, jet lag affecting cortisol. Tell them how long it takes to normalise. Tell them to get straight back into their routine, not to panic, not to do a crash diet, and that one or two weeks of holiday will not undo months of hard work. Never miss twice applies here more than anywhere.
+
+Write in first person as Mark. Be specific to their destination and trip type. Sound like a real coach who genuinely cares. No generic advice. No waffle.`;
+
+async function genTravel(){
+  const dest=document.getElementById('t-dest').value.trim();
+  if(!dest){alert('Tell us where you are going first.');return;}
+  document.getElementById('t-result').classList.remove('on');
+  document.getElementById('t-load').classList.add('on');
+  try{
+    const reply=await ask(TSYS,`Build a travel game plan for a Zenith Fit client. Destination: ${dest}. Duration: ${document.getElementById('t-duration').value}. Goal: ${document.getElementById('t-goal').value}. Holiday type: ${document.getElementById('t-type').value}. Extra context: ${document.getElementById('t-extra').value||'nothing extra'}. Be specific to this trip. Cover before the flight, the flight itself including water retention and bloating, on holiday mindset and approach, and coming home.`);
+    lastT=reply;
+    document.getElementById('t-load').classList.remove('on');
+    document.getElementById('t-out').textContent=reply;
+    document.getElementById('t-result').classList.add('on');
+  }catch(e){document.getElementById('t-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+function dlTravel(){
+  if(lastT)dl(lastT,'zenithfit-travel-plan.html');
+}
 let hist=[];
 function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
 function ckbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
