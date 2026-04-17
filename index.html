@@ -439,7 +439,13 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 
 <script>
 const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',supp:'Supplement Checker',eating:'Eating Out Guide',bot:'Mark Bot'};
-
+document.addEventListener('click',function(e){
+  const sidebar=document.getElementById('sidebar');
+  const toggle=document.querySelector('.mob-toggle');
+  if(sidebar.classList.contains('open')&&!sidebar.contains(e.target)&&!toggle.contains(e.target)){
+    sidebar.classList.remove('open');
+  }
+});
 function goPage(id,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('on'));
