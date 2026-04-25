@@ -139,7 +139,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
     <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
-    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div> <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div> <div class="sb-item" onclick="goPage('supp',this)"><span class="sb-item-ico">💊</span> Supplement Checker</div> <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div>
+    <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Plan</div> <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div> <div class="sb-item" onclick="goPage('supp',this)"><span class="sb-item-ico">💊</span> Supplement Checker</div> <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div> <div class="sb-item" onclick="goPage('fridge',this)"><span class="sb-item-ico">🧊</span> What's In My Fridge?</div>
     <div class="sb-item" onclick="goPage('bot',this)"><span class="sb-item-ico">💪</span> Mark Bot</div>
   </div>
   <div class="sb-foot"><div class="sb-foot-note">Zenith Fit AI Tools<br>Built for Zenith Members</div></div>
@@ -403,6 +403,33 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
       <div class="loading" id="e-load"><div class="spin"></div><span>Building your eating out guide...</span></div>
       <div class="result" id="e-result"><div class="result-head">🍽️ Your Eating Out Guide</div><div class="result-body" id="e-out"></div></div>
     </div>
+      <!-- WHATS IN MY FRIDGE -->
+    <div class="page" id="page-fridge">
+      <div class="page-hdr">
+        <div class="page-hdr-top"><div class="page-ico">🧊</div><div class="page-title">What's In My Fridge?</div></div>
+        <div class="page-desc">Tell us what you have in the fridge or cupboards, how long you have got, and your targets. You will get a proper recipe using exactly what you have.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">What have you got?</div>
+        <div class="f1"><div class="fg"><label class="fl">What's in your fridge or cupboards?</label><textarea class="fi" id="fr-ingredients" rows="4" placeholder="e.g. chicken breast, eggs, spinach, Greek yoghurt, rice, tomatoes, onion, garlic, cheddar..." style="resize:vertical;min-height:100px;"></textarea></div></div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Time available</label><select class="fs" id="fr-time"><option>Under 10 mins</option><option>Under 15 mins</option><option>Under 20 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
+          <div class="fg"><label class="fl">Meal type</label><select class="fs" id="fr-meal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Calorie target (kcal)</label><input class="fi" id="fr-kcal" type="number" placeholder="e.g. 500"></div>
+          <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="fr-prot" type="number" placeholder="e.g. 40"></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Anything to avoid?</label><input class="fi" id="fr-avoid" placeholder="e.g. no dairy, not too spicy, gluten free..."></div></div>
+        <button class="btn" onclick="genFridge()">Generate My Recipe →</button>
+      </div>
+      <div class="loading" id="fr-load"><div class="spin"></div><span>Building your recipe...</span></div>
+      <div class="result" id="fr-result">
+        <div class="result-head">🧊 Your Recipe</div>
+        <div class="result-body" id="fr-out"></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlFridge()">⬇ Save Recipe</button></div>
+      </div>
+    </div>
     <!-- MARK BOT -->
     <div class="page" id="page-bot">
       <div class="page-hdr">
@@ -438,7 +465,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 </div>
 
 <script>
-const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',supp:'Supplement Checker',eating:'Eating Out Guide',bot:'Mark Bot'};
+const TITLES={recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',weekend:'Weekend Plan',travel:'Travel Game Plan',supp:'Supplement Checker',eating:'Eating Out Guide',fridge:"What's In My Fridge?",bot:'Mark Bot'};
 document.addEventListener('click',function(e){
   const sidebar=document.getElementById('sidebar');
   const toggle=document.querySelector('.mob-toggle');
@@ -674,6 +701,50 @@ function dlTravel(){
     .replace(/^\* (.+)$/gm,'&bull; $1')
     .replace(/^- (.+)$/gm,'&bull; $1')
     .replace(/\n/g,'<br>');
+}
+  let lastFr='';
+
+const FRSYS=`You are a nutrition expert for Zenith Fit UK writing in Mark's voice. Direct, practical, no waffle. British English. No dashes in text. Kcal. Grams. The client has told you exactly what they have available. You must only use the ingredients they have listed. Do not suggest ingredients they have not mentioned. If something is missing that would make the recipe better, mention it briefly at the end as an optional addition. Make the food sound genuinely good. High protein always. Format exactly like this:
+
+RECIPE NAME
+[name]
+
+WHY THIS WORKS
+[2 sentences — practical reasons around protein, satiety, and using what they have]
+
+INGREDIENTS
+[only from what they listed, with quantities in grams]
+
+METHOD
+[numbered steps, clear and simple]
+
+MACROS
+Calories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg
+
+OPTIONAL UPGRADE
+[One ingredient they could add next time to make it even better. Keep it short.]`;
+
+async function genFridge(){
+  const ingredients=document.getElementById('fr-ingredients').value.trim();
+  if(!ingredients){alert('Tell us what you have in the fridge first.');return;}
+  const kcal=document.getElementById('fr-kcal').value;
+  const prot=document.getElementById('fr-prot').value;
+  const time=document.getElementById('fr-time').value;
+  const meal=document.getElementById('fr-meal').value;
+  const avoid=document.getElementById('fr-avoid').value;
+  document.getElementById('fr-result').classList.remove('on');
+  document.getElementById('fr-load').classList.add('on');
+  try{
+    const reply=await ask(FRSYS,`Create a ${meal} recipe using only these ingredients: ${ingredients}. Time available: ${time}. Calorie target: ${kcal?kcal+'kcal':'no specific target'}. Protein target: ${prot?prot+'g':'maximise it'}. Avoid: ${avoid||'nothing'}. Only use what is listed.`);
+    lastFr=reply;
+    document.getElementById('fr-load').classList.remove('on');
+    document.getElementById('fr-out').innerHTML=formatText(reply);
+    document.getElementById('fr-result').classList.add('on');
+  }catch(e){document.getElementById('fr-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+function dlFridge(){
+  if(lastFr)dl(lastFr,'zenithfit-fridge-recipe.html');
 }
 let hist=[];
 function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
