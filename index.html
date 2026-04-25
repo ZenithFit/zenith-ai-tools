@@ -9,7 +9,7 @@
 :root {
 --bg:#F4F4F4;--s1:#FFFFFF;--s2:#F0F0F0;--s3:#E8E8E8;--border:#E0E0E0;
 --border2:#CCCCCC;--acc:#2A2A2A;--adim:rgba(0,0,0,0.04);
---aline:rgba(0,0,0,0.08);--text:#1A1A1A;--sub:#666666;
+--aline:rgba(0,184,148,0.2);--text:#1A1A1A;--sub:#666666;
 --faint:#999999;--label:#555555;--input:#F8F8F8;--white:#1A1A1A;
 }
 }
@@ -34,7 +34,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 .topbar{height:56px;background:#FFFFFF;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:50;}
 .topbar-title{font-size:16px;font-weight:800;color:var(--white);}
 .topbar-pill{display:flex;align-items:center;gap:6px;background:var(--adim);border:1px solid var(--aline);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--acc);letter-spacing:.5px;}
-.live-dot{width:5px;height:5px;background:var(--acc);border-radius:50%;animation:pulse 2s infinite;}
+.live-dot{width:5px;height:5px;background:#00B894;border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .content{padding:28px;flex:1;}
 .page{display:none;animation:fadeUp .2s ease;}
@@ -55,7 +55,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 .fi:focus,.fs:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(212,212,212,.06);}
 .fi::placeholder{color:#6A6A74;}
 .fs option{background:#18181B;}
-.btn{background:#333333;color:#FAFAFA;border:none;padding:11px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s,transform .15s;display:inline-flex;align-items:center;gap:7px;margin-top:6px;}
+.btn{background:#00B894;color:#FFFFFF;border:none;padding:11px 24px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border-radius:8px;transition:opacity .15s,transform .15s;display:inline-flex;align-items:center;gap:7px;margin-top:6px;}
 .btn:hover{opacity:.88;transform:translateY(-1px);}
 .loading{display:none;flex-direction:column;align-items:center;gap:12px;padding:44px;color:var(--sub);font-size:13px;background:var(--s1);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;}
 .loading.on{display:flex;}
@@ -129,7 +129,7 @@ body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans
 <aside class="sidebar" id="sidebar">
   <div class="sb-logo">
     <div class="sb-logo-box">
-     <img src="newlogo123.png" style="width:36px;height:36px;border-radius:8px;object-fit:cover;">
+     <img src="New_Logo_2_transparant.png" style="width:36px;height:36px;border-radius:8px;object-fit:cover;">
     </div>
     <span class="sb-logo-text">zenith<span>fit</span></span>
   </div>
