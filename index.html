@@ -591,7 +591,7 @@ body {
     <div class="sb-section-label">Nutrition Tools</div>
     <div class="sb-item" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> Meal Planner</div>
-    <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Shopping List Generator</div>
+    <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
     <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
     <div class="sb-item" onclick="goPage('fridge',this)"><span class="sb-item-ico">🧊</span> What's In My Fridge?</div>
     <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div>
@@ -938,6 +938,15 @@ function goPage(id,el,type){
 
 const API='https://zenith-fit.mark-5a5.workers.dev';
 
+/* ── GOOGLE SHEETS LOGGING ── */
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+
+function logToSheets(tool,fields={},message=''){
+  const payload={tool,message,...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+}
+/* ───────────────────────────────────────────── */
+
 async function ask(system,userMsg){
   const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:1200,system,messages:[{role:'user',content:userMsg}]})});
   const d=await r.json();
@@ -965,7 +974,9 @@ async function genRecipe(){
   document.getElementById('r-result').classList.remove('on');document.getElementById('r-load').classList.add('on');
   try{
     const reply=await ask(RSYS,`Create a ${type} recipe. Target: ${kcal} kcal. Protein: ${prot?prot+'g min':'maximise'}. Prep: ${time}. Preferences: ${pref||'none'}.\n\nFormat:\nRECIPE NAME\n[name]\n\nWHY THIS WORKS\n[2 sentences]\n\nINGREDIENTS\n[quantities in grams]\n\nMETHOD\n[numbered steps]\n\nMACROS\nCalories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg\n\nWHERE TO BUY\n[UK supermarket for main ingredients]`);
-    lastR=reply;document.getElementById('r-load').classList.remove('on');
+    lastR=reply;
+    logToSheets('Recipe Generator',{field1_label:'Calories',field1_value:kcal,field2_label:'Protein',field2_value:prot,field3_label:'Preferences',field3_value:pref});
+    document.getElementById('r-load').classList.remove('on');
     document.getElementById('r-out').innerHTML=formatText(reply);document.getElementById('r-result').classList.add('on');
     const nm=reply.match(/RECIPE NAME\s*\n([^\n]+)/i);
     const kw=encodeURIComponent((nm?nm[1].trim():'food meal').replace(/[^a-z0-9 ]/gi,''));
@@ -981,7 +992,9 @@ async function genPlan(){
   document.getElementById('p-result').classList.remove('on');document.getElementById('p-load').classList.add('on');
   try{
     const reply=await ask(PSYS,`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`);
-    lastP=reply;document.getElementById('p-load').classList.remove('on');
+    lastP=reply;
+    logToSheets('Meal Planner',{field1_label:'Calories',field1_value:kcal,field2_label:'Goal',field2_value:document.getElementById('p-goal').value,field3_label:'Avoid',field3_value:document.getElementById('p-avoid').value});
+    document.getElementById('p-load').classList.remove('on');
     document.getElementById('p-out').innerHTML=formatText(reply);document.getElementById('p-result').classList.add('on');
   }catch(e){document.getElementById('p-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -991,7 +1004,9 @@ async function genGrocery(){
   document.getElementById('g-result').classList.remove('on');document.getElementById('g-load').classList.add('on');
   try{
     const reply=await ask(GSYS,`Shopping list for ${document.getElementById('g-people').value} at ${document.getElementById('g-shop').value}.\n\nMeals: ${meals}\n\nOrganise into: MEAT AND FISH, DAIRY AND EGGS, FRUIT AND VEG, TINS AND JARS, GRAINS AND CARBS, SAUCES AND CONDIMENTS, SNACKS AND EXTRAS. Include quantities. End with 2 quick tips.`);
-    lastG=reply;document.getElementById('g-load').classList.remove('on');
+    lastG=reply;
+    logToSheets('Shopping List Generator',{field1_label:'Meals',field1_value:meals,field2_label:'Supermarket',field2_value:document.getElementById('g-shop').value,field3_label:'People',field3_value:document.getElementById('g-people').value});
+    document.getElementById('g-load').classList.remove('on');
     document.getElementById('g-out').innerHTML=formatText(reply);document.getElementById('g-result').classList.add('on');
   }catch(e){document.getElementById('g-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -1002,6 +1017,7 @@ async function checkFood(){
   document.getElementById('fc-result').classList.remove('on');document.getElementById('fc-load').classList.add('on');
   try{
     const reply=await ask(FSYS,`Nutrition breakdown for: ${food}${document.getElementById('fc-portion').value?' ('+document.getElementById('fc-portion').value+')':''}.\n\nFormat:\nFOOD\n[name and portion]\n\nMACROS PER SERVING\nCalories: X kcal\nProtein: Xg\nCarbs: Xg\nFat: Xg\n\nCONTEXT\n[2 to 3 sentences]\n\nBETTER SWAP\n[Only if genuinely better option exists]`);
+    logToSheets('Food Checker',{field1_label:'Food',field1_value:food,field2_label:'Portion',field2_value:document.getElementById('fc-portion').value});
     document.getElementById('fc-load').classList.remove('on');
     document.getElementById('fc-out').innerHTML=formatText(reply);document.getElementById('fc-result').classList.add('on');
   }catch(e){document.getElementById('fc-load').classList.remove('on');alert('Something went wrong: '+e.message);}
@@ -1012,7 +1028,9 @@ async function genFridge(){
   document.getElementById('fr-result').classList.remove('on');document.getElementById('fr-load').classList.add('on');
   try{
     const reply=await ask(FRSYS,`Create a ${document.getElementById('fr-meal').value} recipe using only these ingredients: ${ingredients}. Time: ${document.getElementById('fr-time').value}. Calories: ${document.getElementById('fr-kcal').value||'no target'}. Protein: ${document.getElementById('fr-prot').value||'maximise'}g. Avoid: ${document.getElementById('fr-avoid').value||'nothing'}.`);
-    lastFr=reply;document.getElementById('fr-load').classList.remove('on');
+    lastFr=reply;
+    logToSheets("What's In My Fridge",{field1_label:'Ingredients',field1_value:ingredients,field2_label:'Meal type',field2_value:document.getElementById('fr-meal').value,field3_label:'Time',field3_value:document.getElementById('fr-time').value});
+    document.getElementById('fr-load').classList.remove('on');
     document.getElementById('fr-out').innerHTML=formatText(reply);document.getElementById('fr-result').classList.add('on');
   }catch(e){document.getElementById('fr-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -1021,6 +1039,7 @@ async function genEating(){
   document.getElementById('e-result').classList.remove('on');document.getElementById('e-load').classList.add('on');
   try{
     const reply=await ask(ESYS,`Eating out guide for: ${document.getElementById('e-type').value}. Goal: ${document.getElementById('e-goal').value}. Drinks: ${document.getElementById('e-drinks').value}. Intolerances: ${document.getElementById('e-intol').value||'none'}.`);
+    logToSheets('Eating Out Guide',{field1_label:'Restaurant',field1_value:document.getElementById('e-type').value,field2_label:'Goal',field2_value:document.getElementById('e-goal').value,field3_label:'Drinks',field3_value:document.getElementById('e-drinks').value});
     document.getElementById('e-load').classList.remove('on');
     document.getElementById('e-out').innerHTML=formatText(reply);document.getElementById('e-result').classList.add('on');
   }catch(e){document.getElementById('e-load').classList.remove('on');alert('Something went wrong: '+e.message);}
@@ -1032,6 +1051,7 @@ async function checkSupp(){
   document.getElementById('s-result').classList.remove('on');document.getElementById('s-load').classList.add('on');
   try{
     const reply=await ask(SSYS,`Give me an honest evidence-based verdict on: ${name}. Reason: ${document.getElementById('s-reason').value||'not specified'}.`);
+    logToSheets('Supplement Checker',{field1_label:'Supplement',field1_value:name,field2_label:'Reason',field2_value:document.getElementById('s-reason').value});
     document.getElementById('s-load').classList.remove('on');
     document.getElementById('s-out').innerHTML=formatText(reply);document.getElementById('s-result').classList.add('on');
   }catch(e){document.getElementById('s-load').classList.remove('on');alert('Something went wrong: '+e.message);}
@@ -1042,7 +1062,9 @@ async function genWeekend(){
   document.getElementById('w-result').classList.remove('on');document.getElementById('w-load').classList.add('on');
   try{
     const reply=await ask(WSYS,`Weekend game plan. Plans: ${plans}. Goal: ${document.getElementById('w-goal').value}. Approach: ${document.getElementById('w-strict').value}. Extra: ${document.getElementById('w-extra').value||'nothing'}.\n\nFormat: THE PLAN, SATURDAY, SUNDAY, THE NON-NEGOTIABLES (3 rules), MINDSET NOTE.`);
-    lastW=reply;document.getElementById('w-load').classList.remove('on');
+    lastW=reply;
+    logToSheets('Weekend Game Plan',{field1_label:'Plans',field1_value:plans,field2_label:'Goal',field2_value:document.getElementById('w-goal').value,field3_label:'Extra',field3_value:document.getElementById('w-extra').value});
+    document.getElementById('w-load').classList.remove('on');
     document.getElementById('w-out').innerHTML=formatText(reply);document.getElementById('w-result').classList.add('on');
   }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -1052,7 +1074,9 @@ async function genTravel(){
   document.getElementById('t-result').classList.remove('on');document.getElementById('t-load').classList.add('on');
   try{
     const reply=await ask(TSYS,`Travel game plan for: ${dest}. Duration: ${document.getElementById('t-duration').value}. Goal: ${document.getElementById('t-goal').value}. Type: ${document.getElementById('t-type').value}. Extra: ${document.getElementById('t-extra').value||'nothing'}.`);
-    lastT=reply;document.getElementById('t-load').classList.remove('on');
+    lastT=reply;
+    logToSheets('Travel Game Plan',{field1_label:'Destination',field1_value:dest,field2_label:'Duration',field2_value:document.getElementById('t-duration').value,field3_label:'Type',field3_value:document.getElementById('t-type').value});
+    document.getElementById('t-load').classList.remove('on');
     document.getElementById('t-out').innerHTML=formatText(reply);document.getElementById('t-result').classList.add('on');
   }catch(e){document.getElementById('t-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
@@ -1068,6 +1092,7 @@ async function sendMsg(){
     const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:MSYS,messages:hist})});
     const d=await r.json();if(d.error)throw new Error(d.error.message);
     const reply=d.content[0].text;hist.push({role:'assistant',content:reply});
+    logToSheets('Mark Bot',{},'Q: '+txt+' | A: '+reply.substring(0,300));
     ti.remove();addMsg(reply,'m');
   }catch(e){ti.remove();addMsg("Something went wrong my end. Try again.",'m');}
 }
