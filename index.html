@@ -994,7 +994,9 @@ async function genPlan(){
   const kcal=document.getElementById('p-kcal').value;if(!kcal){alert('Enter a calorie target first.');return;}
   document.getElementById('p-result').classList.remove('on');document.getElementById('p-load').classList.add('on');
   try{
-    const reply=await ask(PSYS,`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`);
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:2500,system:PSYS,messages:[{role:'user',content:`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`}]})});
+    const d=await r.json();if(d.error)throw new Error(d.error.message);
+    const reply=d.content[0].text;
     lastP=reply;
     logToSheets('Meal Planner',{field1_label:'Calories',field1_value:kcal,field2_label:'Goal',field2_value:document.getElementById('p-goal').value,field3_label:'Avoid',field3_value:document.getElementById('p-avoid').value});
     document.getElementById('p-load').classList.remove('on');
