@@ -716,7 +716,7 @@ body {
           <div class="fg"><label class="fl">Budget</label><select class="fs" id="p-budget"><option>Budget (Aldi/Lidl)</option><option>Mid-range (Tesco/Sainsbury's)</option><option>Flexible</option></select></div>
         </div>
         <div class="f1"><div class="fg"><label class="fl">Foods to avoid / intolerances</label><input class="fi" id="p-avoid" placeholder="e.g. no nuts, hate mushrooms, no eggs..."></div></div>
-        <button class="btn" onclick="genPlan()">Generate 7-Day Plan →</button>
+        <button class="btn" onclick="genPlan()">Generate 5-Day Plan →</button>
       </div>
       <div class="loading" id="p-load"><div class="spin"></div><span>Building your meal plan...</span></div>
       <div class="result" id="p-result">
@@ -994,7 +994,7 @@ async function genPlan(){
   const kcal=document.getElementById('p-kcal').value;if(!kcal){alert('Enter a calorie target first.');return;}
   document.getElementById('p-result').classList.remove('on');document.getElementById('p-load').classList.add('on');
   try{
-    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:2500,system:PSYS,messages:[{role:'user',content:`7-day meal plan. Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. End with PRACTICAL TIPS with 3 points.`}]})});
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:2500,system:PSYS,messages:[{role:'user',content:`5-day weekday meal plan (Monday to Friday). Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. Weekends are flexible so no weekend plan needed. End with 3 PRACTICAL TIPS.`}]})});
     const d=await r.json();if(d.error)throw new Error(d.error.message);
     const reply=d.content[0].text;
     lastP=reply;
