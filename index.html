@@ -691,7 +691,7 @@ body {
         <div class="result-head">✓ Your Recipe</div>
         <div class="recipe-img-wrap" id="r-img-wrap"><img id="r-img" src="" alt="" onerror="this.parentElement.style.display='none'"></div>
         <div class="result-body" id="r-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlRecipe()">⬇ Save Recipe</button></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlRecipe()">⬇ Save Recipe</button><button class="btn-download" onclick="copyResult('r-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -722,7 +722,7 @@ body {
       <div class="result" id="p-result">
         <div class="result-head">✓ Your 7-Day Plan</div>
         <div class="result-body" id="p-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlPlan()">⬇ Save Plan</button></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlPlan()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('p-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -745,7 +745,7 @@ body {
       <div class="result" id="g-result">
         <div class="result-head">✓ Your Shopping List</div>
         <div class="result-body" id="g-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlGrocery()">⬇ Save List</button></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlGrocery()">⬇ Save List</button><button class="btn-download" onclick="copyResult('g-out')">⎘ Copy</button><button class="btn-download" onclick="copyResult('fr-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -884,7 +884,7 @@ body {
       <div class="result" id="w-result">
         <div class="result-head">✓ Your Weekend Game Plan</div>
         <div class="result-body" id="w-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlWeekend()">⬇ Save Plan</button></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlWeekend()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('w-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -911,7 +911,7 @@ body {
       <div class="result" id="t-result">
         <div class="result-head">✈️ Your Travel Game Plan</div>
         <div class="result-body" id="t-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlTravel()">⬇ Save Plan</button></div>
+        <div class="result-actions"><button class="btn-download" onclick="dlTravel()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('t-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -1114,7 +1114,15 @@ function showTyping(){
   d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:10px 13px;background:var(--s1);border:1px solid var(--border);border-radius:12px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
 }
-
+function copyResult(id){
+  const el=document.getElementById(id);
+  const text=el.innerText;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=event.target;
+    btn.textContent='✓ Copied';
+    setTimeout(()=>{btn.textContent='⎘ Copy';},2000);
+  });
+}
 function formatText(text){
   return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
     .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
