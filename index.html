@@ -1123,6 +1123,15 @@ function showTyping(){
     setTimeout(()=>{btn.textContent='⎘ Copy Chat';},2000);
   });
 }
+  function copyChat(){
+  const msgs=document.getElementById('msgs');
+  const lines=[...msgs.querySelectorAll('.bub')].map(b=>b.innerText).join('\n\n');
+  navigator.clipboard.writeText(lines).then(()=>{
+    const btn=document.getElementById('copy-chat-btn');
+    btn.textContent='✓ Copied';
+    setTimeout(()=>{btn.textContent='⎘ Copy Chat';},2000);
+  });
+}
 function copyResult(id){
   const el=document.getElementById(id);
   const text=el.innerText;
