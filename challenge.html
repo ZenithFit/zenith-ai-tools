@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zenith Fit | 14-Day Kickstart Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#F4F4F4;--white:#FFFFFF;--s1:#F8F8F8;--s2:#F0F0F0;--s3:#E8E8E8;
+  --border:#E0E0E0;--border2:#CCCCCC;
+  --teal:#00B894;--teal-dark:#00a383;--teal-dim:rgba(0,184,148,0.1);--teal-line:rgba(0,184,148,0.25);
+  --text:#1A1A1A;--sub:#666666;--faint:#999999;--label:#555555;--input:#F8F8F8;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;min-height:100vh;-webkit-font-smoothing:antialiased;}
+
+/* HEADER */
+.hdr{background:var(--white);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;}
+.hdr-left{display:flex;align-items:center;gap:10px;}
+.hdr-logo{width:32px;height:32px;border-radius:8px;overflow:hidden;flex-shrink:0;}
+.hdr-logo img{width:100%;height:100%;object-fit:cover;}
+.hdr-title{font-size:15px;font-weight:800;color:var(--text);}
+.hdr-title span{color:var(--teal);}
+.hdr-badge{background:var(--teal-dim);border:1px solid var(--teal-line);border-radius:20px;padding:4px 11px;font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.5px;}
+
+/* EXPIRED */
+.expired{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 24px;text-align:center;}
+.expired-ico{font-size:48px;margin-bottom:20px;}
+.expired h2{font-size:24px;font-weight:800;color:var(--text);margin-bottom:10px;}
+.expired p{font-size:15px;color:var(--sub);line-height:1.7;max-width:420px;margin-bottom:28px;}
+.btn-teal{background:var(--teal);color:#fff;border:none;padding:14px 28px;font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:800;cursor:pointer;border-radius:8px;text-decoration:none;display:inline-block;transition:background .15s;}
+.btn-teal:hover{background:var(--teal-dark);}
+
+/* MAIN WRAP */
+.wrap{max-width:760px;margin:0 auto;padding:20px 16px 60px;}
+
+/* DAY NAVIGATOR */
+.nav-label{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;}
+.day-nav{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:20px;-webkit-overflow-scrolling:touch;}
+.day-nav::-webkit-scrollbar{height:2px;}
+.day-nav::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.day-btn{width:40px;height:40px;border-radius:10px;border:1.5px solid var(--border);background:var(--white);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:700;color:var(--sub);cursor:pointer;flex-shrink:0;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.day-btn.active{background:var(--teal);border-color:var(--teal);color:#fff;}
+.day-btn.done{background:var(--teal-dim);border-color:var(--teal-line);color:var(--teal);}
+.day-btn.locked{opacity:.35;cursor:default;pointer-events:none;}
+.day-btn.final{background:#1A1A1A;border-color:#1A1A1A;color:#fff;}
+
+/* DAY CARD */
+.day-card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:20px;animation:fadeUp .2s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.day-card-hdr{background:var(--teal);padding:18px 22px;}
+.day-card-hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;}
+.day-num{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:1.5px;}
+.day-theme{font-size:11px;font-weight:700;color:rgba(255,255,255,.75);text-transform:uppercase;letter-spacing:1px;}
+.day-headline{font-size:20px;font-weight:800;color:#fff;line-height:1.3;}
+.day-body{padding:20px 22px;}
+.day-task{background:var(--s1);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.day-task-label{font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.day-task-text{font-size:14px;font-weight:600;color:var(--text);line-height:1.6;}
+.tip-box{background:var(--teal-dim);border:1px solid var(--teal-line);border-radius:10px;padding:14px 16px;margin-bottom:16px;}
+.tip-label{font-size:10px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.tip-text{font-size:14px;color:var(--text);line-height:1.7;font-weight:500;}
+.day-link{display:inline-flex;align-items:center;gap:7px;background:var(--teal);color:#fff;border:none;padding:11px 20px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border-radius:8px;text-decoration:none;transition:background .15s;}
+.day-link:hover{background:var(--teal-dark);}
+
+/* HABIT STACK */
+.habit-stack{background:var(--white);border:1px solid var(--border);border-radius:14px;padding:18px 22px;margin-bottom:20px;}
+.hs-label{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.habits{display:flex;flex-wrap:wrap;gap:7px;}
+.habit{background:var(--teal-dim);border:1px solid var(--teal-line);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:700;color:var(--teal);}
+
+/* TOOLS */
+.tools-hdr{font-size:11px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px;}
+.tool-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px;-webkit-overflow-scrolling:touch;}
+.tool-tabs::-webkit-scrollbar{height:2px;}
+.tool-tabs::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
+.tool-tab{background:var(--white);border:1.5px solid var(--border);border-radius:20px;padding:7px 14px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:700;color:var(--sub);cursor:pointer;flex-shrink:0;transition:all .15s;white-space:nowrap;}
+.tool-tab.on{background:var(--teal);border-color:var(--teal);color:#fff;}
+.tool-tab:hover:not(.on){border-color:var(--teal);color:var(--teal);}
+.tool-page{display:none;animation:fadeUp .2s ease;}
+.tool-page.on{display:block;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+.card-title{font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:14px;}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.f1{margin-bottom:10px;}
+.fg{display:flex;flex-direction:column;gap:4px;}
+.fl{font-size:10px;font-weight:700;color:var(--label);text-transform:uppercase;letter-spacing:.8px;}
+.fi,.fs{background:var(--input);border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;outline:none;transition:border-color .15s;width:100%;appearance:none;}
+.fi:focus,.fs:focus{border-color:var(--teal);}
+.fi::placeholder{color:#AAAAAA;}
+.fs option{background:#fff;}
+.btn{background:var(--teal);color:#fff;border:none;padding:11px 22px;font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;font-weight:800;cursor:pointer;border-radius:8px;transition:background .15s;display:inline-flex;align-items:center;gap:7px;margin-top:4px;}
+.btn:hover{background:var(--teal-dark);}
+.loading{display:none;flex-direction:column;align-items:center;gap:10px;padding:36px;color:var(--sub);font-size:13px;background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:14px;}
+.loading.on{display:flex;}
+.spin{width:20px;height:20px;border:2px solid var(--border2);border-top-color:var(--teal);border-radius:50%;animation:spin .7s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.result{display:none;background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px;animation:fadeUp .3s ease;}
+.result.on{display:block;}
+.result-head{background:var(--teal-dim);border-bottom:1px solid var(--teal-line);padding:10px 18px;font-size:10px;font-weight:700;color:var(--teal);letter-spacing:1.2px;text-transform:uppercase;}
+.result-body{padding:18px;font-size:14px;line-height:1.85;color:var(--text);}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.chip{background:var(--s1);border:1px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--sub);cursor:pointer;transition:all .15s;font-family:'Plus Jakarta Sans',sans-serif;}
+.chip:hover{border-color:var(--teal);color:var(--teal);}
+
+/* CHAT */
+.chat-box{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+.chat-head{background:var(--teal);padding:12px 16px;display:flex;align-items:center;gap:10px;}
+.chat-av{width:34px;height:34px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.chat-name{font-size:14px;font-weight:800;color:#fff;}
+.chat-status{font-size:11px;color:rgba(255,255,255,.8);display:flex;align-items:center;gap:5px;margin-top:2px;font-weight:600;}
+.sdot{width:5px;height:5px;border-radius:50%;background:#fff;opacity:.9;}
+.msgs{min-height:280px;max-height:280px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px;scroll-behavior:smooth;background:var(--s1);}
+.msg{display:flex;gap:8px;max-width:86%;animation:fadeUp .2s ease;}
+.msg.u{margin-left:auto;flex-direction:row-reverse;}
+.mav{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:11px;}
+.mav.m{background:var(--teal);color:#fff;font-size:12px;}
+.mav.u{background:var(--s3);color:var(--sub);}
+.bub{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13.5px;line-height:1.6;color:var(--text);}
+.msg.u .bub{background:var(--teal-dim);border-color:var(--teal-line);}
+.chat-foot{background:var(--white);border-top:1px solid var(--border);padding:10px 12px;display:flex;gap:8px;}
+.cin{flex:1;background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:500;outline:none;transition:border-color .15s;resize:none;min-height:40px;max-height:90px;}
+.cin:focus{border-color:var(--teal);}
+.cin::placeholder{color:#AAAAAA;}
+.btn-send{background:var(--teal);color:#fff;border:none;padding:9px 16px;font-family:'Plus Jakarta Sans',sans-serif;font-size:12px;font-weight:800;cursor:pointer;border-radius:8px;transition:background .15s;align-self:flex-end;}
+.btn-send:hover{background:var(--teal-dark);}
+.tdot{width:5px;height:5px;background:#CCC;border-radius:50%;animation:tb 1.2s infinite;}
+.tdot:nth-child(2){animation-delay:.2s;}.tdot:nth-child(3){animation-delay:.4s;}
+@keyframes tb{0%,60%,100%{transform:translateY(0);opacity:.3}30%{transform:translateY(-4px);opacity:1}}
+
+/* DISCLAIMER */
+.disclaimer{background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-top:28px;font-size:12px;color:var(--faint);line-height:1.6;text-align:center;}
+
+/* DAY 14 CTA */
+.cta-card{background:var(--text);border-radius:14px;padding:36px 28px;text-align:center;margin-bottom:20px;}
+.cta-card h2{font-size:26px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;}
+.cta-card p{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:24px;max-width:420px;margin-left:auto;margin-right:auto;}
+
+@media(max-width:600px){
+  .f2{grid-template-columns:1fr;}
+  .wrap{padding:14px 12px 60px;}
+  .day-headline{font-size:17px;}
+  .day-card-hdr{padding:14px 16px;}
+  .day-body{padding:14px 16px;}
+  .card{padding:14px 16px;}
+  .hdr-title{font-size:13px;}
+  .result-body{padding:14px;font-size:13.5px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-left">
+    <div class="hdr-logo"><img src="New Logo 2 transparant.png" alt="Zenith Fit" onerror="this.style.display='none'"></div>
+    <div class="hdr-title">zenith<span>fit</span></div>
+  </div>
+  <div class="hdr-badge" id="hdr-badge">14-Day Kickstart</div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap" id="main-wrap">
+
+  <div class="nav-label">Your Challenge</div>
+  <div class="day-nav" id="day-nav"></div>
+
+  <div id="day-content"></div>
+
+  <div id="tools-section"></div>
+
+  <div class="disclaimer">
+    The AI tools and content on this page are for informational and entertainment purposes only and do not constitute medical, nutritional, or professional advice. Always consult a qualified healthcare professional before making significant changes to your diet or exercise routine. Zenith Fit accepts no liability for actions taken based on content generated by these tools.
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// CONFIG
+// ══════════════════════════════════════════
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const START = new Date('2026-05-25T00:00:00');
+const ACCEL = 'https://www.zenithfit.co.uk/zenith-accelerator';
+
+// ══════════════════════════════════════════
+// DAY DATA
+// ══════════════════════════════════════════
+const DAYS = [
+  {
+    day:1, theme:'Steps & Movement',
+    headline:"Right. Let's Go.",
+    task:"8,000 to 10,000 steps today. No gym required. Just get out and walk. Your phone tracks steps fine if you haven't got a watch.",
+    tip:"Walking is the most underrated habit in health and fitness. It doesn't wreck your recovery, doesn't require motivation, and it compounds massively over time. Every step today is a deposit into a habit that will serve you for life. Get out and finish the job.",
+    habits:["Steps"],
+    url:"https://www.zenithfit.co.uk/new-day-1"
+  },
+  {
+    day:2, theme:'Hydration',
+    headline:"You Are Probably Dehydrated Right Now.",
+    task:"2 to 2.5 litres of water today. Carry a bottle everywhere. Get the bulk of it done before 7pm.",
+    tip:"Most cravings are not hunger. They are dehydration. Before you reach for a snack today, drink a full glass of water and wait ten minutes. You will be surprised how often the urge disappears. Sip consistently throughout the day rather than gulping it all at once.",
+    habits:["Steps","Hydration"],
+    url:"https://www.zenithfit.co.uk/new-day-2"
+  },
+  {
+    day:3, theme:'Protein',
+    headline:"Willpower Is Not The Problem. Protein Is.",
+    task:"Protein at every single meal today. Chicken, fish, eggs, Greek yoghurt, cottage cheese, lean mince. Whatever works. Just make sure it is there every time you eat.",
+    tip:"An under-fuelled body will fight you constantly. Cravings, energy crashes, snacking at 9pm. Most people battling these are simply not eating enough protein. Get it at every meal and watch the fight start to ease off. No exceptions today.",
+    habits:["Steps","Hydration","Protein"],
+    url:"https://www.zenithfit.co.uk/new-day-3"
+  },
+  {
+    day:4, theme:'First Workout',
+    headline:"You Do Not Need Perfect. You Need To Show Up.",
+    task:"Pick one workout and press play. No deliberating. No waiting for the right moment. Pick it, do it, move on.",
+    tip:"The session you actually do will always beat the perfect one you kept waiting for. Ten minutes done with intent does more for your long-term progress than you think. It proves something to yourself. That is the identity we are building here.",
+    habits:["Steps","Hydration","Protein","Training"],
+    url:"https://www.zenithfit.co.uk/new-day-4"
+  },
+  {
+    day:5, theme:'Reflection',
+    headline:"Five Days In. Most People Never Get Here.",
+    task:"Write down the one habit that has made the biggest difference so far. That is your evidence. That is the version of yourself you are building.",
+    tip:"The drop-off between signing up and still being here on Day 5 is enormous. You did not quit when it got inconvenient. That already puts you ahead of most. The habits you are building right now are only worth something if they carry forward. Keep going.",
+    habits:["Steps","Hydration","Protein","Training","Reflection"],
+    url:"https://www.zenithfit.co.uk/new-day-5"
+  },
+  {
+    day:6, theme:'Self Awareness',
+    headline:"You Cannot Fix What You Are Not Paying Attention To.",
+    task:"Three check-ins today — morning, afternoon, and evening. Rate your hunger, energy, and mood out of 10. Just notice. No fixing. No reacting.",
+    tip:"Most people run through the week on autopilot. Same habits, same results, same frustration. Not because they are not trying, but because they have never stopped to notice what is actually going on. Patterns will start appearing today. That is where the real work begins.",
+    habits:["Steps","Hydration","Protein","Training","Awareness"],
+    url:"https://www.zenithfit.co.uk/new-day-6"
+  },
+  {
+    day:7, theme:'Identity',
+    headline:"Seven Days. That Is A Week. Own It.",
+    task:"Pick one habit to keep permanently. Be specific. Not eat better — something real. Write it down somewhere you will actually see it. That is no longer a challenge task. That is just who you are now.",
+    tip:"Most people restart every Monday for months and never string a full week together. You just did. Now here is what separates the people who keep going from the ones who reset again next week: they decide who they are becoming and they act from that place. Week 2 starts tomorrow. The standard goes up.",
+    habits:["Steps","Hydration","Protein","Training","Awareness","Identity"],
+    url:"https://www.zenithfit.co.uk/new-day-7"
+  },
+  {
+    day:8, theme:'Scheduling',
+    headline:"Stop Waiting. Start Scheduling.",
+    task:"Open your calendar right now. Block one movement session at a specific time today. Treat it like a meeting with your boss. When is this happening.",
+    tip:"Motivation is not reliable. It shows up when it feels like it and disappears the moment life gets hectic. Structure is different. The people who stay consistent have stopped leaving it to chance. They decide in advance. They put it in the diary. And when the time comes there is no decision to make.",
+    habits:["Steps","Hydration","Protein","Training","Awareness","Identity","Scheduling"],
+    url:"https://www.zenithfit.co.uk/new-day-8"
+  },
+  {
+    day:9, theme:'Smart Decisions',
+    headline:"Snacking Is Not A Willpower Problem. It Is A Decision Problem.",
+    task:"Pick one rule and follow it all day. No negotiating mid-day, no grey area. You either follow it or you do not. That clarity is exactly the point.",
+    tip:"Every time you stand in front of the fridge wondering whether to eat something, you are spending mental energy you do not have. Do that ten times a day and by the evening your brain defaults to whatever is easiest. Fewer decisions means better ones when it counts.",
+    habits:["Steps","Hydration","Protein","Training","Awareness","Identity","Scheduling","Food Rules"],
+    url:"https://www.zenithfit.co.uk/new-day-9"
+  },
+  {
+    day:10, theme:'Strength Training',
+    headline:"Cardio Burns Calories. Strength Training Changes Your Body.",
+    task:"Complete today's strength session. 15 to 20 minutes. Focus on good form, controlled effort, and finishing strong. One more rep. A little more control.",
+    tip:"Most people who only do cardio end up frustrated. They get lighter but not the way they expected. Building muscle means your body burns more fuel even at rest. That is the long game. You do not need to go heavy today. Show up, move with intent, finish strong.",
+    habits:["Steps","Hydration","Protein","Strength","Awareness","Identity","Scheduling","Food Rules"],
+    url:"https://www.zenithfit.co.uk/new-day-10"
+  },
+  {
+    day:11, theme:'Morning Routine',
+    headline:"How You Start The Day Decides How The Rest Of It Goes.",
+    task:"One intentional act before your phone this morning. A short walk, a stretch, a big glass of water, five minutes of breathing, or three things written down. Do it immediately after waking. Every morning from here.",
+    tip:"When the morning is chaotic, everything that follows is harder. Decisions get worse. Willpower drains faster. A strong morning does not need to be elaborate. It just needs to be intentional. One small act before the noise starts changes everything that follows.",
+    habits:["Steps","Hydration","Protein","Strength","Awareness","Identity","Scheduling","Food Rules","Morning Ritual"],
+    url:"https://www.zenithfit.co.uk/new-day-11"
+  },
+  {
+    day:12, theme:'Mindful Eating',
+    headline:"Most People Eat On Autopilot. Today You Do Not.",
+    task:"Track one full meal today. Write down what you ate, roughly how much, and how you felt afterwards. No fixing. No judging. Just observe. You are collecting information.",
+    tip:"You can not manage what you do not notice. Most people have genuinely no idea what they are eating or how it is making them feel. Without that awareness, change stays vague and progress stays slow. One meal, full attention today. That is all it takes to start seeing patterns you never noticed before.",
+    habits:["Steps","Hydration","Protein","Strength","Awareness","Identity","Scheduling","Food Rules","Morning Ritual","Mindfulness"],
+    url:"https://www.zenithfit.co.uk/new-day-12"
+  },
+  {
+    day:13, theme:'Real Progress',
+    headline:"The Scales Are The Worst Measure Of Progress.",
+    task:"Notice how your clothes fit today. Look for clues, not a transformation. Where things feel looser. Where movement feels easier. Where you feel more comfortable than two weeks ago. Write it down.",
+    tip:"Weight fluctuates daily based on water, food, sleep, and stress. Obsessing over that number will drive you mad and tell you almost nothing useful. The real changes are happening right in front of you and most people completely miss them. Evidence builds confidence. Confidence builds consistency.",
+    habits:["Steps","Hydration","Protein","Strength","Awareness","Identity","Scheduling","Food Rules","Morning Ritual","Mindfulness","Perspective"],
+    url:"https://www.zenithfit.co.uk/new-day-13"
+  }
+];
+
+// ══════════════════════════════════════════
+// TIME GATING
+// ══════════════════════════════════════════
+function getCurrentDay(){
+  const now = new Date();
+  const diff = Math.floor((now - START) / (1000 * 60 * 60 * 24));
+  return Math.min(Math.max(diff + 1, 1), 14);
+}
+
+function isExpired(){
+  const now = new Date();
+  return now >= new Date(START.getTime() + 15 * 24 * 60 * 60 * 1000);
+}
+
+function isDayUnlocked(d){
+  const now = new Date();
+  const diff = Math.floor((now - START) / (1000 * 60 * 60 * 24));
+  return d <= diff + 1;
+}
+
+// ══════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════
+let activeDay = getCurrentDay();
+
+function init(){
+  if(isExpired()){
+    showExpired(); return;
+  }
+  buildNav();
+  showDay(Math.min(activeDay, 13));
+  buildTools();
+}
+
+function showExpired(){
+  document.getElementById('main-wrap').innerHTML = `
+    <div class="expired">
+      <div class="expired-ico">🎉</div>
+      <h2>You Completed The Challenge.</h2>
+      <p>14 days done. The habits you have built are the foundation. Now it is time to take them further with proper coaching, structure, and accountability built around your actual life.</p>
+      <a href="${ACCEL}" class="btn-teal">See Zenith Accelerator →</a>
+    </div>`;
+}
+
+function buildNav(){
+  const nav = document.getElementById('day-nav');
+  for(let i=1; i<=14; i++){
+    const btn = document.createElement('button');
+    btn.className = 'day-btn';
+    btn.textContent = i===14 ? '🏁' : i;
+    if(i===14){
+      btn.classList.add('final');
+      btn.onclick = ()=>window.open(ACCEL,'_blank');
+      btn.title = 'Zenith Accelerator';
+    } else if(!isDayUnlocked(i)){
+      btn.classList.add('locked');
+      btn.title = `Unlocks on day ${i}`;
+    } else if(i===activeDay){
+      btn.classList.add('active');
+      btn.onclick = ()=>{ activeDay=i; showDay(i); highlightNav(i); };
+    } else if(i<activeDay){
+      btn.classList.add('done');
+      btn.onclick = ()=>{ activeDay=i; showDay(i); highlightNav(i); };
+    } else {
+      btn.onclick = ()=>{ activeDay=i; showDay(i); highlightNav(i); };
+    }
+    btn.id = `dnav-${i}`;
+    nav.appendChild(btn);
+  }
+}
+
+function highlightNav(d){
+  for(let i=1;i<=13;i++){
+    const btn=document.getElementById(`dnav-${i}`);
+    if(!btn)continue;
+    btn.classList.remove('active');
+    if(isDayUnlocked(i)){
+      if(i<getCurrentDay()) btn.classList.add('done');
+    }
+  }
+  const active=document.getElementById(`dnav-${d}`);
+  if(active){ active.classList.remove('done'); active.classList.add('active'); }
+}
+
+function showDay(d){
+  const data = DAYS[d-1];
+  const dc = document.getElementById('day-content');
+
+  const habits = data.habits.map(h=>`<span class="habit">${h}</span>`).join('');
+
+  dc.innerHTML = `
+    <div class="day-card">
+      <div class="day-card-hdr">
+        <div class="day-card-hdr-top">
+          <div class="day-num">Day ${d} of 13</div>
+          <div class="day-theme">${data.theme}</div>
+        </div>
+        <div class="day-headline">${data.headline}</div>
+      </div>
+      <div class="day-body">
+        <div class="day-task">
+          <div class="day-task-label">Today's Task</div>
+          <div class="day-task-text">${data.task}</div>
+        </div>
+        <div class="tip-box">
+          <div class="tip-label">💡 Tip of the Day</div>
+          <div class="tip-text">${data.tip}</div>
+        </div>
+        <a href="${data.url}" target="_blank" class="day-link">Open Day ${d} →</a>
+      </div>
+    </div>
+    <div class="habit-stack">
+      <div class="hs-label">Your Habit Stack So Far</div>
+      <div class="habits">${habits}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// TOOLS
+// ══════════════════════════════════════════
+function buildTools(){
+  const ts = document.getElementById('tools-section');
+  ts.innerHTML = `
+    <div class="tools-hdr">Challenge Tools</div>
+    <div class="tool-tabs">
+      <button class="tool-tab on" onclick="goTool('bot',this)">💪 Mark Bot</button>
+      <button class="tool-tab" onclick="goTool('food',this)">🔍 Food Checker</button>
+      <button class="tool-tab" onclick="goTool('weekend',this)">📅 Weekend Plan</button>
+      <button class="tool-tab" onclick="goTool('eating',this)">🍽️ Eating Out</button>
+      <button class="tool-tab" onclick="goTool('travel',this)">✈️ Travel Plan</button>
+      <button class="tool-tab" onclick="goTool('meals',this)">📋 Meal Ideas</button>
+    </div>
+    <div id="tool-pages">
+      ${buildBotTool()}
+      ${buildFoodTool()}
+      ${buildWeekendTool()}
+      ${buildEatingTool()}
+      ${buildTravelTool()}
+      ${buildMealsTool()}
+    </div>`;
+}
+
+function goTool(id, el){
+  document.querySelectorAll('.tool-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.tool-page').forEach(p=>p.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('tp-'+id).classList.add('on');
+}
+
+function buildBotTool(){
+  return `<div class="tool-page on" id="tp-bot">
+    <div class="chips">
+      <div class="chip" onclick="useChip(this)">I missed today's task</div>
+      <div class="chip" onclick="useChip(this)">I'm struggling with the steps</div>
+      <div class="chip" onclick="useChip(this)">I had a bad day with food</div>
+      <div class="chip" onclick="useChip(this)">I don't feel motivated</div>
+      <div class="chip" onclick="useChip(this)">How do I get more protein?</div>
+      <div class="chip" onclick="useChip(this)">What should I do this weekend?</div>
+      <div class="chip" onclick="useChip(this)">I feel like giving up</div>
+      <div class="chip" onclick="useChip(this)">Am I making progress?</div>
+    </div>
+    <div class="chat-box">
+      <div class="chat-head">
+        <div class="chat-av">💪</div>
+        <div><div class="chat-name">Mark Bot</div><div class="chat-status"><span class="sdot"></span>Here throughout your challenge</div></div>
+      </div>
+      <div class="msgs" id="msgs">
+        <div class="msg"><div class="mav m">M</div><div><div class="bub">Right, you are in the challenge. What's going on? Ask me anything — today's task, how you're feeling, food, training, anything. That's what I'm here for. 💪</div></div></div>
+      </div>
+      <div class="chat-foot">
+        <textarea class="cin" id="cin" placeholder="Ask Mark anything..." rows="1" onkeydown="ckbd(event)"></textarea>
+        <button class="btn-send" onclick="sendMsg()">↵</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function buildFoodTool(){
+  return `<div class="tool-page" id="tp-food">
+    <div class="card">
+      <div class="card-title">What are you eating?</div>
+      <div class="f1"><div class="fg"><label class="fl">Food, meal or drink</label><input class="fi" id="fc-food" placeholder="e.g. 2 Weetabix, chicken and rice, pint of Guinness..." onkeydown="if(event.key==='Enter')checkFood()"></div></div>
+      <div class="f1"><div class="fg"><label class="fl">Portion size (optional)</label><input class="fi" id="fc-portion" placeholder="e.g. large, 200g, half a portion..."></div></div>
+      <button class="btn" onclick="checkFood()">Check It →</button>
+    </div>
+    <div class="loading" id="fc-load"><div class="spin"></div><span>Checking your food...</span></div>
+    <div class="result" id="fc-result"><div class="result-head">✓ Nutrition Info</div><div class="result-body" id="fc-out"></div></div>
+  </div>`;
+}
+
+function buildWeekendTool(){
+  return `<div class="tool-page" id="tp-weekend">
+    <div class="card">
+      <div class="card-title">Your Weekend</div>
+      <div class="f1"><div class="fg"><label class="fl">What have you got on?</label><textarea class="fi" id="w-plans" rows="3" placeholder="e.g. dinner out Saturday, drinks with friends, Sunday roast..." style="resize:vertical;min-height:80px;"></textarea></div></div>
+      <div class="f1"><div class="fg"><label class="fl">How strict do you want to be?</label><select class="fs" id="w-strict"><option>Relaxed</option><option selected>Moderate</option><option>Focused</option></select></div></div>
+      <button class="btn" onclick="genWeekend()">Build My Plan →</button>
+    </div>
+    <div class="loading" id="w-load"><div class="spin"></div><span>Building your weekend plan...</span></div>
+    <div class="result" id="w-result"><div class="result-head">✓ Weekend Game Plan</div><div class="result-body" id="w-out"></div></div>
+  </div>`;
+}
+
+function buildEatingTool(){
+  return `<div class="tool-page" id="tp-eating">
+    <div class="card">
+      <div class="card-title">Where are you eating?</div>
+      <div class="f2">
+        <div class="fg"><label class="fl">Restaurant type</label><select class="fs" id="e-type">
+          <option>Italian</option><option>Indian</option><option>Chinese</option>
+          <option>Japanese / Sushi</option><option>Mexican</option><option>Turkish / Mediterranean</option>
+          <option>American / Burgers</option><option>Pizza</option><option>Pub / British food</option>
+          <option>Fish and Chips</option><option>McDonalds</option><option>KFC</option>
+          <option>Nandos</option><option>Wagamama</option><option>Casual dining</option>
+        </select></div>
+        <div class="fg"><label class="fl">Are you drinking?</label><select class="fs" id="e-drinks">
+          <option>No drinks</option><option>One or two</option><option>A few drinks</option><option>Big night</option>
+        </select></div>
+      </div>
+      <button class="btn" onclick="genEating()">Get My Guide →</button>
+    </div>
+    <div class="loading" id="e-load"><div class="spin"></div><span>Building your guide...</span></div>
+    <div class="result" id="e-result"><div class="result-head">✓ Eating Out Guide</div><div class="result-body" id="e-out"></div></div>
+  </div>`;
+}
+
+function buildTravelTool(){
+  return `<div class="tool-page" id="tp-travel">
+    <div class="card">
+      <div class="card-title">Your Trip</div>
+      <div class="f2">
+        <div class="fg"><label class="fl">Where are you going?</label><input class="fi" id="t-dest" placeholder="e.g. Tenerife, New York..."></div>
+        <div class="fg"><label class="fl">How long?</label><select class="fs" id="t-dur"><option>Long weekend</option><option>One week</option><option>Two weeks</option><option>Three weeks+</option></select></div>
+      </div>
+      <div class="f2">
+        <div class="fg"><label class="fl">Holiday type</label><select class="fs" id="t-type"><option>Beach / relaxation</option><option>City break</option><option>All inclusive</option><option>Adventure / active</option><option>Family holiday</option><option>Work travel</option></select></div>
+        <div class="fg"><label class="fl">How strict?</label><select class="fs" id="t-strict"><option>Relaxed</option><option selected>Moderate</option><option>Focused</option></select></div>
+      </div>
+      <button class="btn" onclick="genTravel()">Build My Plan →</button>
+    </div>
+    <div class="loading" id="t-load"><div class="spin"></div><span>Building your travel plan...</span></div>
+    <div class="result" id="t-result"><div class="result-head">✓ Travel Game Plan</div><div class="result-body" id="t-out"></div></div>
+  </div>`;
+}
+
+function buildMealsTool(){
+  return `<div class="tool-page" id="tp-meals">
+    <div class="card">
+      <div class="card-title">Quick Meal Ideas</div>
+      <div class="f2">
+        <div class="fg"><label class="fl">Meal type</label><select class="fs" id="m-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select></div>
+        <div class="fg"><label class="fl">Time available</label><select class="fs" id="m-time"><option>Under 10 mins</option><option>Under 20 mins</option><option>Under 30 mins</option></select></div>
+      </div>
+      <div class="f1"><div class="fg"><label class="fl">Any preferences or things to avoid?</label><input class="fi" id="m-pref" placeholder="e.g. no dairy, vegetarian, gluten free, high protein..."></div></div>
+      <button class="btn" onclick="genMeals()">Get Ideas →</button>
+    </div>
+    <div class="loading" id="m-load"><div class="spin"></div><span>Getting meal ideas...</span></div>
+    <div class="result" id="m-result"><div class="result-head">✓ Meal Ideas</div><div class="result-body" id="m-out"></div></div>
+  </div>`;
+}
+
+// ══════════════════════════════════════════
+// API
+// ══════════════════════════════════════════
+async function ask(system, userMsg){
+  const r = await fetch(WORKER, {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:1000,
+      system,
+      messages:[{role:'user',content:userMsg}]
+    })
+  });
+  const d = await r.json();
+  if(d.error) throw new Error(d.error.message);
+  return d.content[0].text;
+}
+
+function formatText(t){
+  return t
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/^#{1,3} (.+)$/gm,'<br><strong>$1</strong>')
+    .replace(/^[\*\-] (.+)$/gm,'&bull; $1')
+    .replace(/\n/g,'<br>');
+}
+
+// ══════════════════════════════════════════
+// SYSTEM PROMPTS
+// ══════════════════════════════════════════
+const BOT_SYS = `You are Mark Bot — the AI coaching assistant for the Zenith Fit 14-Day Kickstart Challenge. You are built on Mark's 12 years of coaching experience. You are direct, honest, warm, and occasionally funny. British English throughout. No dashes in text. No generic AI phrases.
+
+The challenge builds habits day by day: steps, hydration, protein at meals, training, self-awareness, scheduling, smart food decisions, strength training, morning routines, mindful eating, and perspective around progress.
+
+Your philosophy: consistency beats perfection every time. Never miss twice. 80/20 rule. Control not restriction. What gets scheduled gets done. Confidence comes from evidence not motivation.
+
+When someone is struggling, acknowledge the reality first, then give one or two concrete next steps. Keep it real and keep it brief. Sound like a coach who genuinely gives a shit, not a chatbot.`;
+
+const FOOD_SYS = `You are a nutrition expert for Zenith Fit UK. Direct, practical, British English. No dashes in text. Give accurate, honest nutrition info for UK foods. Format: food name, rough breakdown per serving, and 2 sentences of honest practical context. Keep it brief and useful.`;
+
+const WEEKEND_SYS = `You are Mark from Zenith Fit UK writing a weekend game plan for someone doing the 14-Day Kickstart Challenge. Direct, honest, empathetic. British English. No dashes in text. 80/20 rule. Never miss twice. Control not restriction. Be specific to what they have on. Cover Friday, Saturday, Sunday with 3 non-negotiables. Keep it practical and real.`;
+
+const EATING_SYS = `You are Mark from Zenith Fit UK. Direct, honest, no nonsense. British English. No dashes. Help challenge participants make smart food choices when eating out without being preachy. Name actual dishes where possible. The goal is smart choices not sad ones.`;
+
+const TRAVEL_SYS = `You are Mark from Zenith Fit UK writing a travel game plan for a challenge participant. Direct, honest, empathetic. British English. No dashes in text. Cover the flight, on holiday mindset, steps, gym (optional not compulsory), food balance, and what to expect when they get back. Balance and enjoyment are the goal. Not perfection.`;
+
+const MEALS_SYS = `You are a nutrition expert for Zenith Fit UK. Give 3 quick meal ideas for a busy person. British English. No dashes. UK ingredients and UK supermarkets. High protein always. Real food that tastes good. Each idea in 2 to 3 lines maximum. Practical and achievable.`;
+
+// ══════════════════════════════════════════
+// TOOL FUNCTIONS
+// ══════════════════════════════════════════
+async function checkFood(){
+  const food=document.getElementById('fc-food').value.trim();
+  if(!food){alert('Type a food first.');return;}
+  document.getElementById('fc-result').classList.remove('on');
+  document.getElementById('fc-load').classList.add('on');
+  try{
+    const r=await ask(FOOD_SYS,`Nutrition info for: ${food}${document.getElementById('fc-portion').value?' ('+document.getElementById('fc-portion').value+')':''}`);
+    document.getElementById('fc-load').classList.remove('on');
+    document.getElementById('fc-out').innerHTML=formatText(r);
+    document.getElementById('fc-result').classList.add('on');
+  }catch(e){document.getElementById('fc-load').classList.remove('on');alert('Something went wrong. Try again.');}
+}
+
+async function genWeekend(){
+  const plans=document.getElementById('w-plans').value.trim();
+  if(!plans){alert('Tell us what you have on first.');return;}
+  document.getElementById('w-result').classList.remove('on');
+  document.getElementById('w-load').classList.add('on');
+  try{
+    const r=await ask(WEEKEND_SYS,`Weekend plan. What they have on: ${plans}. Approach: ${document.getElementById('w-strict').value}. They are on the 14-Day Kickstart Challenge so they are building habits around steps, hydration, and protein.`);
+    document.getElementById('w-load').classList.remove('on');
+    document.getElementById('w-out').innerHTML=formatText(r);
+    document.getElementById('w-result').classList.add('on');
+  }catch(e){document.getElementById('w-load').classList.remove('on');alert('Something went wrong. Try again.');}
+}
+
+async function genEating(){
+  document.getElementById('e-result').classList.remove('on');
+  document.getElementById('e-load').classList.add('on');
+  try{
+    const r=await ask(EATING_SYS,`Eating out guide for ${document.getElementById('e-type').value}. Drinks: ${document.getElementById('e-drinks').value}. Person is on a 14-day fitness challenge focused on building habits.`);
+    document.getElementById('e-load').classList.remove('on');
+    document.getElementById('e-out').innerHTML=formatText(r);
+    document.getElementById('e-result').classList.add('on');
+  }catch(e){document.getElementById('e-load').classList.remove('on');alert('Something went wrong. Try again.');}
+}
+
+async function genTravel(){
+  const dest=document.getElementById('t-dest').value.trim();
+  if(!dest){alert('Tell us where you are going first.');return;}
+  document.getElementById('t-result').classList.remove('on');
+  document.getElementById('t-load').classList.add('on');
+  try{
+    const r=await ask(TRAVEL_SYS,`Travel plan. Destination: ${dest}. Duration: ${document.getElementById('t-dur').value}. Type: ${document.getElementById('t-type').value}. Approach: ${document.getElementById('t-strict').value}.`);
+    document.getElementById('t-load').classList.remove('on');
+    document.getElementById('t-out').innerHTML=formatText(r);
+    document.getElementById('t-result').classList.add('on');
+  }catch(e){document.getElementById('t-load').classList.remove('on');alert('Something went wrong. Try again.');}
+}
+
+async function genMeals(){
+  document.getElementById('m-result').classList.remove('on');
+  document.getElementById('m-load').classList.add('on');
+  try{
+    const r=await ask(MEALS_SYS,`Give 3 quick ${document.getElementById('m-type').value} ideas. Time: ${document.getElementById('m-time').value}. Preferences: ${document.getElementById('m-pref').value||'none'}.`);
+    document.getElementById('m-load').classList.remove('on');
+    document.getElementById('m-out').innerHTML=formatText(r);
+    document.getElementById('m-result').classList.add('on');
+  }catch(e){document.getElementById('m-load').classList.remove('on');alert('Something went wrong. Try again.');}
+}
+
+// ══════════════════════════════════════════
+// MARK BOT CHAT
+// ══════════════════════════════════════════
+let hist=[];
+
+function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
+function ckbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
+
+async function sendMsg(){
+  const inp=document.getElementById('cin');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  inp.value='';
+  addMsg(txt,'u');
+  hist.push({role:'user',content:txt});
+  const ti=showTyping();
+  try{
+    const r=await fetch(WORKER,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:800,system:BOT_SYS,messages:hist})
+    });
+    const d=await r.json();
+    if(d.error)throw new Error(d.error.message);
+    const reply=d.content[0].text;
+    hist.push({role:'assistant',content:reply});
+    ti.remove();
+    addMsg(reply,'m');
+  }catch(e){ti.remove();addMsg("Something went wrong my end. Try again.",'m');}
+}
+
+function addMsg(txt,role){
+  const c=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg'+(role==='u'?' u':'');
+  d.innerHTML=`<div class="mav ${role==='m'?'m':'u'}">${role==='m'?'M':'You'}</div><div><div class="bub">${txt.replace(/\n/g,'<br>')}</div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+
+function showTyping(){
+  const c=document.getElementById('msgs');
+  const d=document.createElement('div');
+  d.className='msg';
+  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:9px 12px;background:#fff;border:1px solid var(--border);border-radius:10px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+
+// START
+init();
+</script>
+</body>
+</html>
