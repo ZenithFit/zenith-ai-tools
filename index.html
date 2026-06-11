@@ -4,46 +4,44 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zenith Fit | AI Tools</title>
-<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAAAJfElEQVR4nO2b248b1R3HP3OxPfbau06yzmZ3k80FKYUEVDUpQlRIhQcECk3+gCCKkqcGVPEnFKoKCdoX+hCoRLaoJeEp7UMeoPQJkhRRQVVECKQViZTNRhhv9mJ77LmcM6cPzoxt9uKx461XbX7S0Xjtc878zne+53c581sNUPwfiz5oBQYtdwEYtAKDlrsADFqBQctdAAatwKClZwA0TeunHgMTjS4DIU3TUKo5RNcNDKOBY/Pr9ilX+r6bvs3v+x+zdQ0AgGVZFApbGRnJY1kWum4AKlIyBKjtqkCt0qf983d/X95fCEG9XqNcLmPbNkoFva4fs5vOuq4zNbWLiYkJkslk2yJ7lV63klIKz/OYn59ndnaWarXc2/2JyYBEIsm+ffvZtGkzUoo7Xng/RNM0dF3HcRyuXbtGqVTsWq+OAIQ3eeCB7zMyksf3vQ1lAJVSGIaBlAFff/1visVvuhq/5hYIDd7u3XvI5/O4rrvMCG4EEUJgGAa7du2mXq9TLi/FHrsqAOFCs9ks4+MTuK4L3PmeXy8RQpBMJpmYmKRarRAE8QxjRyM4Pj4BQBAEG4r6K4nv+4yMjJDLDbO0tBhrzKoAKKXQdZ2RkTxCiOi7jSxKKUzTZHh45M4BAEilUiSTCYSQ/dBv3SWMKSzLim2rVgQgHGyaJqDFpr+ua2haIyoMgqAnxuj68ug81KfTvg77mKaJpuko1fnBdfQC4cRxpFZz8DwfTYNMJkMikUDK+OwJggDbrtEaVYb3NwyDdDq95viQAd0A39EIxpkwVPDFF3+Bpml89NFHXLhwkYWFBXK5XMcnp2kajuNw//37OX78GLVanSAIkFIihEDXdWZmbnDmzJk1mdjt4iFmKBwHAKUUBw8eYOfOnRw+/BOuXr3KG2/8jnff/QuZTHrNPalpGr7vs2XLKI8//jhSSjRNQ9M0pJSYpsn58xeYnp4mk8msCuhAGQBQLpdZXFzEdV3Gx8d5+eVfcc89ezh58g1SqdSaIASBIp22sG2bSqUS2QIpJfn8CBcv/g3f99vut5a+cT12XxkQ0jYIAiqVCgDHjh1DCMnJk6+TzWZXnCscWygUUEpFdqOxEI35+QUuXrwQ2ZROAHQjHQ9EWmnVqUkp8TwPz/MQQiCEoFQq8fTTR3nqqUOUy+WIBa0tCAJ0XWNqageu6+L7Pr7vU6/XsSyLc+fOceXKv0ilUpF36dTiSt8YAOB5Hq7r4nnNhCkIAoQQHD9+nM8/v8TMzAyWZbXNGUZwu3btxrZthBB4nkcul+PTT//BqVO/J5lMxnKt3QLQVwak02nSaQvLarZMJoNhGGzbNsYLL/ycVCrZ9hRDD7B3717GxrZSrVZxXZd0Os0XX1zmpZd+SbVaxTTNvj99iMmABkVXxyqk//vv/5WhoSFc10UIEbkxIURkwDZt2kyxWCSRSLRsnYDHHvtx9OSHh4f58MPzvPbab1laWsKyrNjxxLp5gU6TCiE4efL1VfqFJllFjJBSYhgGtm1z773f48CBA3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KKU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KCU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KCU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KCU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9MR5X3fZ2xsjG3bxnAcNwqqwqQqvPq+z9LSUizP0GcGxHcr4eKFEBw9epSHHnooen+Xy+X47LN/srS0RDabRUoZeYRMJs2JEz9jYWGR8AgubGHAVCwWefPNNzsC0GRhPAD6Wh+gVON93TPPPMPBgz+gWCzied7toy6bL7/8EsMwIkCllFiWxaVLX3D27J9RCubm5qhUKti2Tb1ejzLLfrriVonBAGIxwDAMKpUKR44cZv/++7h58xuSyQS+3zjRmZsr8e2330YAtEaD2WyW9957jz179lAojGLbNoZhRC64sQW86HMcBsSVWNlgEHTOvhzHYXJykocf/hE3b94E1O2zARcpJaVSiVqtjq7rbVldCK5Sirff/iO1mo2madTrdYTw8P1Ga2VBPzPCGFtAtYXDK7UwpX3wwR/i+z6uK/D9RvM8gZQBCwuL0VvllQ5STNPk1q153nrrD3ieh1KCU6emOXv2T0AjHBdCxE7EmrrG6x/bBsRBNZvNduzTuo+llEgpefbZnzI8PMzHH/+d06fPcPnyZYaGhqI4INQhrq7dSAwGBLEB6Cbs1XWNcrnC888/x/bt23nllV/zwQcfIIQkm80SBEFPKXg4Lq50AKCZC/QrFdZ1HSEEtZrLI488gu8LTpx4joWFRbLZoWX5w3qn4B2SocaxdD8A0HUdKSXVapXR0QJbt27lq6++4vz581iWRS6XjQKp/6b0zQiuNjb0HtVqFcuyePKJJ9gyOsq5c+dwHCeiez8Xvi6BUK+5veu6txOlgzz55BMUCqO8+upvIkBCC99pr3dz/767wbhGJQxzwwVVKhV27NjBkSOHue++e0kmLd555x2uX79OLpeLsj7P8/B9P2JLCEbrVdM0DMPoeNLTrdHs6s1QJwmtdhAEOI7Do48+yqFDh0gkEtRqDjMzN/nkk09Ip9OxnPS0a3R7Oqs1Q50ktNpBEOA4Do8++iiHDh0ikUhQqznMzNzkk08+IZ1OR5T3fZ+xsTG2bRvDcdwouAqTqvDq+z5LS0uxPEOfGRDfrYSLF0Jw9OhRHnrooen9XS6X47PP/snS0hLZbBYpZeQRMpk0J078jIWFRcIjuLCFAVOxWOTNN9/sCECThfEA6Gt9gFKN93XPPPMMB37A+AKJiLeIiKo4sAAAAASUVORK5CYII=">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:         #ffffff;
-  --s1:         #ffffff;
-  --s2:         #F5F5F3;
-  --s3:         #ECECEA;
-  --border:     rgba(0,0,0,0.10);
-  --border2:    rgba(0,0,0,0.18);
-  --charcoal:   #2A2A2A;
-  --charcoal-2: #2A2A2A;
-  --dim:        rgba(0,0,0,0.04);
-  --dim-line:   rgba(0,0,0,0.10);
-  --mid:        #555555;
-  --subtle:     #777777;
-  --faint:      #AAAAAA;
-  --label:      #444444;
-  --input:      #F9F9F7;
-  --sidebar:    #2A2A2A;
-  --sidebar-b:  #222222;
+  --white:       #ffffff;
+  --off:         #F7F6F4;
+  --border:      rgba(0,0,0,0.08);
+  --border-med:  rgba(0,0,0,0.13);
+  --charcoal:    #1A1A1A;
+  --mid:         #555555;
+  --faint:       #999999;
+  --amber:       #C9963A;
+  --amber-dim:   #b07d28;
+  --amber-bg:    rgba(201,150,58,0.07);
+  --amber-bdr:   rgba(201,150,58,0.22);
+  --sidebar-w:   260px;
+  --font-head:   'Oswald', sans-serif;
+  --font-body:   'DM Sans', sans-serif;
 }
+
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-  background: var(--bg);
+  background: var(--white);
   color: var(--charcoal);
-  font-family: 'Barlow', sans-serif;
+  font-family: var(--font-body);
   min-height: 100vh;
   display: flex;
   -webkit-font-smoothing: antialiased;
 }
 
-/* ── SIDEBAR ──────────────────────────────────── */
+/* SIDEBAR */
 .sidebar {
-  width: 236px;
+  width: var(--sidebar-w);
   min-height: 100vh;
-  background: var(--sidebar);
+  background: var(--white);
+  border-right: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
@@ -55,656 +53,491 @@ body {
 }
 
 .sb-logo {
-  padding: 22px 20px;
-  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 24px 22px 20px;
+  border-bottom: 1px solid var(--border);
 }
-.sb-logo img { width: 130px; height: auto; display: block; }
+.sb-logo img { height: 26px; width: auto; display: block; }
 
 .sb-featured {
   margin: 16px 14px 4px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 14px;
-  padding: 14px 16px;
+  background: var(--charcoal);
+  border-radius: 10px;
+  padding: 16px 18px;
   cursor: pointer;
-  transition: all .2s;
+  transition: opacity .2s;
 }
-.sb-featured:hover { background: rgba(255,255,255,0.10); border-color: rgba(255,255,255,0.18); }
-.sb-featured.on   { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.22); }
+.sb-featured:hover { opacity: .88; }
+.sb-featured.on { outline: 2px solid var(--amber); outline-offset: 2px; }
 
-.sb-featured-top { display: flex; align-items: center; gap: 9px; margin-bottom: 4px; }
-.sb-featured-ico { font-size: 16px; }
+.sb-featured-top { display: flex; align-items: center; gap: 8px; margin-bottom: 3px; }
+.sb-featured-ico { font-size: 15px; }
 .sb-featured-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 17px; font-weight: 900;
-  color: #FFF; letter-spacing: 0.5px; text-transform: uppercase;
+  font-family: var(--font-head);
+  font-size: 15px; font-weight: 700;
+  color: #fff; letter-spacing: 0.04em; text-transform: uppercase;
 }
 .sb-featured-badge {
   margin-left: auto;
-  background: rgba(255,255,255,0.13);
+  background: var(--amber);
   border-radius: 30px;
-  padding: 2px 9px;
+  padding: 2px 8px;
+  font-family: var(--font-head);
   font-size: 9px; font-weight: 600;
-  color: rgba(255,255,255,0.75);
-  letter-spacing: 0.8px; text-transform: uppercase;
-  font-family: 'Barlow Condensed', sans-serif;
+  color: #fff;
+  letter-spacing: 0.08em; text-transform: uppercase;
 }
-.sb-featured-desc { font-size: 11px; color: rgba(255,255,255,0.45); line-height: 1.45; font-weight: 400; }
+.sb-featured-desc { font-size: 11px; color: rgba(255,255,255,0.45); font-weight: 300; }
 
-.sb-section { padding: 16px 14px 4px; }
+.sb-section { padding: 18px 14px 4px; }
 .sb-section-label {
-  font-family: 'Barlow Condensed', sans-serif;
+  font-family: var(--font-head);
   font-size: 9px; font-weight: 600;
-  color: rgba(255,255,255,0.25);
+  color: var(--faint);
   text-transform: uppercase; letter-spacing: 2px;
-  margin-bottom: 7px; padding-left: 2px;
+  margin-bottom: 6px; padding-left: 8px;
 }
 .sb-item {
   display: flex; align-items: center; gap: 9px;
-  padding: 9px 11px;
-  border-radius: 10px;
+  padding: 8px 10px;
+  border-radius: 7px;
   cursor: pointer;
-  font-family: 'Barlow', sans-serif;
-  font-size: 13px; font-weight: 600;
-  color: rgba(255,255,255,0.45);
+  font-family: var(--font-body);
+  font-size: 13px; font-weight: 400;
+  color: var(--mid);
   transition: all .15s;
-  margin-bottom: 2px;
+  margin-bottom: 1px;
 }
-.sb-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.82); }
-.sb-item.on {
-  background: rgba(255,255,255,0.10);
-  color: #FFF;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.sb-item-ico { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; }
+.sb-item:hover { background: var(--off); color: var(--charcoal); }
+.sb-item.on { background: var(--off); color: var(--charcoal); font-weight: 500; }
+.sb-item-ico { font-size: 13px; width: 18px; text-align: center; flex-shrink: 0; opacity: .7; }
 
 .sb-foot {
   margin-top: auto;
-  padding: 16px;
-  border-top: 1px solid rgba(255,255,255,0.07);
+  padding: 16px 22px;
+  border-top: 1px solid var(--border);
 }
 .sb-foot-note {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; color: rgba(255,255,255,0.2);
-  line-height: 1.6; text-align: center;
-  font-weight: 600; letter-spacing: 0.3px;
+  font-size: 10px; color: var(--faint);
+  line-height: 1.6; text-align: center; font-weight: 300;
 }
 
-/* ── MAIN ─────────────────────────────────────── */
-.main { margin-left: 236px; flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; min-height: 100vh; display: flex; flex-direction: column; }
 
 .topbar {
-  height: 58px;
-  background: var(--s1);
+  height: 56px;
+  background: rgba(255,255,255,0.95);
   border-bottom: 1px solid var(--border);
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 32px;
   position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
 }
 .topbar-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 22px; font-weight: 900;
-  color: var(--charcoal); letter-spacing: 0.5px; text-transform: uppercase;
+  font-family: var(--font-head);
+  font-size: 16px; font-weight: 600;
+  color: var(--charcoal); letter-spacing: 0.06em; text-transform: uppercase;
 }
+.topbar-right { display: flex; align-items: center; gap: 12px; }
 .topbar-pill {
   display: flex; align-items: center; gap: 6px;
-  background: var(--dim);
-  border: 1px solid var(--dim-line);
+  background: var(--off);
+  border: 1px solid var(--border-med);
   border-radius: 30px;
-  padding: 5px 13px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 600;
-  color: var(--charcoal-2); letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 5px 12px;
+  font-family: var(--font-head);
+  font-size: 9px; font-weight: 600;
+  color: var(--mid); letter-spacing: 0.1em; text-transform: uppercase;
 }
 .live-dot {
   width: 5px; height: 5px;
-  background: var(--charcoal-2); border-radius: 50%;
+  background: #22c55e; border-radius: 50%;
   animation: pulse 2s infinite;
 }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-.content { padding: 32px; flex: 1; }
+.dark-toggle {
+  background: none; border: 1px solid var(--border-med);
+  border-radius: 7px; padding: 6px 9px; font-size: 13px;
+  cursor: pointer; transition: background .15s; line-height: 1;
+  color: var(--mid);
+}
+.dark-toggle:hover { background: var(--off); }
+
+.mob-toggle {
+  display: none; background: none;
+  border: 1px solid var(--border-med);
+  color: var(--charcoal); cursor: pointer;
+  padding: 7px 9px; border-radius: 7px; align-items: center;
+}
+
+.content { padding: 32px; flex: 1; max-width: 860px; }
 .page { display: none; animation: fadeUp .2s ease; }
 .page.on { display: block; }
-@keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
-/* ── PAGE HEADERS ─────────────────────────────── */
+/* PAGE HEADER */
 .page-hdr { margin-bottom: 28px; }
-.page-hdr-top { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
-.page-ico {
-  width: 46px; height: 46px;
-  background: var(--charcoal);
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 20px; flex-shrink: 0;
+.page-hdr-eyebrow {
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 600;
+  color: var(--amber); letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 6px; display: block;
 }
 .page-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 32px; font-weight: 900;
-  color: var(--charcoal); letter-spacing: 0.3px; text-transform: uppercase;
+  font-family: var(--font-head);
+  font-size: clamp(26px,4vw,36px); font-weight: 700;
+  color: var(--charcoal); letter-spacing: -0.01em; text-transform: uppercase;
+  line-height: 1.05; margin-bottom: 10px;
 }
 .page-desc {
-  font-size: 15px; font-weight: 400;
-  color: #555555;
-  line-height: 1.7; max-width: 560px;
+  font-size: 14px; font-weight: 300;
+  color: var(--mid); line-height: 1.75; max-width: 520px;
 }
 
-/* ── CARDS ────────────────────────────────────── */
+/* CARDS */
 .card {
-  background: var(--s1);
+  background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px 26px;
+  border-radius: 12px;
+  padding: 24px;
   margin-bottom: 16px;
 }
-.card-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 600;
+.card-label {
+  font-family: var(--font-head);
+  font-size: 9px; font-weight: 600;
   color: var(--faint);
-  text-transform: uppercase; letter-spacing: 1.8px;
-  margin-bottom: 18px;
+  text-transform: uppercase; letter-spacing: 2px;
+  margin-bottom: 18px; display: block;
 }
 
-/* ── FORM FIELDS ──────────────────────────────── */
+/* FORM */
 .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
 .f1 { margin-bottom: 14px; }
-.fg { display: flex; flex-direction: column; gap: 6px; }
+.fg { display: flex; flex-direction: column; gap: 5px; }
 .fl {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  color: var(--label);
-  text-transform: uppercase; letter-spacing: 1.2px;
-}
-
-.fi, .fs {
-  background: var(--input);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 11px 14px;
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 600;
   color: var(--charcoal);
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px; font-weight: 400;
+  text-transform: uppercase; letter-spacing: 0.12em;
+}
+.fi, .fs {
+  background: var(--off);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 13px;
+  color: var(--charcoal);
+  font-family: var(--font-body);
+  font-size: 14px; font-weight: 300;
   outline: none;
   transition: border-color .15s, box-shadow .15s;
   width: 100%; appearance: none;
 }
 .fi:focus, .fs:focus {
-  border-color: var(--charcoal-2);
-  box-shadow: 0 0 0 3px rgba(42,42,42,0.07);
+  border-color: var(--charcoal);
+  box-shadow: 0 0 0 3px rgba(26,26,26,0.06);
+  background: var(--white);
 }
-.fi::placeholder { color: #BBBBBB; }
+.fi::placeholder { color: #C0BDBA; }
 
-/* ── BUTTONS ──────────────────────────────────── */
+/* BUTTON */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--charcoal);
-  border: none;
-  color: #ffffff;
-  padding: 13px 28px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px; font-weight: 600;
+  border: none; color: #fff;
+  padding: 12px 28px;
+  font-family: var(--font-head);
+  font-size: 13px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  border-radius: 100px;
-  cursor: pointer;
-  margin-top: 6px;
-  transition: background 0.2s, transform 0.15s;
+  border-radius: 50px; cursor: pointer; margin-top: 6px;
+  transition: background .2s, transform .15s;
 }
-.btn:hover { background: #444444; transform: translateY(-1px); }
+.btn:hover { background: #333; transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
+.btn-amber { background: var(--amber); }
+.btn-amber:hover { background: var(--amber-dim); }
 
-/* ── LOADING ──────────────────────────────────── */
+/* LOADING */
 .loading {
   display: none; flex-direction: column; align-items: center; gap: 14px;
-  padding: 48px;
-  color: var(--mid); font-size: 14px;
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  margin-bottom: 16px;
+  padding: 48px; color: var(--mid); font-size: 13px; font-weight: 300;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 12px; margin-bottom: 16px;
 }
 .loading.on { display: flex; }
 .spin {
-  width: 24px; height: 24px;
+  width: 20px; height: 20px;
   border: 2px solid var(--border);
   border-top-color: var(--charcoal);
-  border-radius: 50%;
-  animation: spin .7s linear infinite;
+  border-radius: 50%; animation: spin .7s linear infinite;
 }
 @keyframes spin { to{transform:rotate(360deg)} }
 
-/* ── RESULTS ──────────────────────────────────── */
+/* RESULTS */
 .result {
-  display: none;
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-bottom: 16px;
-  animation: fadeUp .3s ease;
+  display: none; background: var(--white);
+  border: 1px solid var(--border); border-radius: 12px;
+  overflow: hidden; margin-bottom: 16px; animation: fadeUp .3s ease;
 }
 .result.on { display: block; }
-
 .result-head {
-  background: var(--charcoal);
-  padding: 12px 22px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px; font-weight: 800;
-  color: #FFF;
-  letter-spacing: 1.5px; text-transform: uppercase;
+  background: var(--off); border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
 }
-
-.recipe-img-wrap { display: none; }
-.recipe-img-wrap img {
-  width: 100%; height: 100%; object-fit: cover; display: block;
-  transition: opacity .4s ease; opacity: 0;
+.result-head-label {
+  font-family: var(--font-head);
+  font-size: 10px; font-weight: 600;
+  color: var(--charcoal); letter-spacing: 0.14em; text-transform: uppercase;
 }
-.recipe-img-wrap img.loaded { opacity: 1; }
-
 .result-body {
-  padding: 24px;
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px; line-height: 1.9;
-  color: #444444; white-space: pre-wrap;
+  padding: 22px; font-family: var(--font-body);
+  font-size: 14px; line-height: 1.85; color: var(--mid);
+  white-space: pre-wrap; font-weight: 300;
 }
-
 .result-actions {
-  padding: 16px 24px;
-  border-top: 1px solid var(--border);
-  display: flex; align-items: center; gap: 12px;
+  padding: 14px 22px; border-top: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
 }
+.btn-sm {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--off); border: 1px solid var(--border-med);
+  color: var(--charcoal); padding: 7px 16px;
+  font-family: var(--font-head); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border-radius: 50px; cursor: pointer; transition: all .15s;
+}
+.btn-sm:hover { background: var(--charcoal); color: #fff; border-color: transparent; }
 
-.btn-download {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: var(--dim);
-  border: 1px solid var(--dim-line);
-  color: var(--charcoal-2);
-  padding: 9px 20px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 13px; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all .2s;
-}
-.btn-download:hover {
-  background: var(--charcoal);
-  color: #FFF;
-  border-color: transparent;
-}
-
-/* ── CHIPS ────────────────────────────────────── */
-.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+/* CHIPS */
+.chips { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 18px; }
 .chip {
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  padding: 7px 15px;
-  font-family: 'Barlow', sans-serif;
-  font-size: 12px; font-weight: 600;
-  color: var(--mid);
-  cursor: pointer;
-  transition: all .15s;
+  background: var(--white); border: 1px solid var(--border-med);
+  border-radius: 50px; padding: 6px 14px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 400;
+  color: var(--mid); cursor: pointer; transition: all .15s;
 }
-.chip:hover {
-  border-color: var(--charcoal-2);
-  color: var(--charcoal);
-  background: var(--dim);
-}
+.chip:hover { border-color: var(--charcoal); color: var(--charcoal); background: var(--off); }
 
-/* ── MARK BOT ─────────────────────────────────── */
-.markbot-hero {
+/* MARK BOT */
+.bot-hero {
   background: var(--charcoal);
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin-bottom: 22px;
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 20px;
-  position: relative; overflow: hidden;
+  border-radius: 12px; padding: 28px 28px 24px;
+  margin-bottom: 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
 }
-.markbot-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
-  pointer-events: none;
+.bot-hero-title {
+  font-family: var(--font-head);
+  font-size: clamp(28px,4vw,38px); font-weight: 700;
+  color: #fff; text-transform: uppercase; line-height: 1.02; letter-spacing: -0.01em;
 }
-.markbot-hero-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 38px; font-weight: 900;
-  color: #FFF; letter-spacing: 0.3px;
-  text-transform: uppercase; line-height: 1;
+.bot-hero-title em { font-style: normal; color: var(--amber); }
+.bot-hero-sub {
+  font-size: 13px; font-weight: 300;
+  color: rgba(255,255,255,0.5); margin-top: 8px; line-height: 1.6; max-width: 380px;
 }
-.markbot-hero-sub {
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px; font-weight: 400;
-  color: rgba(255,255,255,0.5);
-  margin-top: 8px; line-height: 1.55; max-width: 400px;
+.bot-hero-status {
+  display: flex; align-items: center; gap: 6px; margin-top: 14px;
+  font-family: var(--font-head); font-size: 10px; font-weight: 600;
+  color: rgba(255,255,255,0.45); letter-spacing: 0.1em; text-transform: uppercase;
 }
-.markbot-hero-badge { display: flex; align-items: center; gap: 6px; margin-top: 14px; }
-.markbot-status {
-  display: flex; align-items: center; gap: 6px;
-  background: rgba(255,255,255,0.09);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: 30px;
-  padding: 5px 13px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  color: rgba(255,255,255,0.75); letter-spacing: 0.5px;
-}
-.markbot-dot {
-  width: 5px; height: 5px;
-  background: #C0C0C0; border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-.markbot-hero-ico { font-size: 52px; opacity: 0.5; }
+.bot-status-dot { width: 5px; height: 5px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite; }
+.bot-hero-ico { font-size: 48px; opacity: .35; flex-shrink: 0; }
 
-/* ── CHAT ─────────────────────────────────────── */
-.chat-box {
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
+/* TIP */
+.tip-bar {
+  background: var(--amber-bg); border: 1px solid var(--amber-bdr);
+  border-radius: 8px; padding: 12px 16px;
+  margin-bottom: 18px; display: flex; align-items: flex-start; gap: 10px;
 }
+.tip-bar-label {
+  font-family: var(--font-head); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); margin-bottom: 3px;
+}
+.tip-bar-text { font-size: 13px; font-weight: 300; color: var(--charcoal); line-height: 1.55; }
+
+/* TARGETS */
+.targets-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--off); border: 1px solid var(--border);
+  border-radius: 8px; padding: 12px 18px; margin-bottom: 18px; flex-wrap: wrap; gap: 10px;
+}
+.targets-group { display: flex; align-items: center; gap: 20px; }
+.targets-item { display: flex; flex-direction: column; gap: 1px; }
+.targets-label { font-family: var(--font-head); font-size: 9px; font-weight: 600; color: var(--faint); letter-spacing: 0.16em; text-transform: uppercase; }
+.targets-val { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--charcoal); }
+.targets-sep { color: var(--border-med); font-size: 18px; }
+.btn-targets-edit {
+  font-family: var(--font-head); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--mid); background: none; border: 1px solid var(--border-med);
+  padding: 5px 14px; border-radius: 50px; cursor: pointer; transition: all .15s;
+}
+.btn-targets-edit:hover { border-color: var(--charcoal); color: var(--charcoal); }
+
+/* CHAT */
+.chat-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
 .chat-head {
-  background: var(--charcoal);
-  padding: 16px 20px;
-  display: flex; align-items: center; gap: 12px;
+  background: var(--white); border-bottom: 1px solid var(--border);
+  padding: 14px 18px; display: flex; align-items: center; gap: 12px;
 }
 .chat-av {
-  width: 38px; height: 38px;
-  background: rgba(255,255,255,0.1);
-  border: 1.5px solid rgba(255,255,255,0.18);
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 17px; flex-shrink: 0;
+  width: 36px; height: 36px; background: var(--charcoal);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
 }
-.chat-name {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 19px; font-weight: 900;
-  color: #FFF; letter-spacing: 0.3px; text-transform: uppercase;
+.chat-name { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--charcoal); text-transform: uppercase; letter-spacing: 0.04em; }
+.chat-status-row { display: flex; align-items: center; gap: 5px; margin-top: 1px; }
+.chat-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
+.chat-status-text { font-size: 11px; color: var(--faint); font-weight: 300; }
+.chat-copy-btn {
+  margin-left: auto; background: none; border: 1px solid var(--border-med);
+  color: var(--mid); font-family: var(--font-head); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 13px;
+  border-radius: 50px; cursor: pointer; transition: all .15s;
 }
-.chat-status {
-  font-family: 'Barlow', sans-serif;
-  font-size: 11px; color: rgba(255,255,255,0.45);
-  display: flex; align-items: center; gap: 5px; margin-top: 2px; font-weight: 600;
-}
-.status-dot {
-  width: 5px; height: 5px;
-  border-radius: 50%; background: #C0C0C0;
-  box-shadow: 0 0 5px rgba(192,192,192,.5);
-}
+.chat-copy-btn:hover { background: var(--off); }
 
 .msgs {
-  min-height: 340px; max-height: 340px;
-  overflow-y: auto; padding: 20px;
-  display: flex; flex-direction: column; gap: 14px;
-  scroll-behavior: smooth;
-  background: var(--s2);
+  min-height: 320px; max-height: 360px; overflow-y: auto;
+  padding: 18px; display: flex; flex-direction: column; gap: 12px;
+  scroll-behavior: smooth; background: var(--off);
 }
-
-.msg { display: flex; gap: 9px; max-width: 85%; animation: fadeUp .2s ease; }
+.msg { display: flex; gap: 9px; max-width: 82%; animation: fadeUp .2s ease; }
 .msg.u { margin-left: auto; flex-direction: row-reverse; }
 .mav {
-  width: 30px; height: 30px;
-  border-radius: 50%;
+  width: 28px; height: 28px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-weight: 800; flex-shrink: 0; font-size: 11px;
+  font-weight: 700; flex-shrink: 0; font-size: 10px;
+  font-family: var(--font-head);
 }
-.mav.m {
-  background: var(--charcoal); color: #FFF;
-  font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.3px;
-}
-.mav.u { background: var(--s3); color: var(--mid); }
+.mav.m { background: var(--charcoal); color: #fff; }
+.mav.u { background: var(--border-med); color: var(--mid); }
 .bub {
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 11px 14px;
-  font-family: 'Barlow', sans-serif;
-  font-size: 13.5px; line-height: 1.65; color: var(--charcoal);
-  font-weight: 400;
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px 13px;
+  font-size: 13.5px; line-height: 1.65; color: var(--charcoal); font-weight: 300;
 }
-.msg.u .bub { background: var(--dim); border-color: var(--dim-line); }
-.mt { font-size: 10px; color: var(--faint); margin-top: 3px; font-family: 'Barlow', sans-serif; }
+.msg.u .bub { background: var(--charcoal); color: #fff; border-color: transparent; }
+.mt { font-size: 10px; color: var(--faint); margin-top: 3px; }
 
 .chat-foot {
-  background: var(--s1);
-  border-top: 1px solid var(--border);
-  padding: 14px 16px;
-  display: flex; gap: 10px;
+  background: var(--white); border-top: 1px solid var(--border);
+  padding: 12px 14px; display: flex; gap: 10px;
 }
 .cin {
-  flex: 1;
-  background: var(--input);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 11px 14px;
-  color: var(--charcoal);
-  font-family: 'Barlow', sans-serif;
-  font-size: 14px; font-weight: 400;
-  outline: none;
-  transition: border-color .15s;
-  resize: none; min-height: 44px; max-height: 100px;
+  flex: 1; background: var(--off); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 13px;
+  color: var(--charcoal); font-family: var(--font-body); font-size: 14px; font-weight: 300;
+  outline: none; transition: border-color .15s; resize: none;
+  min-height: 42px; max-height: 96px;
 }
-.cin:focus { border-color: var(--charcoal-2); }
-.cin::placeholder { color: #BBBBBB; }
-
+.cin:focus { border-color: var(--charcoal); background: var(--white); }
+.cin::placeholder { color: #C0BDBA; }
 .btn-send {
-  background: var(--charcoal);
-  border: none;
-  color: #FFF;
-  padding: 11px 22px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 15px; font-weight: 700;
+  background: var(--charcoal); border: none; color: #fff;
+  padding: 10px 22px;
+  font-family: var(--font-head); font-size: 12px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.15s;
-  align-self: flex-end;
+  border-radius: 50px; cursor: pointer; align-self: flex-end;
+  transition: background .2s, transform .15s;
 }
-.btn-send:hover { background: #444444; transform: translateY(-1px); }
-.btn-send:active { transform: translateY(0); }
+.btn-send:hover { background: #333; transform: translateY(-1px); }
 
-/* ── TYPING DOTS ──────────────────────────────── */
-.tdot {
-  width: 5px; height: 5px;
-  background: var(--subtle); border-radius: 50%;
-  animation: tb 1.2s infinite;
-}
+.tdot { width: 5px; height: 5px; background: var(--mid); border-radius: 50%; animation: tb 1.2s infinite; }
 .tdot:nth-child(2) { animation-delay: .2s; }
 .tdot:nth-child(3) { animation-delay: .4s; }
-@keyframes tb {
-  0%,60%,100% { transform: translateY(0); opacity: .3; }
-  30% { transform: translateY(-5px); opacity: 1; }
+@keyframes tb { 0%,60%,100%{transform:translateY(0);opacity:.3} 30%{transform:translateY(-4px);opacity:1} }
+
+/* PRIVACY NOTE */
+.privacy-note {
+  background: var(--off); border: 1px solid var(--border);
+  border-radius: 8px; padding: 10px 15px; margin-bottom: 16px;
+  font-size: 11px; color: var(--faint); font-weight: 300; line-height: 1.5;
 }
 
-/* ── MOBILE ───────────────────────────────────── */
-.mob-toggle {
-  display: none;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--charcoal);
-  cursor: pointer;
-  padding: 7px 9px;
-  border-radius: 10px;
+/* MODAL */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.3); z-index: 200;
+  align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
 }
+.modal-overlay.on { display: flex; }
+.modal {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: 14px; padding: 28px;
+  width: 100%; max-width: 380px; margin: 20px;
+  animation: fadeUp .2s ease;
+}
+.modal-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; text-transform: uppercase; color: var(--charcoal); margin-bottom: 4px; }
+.modal-desc { font-size: 13px; color: var(--mid); margin-bottom: 20px; font-weight: 300; line-height: 1.55; }
+.modal-foot { display: flex; gap: 10px; margin-top: 18px; }
+.btn-ghost {
+  flex: 1; background: none; border: 1px solid var(--border-med);
+  color: var(--mid); padding: 10px 18px;
+  font-family: var(--font-head); font-size: 12px; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  border-radius: 50px; cursor: pointer; transition: all .15s;
+}
+.btn-ghost:hover { border-color: var(--charcoal); color: var(--charcoal); }
 
+/* DARK MODE */
+body.dark {
+  --white:       #141414;
+  --off:         #1C1C1C;
+  --border:      rgba(255,255,255,0.07);
+  --border-med:  rgba(255,255,255,0.13);
+  --charcoal:    #F0F0EE;
+  --mid:         #999999;
+  --faint:       #666666;
+}
+body.dark .sidebar { background: #0E0E0E; border-right-color: rgba(255,255,255,0.07); }
+body.dark .topbar { background: rgba(20,20,20,0.95); }
+body.dark .bot-hero { background: #0E0E0E; }
+body.dark .chat-head { background: #141414; }
+body.dark .chat-wrap { background: #141414; }
+body.dark .chat-foot { background: #141414; }
+body.dark .modal { background: #1C1C1C; }
+body.dark .bub { background: #1C1C1C; }
+body.dark .msg.u .bub { background: #F0F0EE; color: #141414; }
+body.dark .sb-featured { background: #0E0E0E; outline-color: var(--amber); }
+body.dark .result { background: #141414; }
+body.dark .result-head { background: #1C1C1C; }
+body.dark .card { background: #141414; }
+body.dark .btn { background: #F0F0EE; color: #141414; }
+body.dark .btn:hover { background: #CCCCCC; }
+body.dark .btn-send { background: #F0F0EE; color: #141414; }
+body.dark .btn-send:hover { background: #CCCCCC; }
+body.dark .tip-bar { background: rgba(201,150,58,0.1); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 2px; }
+
+/* MOBILE */
 @media (max-width: 700px) {
-  .sidebar { transform: translateX(-100%); transition: transform .2s ease; }
-  .sidebar.open { transform: translateX(0); }
+  .sidebar { transform: translateX(-100%); transition: transform .22s ease; }
+  .sidebar.open { transform: translateX(0); box-shadow: 12px 0 32px rgba(0,0,0,0.12); }
   .main { margin-left: 0; }
   .mob-toggle { display: flex; }
   .f2 { grid-template-columns: 1fr; }
   .content { padding: 16px 14px; }
-  .page-title { font-size: 26px; }
-  .card { padding: 18px 16px; border-radius: 14px; }
-  .btn { width: 100%; justify-content: center; padding: 15px 24px; }
-  .btn-download { width: 100%; justify-content: center; }
-  .fi, .fs { font-size: 15px; padding: 13px 14px; }
-  .result-body { padding: 18px; font-size: 14px; }
-  .topbar { padding: 0 18px; }
-  .msgs { min-height: 280px; max-height: 280px; }
-  .chat-foot { padding: 11px 13px; }
-  .markbot-hero { flex-direction: column; align-items: flex-start; padding: 22px; }
-  .markbot-hero-ico { display: none; }
-  .chat-box { border-radius: 14px; }
+  .bot-hero { flex-direction: column; align-items: flex-start; padding: 20px; }
+  .bot-hero-ico { display: none; }
+  .msgs { min-height: 260px; max-height: 300px; }
 }
-
-::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 2px; }
-
-/* ── DAILY TIP ────────────────────────────────── */
-.tip-banner {
-  background: var(--s2);
-  border: 1px solid var(--border);
-  border-left: 3px solid var(--charcoal);
-  border-radius: 10px;
-  padding: 13px 18px;
-  margin-bottom: 20px;
-  display: flex; align-items: flex-start; gap: 12px;
-}
-.tip-ico { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
-.tip-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: var(--subtle); margin-bottom: 4px;
-}
-.tip-text {
-  font-family: 'Barlow', sans-serif;
-  font-size: 13.5px; font-weight: 400;
-  color: var(--charcoal); line-height: 1.55;
-}
-
-/* ── SAVED TARGETS BAR ────────────────────────── */
-.targets-bar {
-  background: var(--charcoal);
-  border-radius: 10px;
-  padding: 12px 18px;
-  margin-bottom: 20px;
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  flex-wrap: wrap;
-}
-.targets-bar-left { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.targets-bar-label {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 1.5px; text-transform: uppercase;
-  color: rgba(255,255,255,0.4);
-}
-.targets-bar-val {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 16px; font-weight: 700;
-  color: #fff; letter-spacing: 0.3px;
-}
-.targets-bar-sep { color: rgba(255,255,255,0.2); font-size: 12px; }
-.targets-bar-edit {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
-  background: none; border: 1px solid rgba(255,255,255,0.15);
-  padding: 5px 12px; border-radius: 30px; cursor: pointer;
-  transition: all .15s;
-}
-.targets-bar-edit:hover { color: #fff; border-color: rgba(255,255,255,0.4); }
-
-/* ── TARGETS MODAL ────────────────────────────── */
-.modal-overlay {
-  display: none; position: fixed; inset: 0;
-  background: rgba(0,0,0,0.4); z-index: 200;
-  align-items: center; justify-content: center;
-  backdrop-filter: blur(4px);
-}
-.modal-overlay.on { display: flex; }
-.modal {
-  background: var(--s1);
-  border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 28px 28px 24px;
-  width: 100%; max-width: 400px;
-  margin: 20px;
-  animation: fadeUp .2s ease;
-}
-.modal-title {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 24px; font-weight: 900;
-  text-transform: uppercase; letter-spacing: 0.3px;
-  color: var(--charcoal); margin-bottom: 6px;
-}
-.modal-desc { font-size: 13px; color: var(--mid); margin-bottom: 20px; line-height: 1.55; }
-.modal-foot { display: flex; gap: 10px; margin-top: 20px; }
-.btn-ghost {
-  flex: 1;
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--mid);
-  padding: 11px 20px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 14px; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  border-radius: 100px; cursor: pointer;
-  transition: all .15s;
-}
-.btn-ghost:hover { border-color: var(--charcoal); color: var(--charcoal); }
-
-/* ── DARK MODE TOGGLE ─────────────────────────── */
-.dark-toggle {
-  background: none;
-  border: 1px solid var(--border);
-  border-radius: 30px;
-  padding: 5px 10px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: all .15s;
-  line-height: 1;
-}
-.dark-toggle:hover { background: var(--dim); }
-
-/* ── DARK MODE ────────────────────────────────── */
-body.dark {
-  --bg:         #1A1A1A;
-  --s1:         #222222;
-  --s2:         #2A2A2A;
-  --s3:         #333333;
-  --border:     rgba(255,255,255,0.08);
-  --border2:    rgba(255,255,255,0.15);
-  --charcoal:   #F0F0F0;
-  --charcoal-2: #FFFFFF;
-  --dim:        rgba(255,255,255,0.05);
-  --dim-line:   rgba(255,255,255,0.1);
-  --mid:        #AAAAAA;
-  --subtle:     #888888;
-  --faint:      #666666;
-  --label:      #AAAAAA;
-  --input:      #2E2E2E;
-  --sidebar:    #111111;
-  --sidebar-b:  #0A0A0A;
-}
-body.dark .topbar { background: #222222; }
-body.dark .mob-toggle svg path { stroke: #F0F0F0; }
-body.dark .tip-text { color: #E0E0E0; }
-body.dark .targets-bar { background: #111111; border: 1px solid rgba(255,255,255,0.08); }
-body.dark .result-body { color: #D0D0D0; }
-body.dark .bub { color: #E0E0E0; }
-body.dark .markbot-hero { background: #111111; }
-body.dark .chat-head { background: #111111; }
-body.dark .btn { background: #F0F0F0; color: #1A1A1A; }
-body.dark .btn:hover { background: #CCCCCC; }
-body.dark .btn-send { background: #F0F0F0; color: #1A1A1A; }
-body.dark .btn-send:hover { background: #CCCCCC; }
-body.dark .page-ico { background: #F0F0F0; }
-body.dark .result-head { background: #111111; }
 </style>
 </head>
 <body>
 
 <aside class="sidebar" id="sidebar">
   <div class="sb-logo">
-    <img src="ZF_Logo-Type_Trans-BG_W.png" alt="Zenith Fit">
+    <img src="https://images.squarespace-cdn.com/content/v1/69027ef0752df355a800877a/8eb1eeb7-6b91-48b5-9831-12ab7e006b3b/newlogositedm.png?format=300w" alt="Zenith Fit">
   </div>
 
-  <div class="sb-featured" id="sb-markbot" onclick="goPage('bot',this,'feat')">
+  <div class="sb-featured on" id="sb-markbot" onclick="goPage('bot',this,'feat')">
     <div class="sb-featured-top">
       <span class="sb-featured-ico">💪</span>
       <span class="sb-featured-name">Mark Bot</span>
@@ -714,7 +547,7 @@ body.dark .result-head { background: #111111; }
   </div>
 
   <div class="sb-section">
-    <div class="sb-section-label">Nutrition Tools</div>
+    <div class="sb-section-label">Nutrition</div>
     <div class="sb-item" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> 5-Day Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
@@ -723,8 +556,9 @@ body.dark .result-head { background: #111111; }
     <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div>
     <div class="sb-item" onclick="goPage('supp',this)"><span class="sb-item-ico">💊</span> Supplement Checker</div>
   </div>
+
   <div class="sb-section">
-    <div class="sb-section-label">Lifestyle Tools</div>
+    <div class="sb-section-label">Lifestyle</div>
     <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Game Plan</div>
     <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div>
   </div>
@@ -736,72 +570,70 @@ body.dark .result-head { background: #111111; }
 
 <div class="main">
   <div class="topbar">
-    <div style="display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:10px;">
       <button class="mob-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
-        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 4h14M2 9h14M2 14h14" stroke="#2A2A2A" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 3h14M1 8h14M1 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
       </button>
       <div class="topbar-title" id="tb-title">Mark Bot</div>
     </div>
-    <div class="topbar-pill"><span class="live-dot"></span>AI Live</div>
-    <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">☀️</button>
+    <div class="topbar-right">
+      <div class="topbar-pill"><span class="live-dot"></span>AI Live</div>
+      <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()">☀️</button>
+    </div>
   </div>
 
   <div class="content">
 
     <!-- MARK BOT -->
     <div class="page on" id="page-bot">
-      <div class="targets-bar" id="targets-bar">
-        <div class="targets-bar-left">
-          <div>
-            <div class="targets-bar-label">Daily Calories</div>
-            <div class="targets-bar-val" id="tbar-kcal">Not set</div>
+      <div class="targets-bar">
+        <div class="targets-group">
+          <div class="targets-item">
+            <span class="targets-label">Daily Calories</span>
+            <span class="targets-val" id="tbar-kcal">Not set</span>
           </div>
-          <div class="targets-bar-sep">|</div>
-          <div>
-            <div class="targets-bar-label">Daily Protein</div>
-            <div class="targets-bar-val" id="tbar-prot">Not set</div>
+          <span class="targets-sep">|</span>
+          <div class="targets-item">
+            <span class="targets-label">Daily Protein</span>
+            <span class="targets-val" id="tbar-prot">Not set</span>
           </div>
         </div>
-        <button class="targets-bar-edit" onclick="openTargets()">Edit Targets</button>
+        <button class="btn-targets-edit" onclick="openTargets()">Edit Targets</button>
       </div>
-      <div class="tip-banner" id="tip-banner">
-        <div class="tip-ico">💬</div>
+      <div class="tip-bar">
+        <span style="font-size:13px;flex-shrink:0;margin-top:1px;">💬</span>
         <div>
-          <div class="tip-label">Mark's Tip</div>
-          <div class="tip-text" id="tip-text"></div>
+          <div class="tip-bar-label">Mark's Tip</div>
+          <div class="tip-bar-text" id="tip-text"></div>
         </div>
       </div>
-      <div class="markbot-hero">
-        <div class="markbot-hero-left">
-          <div class="markbot-hero-title">Ask Mark Anything</div>
-          <div class="markbot-hero-sub">12 years of coaching knowledge available right now. Training, nutrition, mindset, a week that has gone sideways. Mark Bot is here to help answer your questions instantly.</div>
-          <div class="markbot-hero-badge">
-            <div class="markbot-status"><span class="markbot-dot"></span>Active Now</div>
-          </div>
+      <div class="bot-hero">
+        <div>
+          <div class="bot-hero-title">Ask Mark<br><em>Anything</em></div>
+          <div class="bot-hero-sub">12 years of coaching knowledge, available right now. Training, nutrition, mindset, a week that has gone sideways. No stupid questions here.</div>
+          <div class="bot-hero-status"><span class="bot-status-dot"></span>Active Now</div>
         </div>
-        <div class="markbot-hero-ico">💪</div>
+        <div class="bot-hero-ico">💪</div>
       </div>
-      <div style="background:var(--s2);border:1px solid var(--border);border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:12px;color:var(--subtle);line-height:1.5;font-family:'Barlow',sans-serif;">
-        Your conversations may be used to help enhance and improve responses in future. No personal data is collected.
-      </div>
+      <div class="privacy-note">Your conversations may be used to help improve responses in future. No personal data is collected.</div>
       <div class="chips">
         <div class="chip" onclick="useChip(this)">I've missed my workouts this week</div>
         <div class="chip" onclick="useChip(this)">How much protein do I need?</div>
         <div class="chip" onclick="useChip(this)">I'm struggling with weekend eating</div>
         <div class="chip" onclick="useChip(this)">I've hit a fat loss plateau</div>
-        <div class="chip" onclick="useChip(this)">I feel guilty after eating badly</div>
         <div class="chip" onclick="useChip(this)">Is alcohol going to ruin my progress?</div>
         <div class="chip" onclick="useChip(this)">I keep craving junk food at night</div>
+        <div class="chip" onclick="useChip(this)">I feel guilty after eating badly</div>
         <div class="chip" onclick="useChip(this)">I'm not seeing results</div>
       </div>
-      <div class="chat-box">
+      <div class="chat-wrap">
         <div class="chat-head">
           <div class="chat-av">💪</div>
           <div>
             <div class="chat-name">Mark Bot</div>
-            <div class="chat-status"><span class="status-dot"></span>Active now</div>
-            <button onclick="copyChat()" style="margin-left:auto;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;padding:6px 14px;border-radius:30px;cursor:pointer;" id="copy-chat-btn">⎘ Copy Chat</button>
+            <div class="chat-status-row"><span class="chat-status-dot"></span><span class="chat-status-text">Active now</span></div>
           </div>
+          <button class="chat-copy-btn" id="copy-chat-btn" onclick="copyChat()">⎘ Copy Chat</button>
         </div>
         <div class="msgs" id="msgs">
           <div class="msg">
@@ -819,11 +651,12 @@ body.dark .result-head { background: #111111; }
     <!-- RECIPE -->
     <div class="page" id="page-recipe">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">🍳</div><div class="page-title">Recipe Generator</div></div>
-        <div class="page-desc">Enter the targets Mark has given you, your meal type, and any preferences. Real UK ingredients, clear macros, food that actually tastes good.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Recipe Generator</div>
+        <div class="page-desc">Your targets, your preferences, real UK ingredients. Food that actually tastes good and hits your numbers.</div>
       </div>
       <div class="card">
-        <div class="card-title">Your Details</div>
+        <span class="card-label">Your Details</span>
         <div class="f2">
           <div class="fg"><label class="fl">Calories per meal (kcal)</label><input class="fi" id="r-kcal" type="number" placeholder="e.g. 500"></div>
           <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="r-prot" type="number" placeholder="e.g. 40"></div>
@@ -832,29 +665,29 @@ body.dark .result-head { background: #111111; }
           <div class="fg"><label class="fl">Meal type</label><select class="fs" id="r-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
           <div class="fg"><label class="fl">Max prep time</label><select class="fs" id="r-time"><option>Under 15 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Preferences / intolerances</label><input class="fi" id="r-pref" placeholder="e.g. no dairy, vegetarian, gluten free..."></div></div>
-        <button class="btn" onclick="genRecipe()">Generate Recipe →</button>
+        <div class="f1"><div class="fg"><label class="fl">Preferences or intolerances</label><input class="fi" id="r-pref" placeholder="e.g. no dairy, vegetarian, gluten free..."></div></div>
+        <button class="btn btn-amber" onclick="genRecipe()">Generate Recipe →</button>
       </div>
       <div class="loading" id="r-load"><div class="spin"></div><span>Building your recipe...</span></div>
       <div class="result" id="r-result">
-        <div class="result-head">✓ Your Recipe</div>
-        <div class="recipe-img-wrap" id="r-img-wrap"><img id="r-img" src="" alt="" onerror="this.parentElement.style.display='none'"></div>
+        <div class="result-head"><span class="result-head-label">Your Recipe</span></div>
         <div class="result-body" id="r-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlRecipe()">⬇ Save Recipe</button><button class="btn-download" onclick="copyResult('r-out')">⎘ Copy</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlRecipe()">⬇ Save</button><button class="btn-sm" onclick="copyResult('r-out')">⎘ Copy</button></div>
       </div>
     </div>
 
     <!-- MEAL PLANNER -->
     <div class="page" id="page-plan">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">📋</div><div class="page-title">5-Day Meal Planner</div></div>
-        <div class="page-desc">Five days of structured eating Monday to Friday, using the calorie and protein targets Mark has given you. Weekends are yours to be flexible with.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">5-Day Meal Planner</div>
+        <div class="page-desc">Monday to Friday, structured around the targets Mark has given you. Weekends are yours.</div>
       </div>
       <div class="card">
-        <div class="card-title">Your Details</div>
+        <span class="card-label">Your Details</span>
         <div class="f2">
-          <div class="fg"><label class="fl">Daily calories (from Mark)</label><input class="fi" id="p-kcal" type="number" placeholder="Enter the target Mark gave you"></div>
-          <div class="fg"><label class="fl">Daily protein (from Mark)</label><input class="fi" id="p-prot" type="number" placeholder="Enter the target Mark gave you"></div>
+          <div class="fg"><label class="fl">Daily calories</label><input class="fi" id="p-kcal" type="number" placeholder="From Mark"></div>
+          <div class="fg"><label class="fl">Daily protein (g)</label><input class="fi" id="p-prot" type="number" placeholder="From Mark"></div>
         </div>
         <div class="f2">
           <div class="fg"><label class="fl">Goal</label><select class="fs" id="p-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
@@ -864,53 +697,55 @@ body.dark .result-head { background: #111111; }
           <div class="fg"><label class="fl">Cooking time</label><select class="fs" id="p-time"><option>Minimal</option><option>Moderate</option><option>Plenty</option></select></div>
           <div class="fg"><label class="fl">Budget</label><select class="fs" id="p-budget"><option>Budget (Aldi/Lidl)</option><option>Mid-range (Tesco/Sainsbury's)</option><option>Flexible</option></select></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Foods to avoid / intolerances</label><input class="fi" id="p-avoid" placeholder="e.g. no nuts, hate mushrooms, no eggs..."></div></div>
-        <button class="btn" onclick="genPlan()">Generate 5-Day Plan →</button>
+        <div class="f1"><div class="fg"><label class="fl">Foods to avoid</label><input class="fi" id="p-avoid" placeholder="e.g. no nuts, hate mushrooms..."></div></div>
+        <button class="btn btn-amber" onclick="genPlan()">Generate 5-Day Plan →</button>
       </div>
       <div class="loading" id="p-load"><div class="spin"></div><span>Building your meal plan...</span></div>
       <div class="result" id="p-result">
-        <div class="result-head">✓ Your 5-Day Plan</div>
+        <div class="result-head"><span class="result-head-label">Your 5-Day Plan</span></div>
         <div class="result-body" id="p-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlPlan()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('p-out')">⎘ Copy</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlPlan()">⬇ Save</button><button class="btn-sm" onclick="copyResult('p-out')">⎘ Copy</button></div>
       </div>
     </div>
 
     <!-- GROCERY -->
     <div class="page" id="page-grocery">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">🛒</div><div class="page-title">Grocery List Generator</div></div>
-        <div class="page-desc">Paste your meal plan or list your meals. Get a categorised shopping list ready to screenshot before you head to the supermarket.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Grocery List</div>
+        <div class="page-desc">Paste your meals, get a categorised shopping list ready to screenshot before you head out.</div>
       </div>
       <div class="card">
-        <div class="card-title">Your Meals</div>
-        <div class="f1"><div class="fg"><label class="fl">Paste your meal plan or list meals for the week</label><textarea class="fi" id="g-meals" rows="5" placeholder="e.g. Monday: porridge, chicken and rice, beef stir fry..." style="resize:vertical;min-height:110px;"></textarea></div></div>
+        <span class="card-label">Your Meals</span>
+        <div class="f1"><div class="fg"><label class="fl">Paste your meal plan or list your meals</label><textarea class="fi" id="g-meals" rows="5" placeholder="e.g. Monday: porridge, chicken and rice, beef stir fry..." style="resize:vertical;min-height:100px;"></textarea></div></div>
         <div class="f2">
           <div class="fg"><label class="fl">Supermarket</label><select class="fs" id="g-shop"><option>Tesco</option><option>Sainsbury's</option><option>Asda</option><option>Aldi</option><option>Lidl</option><option>Morrisons</option><option>Any</option></select></div>
           <div class="fg"><label class="fl">Number of people</label><select class="fs" id="g-people"><option>Just me</option><option>2 people</option><option>Family of 3</option><option>Family of 4</option><option>Family of 5+</option></select></div>
         </div>
-        <button class="btn" onclick="genGrocery()">Generate Shopping List →</button>
+        <button class="btn btn-amber" onclick="genGrocery()">Generate Shopping List →</button>
       </div>
       <div class="loading" id="g-load"><div class="spin"></div><span>Building your shopping list...</span></div>
       <div class="result" id="g-result">
-        <div class="result-head">✓ Your Shopping List</div>
+        <div class="result-head"><span class="result-head-label">Your Shopping List</span></div>
         <div class="result-body" id="g-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlGrocery()">⬇ Save List</button><button class="btn-download" onclick="copyResult('g-out')">⎘ Copy</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlGrocery()">⬇ Save</button><button class="btn-sm" onclick="copyResult('g-out')">⎘ Copy</button></div>
       </div>
     </div>
 
     <!-- FOOD CHECKER -->
     <div class="page" id="page-food">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">🔍</div><div class="page-title">Food Checker</div></div>
-        <div class="page-desc">Type any food, meal, or drink. Get calories, protein, carbs and fat back instantly. Works for anything from a Grenade bar to a pint of Guinness.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Food Checker</div>
+        <div class="page-desc">Type any food, meal, or drink. Calories, protein, carbs and fat back instantly. From a Grenade bar to a pint of Guinness.</div>
       </div>
       <div class="card">
-        <div class="card-title">What are you eating?</div>
+        <span class="card-label">What are you eating?</span>
         <div class="f1"><div class="fg"><label class="fl">Food, meal or drink</label><input class="fi" id="fc-food" placeholder="e.g. large chicken tikka masala, 2 Weetabix, pint of Guinness..." onkeydown="if(event.key==='Enter')checkFood()"></div></div>
         <div class="f1"><div class="fg"><label class="fl">Portion size (optional)</label><input class="fi" id="fc-portion" placeholder="e.g. 400g, large, half a portion..."></div></div>
-        <button class="btn" onclick="checkFood()">Check It →</button>
+        <button class="btn btn-amber" onclick="checkFood()">Check It →</button>
         <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
-          <div class="card-title" style="margin-bottom:10px;">Quick checks</div>
+          <span class="card-label">Quick checks</span>
           <div class="chips">
             <div class="chip" onclick="qFood(this)">Grenade bar</div>
             <div class="chip" onclick="qFood(this)">Tesco meal deal</div>
@@ -924,18 +759,19 @@ body.dark .result-head { background: #111111; }
         </div>
       </div>
       <div class="loading" id="fc-load"><div class="spin"></div><span>Checking your food...</span></div>
-      <div class="result" id="fc-result"><div class="result-head">✓ Nutrition Info</div><div class="result-body" id="fc-out"></div></div>
+      <div class="result" id="fc-result"><div class="result-head"><span class="result-head-label">Nutrition Info</span></div><div class="result-body" id="fc-out"></div></div>
     </div>
 
     <!-- FRIDGE -->
     <div class="page" id="page-fridge">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">🧊</div><div class="page-title">What's In My Fridge?</div></div>
-        <div class="page-desc">Tell us what you have in the fridge or cupboards, how long you have got, and your targets. You will get a proper recipe using exactly what you have.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">What's In My Fridge?</div>
+        <div class="page-desc">List what you have, how long you've got, and your targets. Get a proper recipe using exactly what's there.</div>
       </div>
       <div class="card">
-        <div class="card-title">What have you got?</div>
-        <div class="f1"><div class="fg"><label class="fl">What's in your fridge or cupboards?</label><textarea class="fi" id="fr-ingredients" rows="4" placeholder="e.g. chicken breast, eggs, spinach, Greek yoghurt, rice, tomatoes, onion, garlic, cheddar..." style="resize:vertical;min-height:100px;"></textarea></div></div>
+        <span class="card-label">What have you got?</span>
+        <div class="f1"><div class="fg"><label class="fl">What's in your fridge or cupboards?</label><textarea class="fi" id="fr-ingredients" rows="4" placeholder="e.g. chicken breast, eggs, spinach, Greek yoghurt, rice..." style="resize:vertical;min-height:90px;"></textarea></div></div>
         <div class="f2">
           <div class="fg"><label class="fl">Time available</label><select class="fs" id="fr-time"><option>Under 10 mins</option><option>Under 15 mins</option><option>Under 20 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
           <div class="fg"><label class="fl">Meal type</label><select class="fs" id="fr-meal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
@@ -944,62 +780,54 @@ body.dark .result-head { background: #111111; }
           <div class="fg"><label class="fl">Calorie target (kcal)</label><input class="fi" id="fr-kcal" type="number" placeholder="e.g. 500"></div>
           <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="fr-prot" type="number" placeholder="e.g. 40"></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Anything to avoid?</label><input class="fi" id="fr-avoid" placeholder="e.g. no dairy, not too spicy, gluten free..."></div></div>
-        <button class="btn" onclick="genFridge()">Generate My Recipe →</button>
+        <div class="f1"><div class="fg"><label class="fl">Anything to avoid?</label><input class="fi" id="fr-avoid" placeholder="e.g. no dairy, not too spicy..."></div></div>
+        <button class="btn btn-amber" onclick="genFridge()">Generate My Recipe →</button>
       </div>
       <div class="loading" id="fr-load"><div class="spin"></div><span>Building your recipe...</span></div>
       <div class="result" id="fr-result">
-        <div class="result-head">✓ Your Recipe</div>
+        <div class="result-head"><span class="result-head-label">Your Recipe</span></div>
         <div class="result-body" id="fr-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlFridge()">⬇ Save Recipe</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlFridge()">⬇ Save</button><button class="btn-sm" onclick="copyResult('fr-out')">⎘ Copy</button></div>
       </div>
     </div>
 
     <!-- EATING OUT -->
     <div class="page" id="page-eating">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">🍽️</div><div class="page-title">Eating Out Guide</div></div>
-        <div class="page-desc">Tell us where you are eating and what your goal is. You will get the smartest choices to make without being boring about it.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Eating Out Guide</div>
+        <div class="page-desc">Where you're eating, what your goal is. You'll get the smartest choices without being boring about it.</div>
       </div>
       <div class="card">
-        <div class="card-title">Where are you eating?</div>
+        <span class="card-label">Where are you eating?</span>
         <div class="f2">
-          <div class="fg"><label class="fl">Restaurant type</label><select class="fs" id="e-type">
-            <option>Italian</option><option>Indian</option><option>Chinese</option><option>Japanese / Sushi</option>
-            <option>Mexican</option><option>Turkish / Mediterranean</option><option>Thai</option>
-            <option>American / Burgers</option><option>Pizza</option><option>Pub / British food</option>
-            <option>Fish and Chips</option><option>McDonalds</option><option>KFC</option>
-            <option>Nandos</option><option>Wagamama</option><option>Casual dining</option><option>Fine dining</option>
-          </select></div>
-          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="e-goal">
-            <option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option>
-          </select></div>
+          <div class="fg"><label class="fl">Restaurant type</label><select class="fs" id="e-type"><option>Italian</option><option>Indian</option><option>Chinese</option><option>Japanese / Sushi</option><option>Mexican</option><option>Turkish / Mediterranean</option><option>Thai</option><option>American / Burgers</option><option>Pizza</option><option>Pub / British food</option><option>Fish and Chips</option><option>McDonalds</option><option>KFC</option><option>Nandos</option><option>Wagamama</option><option>Casual dining</option><option>Fine dining</option></select></div>
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="e-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
         </div>
         <div class="f2">
-          <div class="fg"><label class="fl">Are you drinking?</label><select class="fs" id="e-drinks">
-            <option>No drinks</option><option>One or two drinks</option><option>A few drinks</option><option>Big night out</option>
-          </select></div>
-          <div class="fg"><label class="fl">Any intolerances?</label><input class="fi" id="e-intol" placeholder="e.g. gluten free, dairy free, no shellfish..."></div>
+          <div class="fg"><label class="fl">Are you drinking?</label><select class="fs" id="e-drinks"><option>No drinks</option><option>One or two drinks</option><option>A few drinks</option><option>Big night out</option></select></div>
+          <div class="fg"><label class="fl">Any intolerances?</label><input class="fi" id="e-intol" placeholder="e.g. gluten free, no shellfish..."></div>
         </div>
-        <button class="btn" onclick="genEating()">Get My Guide →</button>
+        <button class="btn btn-amber" onclick="genEating()">Get My Guide →</button>
       </div>
-      <div class="loading" id="e-load"><div class="spin"></div><span>Building your eating out guide...</span></div>
-      <div class="result" id="e-result"><div class="result-head">✓ Your Eating Out Guide</div><div class="result-body" id="e-out"></div></div>
+      <div class="loading" id="e-load"><div class="spin"></div><span>Building your guide...</span></div>
+      <div class="result" id="e-result"><div class="result-head"><span class="result-head-label">Your Eating Out Guide</span></div><div class="result-body" id="e-out"></div></div>
     </div>
 
     <!-- SUPPLEMENT CHECKER -->
     <div class="page" id="page-supp">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">💊</div><div class="page-title">Supplement Checker</div></div>
-        <div class="page-desc">Type in any supplement you have seen advertised or been told to take. Get an honest, evidence-based verdict on whether it is actually worth your money.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Supplement Checker</div>
+        <div class="page-desc">Type in any supplement. Get an honest, evidence-based verdict on whether it's actually worth your money.</div>
       </div>
       <div class="card">
-        <div class="card-title">What supplement?</div>
-        <div class="f1"><div class="fg"><label class="fl">Supplement name</label><input class="fi" id="s-name" placeholder="e.g. fat burner, BCAAs, collagen powder, creatine, pre-workout..." onkeydown="if(event.key==='Enter')checkSupp()"></div></div>
-        <div class="f1"><div class="fg"><label class="fl">Why are you considering it? (optional)</label><input class="fi" id="s-reason" placeholder="e.g. saw it on Instagram, someone at the gym recommended it, want more energy..."></div></div>
-        <button class="btn" onclick="checkSupp()">Get The Verdict →</button>
+        <span class="card-label">What supplement?</span>
+        <div class="f1"><div class="fg"><label class="fl">Supplement name</label><input class="fi" id="s-name" placeholder="e.g. fat burner, BCAAs, creatine, pre-workout..." onkeydown="if(event.key==='Enter')checkSupp()"></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Why are you considering it? (optional)</label><input class="fi" id="s-reason" placeholder="e.g. saw it on Instagram, want more energy..."></div></div>
+        <button class="btn btn-amber" onclick="checkSupp()">Get The Verdict →</button>
         <div style="margin-top:18px;padding-top:18px;border-top:1px solid var(--border);">
-          <div class="card-title" style="margin-bottom:10px;">Common ones to check</div>
+          <span class="card-label">Common ones to check</span>
           <div class="chips">
             <div class="chip" onclick="qSupp(this)">Fat burners</div><div class="chip" onclick="qSupp(this)">Creatine</div>
             <div class="chip" onclick="qSupp(this)">BCAAs</div><div class="chip" onclick="qSupp(this)">Collagen powder</div>
@@ -1010,75 +838,77 @@ body.dark .result-head { background: #111111; }
         </div>
       </div>
       <div class="loading" id="s-load"><div class="spin"></div><span>Checking the evidence...</span></div>
-      <div class="result" id="s-result"><div class="result-head">✓ The Verdict</div><div class="result-body" id="s-out"></div></div>
+      <div class="result" id="s-result"><div class="result-head"><span class="result-head-label">The Verdict</span></div><div class="result-body" id="s-out"></div></div>
     </div>
 
-    <!-- WEEKEND GAME PLAN -->
+    <!-- WEEKEND -->
     <div class="page" id="page-weekend">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">📅</div><div class="page-title">Weekend Game Plan</div></div>
-        <div class="page-desc">Tell us what you have got on this weekend. You will get a practical plan for enjoying it without undoing the week.</div>
+        <span class="page-hdr-eyebrow">Lifestyle Tools</span>
+        <div class="page-title">Weekend Game Plan</div>
+        <div class="page-desc">Tell us what you've got on. Get a practical plan for enjoying it without undoing the week.</div>
       </div>
       <div class="card">
-        <div class="card-title">Your Weekend</div>
-        <div class="f1"><div class="fg"><label class="fl">What have you got on?</label><textarea class="fi" id="w-plans" rows="4" placeholder="e.g. Saturday night out for dinner and drinks, Sunday roast at the in-laws..." style="resize:vertical;min-height:90px;"></textarea></div></div>
+        <span class="card-label">Your Weekend</span>
+        <div class="f1"><div class="fg"><label class="fl">What have you got on?</label><textarea class="fi" id="w-plans" rows="4" placeholder="e.g. Saturday night out for dinner and drinks, Sunday roast at the in-laws..." style="resize:vertical;min-height:80px;"></textarea></div></div>
         <div class="f2">
           <div class="fg"><label class="fl">Your goal</label><select class="fs" id="w-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
           <div class="fg"><label class="fl">How strict?</label><select class="fs" id="w-strict"><option>Relaxed</option><option selected>Moderate</option><option>Focused</option></select></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Anything else Mark should know?</label><input class="fi" id="w-extra" placeholder="e.g. I always overeat at buffets, trying to stay off alcohol..."></div></div>
-        <button class="btn" onclick="genWeekend()">Build My Game Plan →</button>
+        <div class="f1"><div class="fg"><label class="fl">Anything else?</label><input class="fi" id="w-extra" placeholder="e.g. I always overeat at buffets, trying to stay off alcohol..."></div></div>
+        <button class="btn btn-amber" onclick="genWeekend()">Build My Game Plan →</button>
       </div>
-      <div class="loading" id="w-load"><div class="spin"></div><span>Building your weekend game plan...</span></div>
+      <div class="loading" id="w-load"><div class="spin"></div><span>Building your weekend plan...</span></div>
       <div class="result" id="w-result">
-        <div class="result-head">✓ Your Weekend Game Plan</div>
+        <div class="result-head"><span class="result-head-label">Your Weekend Game Plan</span></div>
         <div class="result-body" id="w-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlWeekend()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('w-out')">⎘ Copy</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlWeekend()">⬇ Save</button><button class="btn-sm" onclick="copyResult('w-out')">⎘ Copy</button></div>
       </div>
     </div>
 
-    <!-- TRAVEL GAME PLAN -->
+    <!-- TRAVEL -->
     <div class="page" id="page-travel">
       <div class="page-hdr">
-        <div class="page-hdr-top"><div class="page-ico">✈️</div><div class="page-title">Travel Game Plan</div></div>
-        <div class="page-desc">Tell us where you are going and what you have planned. You will get a practical guide to navigating travel, flights, food, movement and coming home feeling good.</div>
+        <span class="page-hdr-eyebrow">Lifestyle Tools</span>
+        <div class="page-title">Travel Game Plan</div>
+        <div class="page-desc">Where you're going, what you've got planned. A practical guide to navigating travel without coming home feeling like you've undone everything.</div>
       </div>
       <div class="card">
-        <div class="card-title">Your Trip</div>
+        <span class="card-label">Your Trip</span>
         <div class="f2">
           <div class="fg"><label class="fl">Where are you going?</label><input class="fi" id="t-dest" placeholder="e.g. Ibiza, New York, Tenerife..."></div>
           <div class="fg"><label class="fl">How long?</label><select class="fs" id="t-duration"><option>Long weekend (3-4 days)</option><option>One week</option><option>Two weeks</option><option>Three weeks or more</option></select></div>
         </div>
         <div class="f2">
           <div class="fg"><label class="fl">Your goal</label><select class="fs" id="t-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
-          <div class="fg"><label class="fl">Type of holiday</label><select class="fs" id="t-type"><option>Beach / relaxation</option><option>City break</option><option>All inclusive</option><option>Adventure / active</option><option>Family holiday</option><option>Work travel</option></select></div>
+          <div class="fg"><label class="fl">Type of trip</label><select class="fs" id="t-type"><option>Beach / relaxation</option><option>City break</option><option>All inclusive</option><option>Adventure / active</option><option>Family holiday</option><option>Work travel</option></select></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Anything Mark should know?</label><input class="fi" id="t-extra" placeholder="e.g. all inclusive, big nights out planned, no gym at hotel, travelling with kids..."></div></div>
-        <button class="btn" onclick="genTravel()">Build My Travel Plan →</button>
+        <div class="f1"><div class="fg"><label class="fl">Anything Mark should know?</label><input class="fi" id="t-extra" placeholder="e.g. all inclusive, big nights out planned, no gym at hotel..."></div></div>
+        <button class="btn btn-amber" onclick="genTravel()">Build My Travel Plan →</button>
       </div>
-      <div class="loading" id="t-load"><div class="spin"></div><span>Building your travel game plan...</span></div>
+      <div class="loading" id="t-load"><div class="spin"></div><span>Building your travel plan...</span></div>
       <div class="result" id="t-result">
-        <div class="result-head">✈️ Your Travel Game Plan</div>
+        <div class="result-head"><span class="result-head-label">Your Travel Game Plan</span></div>
         <div class="result-body" id="t-out"></div>
-        <div class="result-actions"><button class="btn-download" onclick="dlTravel()">⬇ Save Plan</button><button class="btn-download" onclick="copyResult('t-out')">⎘ Copy</button></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlTravel()">⬇ Save</button><button class="btn-sm" onclick="copyResult('t-out')">⎘ Copy</button></div>
       </div>
     </div>
 
-  </div><!-- /content -->
-</div><!-- /main -->
+  </div>
+</div>
 
 <!-- TARGETS MODAL -->
 <div class="modal-overlay" id="targets-modal" onclick="if(event.target===this)closeTargets()">
   <div class="modal">
     <div class="modal-title">Your Targets</div>
-    <div class="modal-desc">Enter the calorie and protein targets Mark has given you. These will be saved and pre-filled across all the tools.</div>
+    <div class="modal-desc">Enter the calorie and protein targets Mark has given you. Saved and pre-filled across all tools.</div>
     <div class="f2">
       <div class="fg"><label class="fl">Daily calories (kcal)</label><input class="fi" id="t-kcal-in" type="number" placeholder="e.g. 1800"></div>
       <div class="fg"><label class="fl">Daily protein (g)</label><input class="fi" id="t-prot-in" type="number" placeholder="e.g. 150"></div>
     </div>
     <div class="modal-foot">
       <button class="btn-ghost" onclick="closeTargets()">Cancel</button>
-      <button class="btn" style="flex:2;margin-top:0;" onclick="saveTargets()">Save Targets</button>
+      <button class="btn btn-amber" style="flex:2;margin-top:0;" onclick="saveTargets()">Save Targets</button>
     </div>
   </div>
 </div>
@@ -1086,7 +916,6 @@ body.dark .result-head { background: #111111; }
 <script>
 const TITLES={bot:'Mark Bot',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan'};
 
-/* ── DARK MODE ──────────────────────────────────── */
 function toggleDark(){
   const dark=document.body.classList.toggle('dark');
   document.getElementById('dark-toggle').textContent=dark?'🌙':'☀️';
@@ -1099,63 +928,36 @@ function toggleDark(){
   }
 })();
 
-/* ── DAILY TIP ──────────────────────────────────── */
-const TIPS=[
-  "Protein at every meal. Not sometimes. Every single meal. That one habit alone will change the game.",
-  "Never miss twice. One bad meal is nothing. Two bad days becomes a pattern. Reset at the next meal.",
-  "Your steps matter more than you think. Walk more. It compounds massively over time.",
-  "Sleep is not a luxury. It is a non-negotiable part of fat loss. Protect it like a workout.",
-  "If it is not in the calendar it will not happen. Schedule your workouts like appointments.",
-  "Consistency beats perfection every single time. Show up imperfectly and keep showing up.",
-  "Two litres of water minimum every day. Most hunger is actually dehydration.",
-  "80/20. Eighty percent on it. Twenty percent living your life. That is what sustainable looks like.",
-  "Progressive overload. Get a little stronger every single week. That is the whole game.",
-  "Confidence comes from evidence. Stack small wins. Watch what it does to your self-belief.",
-  "You do not rise to the level of your motivation. You fall to the level of your systems.",
-  "What gets scheduled gets done. What does not get scheduled gets skipped. Every time.",
-  "Eating out is not the problem. Having no awareness around it is the problem.",
-  "The best plan is the one you actually stick to. Consistency over complexity. Always."
-];
-(function(){
-  const idx=Math.floor(Date.now()/(1000*60*60*24))%TIPS.length;
-  document.getElementById('tip-text').textContent=TIPS[idx];
-})();
+const TIPS=["Protein at every meal. Not sometimes. Every single meal. That one habit alone will change the game.","Never miss twice. One bad meal is nothing. Two bad days becomes a pattern. Reset at the next meal.","Your steps matter more than you think. Walk more. It compounds massively over time.","Sleep is not a luxury. It is a non-negotiable part of fat loss. Protect it like a workout.","If it is not in the calendar it will not happen. Schedule your workouts like appointments.","Consistency beats perfection every single time. Show up imperfectly and keep showing up.","Two litres of water minimum every day. Most hunger is actually dehydration.","80/20. Eighty percent on it. Twenty percent living your life. That is what sustainable looks like.","Progressive overload. Get a little stronger every single week. That is the whole game.","Confidence comes from evidence. Stack small wins. Watch what it does to your self-belief.","You do not rise to the level of your motivation. You fall to the level of your systems.","What gets scheduled gets done. What does not get scheduled gets skipped. Every time.","Eating out is not the problem. Having no awareness around it is the problem.","The best plan is the one you actually stick to. Consistency over complexity. Always."];
+(function(){const idx=Math.floor(Date.now()/(1000*60*60*24))%TIPS.length;document.getElementById('tip-text').textContent=TIPS[idx];})();
 
-/* ── SAVED TARGETS ──────────────────────────────── */
 function loadTargets(){
   const kcal=localStorage.getItem('zf-kcal')||'';
   const prot=localStorage.getItem('zf-prot')||'';
   document.getElementById('tbar-kcal').textContent=kcal?kcal+' kcal':'Not set';
   document.getElementById('tbar-prot').textContent=prot?prot+'g':'Not set';
-  if(kcal){
-    ['r-kcal','p-kcal','fr-kcal'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=kcal;});
-  }
-  if(prot){
-    ['r-prot','p-prot','fr-prot'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});
-  }
+  if(kcal){['r-kcal','p-kcal','fr-kcal'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=kcal;});}
+  if(prot){['r-prot','p-prot','fr-prot'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});}
 }
 function openTargets(){
   document.getElementById('t-kcal-in').value=localStorage.getItem('zf-kcal')||'';
   document.getElementById('t-prot-in').value=localStorage.getItem('zf-prot')||'';
   document.getElementById('targets-modal').classList.add('on');
 }
-function closeTargets(){
-  document.getElementById('targets-modal').classList.remove('on');
-}
+function closeTargets(){document.getElementById('targets-modal').classList.remove('on');}
 function saveTargets(){
   const kcal=document.getElementById('t-kcal-in').value.trim();
   const prot=document.getElementById('t-prot-in').value.trim();
   if(kcal)localStorage.setItem('zf-kcal',kcal);else localStorage.removeItem('zf-kcal');
   if(prot)localStorage.setItem('zf-prot',prot);else localStorage.removeItem('zf-prot');
-  loadTargets();
-  closeTargets();
+  loadTargets();closeTargets();
 }
 loadTargets();
 
 document.addEventListener('click',function(e){
-  const sidebar=document.getElementById('sidebar');
-  const toggle=document.querySelector('.mob-toggle');
-  if(sidebar.classList.contains('open')&&!sidebar.contains(e.target)&&!toggle.contains(e.target)){sidebar.classList.remove('open');}
+  const sb=document.getElementById('sidebar');
+  const tog=document.querySelector('.mob-toggle');
+  if(sb&&sb.classList.contains('open')&&!sb.contains(e.target)&&tog&&!tog.contains(e.target)){sb.classList.remove('open');}
 });
 
 function goPage(id,el,type){
@@ -1171,7 +973,6 @@ function goPage(id,el,type){
 }
 
 const API='https://zenith-fit.mark-5a5.workers.dev';
-
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 function logToSheets(tool,fields={},message=''){
   const payload={tool,message,...fields};
@@ -1186,49 +987,14 @@ async function ask(system,userMsg){
 }
 
 const RSYS=`You are writing recipes for Zenith Fit UK in the voice of Mark Davies. Mark is a fat loss coach with 12 years experience. He is direct, practical, no waffle. He coaches busy professionals aged 30 to 50. His philosophy: protein at every meal, high volume foods, walk more, train consistently not perfectly, sleep matters. He hates extremes. He does not believe in detoxes, cleanses, or fat burners. UK ingredients only. UK supermarkets: Tesco, Sainsbury's, Asda, Aldi, Lidl, Morrisons. British English. Grams. Kcal. Never say "delicious" or "nutritious" or "wholesome" or any generic food word. Make the food sound like something a real person would actually want to eat. If the protein is high, say so plainly. If it takes under 15 minutes, that matters to a busy person so say so. Sound like a coach writing for a real client, not a recipe blog. No dashes in text.`;
-
 const PSYS=`You are writing meal plans for Zenith Fit UK in the voice of Mark Davies. Direct, practical, zero waffle. British English. Kcal. Grams. UK supermarkets. UK foods only: porridge, jacket potato, baked beans, chicken thighs, chicken breast, beef mince, Greek yoghurt, Weetabix, rice cakes, cottage pie, beans on toast, eggs, salmon, tuna, sweet potato, rice, oats. UK brands where relevant: Grenade, Fulfil, MyProtein, Bulk, PhD. No dashes in text. High protein every single meal. Every day must be realistic for someone working full time with a family. Nothing that takes longer than 30 minutes unless it is a weekend meal. Show kcal and protein per meal like this: (420 kcal / 38g protein). Show the daily total at the bottom of each day. Mark's rules that must be reflected: never skip protein, eat protein and veg before carbs, more carbs on training days, less on rest days, 80/20 balance built in so the plan does not feel like punishment. Never use generic AI phrases. Sound like a real coach who actually eats this food.`;
-
 const GSYS=`You are writing for Zenith Fit UK in the voice of Mark Davies. Direct, practical, no waffle. British English. UK supermarkets. Specific quantities. No dashes in text. Keep it tight. Sound like a real person who goes to Tesco and actually buys this stuff, not like a wellness blog. Category headers, exact quantities, nothing vague.`;
-
 const FSYS=`You are a nutrition expert for Zenith Fit UK writing in the voice of Mark Davies. Direct, honest, no fluff. British English. Kcal. No dashes in text. Mark's opinion on food: protein is king, whole foods beat processed foods, eating less is not the goal because eating smarter is. He does not moralize about food. He gives honest context. If something is a poor choice for fat loss, say so plainly without being preachy. If something is a solid choice, say so. Be specific and accurate. No generic phrases. Sound like a coach, not a textbook. If the food is genuinely fine for a fat loss goal, say that too. Mark hates unnecessary guilt around food.`;
-
 const WSYS=`You are Mark Davies from Zenith Fit UK writing in first person. 12 years coaching. Former professional footballer. Had an eating disorder as a teenager. Made every mistake possible with food and exercise so your clients do not have to. You are severely empathetic but you do not let people use their circumstances as permanent excuses. You believe in the 80/20 rule hard. Never miss twice is your number one rule. Consistency beats perfection every single time. Control not restriction. Write in first person as Mark. Direct, honest, warm but no nonsense. British English. No dashes in text. No generic coaching phrases. Be specific to exactly what they have planned. Do not give vague weekend advice. Tell them exactly what to eat before the meal out, exactly how to approach the drinks, exactly what to do the next morning to get back on track. Sound like a real person who has been through it, not a wellness influencer.`;
-
-const MSYS=`You are Mark Bot, the AI version of Mark Davies, founder of Zenith Fit. Here is who Mark is and how he speaks.
-
-BACKGROUND: Mark was a chubby kid who got bullied, stopped eating, exercised twice a day, and developed anorexia. He got so fit he ran a four-minute mile three times in a row and signed as a professional footballer at 15. He was homesick, anxious, malnourished. He left, rebuilt himself playing local football, signed professionally again at 18. At 22 he moved to America with his best mate, fixed his relationship with food and exercise, came home knowing he wanted to coach. He started in 2014 coaching clients from his parents garage while drilling holes in doors in a factory from 5:30am to 10pm. He built Zenith Fit on every mistake he made so his clients never have to make them. He says: "I knew I had something more to give than drilling holes in doors."
-
-HOW MARK SPEAKS: Direct. Honest. Warm. Occasionally sweary but not gratuitously. Short punchy sentences. He acknowledges reality before he pushes back. He never lectures. He says things like "right", "look", "here is the thing", "mate", "to be fair", "I will be honest with you", "that is actually really common", "here is what I would do". He calls people out gently when they are making excuses but he does it with empathy because he has been there himself. He never says "Great question" or "Certainly" or "Absolutely" or "I understand your concern". He never sounds like a chatbot. British English. Stone and lbs for bodyweight. Kcal not calories.
-
-MARK'S COACHING PHILOSOPHY AND NON-NEGOTIABLES:
-Five pillars: nutrition, steps and daily movement, structured workouts, hydration, sleep and recovery.
-Rule 1: Never miss twice. One bad meal is nothing. Two bad days becomes a pattern.
-Rule 2: 80/20. Eighty percent on it. Twenty percent living your life. That is sustainable.
-Rule 3: Consistency beats perfection. Every single time. No exceptions.
-Rule 4: Control not restriction. Enjoy your life but stay in control of it.
-Rule 5: Confidence comes from evidence. Stack small wins. Watch what happens.
-Rule 6: What gets scheduled gets done. What does not get scheduled gets skipped.
-Rule 7: Progressive overload. Get a little stronger every week.
-Rule 8: Protein at every meal. Non-negotiable.
-Rule 9: Walk more. Steps compound massively.
-Rule 10: Sleep is not a luxury. It is part of the programme.
-
-MARK'S HARD OPINIONS HE WILL NOT BACK DOWN FROM:
-Fat burners are a waste of money. Liver detoxes are not evidence-based and he will say so directly. Cardio-only approaches fail long term because they ignore muscle. The scale is not the only measure that matters. Extreme restriction creates binge cycles. Motivation is unreliable. Systems beat willpower every time. Meal prep does not have to be complicated. Most people are not eating enough protein. Sleep deprivation kills fat loss progress.
-
-ZENITH FIT PROGRAMMES:
-Zenith Accelerator is the entry-level 6-week programme. Zenith Momentum is the main monthly membership with a 3-month minimum. Zenith Transformation is 1-to-1 premium coaching for 6 or 12 months. When someone seems ready for more support or is asking about coaching, mention these naturally, not as a sales pitch.
-
-RESPONSE STYLE:
-No dashes in text. Never bullet point emotional responses. Short paragraphs. Never more than 4-5 sentences before a line break. UK foods and brands. If someone is struggling emotionally, lead with empathy and acknowledgement before any practical advice. If someone has a question that has a clear evidence-based answer, give it directly without hedging. If someone is making excuses, call it out warmly but clearly. You are talking to a real person who needs real help. Give it to them straight.`;
-
+const MSYS=`You are Mark Bot, the AI version of Mark Davies, founder of Zenith Fit. Here is who Mark is and how he speaks.\n\nBACKGROUND: Mark was a chubby kid who got bullied, stopped eating, exercised twice a day, and developed anorexia. He got so fit he ran a four-minute mile three times in a row and signed as a professional footballer at 15. He was homesick, anxious, malnourished. He left, rebuilt himself playing local football, signed professionally again at 18. At 22 he moved to America with his best mate, fixed his relationship with food and exercise, came home knowing he wanted to coach. He started in 2014 coaching clients from his parents garage while drilling holes in doors in a factory from 5:30am to 10pm. He built Zenith Fit on every mistake he made so his clients never have to make them. He says: "I knew I had something more to give than drilling holes in doors."\n\nHOW MARK SPEAKS: Direct. Honest. Warm. Occasionally sweary but not gratuitously. Short punchy sentences. He acknowledges reality before he pushes back. He never lectures. He says things like "right", "look", "here is the thing", "mate", "to be fair", "I will be honest with you", "that is actually really common", "here is what I would do". He calls people out gently when they are making excuses but he does it with empathy because he has been there himself. He never says "Great question" or "Certainly" or "Absolutely" or "I understand your concern". He never sounds like a chatbot. British English. Stone and lbs for bodyweight. Kcal not calories.\n\nMARK'S COACHING PHILOSOPHY: Five pillars: nutrition, steps and daily movement, structured workouts, hydration, sleep and recovery. Rule 1: Never miss twice. Rule 2: 80/20. Rule 3: Consistency beats perfection. Rule 4: Control not restriction. Rule 5: Confidence comes from evidence. Rule 6: What gets scheduled gets done. Rule 7: Progressive overload. Rule 8: Protein at every meal. Rule 9: Walk more. Rule 10: Sleep is not a luxury.\n\nMARK'S HARD OPINIONS: Fat burners are a waste of money. Liver detoxes are not evidence-based. Cardio-only approaches fail long term. The scale is not the only measure. Extreme restriction creates binge cycles. Motivation is unreliable. Systems beat willpower.\n\nZENITH FIT PROGRAMMES: Zenith Accelerator is the entry-level 6-week programme at £149. Zenith Momentum is the main monthly membership at £129/month with a 3-month minimum. Zenith Transformation is 1-to-1 premium coaching for 6 or 12 months. When someone seems ready for more support, mention these naturally, not as a sales pitch.\n\nRESPONSE STYLE: No dashes in text. Never bullet point emotional responses. Short paragraphs. Never more than 4-5 sentences before a line break. UK foods and brands. If someone is struggling emotionally, lead with empathy and acknowledgement before any practical advice. If someone has a question with a clear evidence-based answer, give it directly. If someone is making excuses, call it out warmly but clearly. You are talking to a real person who needs real help. Give it to them straight.`;
 const SSYS=`You are Mark Davies from Zenith Fit UK. Evidence-based, no nonsense, honest. British English. No dashes in text. You give straight honest verdicts on supplements based on actual science. You are not sponsored by anyone. You are not trying to sell anything. You tell people the truth even when it is not what they want to hear. Your hard opinions: fat burners are largely a waste of money, detox teas are nonsense and the liver does not need help detoxing itself, BCAAs are redundant if protein intake is adequate, creatine monohydrate is one of the most evidence-backed supplements that exists, omega 3 is worth taking for most people, protein powder is just food in a different form and is perfectly fine. Format: THE VERDICT (one sentence, blunt), WHAT THE EVIDENCE ACTUALLY SAYS, WHO IT IS ACTUALLY FOR, WHAT TO DO INSTEAD IF IT IS NOT WORTH IT, MARK'S TAKE (written in first person, conversational, specific). Sound like a real coach with real opinions, not a cautious disclaimer machine.`;
-
 const ESYS=`You are Mark Davies from Zenith Fit UK. Direct, honest, empathetic, no nonsense. British English. No dashes in text. Eating out is part of life and you will never make clients feel guilty for it. 80/20 rule applies here. Smart choices not sad choices. Your approach: anchor the meal in protein, add veg, go easy on the sauces and the bread basket, enjoy one proper thing rather than half-eating everything. If they are drinking, match with water, eat something substantial before they go out, and do not skip meals beforehand thinking they are saving calories because that always backfires. Format: THE APPROACH (2 sentences, set the mindset), BEST CHOICES (3 to 5 specific dishes or options for that cuisine with a one-line reason for each), WHAT TO WATCH OUT FOR (2 to 3 things specific to that cuisine), IF YOU ARE DRINKING (practical honest advice, not abstinence preaching), MARK'S TIP (one personal practical thing he actually does). Sound like a coach who eats out himself and has figured out how to make it work.`;
-
 const TSYS=`You are Mark Davies from Zenith Fit UK. Direct, honest, empathetic, no nonsense. British English. No dashes in text. Holidays are part of life and your job is to help clients enjoy them without coming home feeling like they have undone three months of progress. Your core message: the scale will go up when you travel and that is almost never real fat. It is water retention from flying, salty food, alcohol and disrupted sleep. Do not panic. Never miss twice. Get back to basics the moment you land. Format: BEFORE YOU GO (2 to 3 practical things to set yourself up), THE JOURNEY (flying, driving, the specific logistics with real tips not vague advice), ON HOLIDAY (80/20 mindset, steps, food approach, specific to the destination), COMING HOME (what to expect on the scale and why, what to do in the first 48 hours). Write in first person as Mark. Be specific to where they are actually going.`;
-
 const FRSYS=`You are Mark Davies from Zenith Fit UK writing a recipe using only the ingredients listed. Direct, practical, no waffle. British English. No dashes in text. Kcal. Grams. Only use what they have listed. Make it sound like something a real person actually wants to eat. Do not suggest ingredients they have not listed unless they are obvious household staples like salt, pepper, or oil. Format: RECIPE NAME, WHY THIS WORKS (one sentence, practical not poetic), INGREDIENTS WITH QUANTITIES, METHOD IN NUMBERED STEPS, MACROS, OPTIONAL UPGRADE (one thing they could add next time to make it better).`;
 
 let lastR='',lastP='',lastG='',lastW='',lastT='',lastFr='';
@@ -1244,12 +1010,6 @@ async function genRecipe(){
     logToSheets('Recipe Generator',{field1_label:'Calories',field1_value:kcal,field2_label:'Protein',field2_value:prot,field3_label:'Preferences',field3_value:pref});
     document.getElementById('r-load').classList.remove('on');
     document.getElementById('r-out').innerHTML=formatText(reply);document.getElementById('r-result').classList.add('on');
-    const nm=reply.match(/RECIPE NAME\s*\n([^\n]+)/i);
-    const kw=encodeURIComponent((nm?nm[1].trim():'food meal').replace(/[^a-z0-9 ]/gi,''));
-    const img=document.getElementById('r-img'),wrap=document.getElementById('r-img-wrap');
-    wrap.style.display='block';img.src=`https://source.unsplash.com/800x400/?${kw},food`;
-    img.style.opacity='0';img.onload=()=>{img.style.opacity='1';img.style.transition='opacity 0.4s';}
-    img.onerror=()=>{wrap.style.display='none';}
   }catch(e){document.getElementById('r-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
@@ -1259,8 +1019,7 @@ async function genPlan(){
   try{
     const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:2500,system:PSYS,messages:[{role:'user',content:`5-day weekday meal plan (Monday to Friday). Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. Weekends are flexible so no weekend plan needed. End with 3 PRACTICAL TIPS.`}]})});
     const d=await r.json();if(d.error)throw new Error(d.error.message);
-    const reply=d.content[0].text;
-    lastP=reply;
+    const reply=d.content[0].text;lastP=reply;
     logToSheets('Meal Planner',{field1_label:'Calories',field1_value:kcal,field2_label:'Goal',field2_value:document.getElementById('p-goal').value,field3_label:'Avoid',field3_value:document.getElementById('p-avoid').value});
     document.getElementById('p-load').classList.remove('on');
     document.getElementById('p-out').innerHTML=formatText(reply);document.getElementById('p-result').classList.add('on');
@@ -1374,7 +1133,7 @@ function addMsg(txt,role){
 
 function showTyping(){
   const c=document.getElementById('msgs');const d=document.createElement('div');d.className='msg';
-  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:10px 13px;background:var(--s1);border:1px solid var(--border);border-radius:12px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:9px 12px;background:var(--white);border:1px solid var(--border);border-radius:10px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
   c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
 }
 
@@ -1383,17 +1142,14 @@ function copyChat(){
   const lines=[...msgs.querySelectorAll('.bub')].map(b=>b.innerText).join('\n\n');
   navigator.clipboard.writeText(lines).then(()=>{
     const btn=document.getElementById('copy-chat-btn');
-    btn.textContent='✓ Copied';
-    setTimeout(()=>{btn.textContent='⎘ Copy Chat';},2000);
+    btn.textContent='✓ Copied';setTimeout(()=>{btn.textContent='⎘ Copy Chat';},2000);
   });
 }
 
 function copyResult(id){
   const el=document.getElementById(id);
-  const text=el.innerText;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=event.target;
-    btn.textContent='✓ Copied';
+  navigator.clipboard.writeText(el.innerText).then(()=>{
+    const btn=event.target;btn.textContent='✓ Copied';
     setTimeout(()=>{btn.textContent='⎘ Copy';},2000);
   });
 }
@@ -1410,7 +1166,7 @@ function formatText(text){
 }
 
 function dl(content,filename){
-  const html=`<!DOCTYPE html><html lang="en-GB"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Zenith Fit</title><style>body{font-family:-apple-system,sans-serif;background:#ffffff;color:#2A2A2A;max-width:600px;margin:0 auto;padding:24px 20px}.logo{font-family:sans-serif;font-size:18px;font-weight:800;margin-bottom:24px;text-transform:uppercase;letter-spacing:1px}.logo span{color:#888}pre{white-space:pre-wrap;font-family:inherit;font-size:15px;line-height:1.8;background:#F5F5F3;border:1px solid rgba(0,0,0,0.1);border-radius:12px;padding:20px}.foot{margin-top:20px;font-size:12px;color:#999;text-align:center}</style></head><body><div class="logo">ZENITH<span>FIT</span></div><pre>${content}</pre><div class="foot">Zenith Fit AI Tools — Exclusive Member Access</div></body></html>`;
+  const html=`<!DOCTYPE html><html lang="en-GB"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Zenith Fit</title><style>body{font-family:-apple-system,sans-serif;background:#fff;color:#1A1A1A;max-width:620px;margin:0 auto;padding:32px 20px}.logo{font-size:14px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#999;margin-bottom:28px}pre{white-space:pre-wrap;font-family:inherit;font-size:15px;line-height:1.85;background:#F7F6F4;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:22px}.foot{margin-top:24px;font-size:11px;color:#bbb;text-align:center;letter-spacing:0.06em}</style></head><body><div class="logo">Zenith Fit</div><pre>${content}</pre><div class="foot">Zenith Fit AI Tools — Exclusive Member Access</div></body></html>`;
   const w=window.open('','_blank');if(w){w.document.write(html);w.document.close();}
 }
 
