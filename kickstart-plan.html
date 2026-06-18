@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your 2-Week Kickstart Plan | Zenith Fit</title>.
+<title>Your 2-Week Kickstart Plan | Zenith Fit</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
@@ -762,24 +762,24 @@ Use numerals throughout. No em dashes. Write like a human.`;
   }
 
   async function addToActiveCampaign(firstName, email) {
-    const contactData = await acCall(`${AC_BASE}/api/3/contacts`, 'POST', { contact: { email, firstName, fieldValues: [] } });
-    const contactId = contactData.contact?.id;
+    const syncData = await acCall(AC_BASE + '/api/3/contact/sync', 'POST', { contact: { email, firstName, fieldValues: [] } });
+    const contactId = syncData.contact && syncData.contact.id;
     if (!contactId) return;
 
-    await acCall(`${AC_BASE}/api/3/contactLists`, 'POST', { contactList: { list: AC_LIST_ID, contact: contactId, status: 1 } });
+    await acCall(AC_BASE + '/api/3/contactLists', 'POST', { contactList: { list: AC_LIST_ID, contact: contactId, status: 1 } });
 
-    const tagData = await acCall(`${AC_BASE}/api/3/tags?filters[tag]=2-week action plan`, 'GET');
+    const tagData = await acCall(AC_BASE + '/api/3/tags?filters[tag]=2-week action plan', 'GET');
 
     let tagId;
     if (tagData.tags && tagData.tags.length > 0) {
       tagId = tagData.tags[0].id;
     } else {
-      const newTagData = await acCall(`${AC_BASE}/api/3/tags`, 'POST', { tag: { tag: '2-week action plan', tagType: 'contact' } });
-      tagId = newTagData.tag?.id;
+      const newTagData = await acCall(AC_BASE + '/api/3/tags', 'POST', { tag: { tag: '2-week action plan', tagType: 'contact' } });
+      tagId = newTagData.tag && newTagData.tag.id;
     }
 
     if (tagId) {
-      await acCall(`${AC_BASE}/api/3/contactTags`, 'POST', { contactTag: { contact: contactId, tag: tagId } });
+      await acCall(AC_BASE + '/api/3/contactTags', 'POST', { contactTag: { contact: contactId, tag: tagId } });
     }
   }
 
@@ -829,16 +829,26 @@ Use numerals throughout. No em dashes. Write like a human.`;
     `;
 
     pdfEl.style.display = 'block';
+    pdfEl.style.position = 'absolute';
+    pdfEl.style.left = '-9999px';
+    pdfEl.style.top = '0';
+    pdfEl.style.width = '794px';
 
-    html2pdf().set({
-      margin: 12,
-      filename: 'Zenith-Fit-2-Week-Kickstart-Plan.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2 },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(pdfEl).save().then(() => {
-      pdfEl.style.display = 'none';
-    });
+    setTimeout(() => {
+      html2pdf().set({
+        margin: 12,
+        filename: 'Zenith-Fit-2-Week-Kickstart-Plan.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, logging: false },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(pdfEl).save().then(() => {
+        pdfEl.style.display = 'none';
+        pdfEl.style.position = '';
+        pdfEl.style.left = '';
+        pdfEl.style.top = '';
+        pdfEl.style.width = '';
+      });
+    }, 500);
   }
 </script>
 
