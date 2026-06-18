@@ -828,27 +828,19 @@ Use numerals throughout. No em dashes. Write like a human.`;
       <div class="pdf-footer">Zenith Fit | zenithfit.co.uk | @markdavies_coach | 12 years of evidence-based coaching</div>
     `;
 
-    pdfEl.style.display = 'block';
-    pdfEl.style.position = 'absolute';
-    pdfEl.style.left = '-9999px';
-    pdfEl.style.top = '0';
-    pdfEl.style.width = '794px';
+    pdfEl.style.cssText = 'display:block; position:fixed; top:0; left:0; width:794px; z-index:-1; background:white; padding:40px; font-family:Arial,sans-serif; color:#1E1E1E;';
 
     setTimeout(() => {
       html2pdf().set({
         margin: 12,
         filename: 'Zenith-Fit-2-Week-Kickstart-Plan.pdf',
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, logging: false },
+        html2canvas: { scale: 2, useCORS: true, logging: false, backgroundColor: '#ffffff' },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
       }).from(pdfEl).save().then(() => {
-        pdfEl.style.display = 'none';
-        pdfEl.style.position = '';
-        pdfEl.style.left = '';
-        pdfEl.style.top = '';
-        pdfEl.style.width = '';
+        pdfEl.style.cssText = 'display:none;';
       });
-    }, 500);
+    }, 800);
   }
 </script>
 
