@@ -828,7 +828,7 @@ Use numerals throughout. No em dashes. Write like a human.`;
       <div class="pdf-footer">Zenith Fit | zenithfit.co.uk | @markdavies_coach | 12 years of evidence-based coaching</div>
     `;
 
-    pdfEl.style.cssText = 'display:block; position:fixed; top:0; left:0; width:794px; z-index:-1; background:white; padding:40px; font-family:Arial,sans-serif; color:#1E1E1E;';
+    pdfEl.style.cssText = 'display:block; position:fixed; top:0; left:0; width:794px; z-index:9999; background:white; padding:40px; font-family:Arial,sans-serif; color:#1E1E1E; overflow:auto; max-height:100vh; opacity:0;';
 
     setTimeout(() => {
       html2pdf().set({
