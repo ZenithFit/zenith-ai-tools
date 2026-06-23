@@ -643,8 +643,6 @@
     document.getElementById('hero-section').style.display = 'none';
     document.getElementById('loading-screen').classList.add('active');
 
-    try { await addToActiveCampaign(firstName, email); } catch (e) { console.log('AC error:', e); }
-
     const prompt = buildPrompt(firstName, currentWeight, goal, trainingDays, location, struggle, busyness, dietary);
 
     try {
@@ -663,6 +661,9 @@
       const planText = data.content[0].text;
       generatedPlanText = planText;
       displayPlan(firstName, planText, goal);
+
+      // Save plan to ActiveCampaign after generation
+      try { await addToActiveCampaign(firstName, email, planText); } catch (e) { console.log('AC plan save error:', e); }
 
     } catch (err) {
       document.getElementById('loading-screen').classList.remove('active');
@@ -773,8 +774,18 @@ Use numerals throughout. No em dashes. Write like a human.`;
     return res.json();
   }
 
-  async function addToActiveCampaign(firstName, email) {
-    const syncData = await acCall(AC_BASE + '/api/3/contact/sync', 'POST', { contact: { email, firstName, fieldValues: [] } });
+  async function addToActiveCampaign(firstName, email, planText) {
+    // Find the Kickstart Plan field ID
+    let fieldId = null;
+    const fieldsData = await acCall(AC_BASE + '/api/3/fields?limit=100', 'GET');
+    if (fieldsData.fields) {
+      const field = fieldsData.fields.find(f => f.perstag === 'KICKSTART_PLAN');
+      if (field) fieldId = field.id;
+    }
+
+    const fieldValues = fieldId && planText ? [{ field: fieldId, value: planText }] : [];
+
+    const syncData = await acCall(AC_BASE + '/api/3/contact/sync', 'POST', { contact: { email, firstName, fieldValues } });
     const contactId = syncData.contact && syncData.contact.id;
     if (!contactId) return;
 
@@ -796,6 +807,10 @@ Use numerals throughout. No em dashes. Write like a human.`;
   }
 
   function downloadPDF() {
+    if (!generatedPlanText) {
+      alert('No plan found. Please generate your plan first.');
+      return;
+    }
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF({ unit: 'mm', format: 'a4' });
     
