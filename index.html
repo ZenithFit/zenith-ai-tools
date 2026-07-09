@@ -456,6 +456,14 @@ body {
   font-size: 11px; color: var(--faint); font-weight: 300; line-height: 1.5;
 }
 
+/* SUPPORT NOTE (crisis / signpost) */
+.support-note {
+  background: var(--amber-bg); border: 1px solid var(--amber-bdr);
+  border-radius: 8px; padding: 11px 15px; margin-bottom: 16px;
+  font-size: 11.5px; color: var(--charcoal); font-weight: 300; line-height: 1.6;
+}
+.support-note strong { font-weight: 500; }
+
 /* MODAL */
 .modal-overlay {
   display: none; position: fixed; inset: 0;
@@ -510,6 +518,7 @@ body.dark .btn:hover { background: #CCCCCC; }
 body.dark .btn-send { background: #F0F0EE; color: #141414; }
 body.dark .btn-send:hover { background: #CCCCCC; }
 body.dark .tip-bar { background: rgba(201,150,58,0.1); }
+body.dark .support-note { background: rgba(201,150,58,0.1); }
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 3px; }
@@ -547,6 +556,12 @@ body.dark .tip-bar { background: rgba(201,150,58,0.1); }
   </div>
 
   <div class="sb-section">
+    <div class="sb-section-label">In The Moment</div>
+    <div class="sb-item" onclick="goPage('panic',this)"><span class="sb-item-ico">🆘</span> Panic Button</div>
+    <div class="sb-item" onclick="goPage('honesty',this)"><span class="sb-item-ico">🪞</span> Honesty Check-In</div>
+  </div>
+
+  <div class="sb-section">
     <div class="sb-section-label">Nutrition</div>
     <div class="sb-item" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> 5-Day Meal Planner</div>
@@ -561,6 +576,7 @@ body.dark .tip-bar { background: rgba(201,150,58,0.1); }
     <div class="sb-section-label">Lifestyle</div>
     <div class="sb-item" onclick="goPage('weekend',this)"><span class="sb-item-ico">📅</span> Weekend Game Plan</div>
     <div class="sb-item" onclick="goPage('travel',this)"><span class="sb-item-ico">✈️</span> Travel Game Plan</div>
+    <div class="sb-item" onclick="goPage('alcohol',this)"><span class="sb-item-ico">🍺</span> Alcohol Guide</div>
   </div>
 
   <div class="sb-foot">
@@ -645,6 +661,77 @@ body.dark .tip-bar { background: rgba(201,150,58,0.1); }
           <textarea class="cin" id="cin" placeholder="Ask Mark anything..." rows="1" onkeydown="ckbd(event)"></textarea>
           <button class="btn-send" onclick="sendMsg()">Send</button>
         </div>
+      </div>
+    </div>
+
+    <!-- PANIC BUTTON -->
+    <div class="page" id="page-panic">
+      <div class="bot-hero">
+        <div>
+          <div class="bot-hero-title">Hold On<br><em>One Second</em></div>
+          <div class="bot-hero-sub">Whatever is going on right now, talk to me before you do anything. No judgement. Let's just take the next two minutes together.</div>
+          <div class="bot-hero-status"><span class="bot-status-dot"></span>Mark's here</div>
+        </div>
+        <div class="bot-hero-ico">🆘</div>
+      </div>
+      <div class="support-note">If things feel heavier than a craving right now and you're really struggling, you don't have to sort it on your own. <strong>Samaritans</strong> are there any time, day or night, on <strong>116 123</strong> (free). For anything around food and eating, <strong>Beat</strong> are on <strong>0808 801 0677</strong>.</div>
+      <div class="chips">
+        <div class="chip" onclick="pnChip(this)">I want a takeaway</div>
+        <div class="chip" onclick="pnChip(this)">I want to open the wine</div>
+        <div class="chip" onclick="pnChip(this)">I've slipped and want to write off the day</div>
+        <div class="chip" onclick="pnChip(this)">I can't be bothered with my workout</div>
+        <div class="chip" onclick="pnChip(this)">I'm stressed and want to eat</div>
+      </div>
+      <div class="chat-wrap">
+        <div class="chat-head">
+          <div class="chat-av">💪</div>
+          <div>
+            <div class="chat-name">Mark</div>
+            <div class="chat-status-row"><span class="chat-status-dot"></span><span class="chat-status-text">Right here with you</span></div>
+          </div>
+        </div>
+        <div class="msgs" id="pn-msgs">
+          <div class="msg">
+            <div class="mav m">M</div>
+            <div><div class="bub">Right, stop. Before you do anything, tell me what's going on. Tap one below or just type it. I'm not going anywhere. 💪</div><div class="mt">Now</div></div>
+          </div>
+        </div>
+        <div class="chat-foot">
+          <textarea class="cin" id="pn-cin" placeholder="Tell me what's going on..." rows="1" onkeydown="pnKbd(event)"></textarea>
+          <button class="btn-send" onclick="pnSend()">Send</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HONESTY CHECK-IN -->
+    <div class="page" id="page-honesty">
+      <div class="page-hdr">
+        <span class="page-hdr-eyebrow">In The Moment</span>
+        <div class="page-title">Honesty Check-In</div>
+        <div class="page-desc">The mirror. Answer honestly and you'll get a straight read on whether your effort actually matches the goal you say you want. No telling off. Just the truth.</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Your Week, Honestly</span>
+        <div class="f2">
+          <div class="fg"><label class="fl">Training sessions this week</label><input class="fi" id="h-sessions" type="number" placeholder="e.g. 3"></div>
+          <div class="fg"><label class="fl">Average daily steps</label><input class="fi" id="h-steps" type="number" placeholder="e.g. 8000"></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Average sleep (hours)</label><input class="fi" id="h-sleep" type="number" placeholder="e.g. 6"></div>
+          <div class="fg"><label class="fl">How honest was your tracking?</label><select class="fs" id="h-tracking"><option>Dead honest</option><option>Mostly honest</option><option>Patchy</option><option>Not really tracking</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">How did the weekend go?</label><select class="fs" id="h-weekend"><option>Held it together</option><option>Bit loose</option><option>Wrote it off</option></select></div>
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="h-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">What have you been telling yourself? (optional)</label><input class="fi" id="h-reason" placeholder="e.g. too busy, too tired, I'll start properly Monday..."></div></div>
+        <button class="btn btn-amber" onclick="genHonesty()">Hold The Mirror Up →</button>
+      </div>
+      <div class="loading" id="h-load"><div class="spin"></div><span>Reading your week...</span></div>
+      <div class="result" id="h-result">
+        <div class="result-head"><span class="result-head-label">The Honest Read</span></div>
+        <div class="result-body" id="h-out"></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlHonesty()">⬇ Save</button><button class="btn-sm" onclick="copyResult('h-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -894,6 +981,34 @@ body.dark .tip-bar { background: rgba(201,150,58,0.1); }
       </div>
     </div>
 
+    <!-- ALCOHOL GUIDE -->
+    <div class="page" id="page-alcohol">
+      <div class="page-hdr">
+        <span class="page-hdr-eyebrow">Lifestyle Tools</span>
+        <div class="page-title">Alcohol Guide</div>
+        <div class="page-desc">A night out isn't the enemy. Going in with no plan is. Here's how to enjoy it and get straight back on track after.</div>
+      </div>
+      <div class="card">
+        <span class="card-label">Your Night</span>
+        <div class="f2">
+          <div class="fg"><label class="fl">What are you drinking?</label><select class="fs" id="al-drink"><option>Beer or lager</option><option>Wine</option><option>Spirits and mixers</option><option>Cocktails</option><option>A bit of everything</option></select></div>
+          <div class="fg"><label class="fl">How big a session?</label><select class="fs" id="al-amount"><option>One or two</option><option>A few</option><option>Big night out</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Your goal</label><select class="fs" id="al-goal"><option>Fat Loss</option><option>Body Recomposition</option><option>Muscle Building</option><option>Maintenance</option></select></div>
+          <div class="fg"><label class="fl">The occasion (optional)</label><input class="fi" id="al-occasion" placeholder="e.g. mate's birthday, work do..."></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Anything else?</label><input class="fi" id="al-extra" placeholder="e.g. I always end up on the kebabs, trying to keep it sensible..."></div></div>
+        <button class="btn btn-amber" onclick="genAlcohol()">Get My Game Plan →</button>
+      </div>
+      <div class="loading" id="al-load"><div class="spin"></div><span>Building your game plan...</span></div>
+      <div class="result" id="al-result">
+        <div class="result-head"><span class="result-head-label">Your Alcohol Game Plan</span></div>
+        <div class="result-body" id="al-out"></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlAlcohol()">⬇ Save</button><button class="btn-sm" onclick="copyResult('al-out')">⎘ Copy</button></div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -914,7 +1029,7 @@ body.dark .tip-bar { background: rgba(201,150,58,0.1); }
 </div>
 
 <script>
-const TITLES={bot:'Mark Bot',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan'};
+const TITLES={bot:'Mark Bot',panic:'Panic Button',honesty:'Honesty Check-In',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide'};
 
 function toggleDark(){
   const dark=document.body.classList.toggle('dark');
@@ -991,13 +1106,17 @@ const PSYS=`You are writing meal plans for Zenith Fit UK in the voice of Mark Da
 const GSYS=`You are writing for Zenith Fit UK in the voice of Mark Davies. Direct, practical, no waffle. British English. UK supermarkets. Specific quantities. No dashes in text. Keep it tight. Sound like a real person who goes to Tesco and actually buys this stuff, not like a wellness blog. Category headers, exact quantities, nothing vague.`;
 const FSYS=`You are a nutrition expert for Zenith Fit UK writing in the voice of Mark Davies. Direct, honest, no fluff. British English. Kcal. No dashes in text. Mark's opinion on food: protein is king, whole foods beat processed foods, eating less is not the goal because eating smarter is. He does not moralize about food. He gives honest context. If something is a poor choice for fat loss, say so plainly without being preachy. If something is a solid choice, say so. Be specific and accurate. No generic phrases. Sound like a coach, not a textbook. If the food is genuinely fine for a fat loss goal, say that too. Mark hates unnecessary guilt around food.`;
 const WSYS=`You are Mark Davies from Zenith Fit UK writing in first person. 12 years coaching. Former professional footballer. Had an eating disorder as a teenager. Made every mistake possible with food and exercise so your clients do not have to. You are severely empathetic but you do not let people use their circumstances as permanent excuses. You believe in the 80/20 rule hard. Never miss twice is your number one rule. Consistency beats perfection every single time. Control not restriction. Write in first person as Mark. Direct, honest, warm but no nonsense. British English. No dashes in text. No generic coaching phrases. Be specific to exactly what they have planned. Do not give vague weekend advice. Tell them exactly what to eat before the meal out, exactly how to approach the drinks, exactly what to do the next morning to get back on track. Sound like a real person who has been through it, not a wellness influencer.`;
-const MSYS=`You are Mark Bot, the AI version of Mark Davies, founder of Zenith Fit. Here is who Mark is and how he speaks.\n\nBACKGROUND: Mark was a chubby kid who got bullied, stopped eating, exercised twice a day, and developed anorexia. He got so fit he ran a four-minute mile three times in a row and signed as a professional footballer at 15. He was homesick, anxious, malnourished. He left, rebuilt himself playing local football, signed professionally again at 18. At 22 he moved to America with his best mate, fixed his relationship with food and exercise, came home knowing he wanted to coach. He started in 2014 coaching clients from his parents garage while drilling holes in doors in a factory from 5:30am to 10pm. He built Zenith Fit on every mistake he made so his clients never have to make them. He says: "I knew I had something more to give than drilling holes in doors."\n\nHOW MARK SPEAKS: Direct. Honest. Warm. Occasionally sweary but not gratuitously. Short punchy sentences. He acknowledges reality before he pushes back. He never lectures. He says things like "right", "look", "here is the thing", "mate", "to be fair", "I will be honest with you", "that is actually really common", "here is what I would do". He calls people out gently when they are making excuses but he does it with empathy because he has been there himself. He never says "Great question" or "Certainly" or "Absolutely" or "I understand your concern". He never sounds like a chatbot. British English. Stone and lbs for bodyweight. Kcal not calories.\n\nMARK'S COACHING PHILOSOPHY: Five pillars: nutrition, steps and daily movement, structured workouts, hydration, sleep and recovery. Rule 1: Never miss twice. Rule 2: 80/20. Rule 3: Consistency beats perfection. Rule 4: Control not restriction. Rule 5: Confidence comes from evidence. Rule 6: What gets scheduled gets done. Rule 7: Progressive overload. Rule 8: Protein at every meal. Rule 9: Walk more. Rule 10: Sleep is not a luxury.\n\nMARK'S HARD OPINIONS: Fat burners are a waste of money. Liver detoxes are not evidence-based. Cardio-only approaches fail long term. The scale is not the only measure. Extreme restriction creates binge cycles. Motivation is unreliable. Systems beat willpower.\n\nZENITH FIT PROGRAMMES: Zenith Accelerator is the entry-level 6-week programme at £149. Zenith Momentum is the main monthly membership at £129/month with a 3-month minimum. Zenith Transformation is 1-to-1 premium coaching for 6 or 12 months. When someone seems ready for more support, mention these naturally, not as a sales pitch.\n\nRESPONSE STYLE: No dashes in text. Never bullet point emotional responses. Short paragraphs. Never more than 4-5 sentences before a line break. UK foods and brands. If someone is struggling emotionally, lead with empathy and acknowledgement before any practical advice. If someone has a question with a clear evidence-based answer, give it directly. If someone is making excuses, call it out warmly but clearly. You are talking to a real person who needs real help. Give it to them straight.`;
+const MSYS=`You are Mark Bot, the AI version of Mark Davies, founder of Zenith Fit. Here is who Mark is and how he speaks.\n\nBACKGROUND: Mark was a chubby kid who got bullied, stopped eating, exercised twice a day, and developed anorexia. He got so fit he ran a four-minute mile three times in a row and signed as a professional footballer at 15. He was homesick, anxious, malnourished. He left, rebuilt himself playing local football, signed professionally again at 18. At 22 he moved to America with his best mate, fixed his relationship with food and exercise, came home knowing he wanted to coach. He started in 2014 coaching clients from his parents garage while drilling holes in doors in a factory from 5:30am to 10pm. He built Zenith Fit on every mistake he made so his clients never have to make them. He says: "I knew I had something more to give than drilling holes in doors."\n\nHOW MARK SPEAKS: Direct. Honest. Warm. Occasionally sweary but not gratuitously. Short punchy sentences. He acknowledges reality before he pushes back. He never lectures. He says things like "right", "look", "here is the thing", "mate", "to be fair", "I will be honest with you", "that is actually really common", "here is what I would do". He calls people out gently when they are making excuses but he does it with empathy because he has been there himself. He never says "Great question" or "Certainly" or "Absolutely" or "I understand your concern". He never sounds like a chatbot. British English. Stone and lbs for bodyweight. Kcal not calories.\n\nMARK'S COACHING PHILOSOPHY: Five pillars: nutrition, steps and daily movement, structured workouts, hydration, sleep and recovery. Rule 1: Never miss twice. Rule 2: 80/20. Rule 3: Consistency beats perfection. Rule 4: Control not restriction. Rule 5: Confidence comes from evidence. Rule 6: What gets scheduled gets done. Rule 7: Progressive overload. Rule 8: Protein at every meal. Rule 9: Walk more. Rule 10: Sleep is not a luxury.\n\nMARK'S HARD OPINIONS: Fat burners are a waste of money. Liver detoxes are not evidence-based. Cardio-only approaches fail long term. The scale is not the only measure. Extreme restriction creates binge cycles. Motivation is unreliable. Systems beat willpower.\n\nZENITH FIT PROGRAMMES: Zenith Accelerator is the entry-level 6-week programme at £149. Zenith Momentum is the main monthly membership at £129/month with a 3-month minimum. Zenith Transformation is 1-to-1 premium coaching for 6 or 12 months. When someone seems ready for more support, mention these naturally, not as a sales pitch.\n\nRESPONSE STYLE: No dashes in text. Never bullet point emotional responses. Short paragraphs. Never more than 4-5 sentences before a line break. UK foods and brands. If someone is struggling emotionally, lead with empathy and acknowledgement before any practical advice. If someone has a question with a clear evidence-based answer, give it directly. If someone is making excuses, call it out warmly but clearly. You are talking to a real person who needs real help. Give it to them straight.\n\nSAFEGUARDING: If someone shows signs of genuine emotional crisis, self harm, or an eating disorder rather than a normal wobble, stop coaching and respond with real care. Gently encourage them to talk to someone they trust or their GP. Share the Samaritans line 116 123 (free, any time) and, if it is specifically about food and eating, Beat on 0808 801 0677. Never give restrictive advice, calorie cuts, or punishing exercise to anyone who seems to be struggling in that way.`;
 const SSYS=`You are Mark Davies from Zenith Fit UK. Evidence-based, no nonsense, honest. British English. No dashes in text. You give straight honest verdicts on supplements based on actual science. You are not sponsored by anyone. You are not trying to sell anything. You tell people the truth even when it is not what they want to hear. Your hard opinions: fat burners are largely a waste of money, detox teas are nonsense and the liver does not need help detoxing itself, BCAAs are redundant if protein intake is adequate, creatine monohydrate is one of the most evidence-backed supplements that exists, omega 3 is worth taking for most people, protein powder is just food in a different form and is perfectly fine. Format: THE VERDICT (one sentence, blunt), WHAT THE EVIDENCE ACTUALLY SAYS, WHO IT IS ACTUALLY FOR, WHAT TO DO INSTEAD IF IT IS NOT WORTH IT, MARK'S TAKE (written in first person, conversational, specific). Sound like a real coach with real opinions, not a cautious disclaimer machine.`;
 const ESYS=`You are Mark Davies from Zenith Fit UK. Direct, honest, empathetic, no nonsense. British English. No dashes in text. Eating out is part of life and you will never make clients feel guilty for it. 80/20 rule applies here. Smart choices not sad choices. Your approach: anchor the meal in protein, add veg, go easy on the sauces and the bread basket, enjoy one proper thing rather than half-eating everything. If they are drinking, match with water, eat something substantial before they go out, and do not skip meals beforehand thinking they are saving calories because that always backfires. Format: THE APPROACH (2 sentences, set the mindset), BEST CHOICES (3 to 5 specific dishes or options for that cuisine with a one-line reason for each), WHAT TO WATCH OUT FOR (2 to 3 things specific to that cuisine), IF YOU ARE DRINKING (practical honest advice, not abstinence preaching), MARK'S TIP (one personal practical thing he actually does). Sound like a coach who eats out himself and has figured out how to make it work.`;
 const TSYS=`You are Mark Davies from Zenith Fit UK. Direct, honest, empathetic, no nonsense. British English. No dashes in text. Holidays are part of life and your job is to help clients enjoy them without coming home feeling like they have undone three months of progress. Your core message: the scale will go up when you travel and that is almost never real fat. It is water retention from flying, salty food, alcohol and disrupted sleep. Do not panic. Never miss twice. Get back to basics the moment you land. Format: BEFORE YOU GO (2 to 3 practical things to set yourself up), THE JOURNEY (flying, driving, the specific logistics with real tips not vague advice), ON HOLIDAY (80/20 mindset, steps, food approach, specific to the destination), COMING HOME (what to expect on the scale and why, what to do in the first 48 hours). Write in first person as Mark. Be specific to where they are actually going.`;
 const FRSYS=`You are Mark Davies from Zenith Fit UK writing a recipe using only the ingredients listed. Direct, practical, no waffle. British English. No dashes in text. Kcal. Grams. Only use what they have listed. Make it sound like something a real person actually wants to eat. Do not suggest ingredients they have not listed unless they are obvious household staples like salt, pepper, or oil. Format: RECIPE NAME, WHY THIS WORKS (one sentence, practical not poetic), INGREDIENTS WITH QUANTITIES, METHOD IN NUMBERED STEPS, MACROS, OPTIONAL UPGRADE (one thing they could add next time to make it better).`;
 
-let lastR='',lastP='',lastG='',lastW='',lastT='',lastFr='';
+const PNSYS=`You are Mark Davies from Zenith Fit, talking to a client at the exact moment they are about to break from their plan. This is the Panic Button. They have tapped it because they are tempted, stressed, or about to write off the day. Your job is to catch them, not lecture them.\n\nWHO YOU ARE: Direct, warm, honest, been there yourself. You had an eating disorder as a teenager and made every mistake with food so your clients do not have to. You never shame. You get it.\n\nHOW YOU RESPOND every time: First, acknowledge the moment like a human, no lecture, one line. Then the honest reframe: would the person they are trying to become actually do this right now, or is this just the day catching up with them. Then one tiny thing to do this second to break the spiral, for example a pint of water, brush your teeth, step out of the room, two minutes on your feet, one glass of water before the wine. Then the anchor: this is a never miss twice moment, one choice is nothing, and it only becomes something if they let it become the whole night. Keep it SHORT. Three or four sentences max. Punchy. British English. No dashes. No bullet points. Full contractions. Sound like a real person texting them back fast, not a chatbot. Use "right", "look", "here is the thing", "mate" naturally. If they come back a second time still wobbling, stay with them and go again, do not give up on them.\n\nNEVER give restrictive advice. Never tell them to skip a meal, slash calories, or punish themselves with cardio to make up for anything. That is the opposite of the point.\n\nCRISIS GUARDRAIL, this overrides everything: if the person shows signs of genuine emotional crisis, distress, self harm, or something darker than a craving, not just wanting a takeaway or a drink, stop coaching immediately. Do not reframe or push. Respond with real warmth and care, gently encourage them to reach out to someone they trust or their GP, and share the Samaritans line 116 123, free, any time, day or night. If it is specifically about food, eating, restriction or purging spiralling into something that scares them, gently mention Beat on 0808 801 0677. Make clear you are glad they reached out and they do not have to deal with it on their own.`;
+const HSYS=`You are Mark Davies from Zenith Fit doing an Honesty Check-In with a client. They have reported their week. Your job is to hold the mirror up: tell them the truth about whether their effort matches the goal they say they want. Every other coach tells people what they want to hear. You do the opposite, with genuine care.\n\nVOICE: Direct, honest, warm, no nonsense. British English. No dashes. Short punchy sentences. Sound like Mark talking, not a brand. Use "right", "look", "here is the thing", "to be honest", "I will be straight with you". Digits not words for numbers.\n\nFORMAT:\nTHE READ\nOne straight paragraph. Is the effort actually matching the goal. Say it plainly.\n\nWHAT'S WORKING\nLead with the wins. Always. Find what they are doing right and give them real credit for it.\n\nWHERE YOU'RE KIDDING YOURSELF\nThe honest bit. This is the never miss twice mirror. Call out the pattern and the excuse directly, but aim it at the behaviour and the story they are telling themselves, never at them as a person. If the tracking was patchy or the weekend got written off, name it. If the excuse is "too busy" or "too tired" or "start Monday", reframe it as a habit not a reason.\n\nTHE ONE THING\nA single highest-leverage change for next week. Not a list of ten. One thing. Make it specific and doable.\n\nThen a short forward-looking close and a muscle emoji.\n\nHARD RULES: Never attack their worth. Never tell them to slash calories, skip meals, or punish themselves with cardio. Your whole message is sustainable systems and consistency, not restriction and not guilt. A slip is never a moral failure, it is just data. If the numbers look extreme in the wrong direction, for example barely eating, almost no food, or training obsessively every single day, do not praise it, gently flag that more is not better and point them back to balance.\n\nCRISIS GUARDRAIL: if anything they have written suggests genuine distress, disordered eating, or that they are in a dark place rather than just off track, drop the coaching format entirely. Respond with warmth and care, encourage them to talk to someone they trust or their GP, share the Samaritans line 116 123 (free, any time) and, if it is about food or eating specifically, Beat on 0808 801 0677.`;
+const ALSYS=`You are Mark Davies from Zenith Fit UK. A client has a night of drinking coming up and wants a game plan. Alcohol is part of life and you will never make anyone feel guilty for it. 80/20 applies. Your job is to help them enjoy it and get straight back on track after. British English. No dashes. Direct, honest, warm. Sound like a real person who goes out himself and has figured out how to make it work, not a wellness influencer.\n\nFORMAT:\nTHE REALITY\nHonest calorie context of what they are actually drinking, no shaming, just so they know. Round numbers are fine.\n\nBEFORE YOU GO OUT\nEat properly first, get protein in, do not skip meals to save calories because it always backfires and they end up hammered and starving.\n\nSMART SWAPS\nLower damage choices for what they are drinking, without being the sad one on soda water all night. Specific to their drink.\n\nON THE NIGHT\nMatch with water, anchor with food, the practical stuff that keeps them in control.\n\nTHE NEXT MORNING\nThe scale will be up and it is water not fat, so do not panic. Get straight back to basics. Never miss twice. Protein, water, steps, normal day.\n\nMARK'S TAKE\nOne personal practical thing you actually do yourself.\n\nNever preach abstinence. Never tell them to punish themselves the next day with cardio or by skipping meals. Keep it real and keep it kind.`;
+
+let lastR='',lastP='',lastG='',lastW='',lastT='',lastFr='',lastA='',lastH='';
 
 async function genRecipe(){
   const kcal=document.getElementById('r-kcal').value;
@@ -1108,6 +1227,59 @@ async function genTravel(){
   }catch(e){document.getElementById('t-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
+/* ===== PANIC BUTTON ===== */
+let pnHist=[];
+function pnChip(el){document.getElementById('pn-cin').value=el.textContent;pnSend();}
+function pnKbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();pnSend();}}
+async function pnSend(){
+  const inp=document.getElementById('pn-cin');const txt=inp.value.trim();if(!txt)return;
+  inp.value='';pnAdd(txt,'u');pnHist.push({role:'user',content:txt});const ti=pnTyping();
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:PNSYS,messages:pnHist})});
+    const d=await r.json();if(d.error)throw new Error(d.error.message);
+    const reply=d.content[0].text;pnHist.push({role:'assistant',content:reply});
+    logToSheets('Panic Button',{},'Trigger: '+txt+' | Reply: '+reply.substring(0,300));
+    ti.remove();pnAdd(reply,'m');
+  }catch(e){ti.remove();pnAdd("Something went wrong my end, but listen, whatever it was, it can wait two minutes. Get a glass of water and try me again. I'm not going anywhere.",'m');}
+}
+function pnAdd(txt,role){
+  const c=document.getElementById('pn-msgs');const d=document.createElement('div');
+  d.className='msg'+(role==='u'?' u':'');
+  d.innerHTML=`<div class="mav ${role==='m'?'m':'u'}">${role==='m'?'M':'You'}</div><div><div class="bub">${txt.replace(/\n/g,'<br>')}</div><div class="mt">Now</div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function pnTyping(){
+  const c=document.getElementById('pn-msgs');const d=document.createElement('div');d.className='msg';
+  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:9px 12px;background:var(--white);border:1px solid var(--border);border-radius:10px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+
+/* ===== HONESTY CHECK-IN ===== */
+async function genHonesty(){
+  const sessions=document.getElementById('h-sessions').value;
+  if(sessions===''){alert('Fill your week in first, honestly.');return;}
+  document.getElementById('h-result').classList.remove('on');document.getElementById('h-load').classList.add('on');
+  try{
+    const reply=await ask(HSYS,`Here is my week, honestly.\nTraining sessions: ${sessions}\nAverage daily steps: ${document.getElementById('h-steps').value||'not sure'}\nAverage sleep: ${document.getElementById('h-sleep').value||'not sure'} hours\nHow honest my tracking was: ${document.getElementById('h-tracking').value}\nThe weekend: ${document.getElementById('h-weekend').value}\nMy goal: ${document.getElementById('h-goal').value}\nWhat I've been telling myself: ${document.getElementById('h-reason').value||'nothing in particular'}\n\nGive me the honest read.`);
+    lastH=reply;
+    logToSheets('Honesty Check-In',{field1_label:'Sessions',field1_value:sessions,field2_label:'Weekend',field2_value:document.getElementById('h-weekend').value,field3_label:'Goal',field3_value:document.getElementById('h-goal').value});
+    document.getElementById('h-load').classList.remove('on');
+    document.getElementById('h-out').innerHTML=formatText(reply);document.getElementById('h-result').classList.add('on');
+  }catch(e){document.getElementById('h-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
+/* ===== ALCOHOL GUIDE ===== */
+async function genAlcohol(){
+  document.getElementById('al-result').classList.remove('on');document.getElementById('al-load').classList.add('on');
+  try{
+    const reply=await ask(ALSYS,`Alcohol game plan. Drinking: ${document.getElementById('al-drink').value}. Session size: ${document.getElementById('al-amount').value}. Goal: ${document.getElementById('al-goal').value}. Occasion: ${document.getElementById('al-occasion').value||'none'}. Extra: ${document.getElementById('al-extra').value||'nothing'}.`);
+    lastA=reply;
+    logToSheets('Alcohol Guide',{field1_label:'Drink',field1_value:document.getElementById('al-drink').value,field2_label:'Amount',field2_value:document.getElementById('al-amount').value,field3_label:'Goal',field3_value:document.getElementById('al-goal').value});
+    document.getElementById('al-load').classList.remove('on');
+    document.getElementById('al-out').innerHTML=formatText(reply);document.getElementById('al-result').classList.add('on');
+  }catch(e){document.getElementById('al-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
+
 let hist=[];
 function useChip(el){document.getElementById('cin').value=el.textContent;sendMsg();}
 function ckbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
@@ -1176,6 +1348,8 @@ function dlGrocery(){if(lastG)dl(lastG,'zenithfit-shopping-list.html');}
 function dlWeekend(){if(lastW)dl(lastW,'zenithfit-weekend-plan.html');}
 function dlTravel(){if(lastT)dl(lastT,'zenithfit-travel-plan.html');}
 function dlFridge(){if(lastFr)dl(lastFr,'zenithfit-fridge-recipe.html');}
+function dlAlcohol(){if(lastA)dl(lastA,'zenithfit-alcohol-plan.html');}
+function dlHonesty(){if(lastH)dl(lastH,'zenithfit-honesty-check.html');}
 </script>
 </body>
 </html>
