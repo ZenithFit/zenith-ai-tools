@@ -107,12 +107,12 @@ body { background:var(--off); color:var(--charcoal); font-family:var(--font-body
 
   <div class="hero">
     <div class="hero-eyebrow">14-Day Kickstart Challenge</div>
-    <div class="hero-title">Your AI Tools<br><em>Taster</em></div>
-    <div class="hero-sub">A little preview of the tools my paying clients get. Two of them, fully working, on me. Have a play and see how good this stuff actually is.</div>
+    <div class="hero-title">The Zenith<br><em>Toolkit</em></div>
+    <div class="hero-sub">Two proper AI tools, fully working, on me. Have a play and see how good this stuff actually is.</div>
     <div class="hero-tag">💪 Powered by 12 years of coaching</div>
   </div>
 
-  <div class="intro-note">These two are yours to use during your Kickstart. <strong>The full toolbox lives inside Zenith Accelerator</strong>, including the Panic Button for those 10pm moments, personalised meal plans, and Mark Bot to ask me anything, any time.</div>
+  <div class="intro-note">These two are yours to play with for the whole of your Kickstart. Dead simple, dead useful. Get stuck in whenever you need them.</div>
 
   <div class="section-label">Try These Now</div>
 
@@ -153,26 +153,9 @@ body { background:var(--off); color:var(--charcoal); font-family:var(--font-body
   <div class="loading" id="al-load"><div class="spin"></div><span>Building your game plan...</span></div>
   <div class="result" id="al-result"><div class="result-head"><span class="result-head-label">Your Alcohol Game Plan</span></div><div class="result-body" id="al-out"></div></div>
 
-  <div class="section-label" style="margin-top:30px;">Unlocked Inside Accelerator</div>
-  <div class="locked-grid">
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">💪</span><span class="locked-name">Mark Bot</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">🆘</span><span class="locked-name">Panic Button</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">🪞</span><span class="locked-name">Honesty Check-In</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">📋</span><span class="locked-name">5-Day Meal Planner</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">🍳</span><span class="locked-name">Recipe Generator</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">🧊</span><span class="locked-name">What's In My Fridge?</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">🍽️</span><span class="locked-name">Eating Out Guide</span></div></div>
-    <div class="locked-card" onclick="toCta()"><span class="locked-pad">🔒</span><div class="locked-inner"><span class="locked-ico">📅</span><span class="locked-name">Weekend Game Plan</span></div></div>
-  </div>
+  <div style="text-align:center; font-family:var(--font-head); font-size:16px; font-weight:500; text-transform:uppercase; letter-spacing:0.04em; color:var(--charcoal); background:var(--white); border:1px solid var(--border); border-radius:12px; padding:24px; margin-top:8px; line-height:1.5;">That's your taster. Two tools, no catch.<br>Get stuck in and enjoy the Kickstart. 💪</div>
 
-  <div class="cta" id="cta">
-    <div class="cta-title">Want The <em>Full Toolbox?</em></div>
-    <div class="cta-sub">This is a tiny slice of what you get inside Zenith Accelerator. Six weeks to build the habits that actually stick, with every tool, the workouts, and me in your corner.</div>
-    <a class="cta-btn" href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-j7376lczfzynuwi" target="_blank" rel="noopener">See What's Inside Accelerator →</a>
-    <div class="cta-foot">Your next step after Kickstart. £149 for 6 weeks.</div>
-  </div>
-
-  <div class="page-foot">Zenith Fit AI Tools — Kickstart Taster</div>
+  <div class="page-foot">The Zenith Toolkit</div>
 
 </div>
 
@@ -193,8 +176,6 @@ async function ask(system,userMsg){
 
 const FSYS=`You are a nutrition expert for Zenith Fit UK writing in the voice of Mark Davies. Direct, honest, no fluff. British English. Kcal. No dashes in text. Mark's opinion on food: protein is king, whole foods beat processed foods, eating less is not the goal because eating smarter is. He does not moralize about food. He gives honest context. If something is a poor choice for fat loss, say so plainly without being preachy. If something is a solid choice, say so. Be specific and accurate. No generic phrases. Sound like a coach, not a textbook. If the food is genuinely fine for a fat loss goal, say that too. Mark hates unnecessary guilt around food.`;
 const ALSYS=`You are Mark Davies from Zenith Fit UK. A client has a night of drinking coming up and wants a game plan. Alcohol is part of life and you will never make anyone feel guilty for it. 80/20 applies. Your job is to help them enjoy it and get straight back on track after. British English. No dashes. Direct, honest, warm. Sound like a real person who goes out himself and has figured out how to make it work, not a wellness influencer.\n\nFORMAT:\nTHE REALITY\nHonest calorie context of what they are actually drinking, no shaming, just so they know. Round numbers are fine.\n\nBEFORE YOU GO OUT\nEat properly first, get protein in, do not skip meals to save calories because it always backfires and they end up hammered and starving.\n\nSMART SWAPS\nLower damage choices for what they are drinking, without being the sad one on soda water all night. Specific to their drink.\n\nON THE NIGHT\nMatch with water, anchor with food, the practical stuff that keeps them in control.\n\nTHE NEXT MORNING\nThe scale will be up and it is water not fat, so do not panic. Get straight back to basics. Never miss twice. Protein, water, steps, normal day.\n\nMARK'S TAKE\nOne personal practical thing you actually do yourself.\n\nNever preach abstinence. Never tell them to punish themselves the next day with cardio or by skipping meals. Keep it real and keep it kind.`;
-
-function toCta(){document.getElementById('cta').scrollIntoView({behavior:'smooth'});}
 
 function qFood(el){document.getElementById('fc-food').value=el.textContent;checkFood();}
 async function checkFood(){
