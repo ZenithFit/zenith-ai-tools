@@ -563,6 +563,7 @@ body.dark .support-note { background: rgba(201,150,58,0.1); }
 
   <div class="sb-section">
     <div class="sb-section-label">Nutrition</div>
+    <div class="sb-item" onclick="goPage('protein',this)"><span class="sb-item-ico">🥩</span> Protein Fixer</div>
     <div class="sb-item" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> 5-Day Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
@@ -732,6 +733,37 @@ body.dark .support-note { background: rgba(201,150,58,0.1); }
         <div class="result-head"><span class="result-head-label">The Honest Read</span></div>
         <div class="result-body" id="h-out"></div>
         <div class="result-actions"><button class="btn-sm" onclick="dlHonesty()">⬇ Save</button><button class="btn-sm" onclick="copyResult('h-out')">⎘ Copy</button></div>
+      </div>
+    </div>
+
+    <!-- PROTEIN FIXER -->
+    <div class="page" id="page-protein">
+      <div class="page-hdr">
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Protein Fixer</div>
+        <div class="page-desc">Struggling to hit your protein? You've probably not got a food problem, you've got a gap problem. Tell me what a normal day looks like and I'll show you exactly where the missing protein went and how to patch it without changing your whole life.</div>
+      </div>
+      <div class="card">
+        <span class="card-label">A Normal Day For You</span>
+        <div class="f1"><div class="fg"><label class="fl">Breakfast</label><input class="fi" id="pf-b" placeholder="e.g. 2 Weetabix with milk, or I skip it"></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Lunch</label><input class="fi" id="pf-l" placeholder="e.g. meal deal sandwich, crisps and a drink"></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Dinner</label><input class="fi" id="pf-d" placeholder="e.g. spag bol, chicken curry and rice..."></div></div>
+        <div class="f1"><div class="fg"><label class="fl">Snacks and drinks</label><input class="fi" id="pf-s" placeholder="e.g. banana, packet of crisps, couple of coffees"></div></div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Your protein target (g)</label><input class="fi" id="pf-target" type="number" placeholder="From Mark"></div>
+          <div class="fg"><label class="fl">Diet type</label><select class="fs" id="pf-diet"><option>No restrictions</option><option>Vegetarian</option><option>Vegan</option><option>Pescatarian</option><option>Dairy Free</option><option>Gluten Free</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Happy to use protein shakes?</label><select class="fs" id="pf-shake"><option>Prefer whole food only</option><option>Yes, but not loads</option><option>Yes, no problem</option></select></div>
+          <div class="fg"><label class="fl">Biggest struggle</label><select class="fs" id="pf-struggle"><option>Breakfast is always low</option><option>Lunch on the go</option><option>Not much time to cook</option><option>Get bored of the same foods</option><option>Just never hit the number</option></select></div>
+        </div>
+        <button class="btn btn-amber" onclick="genProtein()">Find My Missing Protein →</button>
+      </div>
+      <div class="loading" id="pf-load"><div class="spin"></div><span>Working out where your protein went...</span></div>
+      <div class="result" id="pf-result">
+        <div class="result-head"><span class="result-head-label">Your Protein Fix</span></div>
+        <div class="result-body" id="pf-out"></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlProtein()">⬇ Save</button><button class="btn-sm" onclick="copyResult('pf-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -1029,7 +1061,7 @@ body.dark .support-note { background: rgba(201,150,58,0.1); }
 </div>
 
 <script>
-const TITLES={bot:'Mark Bot',panic:'Panic Button',honesty:'Honesty Check-In',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide'};
+const TITLES={bot:'Mark Bot',panic:'Panic Button',honesty:'Honesty Check-In',protein:'Protein Fixer',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide'};
 
 function toggleDark(){
   const dark=document.body.classList.toggle('dark');
@@ -1052,7 +1084,7 @@ function loadTargets(){
   document.getElementById('tbar-kcal').textContent=kcal?kcal+' kcal':'Not set';
   document.getElementById('tbar-prot').textContent=prot?prot+'g':'Not set';
   if(kcal){['r-kcal','p-kcal','fr-kcal'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=kcal;});}
-  if(prot){['r-prot','p-prot','fr-prot'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});}
+  if(prot){['r-prot','p-prot','fr-prot','pf-target'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});}
 }
 function openTargets(){
   document.getElementById('t-kcal-in').value=localStorage.getItem('zf-kcal')||'';
@@ -1101,6 +1133,8 @@ async function ask(system,userMsg){
   return d.content[0].text;
 }
 
+const PFSYS=`You are Mark Davies from Zenith Fit UK. A client has told you what they normally eat and said they are struggling to hit their protein target. Your job is to find the gap and patch it, not to hand them a whole new diet.\n\nCORE PRINCIPLE: They do not have a food problem, they have a gap problem. They already eat food they like in a routine that works round their life. You are patching that day, not replacing it. Keep as much of their actual day as possible.\n\nVOICE: Direct, practical, warm, no waffle. British English. No dashes. Digits not words for numbers. Grams. Short punchy sentences. Sound like a coach who has had this exact conversation a thousand times, not a nutrition textbook. UK foods and UK supermarket brands only, for example Greek yoghurt, cottage cheese, skyr, chicken thighs, tuna, eggs, Weetabix, baked beans, milk, Grenade, Fulfil, MyProtein.\n\nWHOLE FOOD FIRST. Never solve the whole gap with shakes. Respect what they said about shakes. If they said whole food only, do not suggest powder at all. Even if they are fine with shakes, lead with real food and use powder as the backup, one a day maximum unless the gap is genuinely huge.\n\nFORMAT:\n\nWHERE YOU'RE AT\nRough estimate of the protein in the day they described, meal by meal, with a number next to each. Make clear these are estimates not exact science. Then the total and the gap to their target. Be honest and plain about it, no drama.\n\nWHERE IT WENT MISSING\nName the specific meals letting them down and why. Usually breakfast and snacks. Be specific to what they actually told you, do not be generic.\n\nTHE PATCH\nThe important bit. Three to five specific swaps or additions to the day they already described, each with the grams it adds. Keep their meals wherever you can. Show the new running total at the end so they can see it works. Prioritise the easiest wins first.\n\nHIGH PROTEIN CHEAT SHEET\nA list they can screenshot and keep. 10 to 12 UK foods with protein per realistic portion, for example 150g Greek yoghurt 15g, 100g chicken breast 31g. Match it to their diet type. Group into quick grab, cook once eat twice, and snacks.\n\nMARK'S TAKE\nOne short practical paragraph in first person. The habit that fixes this permanently, usually anchoring protein at every meal and sorting breakfast first because it is the one most people leave empty.\n\nHARD RULES: Never tell them to cut calories, skip meals, or eat less of anything to make room. You are adding protein, not restricting. Never moralise about the food they told you they eat. If their target looks genuinely unrealistic for their diet type, for example a vegan on a very high target, say so plainly and give a sensible working range instead of pretending it is easy. If what they described is very little food overall, do not praise it, gently flag that eating more not less is what fixes this, and tell them to message Mark directly.`;
+
 const RSYS=`You are writing recipes for Zenith Fit UK in the voice of Mark Davies. Mark is a fat loss coach with 12 years experience. He is direct, practical, no waffle. He coaches busy professionals aged 30 to 50. His philosophy: protein at every meal, high volume foods, walk more, train consistently not perfectly, sleep matters. He hates extremes. He does not believe in detoxes, cleanses, or fat burners. UK ingredients only. UK supermarkets: Tesco, Sainsbury's, Asda, Aldi, Lidl, Morrisons. British English. Grams. Kcal. Never say "delicious" or "nutritious" or "wholesome" or any generic food word. Make the food sound like something a real person would actually want to eat. If the protein is high, say so plainly. If it takes under 15 minutes, that matters to a busy person so say so. Sound like a coach writing for a real client, not a recipe blog. No dashes in text.`;
 const PSYS=`You are writing meal plans for Zenith Fit UK in the voice of Mark Davies. Direct, practical, zero waffle. British English. Kcal. Grams. UK supermarkets. UK foods only: porridge, jacket potato, baked beans, chicken thighs, chicken breast, beef mince, Greek yoghurt, Weetabix, rice cakes, cottage pie, beans on toast, eggs, salmon, tuna, sweet potato, rice, oats. UK brands where relevant: Grenade, Fulfil, MyProtein, Bulk, PhD. No dashes in text. High protein every single meal. Every day must be realistic for someone working full time with a family. Nothing that takes longer than 30 minutes unless it is a weekend meal. Show kcal and protein per meal like this: (420 kcal / 38g protein). Show the daily total at the bottom of each day. Mark's rules that must be reflected: never skip protein, eat protein and veg before carbs, more carbs on training days, less on rest days, 80/20 balance built in so the plan does not feel like punishment. Never use generic AI phrases. Sound like a real coach who actually eats this food.`;
 const GSYS=`You are writing for Zenith Fit UK in the voice of Mark Davies. Direct, practical, no waffle. British English. UK supermarkets. Specific quantities. No dashes in text. Keep it tight. Sound like a real person who goes to Tesco and actually buys this stuff, not like a wellness blog. Category headers, exact quantities, nothing vague.`;
@@ -1116,7 +1150,25 @@ const PNSYS=`You are Mark Davies from Zenith Fit, talking to a client at the exa
 const HSYS=`You are Mark Davies from Zenith Fit doing an Honesty Check-In with a client. They have reported their week. Your job is to hold the mirror up: tell them the truth about whether their effort matches the goal they say they want. Every other coach tells people what they want to hear. You do the opposite, with genuine care.\n\nVOICE: Direct, honest, warm, no nonsense. British English. No dashes. Short punchy sentences. Sound like Mark talking, not a brand. Use "right", "look", "here is the thing", "to be honest", "I will be straight with you". Digits not words for numbers.\n\nFORMAT:\nTHE READ\nOne straight paragraph. Is the effort actually matching the goal. Say it plainly.\n\nWHAT'S WORKING\nLead with the wins. Always. Find what they are doing right and give them real credit for it.\n\nWHERE YOU'RE KIDDING YOURSELF\nThe honest bit. This is the never miss twice mirror. Call out the pattern and the excuse directly, but aim it at the behaviour and the story they are telling themselves, never at them as a person. If the tracking was patchy or the weekend got written off, name it. If the excuse is "too busy" or "too tired" or "start Monday", reframe it as a habit not a reason.\n\nTHE ONE THING\nA single highest-leverage change for next week. Not a list of ten. One thing. Make it specific and doable.\n\nThen a short forward-looking close and a muscle emoji.\n\nHARD RULES: Never attack their worth. Never tell them to slash calories, skip meals, or punish themselves with cardio. Your whole message is sustainable systems and consistency, not restriction and not guilt. A slip is never a moral failure, it is just data. If the numbers look extreme in the wrong direction, for example barely eating, almost no food, or training obsessively every single day, do not praise it, gently flag that more is not better and point them back to balance.\n\nCRISIS GUARDRAIL: if anything they have written suggests genuine distress, disordered eating, or that they are in a dark place rather than just off track, drop the coaching format entirely. Respond with warmth and care, encourage them to talk to someone they trust or their GP, share the Samaritans line 116 123 (free, any time) and, if it is about food or eating specifically, Beat on 0808 801 0677.`;
 const ALSYS=`You are Mark Davies from Zenith Fit UK. A client has a night of drinking coming up and wants a game plan. Alcohol is part of life and you will never make anyone feel guilty for it. 80/20 applies. Your job is to help them enjoy it and get straight back on track after. British English. No dashes. Direct, honest, warm. Sound like a real person who goes out himself and has figured out how to make it work, not a wellness influencer.\n\nFORMAT:\nTHE REALITY\nHonest calorie context of what they are actually drinking, no shaming, just so they know. Round numbers are fine.\n\nBEFORE YOU GO OUT\nEat properly first, get protein in, do not skip meals to save calories because it always backfires and they end up hammered and starving.\n\nSMART SWAPS\nLower damage choices for what they are drinking, without being the sad one on soda water all night. Specific to their drink.\n\nON THE NIGHT\nMatch with water, anchor with food, the practical stuff that keeps them in control.\n\nTHE NEXT MORNING\nThe scale will be up and it is water not fat, so do not panic. Get straight back to basics. Never miss twice. Protein, water, steps, normal day.\n\nMARK'S TAKE\nOne personal practical thing you actually do yourself.\n\nNever preach abstinence. Never tell them to punish themselves the next day with cardio or by skipping meals. Keep it real and keep it kind.`;
 
-let lastR='',lastP='',lastG='',lastW='',lastT='',lastFr='',lastA='',lastH='';
+let lastR='',lastP='',lastG='',lastW='',lastT='',lastFr='',lastA='',lastH='',lastPf='';
+
+/* ===== PROTEIN FIXER ===== */
+async function genProtein(){
+  const b=document.getElementById('pf-b').value.trim();
+  const l=document.getElementById('pf-l').value.trim();
+  const d=document.getElementById('pf-d').value.trim();
+  if(!b&&!l&&!d){alert('Tell me what you normally eat first, even roughly.');return;}
+  const target=document.getElementById('pf-target').value;
+  if(!target){alert('Enter your protein target first.');return;}
+  document.getElementById('pf-result').classList.remove('on');document.getElementById('pf-load').classList.add('on');
+  try{
+    const reply=await ask(PFSYS,`Here is a normal day for me.\nBreakfast: ${b||'nothing, I skip it'}\nLunch: ${l||'nothing'}\nDinner: ${d||'nothing'}\nSnacks and drinks: ${document.getElementById('pf-s').value.trim()||'none'}\n\nMy protein target: ${target}g\nDiet type: ${document.getElementById('pf-diet').value}\nProtein shakes: ${document.getElementById('pf-shake').value}\nMy biggest struggle: ${document.getElementById('pf-struggle').value}\n\nFind my gap and patch my day.`);
+    lastPf=reply;
+    logToSheets('Protein Fixer',{field1_label:'Target',field1_value:target,field2_label:'Diet',field2_value:document.getElementById('pf-diet').value,field3_label:'Struggle',field3_value:document.getElementById('pf-struggle').value});
+    document.getElementById('pf-load').classList.remove('on');
+    document.getElementById('pf-out').innerHTML=formatText(reply);document.getElementById('pf-result').classList.add('on');
+  }catch(e){document.getElementById('pf-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
 
 async function genRecipe(){
   const kcal=document.getElementById('r-kcal').value;
@@ -1350,6 +1402,7 @@ function dlTravel(){if(lastT)dl(lastT,'zenithfit-travel-plan.html');}
 function dlFridge(){if(lastFr)dl(lastFr,'zenithfit-fridge-recipe.html');}
 function dlAlcohol(){if(lastA)dl(lastA,'zenithfit-alcohol-plan.html');}
 function dlHonesty(){if(lastH)dl(lastH,'zenithfit-honesty-check.html');}
+function dlProtein(){if(lastPf)dl(lastPf,'zenithfit-protein-fix.html');}
 </script>
 </body>
 </html>
