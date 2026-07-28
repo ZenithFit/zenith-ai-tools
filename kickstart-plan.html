@@ -67,6 +67,777 @@
     text-align: center;
   }
 
+  .hero h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: clamp(36px, 6vw, 66px);
+    line-height: 1.05;
+    text-transform: uppercase;
+    color: var(--heading);
+    margin-bottom: 20px;
+  }
+
+  .hero h1 span { color: var(--green); }
+
+  .hero p {
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--body);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  /* ---------- Promise strip ---------- */
+  .strip { background: var(--dark); padding: 26px 0; }
+
+  .strip-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .strip-item .dot {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--green-tint);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  .strip-item .dot::after {
+    content: "";
+    width: 9px;
+    height: 5px;
+    border-left: 2px solid var(--green-light);
+    border-bottom: 2px solid var(--green-light);
+    transform: rotate(-45deg) translate(1px, -1px);
+  }
+
+  .strip-item span {
+    color: var(--white);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+  }
+
+  /* ---------- Form ---------- */
+  .form-section { padding: 64px 0 96px; }
+  .form-section.hidden { display: none; }
+
+  .form-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--green);
+    border-radius: 20px;
+    padding: 44px;
+    box-shadow: 0 4px 24px rgba(17, 17, 17, 0.05);
+  }
+
+  .form-card h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--heading);
+    margin-bottom: 8px;
+  }
+
+  .form-card .subtitle {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    margin-bottom: 34px;
+  }
+
+  .form-group { margin-bottom: 20px; }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  input, select {
+    width: 100%;
+    background: var(--off);
+    border: 1px solid var(--line);
+    border-radius: 50px;
+    padding: 15px 22px;
+    color: var(--heading);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    appearance: none;
+  }
+
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2300A86B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 22px center;
+    padding-right: 46px;
+    cursor: pointer;
+  }
+
+  input:focus, select:focus {
+    background: var(--white);
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(63, 212, 148, 0.28);
+  }
+
+  input::placeholder { color: #A8AEAC; }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 20px;
+  }
+
+  .full { grid-column: 1 / -1; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 26px 0 24px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--heading);
+    margin-bottom: 20px;
+  }
+
+  .section-label::before {
+    content: "";
+    width: 22px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--green-light);
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn-submit {
+    width: 100%;
+    background: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 50px;
+    padding: 19px 32px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 6px 18px rgba(0, 168, 107, 0.22);
+  }
+
+  .btn-submit:hover { background: var(--green-hover); }
+  .btn-submit:active { transform: scale(0.99); }
+  .btn-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  .btn-ghost {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-hover);
+    border: 1.5px solid var(--green-light);
+    border-radius: 50px;
+    padding: 14px 30px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover { background: var(--green-tint); border-color: var(--green); }
+
+  :focus-visible {
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+  }
+
+  .privacy {
+    text-align: center;
+    font-size: 12px;
+    color: #A0A6A4;
+    margin-top: 14px;
+  }
+
+  .error-msg {
+    display: none;
+    background: #FFF4F4;
+    border: 1px solid #F3D2D2;
+    color: #B44A4A;
+    border-radius: 14px;
+    padding: 14px 18px;
+    font-size: 14px;
+    margin-top: 18px;
+  }
+
+  .error-msg.active { display: block; }
+
+  /* ---------- Loading ---------- */
+  .loading-screen {
+    display: none;
+    text-align: center;
+    padding: 110px 24px;
+  }
+
+  .loading-screen.active { display: block; }
+
+  .spinner {
+    width: 52px;
+    height: 52px;
+    border: 4px solid var(--green-tint);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 28px;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .loading-screen h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--heading);
+    margin-bottom: 10px;
+  }
+
+  .loading-screen p { color: var(--muted); font-size: 15px; }
+
+  /* ---------- Plan ---------- */
+  .plan-section { display: none; padding-bottom: 96px; }
+  .plan-section.active { display: block; }
+
+  .plan-header {
+    text-align: center;
+    padding: 60px 0 40px;
+  }
+
+  .plan-header .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--dark);
+    background: var(--green-light);
+    border-radius: 50px;
+    padding: 7px 18px;
+    margin-bottom: 18px;
+    font-weight: 600;
+  }
+
+  .plan-header h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 50px);
+    text-transform: uppercase;
+    line-height: 1.1;
+    color: var(--heading);
+    margin-bottom: 12px;
+  }
+
+  .plan-header p { color: var(--muted); font-size: 16px; }
+
+  .plan-content {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 48px;
+    line-height: 1.8;
+    font-size: 16px;
+    box-shadow: 0 4px 24px rgba(17, 17, 17, 0.05);
+  }
+
+  .plan-content h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 21px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--heading);
+    margin: 36px 0 16px;
+    padding-left: 16px;
+    border-left: 5px solid var(--green-light);
+  }
+
+  .plan-content h3:first-child { margin-top: 0; }
+  .plan-content p { margin-bottom: 14px; color: var(--body); }
+
+  .plan-content ul { list-style: none; margin-bottom: 14px; }
+
+  .plan-content li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    color: var(--body);
+  }
+
+  .plan-content li::before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 11px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 4px var(--green-tint);
+  }
+
+  .plan-content strong { color: var(--heading); font-weight: 600; }
+
+  .plan-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+
+  /* ---------- CTA ---------- */
+  .plan-cta {
+    background: var(--green);
+    border-radius: 22px;
+    padding: 56px 44px;
+    margin-top: 52px;
+    text-align: center;
+  }
+
+  .plan-cta .eyebrow {
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .plan-cta h3 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: clamp(27px, 4vw, 38px);
+    text-transform: uppercase;
+    line-height: 1.15;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .plan-cta p {
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 17px;
+    line-height: 1.75;
+    max-width: 500px;
+    margin: 0 auto 30px;
+  }
+
+  .btn-cta {
+    display: inline-block;
+    background: var(--white);
+    color: var(--green-hover);
+    text-decoration: none;
+    border-radius: 50px;
+    padding: 18px 44px;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: transform 0.1s, background 0.2s;
+  }
+
+  .btn-cta:hover { background: var(--off); }
+  .btn-cta:active { transform: scale(0.99); }
+
+  /* ---------- Footer ---------- */
+  .footer {
+    background: var(--dark);
+    padding: 34px 24px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--dark-body);
+    border-top: 4px solid var(--green-light);
+  }
+
+  @media (max-width: 780px) {
+    .strip-inner { grid-template-columns: 1fr; gap: 14px; }
+    .strip-item { justify-content: flex-start; max-width: 260px; margin: 0 auto; }
+  }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 0 20px; }
+    .form-card, .plan-content, .plan-cta { padding: 30px 24px; }
+    .form-grid { grid-template-columns: 1fr; }
+    .hero { padding: 54px 0 46px; }
+    .form-section { padding-top: 44px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <img src="logo.png" alt="Zenith Fit" class="header-logo">
+</header>
+<div class="rule"></div>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Your 2 week <span>kickstart plan</span></h1>
+    <p>Answer 8 quick questions and you will get a simple plan built around your week. Nothing extreme, nothing you cannot stick to.</p>
+  </div>
+</section>
+
+<section class="strip">
+  <div class="wrap strip-inner">
+    <div class="strip-item"><span class="dot"></span><span>Built around your week</span></div>
+    <div class="strip-item"><span class="dot"></span><span>Takes 60 seconds</span></div>
+    <div class="strip-item"><span class="dot"></span><span>Yours to keep, free</span></div>
+  </div>
+</section>
+
+<section class="form-section" id="formSection">
+  <div class="wrap">
+    <div class="form-card">
+      <h2>Build my plan</h2>
+      <p class="subtitle">The more honest the answers, the more useful the plan.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="name">First name</label>
+          <input type="text" id="name" placeholder="Mark" autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="you@email.co.uk" autocomplete="email">
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="section-label">About you</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" placeholder="38" min="16" max="99">
+        </div>
+        <div class="form-group">
+          <label for="gender">Sex</label>
+          <select id="gender">
+            <option value="">Select</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="goal">Main goal</label>
+          <select id="goal">
+            <option value="">Select</option>
+            <option value="Lose body fat">Lose body fat</option>
+            <option value="Get fitter and stronger">Get fitter and stronger</option>
+            <option value="Build a consistent routine">Build a consistent routine</option>
+            <option value="More energy day to day">More energy day to day</option>
+          </select>
+        </div>
+      </div>
+
+      <hr class="divider">
+      <p class="section-label">Your week</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="days">Days you can train</label>
+          <select id="days">
+            <option value="">Select</option>
+            <option value="2 days">2 days</option>
+            <option value="3 days">3 days</option>
+            <option value="4 days">4 days</option>
+            <option value="5 days or more">5 days or more</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="equipment">Where you train</label>
+          <select id="equipment">
+            <option value="">Select</option>
+            <option value="Full gym">Full gym</option>
+            <option value="Home with dumbbells">Home with dumbbells</option>
+            <option value="Home, bodyweight only">Home, bodyweight only</option>
+            <option value="Mix of gym and home">Mix of gym and home</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label for="struggle">Biggest sticking point</label>
+          <select id="struggle">
+            <option value="">Select</option>
+            <option value="Evening snacking">Evening snacking</option>
+            <option value="Weekends wipe out the week">Weekends wipe out the week</option>
+            <option value="No time and low energy">No time and low energy</option>
+            <option value="Starting well then falling off">Starting well then falling off</option>
+            <option value="Not knowing what to eat">Not knowing what to eat</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-submit" id="submitBtn">Build my plan</button>
+      <p class="privacy">Your details stay with Zenith Fit. No spam, ever.</p>
+      <div class="error-msg" id="errorMsg"></div>
+    </div>
+  </div>
+</section>
+
+<section class="loading-screen" id="loadingScreen">
+  <div class="spinner"></div>
+  <h3>Building your plan</h3>
+  <p>Give it a few seconds.</p>
+</section>
+
+<section class="plan-section" id="planSection">
+  <div class="wrap">
+    <div class="plan-header">
+      <p class="eyebrow">Built for you</p>
+      <h2 id="planTitle">Your 2 week plan</h2>
+      <p>Save it, print it, stick it on the fridge. Whatever makes you use it.</p>
+    </div>
+
+    <div class="plan-content" id="planContent"></div>
+
+    <div class="plan-actions">
+      <button class="btn-ghost" id="downloadBtn">Download as PDF</button>
+      <button class="btn-ghost" id="restartBtn">Start again</button>
+    </div>
+
+    <div class="plan-cta">
+      <p class="eyebrow">What happens next</p>
+      <h3>A plan is the easy part</h3>
+      <p>The Zenith Accelerator is 6 weeks of proper coaching, structure and accountability. Built for people who have started plenty of times before and want this one to stick.</p>
+      <a class="btn-cta" href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">See the Accelerator</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  Zenith Fit &copy; <span id="year"></span>
+</footer>
+
+<script>
+  // Point this at your Cloudflare Worker endpoint
+  const WORKER_URL = "https://zenith-fit.mark-5a5.workers.dev/kickstart-plan";
+
+  const el = id => document.getElementById(id);
+  const formSection = el('formSection');
+  const loadingScreen = el('loadingScreen');
+  const planSection = el('planSection');
+  const errorMsg = el('errorMsg');
+  let lastPlanText = "";
+
+  el('year').textContent = new Date().getFullYear();
+
+  const fields = ['name','email','age','gender','goal','days','equipment','struggle'];
+
+  function collect() {
+    const data = {};
+    fields.forEach(f => data[f] = el(f).value.trim());
+    return data;
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.add('active');
+  }
+
+  function clearError() {
+    errorMsg.classList.remove('active');
+  }
+
+  el('submitBtn').addEventListener('click', async () => {
+    clearError();
+    const data = collect();
+    const missing = fields.filter(f => !data[f]);
+
+    if (missing.length) {
+      showError("Fill in every field and we will get you a proper plan.");
+      return;
+    }
+    if (!/^\S+@\S+\.\S+$/.test(data.email)) {
+      showError("That email does not look right. Check it and try again.");
+      return;
+    }
+
+    formSection.classList.add('hidden');
+    loadingScreen.classList.add('active');
+
+    try {
+      const res = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!res.ok) throw new Error('Request failed');
+      const json = await res.json();
+      const text = json.plan || json.text || "";
+      if (!text) throw new Error('Empty plan');
+
+      lastPlanText = text;
+      el('planTitle').textContent = data.name ? data.name + "'s 2 week plan" : "Your 2 week plan";
+      el('planContent').innerHTML = render(text);
+
+      loadingScreen.classList.remove('active');
+      planSection.classList.add('active');
+      window.scrollTo({ top: 0 });
+
+    } catch (err) {
+      loadingScreen.classList.remove('active');
+      formSection.classList.remove('hidden');
+      showError("The plan did not come through. Give it another go in a moment.");
+    }
+  });
+
+  // Turns the returned text into clean HTML
+  function render(text) {
+    const lines = text.split('\n');
+    let html = '';
+    let inList = false;
+
+    lines.forEach(raw => {
+      const line = raw.trim();
+      if (!line) return;
+
+      if (/^#{1,3}\s/.test(line)) {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<h3>' + esc(line.replace(/^#{1,3}\s/, '')) + '</h3>';
+      } else if (/^[-*]\s/.test(line)) {
+        if (!inList) { html += '<ul>'; inList = true; }
+        html += '<li>' + bold(esc(line.replace(/^[-*]\s/, ''))) + '</li>';
+      } else {
+        if (inList) { html += '</ul>'; inList = false; }
+        html += '<p>' + bold(esc(line)) + '</p>';
+      }
+    });
+
+    if (inList) html += '</ul>';
+    return html;
+  }
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function bold(s) {
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  el('downloadBtn').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+    const margin = 48;
+    const width = doc.internal.pageSize.getWidth() - margin * 2;
+    let y = margin;
+
+    doc.setFillColor(244, 246, 245);
+    doc.rect(0, 0, doc.internal.pageSize.getWidth(), 78, 'F');
+    doc.setFillColor(63, 212, 148);
+    doc.rect(0, 76, doc.internal.pageSize.getWidth(), 4, 'F');
+    doc.setTextColor(17, 17, 17);
+    doc.setFontSize(19);
+    doc.text('YOUR 2 WEEK KICKSTART PLAN', margin, 46);
+    y = 118;
+
+    doc.setTextColor(74, 79, 77);
+    doc.setFontSize(11);
+
+    lastPlanText.split('\n').forEach(raw => {
+      const line = raw.trim().replace(/^#{1,3}\s/, '').replace(/\*\*/g, '');
+      if (!line) { y += 8; return; }
+      const wrapped = doc.splitTextToSize(line, width);
+      wrapped.forEach(w => {
+        if (y > 780) { doc.addPage(); y = margin; }
+        doc.text(w, margin, y);
+        y += 16;
+      });
+    });
+
+    doc.save('zenith-fit-kickstart-plan.pdf');
+  });
+
+  el('restartBtn').addEventListener('click', () => {
+    planSection.classList.remove('active');
+    formSection.classList.remove('hidden');
+    window.scrollTo({ top: 0 });
+  });
+</script>
+
+</body>
+</html>    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Header ---------- */
+  .header {
+    background: var(--white);
+    padding: 18px 24px 0;
+    text-align: center;
+  }
+
+  .header-logo {
+    height: 50px;
+    width: auto;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+
+  .rule {
+    height: 4px;
+    background: linear-gradient(90deg, var(--green) 0%, var(--green-light) 100%);
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    background: var(--off);
+    padding: 76px 0 68px;
+    text-align: center;
+  }
+
   .hero-eyebrow {
     display: inline-block;
     font-size: 12px;
