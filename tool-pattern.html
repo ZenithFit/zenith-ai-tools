@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pattern Finder | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#00A86B;
+    --green-hover:#008755;
+    --green-bright:#3FD494;
+    --white:#FFFFFF;
+    --alt:#F4F6F5;
+    --dark:#0C0F11;
+    --heading:#111111;
+    --body:#4A4F4D;
+    --dim:#BFC6C3;
+    --line:#E4E8E6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;background:transparent;}
+
+  body{
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .head{background:var(--dark);padding:28px 26px 26px;}
+
+  .eyebrow{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--green-bright);
+    margin:0 0 10px;
+  }
+
+  .head h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--white);
+    font-size:30px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:0 0 12px;
+  }
+
+  .head p{color:var(--dim);font-size:15px;margin:0;max-width:46ch;}
+
+  .body{padding:26px;}
+
+  .block{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 20px 6px;
+    margin-bottom:14px;
+  }
+
+  .block-name{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.06em;
+    margin:0 0 14px;
+  }
+
+  .slider{margin-bottom:16px;}
+
+  .slider-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:4px;
+  }
+
+  .slider label{font-size:15px;font-weight:500;color:var(--heading);}
+
+  .val{
+    font-size:15px;
+    font-weight:700;
+    color:var(--green);
+    min-width:2.5em;
+    text-align:right;
+  }
+
+  input[type=range]{
+    width:100%;
+    accent-color:var(--green);
+    height:22px;
+    cursor:pointer;
+  }
+
+  input[type=range]:focus-visible{outline:2px solid var(--green);outline-offset:4px;}
+
+  .scale{
+    display:flex;
+    justify-content:space-between;
+    font-size:12px;
+    color:#8A918E;
+    margin-top:-2px;
+  }
+
+  .field{margin-bottom:24px;}
+
+  label.q{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.02em;
+    margin:0 0 4px;
+  }
+
+  .hint{font-size:14px;color:var(--body);margin:0 0 12px;}
+
+  input[type=text]{
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    color:var(--heading);
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+  }
+
+  input[type=text]:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,168,107,.14);
+  }
+
+  .go{
+    display:block;
+    width:100%;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:17px;
+    color:var(--white);
+    background:var(--green);
+    border:none;
+    border-radius:999px;
+    padding:17px 24px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+
+  .go:hover{background:var(--green-hover);}
+  .go:focus-visible{outline:2px solid var(--dark);outline-offset:3px;}
+  .go[disabled]{background:#9FBFB2;cursor:default;}
+
+  .results{margin-top:26px;}
+  .results:empty{margin-top:0;}
+
+  .care{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--dark);
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:15px;
+    color:var(--heading);
+    margin-bottom:16px;
+  }
+
+  .out{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:12px;
+  }
+
+  .out h3{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--green);
+    font-size:13px;
+    letter-spacing:.14em;
+    margin:0 0 6px;
+  }
+
+  .out p{margin:0;font-size:15px;color:var(--heading);}
+
+  .out.action{border-left:3px solid var(--green);}
+
+  .msg{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:15px;
+    text-align:center;
+  }
+
+  .cta{background:var(--dark);padding:26px;margin-top:26px;border-radius:16px;}
+  .cta p{color:var(--white);font-size:16px;margin:0 0 18px;}
+
+  .cta a{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:15px;
+    color:var(--white);
+    background:var(--green);
+    border-radius:999px;
+    padding:14px 30px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+
+  .cta a:hover{background:var(--green-hover);}
+  .cta a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;}
+
+  .legal{font-size:11px;line-height:1.6;color:#8A918E;margin:18px 2px 0;}
+
+  @media (max-width:520px){
+    .head{padding:24px 20px;}
+    .head h1{font-size:25px;}
+    .body{padding:20px;}
+    .cta{padding:22px 20px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="head">
+      <p class="eyebrow">Day 6 · Awareness</p>
+      <h1>Pattern Finder</h1>
+      <p>You've got 9 numbers. Put them in and I'll tell you what they're actually saying.</p>
+    </div>
+
+    <div class="body">
+
+      <div id="blocks"></div>
+
+      <div class="field">
+        <label class="q" for="context">Anything worth knowing about today?</label>
+        <p class="hint">Optional. Bad night's sleep, mad day at work, skipped lunch, that sort of thing.</p>
+        <input type="text" id="context" placeholder="Slept badly, no proper lunch">
+      </div>
+
+      <button type="button" class="go" id="go">Find my pattern</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="cta">
+        <p>That's one day's numbers. Zenith Accelerator is 6 weeks of me reading your data every week and telling you what to change before it costs you a fortnight.</p>
+        <a href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">Read the full invite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="legal">The information provided by this tool is for general information and educational purposes only. It is not medical, nutritional or professional advice and should not be relied upon as such. Responses are generated by AI and may be inaccurate or incomplete. Always speak to your GP or a qualified healthcare professional before starting any new exercise or nutrition plan, particularly if you are pregnant, injured, taking medication or managing an existing health condition. Stop and seek medical advice if you feel unwell at any point. You use this tool entirely at your own risk. Zenith Fit accepts no liability for any loss, injury or damage arising from its use.</p>
+</div>
+
+<script>
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const MODEL  = 'claude-sonnet-4-6';
+
+const TIMES = ['Morning','Afternoon','Evening'];
+const METRICS = [
+  { key:'hunger', label:'Hunger', low:'Not hungry', high:'Starving' },
+  { key:'energy', label:'Energy', low:'Running on empty', high:'Full of it' },
+  { key:'mood',   label:'Mood',   low:'Rough',           high:'Great' }
+];
+
+const blocks = document.getElementById('blocks');
+
+TIMES.forEach(function(t){
+  const id = t.toLowerCase();
+  let html = '<div class="block"><p class="block-name">' + t + '</p>';
+  METRICS.forEach(function(m){
+    const sid = id + '-' + m.key;
+    html += '<div class="slider">';
+    html += '<div class="slider-top"><label for="' + sid + '">' + m.label + '</label>';
+    html += '<span class="val" id="' + sid + '-val">5</span></div>';
+    html += '<input type="range" min="1" max="10" value="5" id="' + sid + '">';
+    html += '<div class="scale"><span>1 · ' + m.low + '</span><span>10 · ' + m.high + '</span></div>';
+    html += '</div>';
+  });
+  html += '</div>';
+  blocks.insertAdjacentHTML('beforeend', html);
+});
+
+blocks.addEventListener('input', function(e){
+  if(e.target.type !== 'range') return;
+  document.getElementById(e.target.id + '-val').textContent = e.target.value;
+  sendHeight();
+});
+
+const results = document.getElementById('results');
+const goBtn = document.getElementById('go');
+
+function show(html){ results.innerHTML = html; sendHeight(); }
+function message(text){ show('<div class="msg">' + text + '</div>'); }
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function readScores(){
+  const out = {};
+  TIMES.forEach(function(t){
+    const id = t.toLowerCase();
+    out[id] = {};
+    METRICS.forEach(function(m){
+      out[id][m.key] = parseInt(document.getElementById(id + '-' + m.key).value, 10);
+    });
+  });
+  return out;
+}
+
+function lowMood(s){
+  return TIMES.some(function(t){ return s[t.toLowerCase()].mood <= 3; });
+}
+
+const CARE_LINE = 'Before anything else. Your mood has been sat low today and that matters more than any of the other numbers. Say something in the group, or to someone you trust. And if it has been like that for a while, have a word with your GP. There is no drama in that, it is just the sensible thing to do.';
+
+function buildPrompt(s, context, flagged){
+  return [
+"You are the Pattern Finder tool on the Zenith Fit 14 Day Kickstart, Day 6. Day 6's task is 3 check ins across the day scoring hunger, energy and mood out of 10.",
+"",
+"Someone has given you their 9 numbers. Find the single clearest pattern in them and give them one thing to try tomorrow.",
+"",
+"RULES. Follow every one of these:",
+"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"2. Pick ONE pattern. The clearest one. Do not list everything you can see.",
+"3. Never diagnose anything, physical or mental. Never name a condition. Never mention medication or supplements.",
+"4. Never mention calories, calorie targets, deficits, weight, weight loss, body fat or portion restriction.",
+"5. Never tell them to eat less of anything or to cut anything out.",
+"6. Never label food good, bad, clean, dirty, naughty, guilty, a treat or a cheat.",
+"7. The thing to try tomorrow must be one small specific action they can do without buying anything or changing their whole day.",
+"8. Do not use dashes of any kind anywhere in your output.",
+"9. If the numbers are all fairly flat and even, say so plainly rather than inventing a pattern. A flat day is useful information too.",
+flagged
+  ? "10. IMPORTANT. Their mood scores are low. Do not be upbeat, chirpy or motivational. Keep it calm and matter of fact. Do not try to fix their mood and do not suggest their mood is caused by food or training. Focus your answer on the hunger and energy numbers only."
+  : "10. Keep the tone level. Encouraging without being over the top.",
+"",
+"Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
+'{"pattern":"","why":"","try":""}',
+"",
+"pattern: what you can see in the numbers. 2 short sentences maximum.",
+"why: what usually sits behind that pattern. 2 short sentences maximum. General, never about them specifically as a medical matter.",
+"try: one small specific thing to do tomorrow. 1 or 2 short sentences.",
+"",
+"Here are their numbers, all scored out of 10.",
+"Morning. Hunger " + s.morning.hunger + ", energy " + s.morning.energy + ", mood " + s.morning.mood + ".",
+"Afternoon. Hunger " + s.afternoon.hunger + ", energy " + s.afternoon.energy + ", mood " + s.afternoon.mood + ".",
+"Evening. Hunger " + s.evening.hunger + ", energy " + s.evening.energy + ", mood " + s.evening.mood + ".",
+"Extra context they gave: " + (context || "none given")
+  ].join("\n");
+}
+
+function render(data, flagged){
+  let html = '';
+  if(flagged){ html += '<div class="care">' + CARE_LINE + '</div>'; }
+  html += '<div class="out"><h3>The pattern</h3><p>' + esc(data.pattern) + '</p></div>';
+  html += '<div class="out"><h3>Why that happens</h3><p>' + esc(data.why) + '</p></div>';
+  html += '<div class="out action"><h3>Try this tomorrow</h3><p>' + esc(data.try) + '</p></div>';
+  show(html);
+}
+
+goBtn.addEventListener('click', async function(){
+  const scores = readScores();
+  const context = document.getElementById('context').value.trim();
+  const flagged = lowMood(scores);
+
+  goBtn.disabled = true;
+  goBtn.textContent = 'Having a look';
+  message('Reading your numbers');
+
+  try{
+    const res = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        messages:[{ role:'user', content: buildPrompt(scores, context, flagged) }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Bad response ' + res.status);
+
+    const data = await res.json();
+
+    let text = '';
+    if(Array.isArray(data.content)){
+      text = data.content.filter(function(b){ return b.type === 'text'; })
+                         .map(function(b){ return b.text; }).join('\n');
+    } else if(typeof data.completion === 'string'){
+      text = data.completion;
+    } else if(typeof data.text === 'string'){
+      text = data.text;
+    }
+
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+
+    let parsed = null;
+    try{ parsed = JSON.parse(text); }
+    catch(e){
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if(start > -1 && end > start){ parsed = JSON.parse(text.slice(start, end + 1)); }
+    }
+
+    if(parsed && parsed.pattern){
+      render(parsed, flagged);
+    } else if(flagged){
+      show('<div class="care">' + CARE_LINE + '</div><div class="msg">That didn\'t come back right. Give it another go.</div>');
+    } else {
+      message('That didn\'t come back right. Give it another go.');
+    }
+
+  } catch(err){
+    console.error(err);
+    if(flagged){
+      show('<div class="care">' + CARE_LINE + '</div><div class="msg">Something went wrong at my end. Try again in a moment.</div>');
+    } else {
+      message('Something went wrong at my end. Try again in a moment.');
+    }
+  }
+
+  goBtn.disabled = false;
+  goBtn.textContent = 'Find my pattern';
+});
+
+function sendHeight(){
+  if(window.parent === window) return;
+  window.parent.postMessage({ zenithHeight: document.documentElement.scrollHeight }, '*');
+}
+
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
