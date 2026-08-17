@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekend Gameplan | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#00A86B;
+    --green-hover:#008755;
+    --green-bright:#3FD494;
+    --white:#FFFFFF;
+    --alt:#F4F6F5;
+    --dark:#0C0F11;
+    --heading:#111111;
+    --body:#4A4F4D;
+    --dim:#BFC6C3;
+    --line:#E4E8E6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;background:transparent;}
+
+  body{
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .head{background:var(--dark);padding:28px 26px 26px;}
+
+  .eyebrow{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--green-bright);
+    margin:0 0 10px;
+  }
+
+  .head h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--white);
+    font-size:30px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:0 0 12px;
+  }
+
+  .head p{color:var(--dim);font-size:15px;margin:0;max-width:46ch;}
+
+  .body{padding:26px;}
+
+  .targets{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:26px;
+  }
+
+  .targets h2{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:15px;
+    letter-spacing:.06em;
+    margin:0 0 4px;
+  }
+
+  .targets .sub{font-size:14px;margin:0 0 14px;}
+
+  .target{
+    display:flex;
+    gap:12px;
+    align-items:baseline;
+    padding:8px 0;
+    border-top:1px solid var(--line);
+  }
+
+  .target:first-of-type{border-top:none;}
+
+  .target b{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--green);
+    font-size:12px;
+    letter-spacing:.1em;
+    min-width:84px;
+  }
+
+  .target span{font-size:15px;color:var(--heading);}
+
+  .field{margin-bottom:24px;}
+
+  label.q{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.02em;
+    margin:0 0 4px;
+  }
+
+  .hint{font-size:14px;color:var(--body);margin:0 0 12px;}
+
+  textarea{
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    color:var(--heading);
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    resize:vertical;
+    line-height:1.5;
+    min-height:110px;
+  }
+
+  textarea:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,168,107,.14);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+
+  .chip{
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--heading);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+
+  .chip:hover{border-color:#C9D0CD;}
+  .chip:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+
+  .chip[aria-pressed="true"]{
+    background:var(--dark);
+    border-color:var(--dark);
+    color:var(--white);
+  }
+
+  .go{
+    display:block;
+    width:100%;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:17px;
+    color:var(--white);
+    background:var(--green);
+    border:none;
+    border-radius:999px;
+    padding:17px 24px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+
+  .go:hover{background:var(--green-hover);}
+  .go:focus-visible{outline:2px solid var(--dark);outline-offset:3px;}
+  .go[disabled]{background:#9FBFB2;cursor:default;}
+
+  .results{margin-top:26px;}
+  .results:empty{margin-top:0;}
+
+  .rlabel{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:15px;
+    letter-spacing:.06em;
+    margin:0 0 4px;
+  }
+
+  .rsub{font-size:14px;margin:0 0 16px;}
+
+  .slot{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-left:3px solid var(--green);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:12px;
+  }
+
+  .slot h3{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--green);
+    font-size:12px;
+    letter-spacing:.14em;
+    margin:0 0 6px;
+  }
+
+  .slot p{margin:0 0 6px;font-size:15px;color:var(--heading);}
+  .slot p.why{margin:0;color:var(--body);}
+
+  .note{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--dark);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:15px;
+    color:var(--heading);
+    margin-top:14px;
+  }
+
+  .msg{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:15px;
+    text-align:center;
+  }
+
+  .cta{background:var(--dark);padding:26px;margin-top:26px;border-radius:16px;}
+  .cta p{color:var(--white);font-size:16px;margin:0 0 18px;}
+
+  .cta a{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:15px;
+    color:var(--white);
+    background:var(--green);
+    border-radius:999px;
+    padding:14px 30px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+
+  .cta a:hover{background:var(--green-hover);}
+  .cta a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;}
+
+  .legal{font-size:11px;line-height:1.6;color:#8A918E;margin:18px 2px 0;}
+
+  @media (max-width:520px){
+    .head{padding:24px 20px;}
+    .head h1{font-size:25px;}
+    .body{padding:20px;}
+    .cta{padding:22px 20px;}
+    .target{flex-direction:column;gap:2px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="head">
+      <p class="eyebrow">Weekend</p>
+      <h1>Weekend Gameplan</h1>
+      <p>Tell me what's on this weekend and I'll give you a plan that fits round it rather than cancelling it.</p>
+    </div>
+
+    <div class="body">
+
+      <div class="targets">
+        <h2>The 4 non-negotiables</h2>
+        <p class="sub">Hit these and the weekend looks after itself. They don't change, whatever you've got on.</p>
+        <div class="target"><b>Steps</b><span>8,000 to 10,000 each day</span></div>
+        <div class="target"><b>Protein</b><span>2 protein-led meals minimum</span></div>
+        <div class="target"><b>Water</b><span>2 litres a day</span></div>
+        <div class="target"><b>Mindset</b><span>Make memories, not excuses</span></div>
+      </div>
+
+      <div class="field">
+        <label class="q" for="plans">What have you got on this weekend?</label>
+        <p class="hint">Meal out, party, kids' football, absolutely nothing. Whatever it actually is.</p>
+        <textarea id="plans" placeholder="Meal out with friends Saturday night, kids football Sunday morning, nothing else planned"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="q">What normally goes wrong?</label>
+        <p class="hint">Pick as many as you like. Be honest, nobody else sees this.</p>
+        <div class="chips" id="wrong" role="group" aria-label="What normally goes wrong">
+          <button type="button" class="chip" aria-pressed="false">The drinking</button>
+          <button type="button" class="chip" aria-pressed="false">Takeaways</button>
+          <button type="button" class="chip" aria-pressed="false">Grazing all day</button>
+          <button type="button" class="chip" aria-pressed="false">Sitting about</button>
+          <button type="button" class="chip" aria-pressed="false">Sunday writes it off</button>
+          <button type="button" class="chip" aria-pressed="false">Nothing really</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">What do you want from it?</label>
+        <p class="hint">Pick one.</p>
+        <div class="chips" id="goal" role="group" aria-label="What do you want from the weekend">
+          <button type="button" class="chip" aria-pressed="false">Stay tight all weekend</button>
+          <button type="button" class="chip" aria-pressed="false">Enjoy it, stay on track</button>
+          <button type="button" class="chip" aria-pressed="false">Just not write it off</button>
+        </div>
+      </div>
+
+      <button type="button" class="go" id="go">Build my weekend</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="cta" id="cta">
+        <p>That's one weekend sorted. Zenith Accelerator is 6 weeks of me helping you handle the socials, the holidays and the weekends that used to take the whole week down with them.</p>
+        <a href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">Read the full invite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="legal">The information provided by this tool is for general information and educational purposes only. It is not medical, nutritional or professional advice and should not be relied upon as such. Responses are generated by AI and may be inaccurate or incomplete. Always speak to your GP or a qualified healthcare professional before starting any new exercise or nutrition plan, particularly if you are pregnant, injured, taking medication or managing an existing health condition. Stop and seek medical advice if you feel unwell at any point. You use this tool entirely at your own risk. Zenith Fit accepts no liability for any loss, injury or damage arising from its use.</p>
+</div>
+
+<script>
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const MODEL  = 'claude-sonnet-4-6';
+
+if(location.search.indexOf('cta=off') > -1){
+  const cta = document.getElementById('cta');
+  if(cta){ cta.style.display = 'none'; }
+}
+
+let wrong = [];
+let goal = '';
+
+function singleSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    group.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+    btn.setAttribute('aria-pressed','true');
+    set(btn.textContent.trim());
+  });
+}
+
+function multiSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    const on = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    const picked = [];
+    group.querySelectorAll('.chip').forEach(function(c){
+      if(c.getAttribute('aria-pressed') === 'true'){ picked.push(c.textContent.trim()); }
+    });
+    set(picked);
+  });
+}
+
+multiSelect('wrong', function(v){ wrong = v; });
+singleSelect('goal', function(v){ goal = v; });
+
+const results = document.getElementById('results');
+const goBtn = document.getElementById('go');
+
+function show(html){ results.innerHTML = html; sendHeight(); }
+function message(text){ show('<div class="msg">' + text + '</div>'); }
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildPrompt(plans){
+  return [
+"You are the Weekend Gameplan tool for Zenith Fit. Weekends are where most people undo a good week, and the fix is having a plan before it starts rather than willpower on the day.",
+"",
+"Someone has told you what they have on this weekend. Give them a plan across Friday evening, Saturday and Sunday that fits round their actual plans.",
+"",
+"The 4 weekend non-negotiables are already shown to them on the page. Do not repeat them back. They are 8,000 to 10,000 steps a day, 2 protein led meals minimum, 2 litres of water, and make memories not excuses. Build round those without listing them.",
+"",
+"RULES. Follow every one of these:",
+"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"2. Never tell them to cancel, skip or cut short anything they have planned. The plan works around their weekend, it never replaces it.",
+"3. Never mention calories, calorie targets, deficits, weight, weight loss, body fat, portion restriction or macros.",
+"4. Never tell them to eat less, save up, bank anything, earn anything or make up for anything later.",
+"5. NEVER suggest skipping or shrinking a meal earlier in the day to allow for a meal or drinks later. This is important. If they are eating out, tell them to eat normally beforehand.",
+"6. Never suggest extra training to offset food or drink. Movement is for its own sake, never as a payment.",
+"7. Never label food or drink good, bad, clean, dirty, naughty, guilty, a treat, a cheat or damage.",
+"8. On alcohol, stay practical and neutral. Never lecture, never give health warnings, never tell them to stop or cut down. Practical suggestions only, such as having water alongside, or eating properly before going out.",
+"9. Never give medical, injury or diagnostic advice.",
+"10. Do not use dashes of any kind anywhere in your output.",
+"11. Be specific. Real actions tied to what they told you, not general advice they could have got anywhere.",
+"",
+"Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
+'{"plan":[{"when":"","what":"","why":""}],"note":""}',
+"",
+"Give between 3 and 5 entries in the plan, covering Friday evening through to Sunday.",
+"when: Friday evening, Saturday morning, Saturday night, Sunday, and so on.",
+"what: the action. 1 or 2 short sentences. Specific to their weekend.",
+"why: 1 short sentence on why it works. Reference what they told you.",
+"note: one short line, 25 words maximum. Something to hold onto if it goes off plan.",
+"",
+"Here is what they have told you.",
+"Their weekend: " + plans,
+"What normally goes wrong: " + (wrong.length ? wrong.join(", ") : "not specified"),
+"What they want from it: " + goal
+  ].join("\n");
+}
+
+function render(data){
+  let html = '<p class="rlabel">Your weekend</p>';
+  html += '<p class="rsub">Read it now, before the weekend starts. That is the whole point.</p>';
+
+  data.plan.forEach(function(s){
+    html += '<div class="slot">';
+    html += '<h3>' + esc(s.when) + '</h3>';
+    html += '<p>' + esc(s.what) + '</p>';
+    if(s.why){ html += '<p class="why">' + esc(s.why) + '</p>'; }
+    html += '</div>';
+  });
+
+  if(data.note){ html += '<div class="note">' + esc(data.note) + '</div>'; }
+
+  show(html);
+}
+
+goBtn.addEventListener('click', async function(){
+  const plans = document.getElementById('plans').value.trim();
+
+  if(!plans){ message('Tell me what you\'ve got on this weekend first.'); return; }
+  if(!goal){ message('Pick what you want from the weekend.'); return; }
+
+  goBtn.disabled = true;
+  goBtn.textContent = 'Having a look';
+  message('Building your weekend');
+
+  try{
+    const res = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        messages:[{ role:'user', content: buildPrompt(plans) }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Bad response ' + res.status);
+
+    const data = await res.json();
+
+    let text = '';
+    if(Array.isArray(data.content)){
+      text = data.content.filter(function(b){ return b.type === 'text'; })
+                         .map(function(b){ return b.text; }).join('\n');
+    } else if(typeof data.completion === 'string'){
+      text = data.completion;
+    } else if(typeof data.text === 'string'){
+      text = data.text;
+    }
+
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+
+    let parsed = null;
+    try{ parsed = JSON.parse(text); }
+    catch(e){
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if(start > -1 && end > start){ parsed = JSON.parse(text.slice(start, end + 1)); }
+    }
+
+    if(parsed && Array.isArray(parsed.plan) && parsed.plan.length){
+      render(parsed);
+    } else {
+      message('That didn\'t come back right. Give it another go.');
+    }
+
+  } catch(err){
+    console.error(err);
+    message('Something went wrong at my end. Try again in a moment.');
+  }
+
+  goBtn.disabled = false;
+  goBtn.textContent = 'Build my weekend';
+});
+
+function sendHeight(){
+  if(window.parent === window) return;
+  window.parent.postMessage({ zenithHeight: document.documentElement.scrollHeight }, '*');
+}
+
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
