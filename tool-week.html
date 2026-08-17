@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week Planner | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#00A86B;
+    --green-hover:#008755;
+    --green-bright:#3FD494;
+    --white:#FFFFFF;
+    --alt:#F4F6F5;
+    --dark:#0C0F11;
+    --heading:#111111;
+    --body:#4A4F4D;
+    --dim:#BFC6C3;
+    --line:#E4E8E6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;background:transparent;}
+
+  body{
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .head{background:var(--dark);padding:28px 26px 26px;}
+
+  .eyebrow{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--green-bright);
+    margin:0 0 10px;
+  }
+
+  .head h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--white);
+    font-size:30px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:0 0 12px;
+  }
+
+  .head p{color:var(--dim);font-size:15px;margin:0;max-width:46ch;}
+
+  .body{padding:26px;}
+
+  .field{margin-bottom:24px;}
+
+  label.q{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.02em;
+    margin:0 0 4px;
+  }
+
+  .hint{font-size:14px;color:var(--body);margin:0 0 12px;}
+
+  textarea{
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    color:var(--heading);
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    resize:vertical;
+    line-height:1.5;
+    min-height:120px;
+  }
+
+  textarea:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,168,107,.14);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+
+  .chip{
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--heading);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+
+  .chip:hover{border-color:#C9D0CD;}
+  .chip:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+
+  .chip[aria-pressed="true"]{
+    background:var(--dark);
+    border-color:var(--dark);
+    color:var(--white);
+  }
+
+  .go{
+    display:block;
+    width:100%;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:17px;
+    color:var(--white);
+    background:var(--green);
+    border:none;
+    border-radius:999px;
+    padding:17px 24px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+
+  .go:hover{background:var(--green-hover);}
+  .go:focus-visible{outline:2px solid var(--dark);outline-offset:3px;}
+  .go[disabled]{background:#9FBFB2;cursor:default;}
+
+  .results{margin-top:26px;}
+  .results:empty{margin-top:0;}
+
+  .rlabel{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:15px;
+    letter-spacing:.06em;
+    margin:0 0 4px;
+  }
+
+  .rsub{font-size:14px;margin:0 0 16px;}
+
+  .slot{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-left:3px solid var(--green);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:12px;
+  }
+
+  .slot-when{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--green);
+    font-size:12px;
+    letter-spacing:.14em;
+    margin:0 0 4px;
+  }
+
+  .slot h3{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:18px;
+    line-height:1.2;
+    letter-spacing:.02em;
+    margin:0 0 6px;
+  }
+
+  .slot p{margin:0;font-size:15px;}
+
+  .note{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--dark);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:15px;
+    color:var(--heading);
+    margin-top:14px;
+  }
+
+  .msg{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:15px;
+    text-align:center;
+  }
+
+  .cta{background:var(--dark);padding:26px;margin-top:26px;border-radius:16px;}
+  .cta p{color:var(--white);font-size:16px;margin:0 0 18px;}
+
+  .cta a{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:15px;
+    color:var(--white);
+    background:var(--green);
+    border-radius:999px;
+    padding:14px 30px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+
+  .cta a:hover{background:var(--green-hover);}
+  .cta a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;}
+
+  .legal{font-size:11px;line-height:1.6;color:#8A918E;margin:18px 2px 0;}
+
+  @media (max-width:520px){
+    .head{padding:24px 20px;}
+    .head h1{font-size:25px;}
+    .body{padding:20px;}
+    .cta{padding:22px 20px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="head">
+      <p class="eyebrow">Day 8 · Scheduling</p>
+      <h1>Week Planner</h1>
+      <p>Tell me what your week actually looks like and I'll tell you where the sessions go.</p>
+    </div>
+
+    <div class="body">
+
+      <div class="field">
+        <label class="q" for="week">What does your week look like?</label>
+        <p class="hint">Work hours, shifts, school run, evenings that are already gone. The real version, not the tidy one.</p>
+        <textarea id="week" placeholder="Work 8 to 5 Monday to Friday, school run at 8.15 and 3.30, football Tuesday and Thursday evenings, Saturday morning is usually free, Sunday is family"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="q">How many sessions this week?</label>
+        <p class="hint">Be realistic. You can always add one later.</p>
+        <div class="chips" id="count" role="group" aria-label="How many sessions">
+          <button type="button" class="chip" aria-pressed="false">2</button>
+          <button type="button" class="chip" aria-pressed="false">3</button>
+          <button type="button" class="chip" aria-pressed="false">4</button>
+          <button type="button" class="chip" aria-pressed="false">5</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">How long each time?</label>
+        <p class="hint">Pick one.</p>
+        <div class="chips" id="length" role="group" aria-label="How long each session">
+          <button type="button" class="chip" aria-pressed="false">20 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">30 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">45 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">An hour</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">What do you fancy doing?</label>
+        <p class="hint">Pick as many as you like.</p>
+        <div class="chips" id="types" role="group" aria-label="What kind of session">
+          <button type="button" class="chip" aria-pressed="false">A walk</button>
+          <button type="button" class="chip" aria-pressed="false">A run</button>
+          <button type="button" class="chip" aria-pressed="false">A workout</button>
+          <button type="button" class="chip" aria-pressed="false">A swim</button>
+        </div>
+      </div>
+
+      <button type="button" class="go" id="go">Plan my week</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="cta">
+        <p>That's this week sorted. Zenith Accelerator is 6 weeks of a plan built round your real diary, adjusted every time your week goes sideways.</p>
+        <a href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">Read the full invite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="legal">The information provided by this tool is for general information and educational purposes only. It is not medical, nutritional or professional advice and should not be relied upon as such. Responses are generated by AI and may be inaccurate or incomplete. Always speak to your GP or a qualified healthcare professional before starting any new exercise or nutrition plan, particularly if you are pregnant, injured, taking medication or managing an existing health condition. Stop and seek medical advice if you feel unwell at any point. You use this tool entirely at your own risk. Zenith Fit accepts no liability for any loss, injury or damage arising from its use.</p>
+</div>
+
+<script>
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const MODEL  = 'claude-sonnet-4-6';
+
+let count = '';
+let length = '';
+let types = [];
+
+function singleSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    group.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+    btn.setAttribute('aria-pressed','true');
+    set(btn.textContent.trim());
+  });
+}
+
+function multiSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    const on = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    const picked = [];
+    group.querySelectorAll('.chip').forEach(function(c){
+      if(c.getAttribute('aria-pressed') === 'true'){ picked.push(c.textContent.trim()); }
+    });
+    set(picked);
+  });
+}
+
+singleSelect('count', function(v){ count = v; });
+singleSelect('length', function(v){ length = v; });
+multiSelect('types', function(v){ types = v; });
+
+const results = document.getElementById('results');
+const goBtn = document.getElementById('go');
+
+function show(html){ results.innerHTML = html; sendHeight(); }
+function message(text){ show('<div class="msg">' + text + '</div>'); }
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildPrompt(week){
+  return [
+"You are the Week Planner tool on the Zenith Fit 14 Day Kickstart, Day 8. Day 8's task is to stop leaving training to chance and put it in the diary at a specific time.",
+"",
+"Someone has described their week. Give them specific slots with a day and a time for each one.",
+"",
+"RULES. Follow every one of these:",
+"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"2. Every slot must have a real day and a real clock time. Never say 'sometime in the morning' or 'whenever suits'. Vague is useless here.",
+"3. Work around what they have told you. Never schedule anything on top of something they have said is taken.",
+"4. Never tell them to get up earlier, go to bed later, sleep less, skip a meal or drop family time to make room. Find the gap they already have.",
+"5. If their week genuinely does not have room for the number of sessions they asked for, give them fewer and say so plainly in the note. Do not cram sessions in where they will not happen.",
+"6. Only use the types of session they picked.",
+"7. Never mention calories, calorie targets, deficits, weight, weight loss, body fat or portion restriction. Never mention food at all.",
+"8. Never give medical, injury or diagnostic advice.",
+"9. Do not use dashes of any kind anywhere in your output.",
+"10. Spread the sessions sensibly across the week rather than stacking them all together.",
+"",
+"Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
+'{"slots":[{"day":"","time":"","what":"","why":""}],"note":""}',
+"",
+"day: the day of the week.",
+"time: a specific clock time, for example '7:00am' or '6:30pm'.",
+"what: the session, 6 words maximum, including how long it is.",
+"why: 1 short sentence on why that slot works in their week. Reference something they actually told you.",
+"note: one short practical line, 25 words maximum. Use this if you had to give them fewer sessions than they asked for.",
+"",
+"Here is what they have told you.",
+"Their week: " + week,
+"Sessions wanted: " + count,
+"Length of each: " + length,
+"Types they picked: " + types.join(", ")
+  ].join("\n");
+}
+
+function render(data){
+  let html = '<p class="rlabel">Your week</p>';
+  html += '<p class="rsub">Put these in your calendar now, while you are looking at them.</p>';
+
+  data.slots.forEach(function(s){
+    html += '<div class="slot">';
+    html += '<p class="slot-when">' + esc(s.day) + ' · ' + esc(s.time) + '</p>';
+    html += '<h3>' + esc(s.what) + '</h3>';
+    html += '<p>' + esc(s.why) + '</p>';
+    html += '</div>';
+  });
+
+  if(data.note){ html += '<div class="note">' + esc(data.note) + '</div>'; }
+
+  show(html);
+}
+
+goBtn.addEventListener('click', async function(){
+  const week = document.getElementById('week').value.trim();
+
+  if(!week){ message('Tell me what your week looks like first.'); return; }
+  if(!count){ message('Pick how many sessions you want this week.'); return; }
+  if(!length){ message('Pick how long you have got each time.'); return; }
+  if(!types.length){ message('Pick at least one thing you fancy doing.'); return; }
+
+  goBtn.disabled = true;
+  goBtn.textContent = 'Having a look';
+  message('Finding your gaps');
+
+  try{
+    const res = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        messages:[{ role:'user', content: buildPrompt(week) }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Bad response ' + res.status);
+
+    const data = await res.json();
+
+    let text = '';
+    if(Array.isArray(data.content)){
+      text = data.content.filter(function(b){ return b.type === 'text'; })
+                         .map(function(b){ return b.text; }).join('\n');
+    } else if(typeof data.completion === 'string'){
+      text = data.completion;
+    } else if(typeof data.text === 'string'){
+      text = data.text;
+    }
+
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+
+    let parsed = null;
+    try{ parsed = JSON.parse(text); }
+    catch(e){
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if(start > -1 && end > start){ parsed = JSON.parse(text.slice(start, end + 1)); }
+    }
+
+    if(parsed && Array.isArray(parsed.slots) && parsed.slots.length){
+      render(parsed);
+    } else {
+      message('That didn\'t come back right. Give it another go.');
+    }
+
+  } catch(err){
+    console.error(err);
+    message('Something went wrong at my end. Try again in a moment.');
+  }
+
+  goBtn.disabled = false;
+  goBtn.textContent = 'Plan my week';
+});
+
+function sendHeight(){
+  if(window.parent === window) return;
+  window.parent.postMessage({ zenithHeight: document.documentElement.scrollHeight }, '*');
+}
+
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
