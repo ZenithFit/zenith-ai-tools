@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Session Swapper | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#00A86B;
+    --green-hover:#008755;
+    --green-bright:#3FD494;
+    --white:#FFFFFF;
+    --alt:#F4F6F5;
+    --dark:#0C0F11;
+    --heading:#111111;
+    --body:#4A4F4D;
+    --dim:#BFC6C3;
+    --line:#E4E8E6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;background:transparent;}
+
+  body{
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .head{background:var(--dark);padding:28px 26px 26px;}
+
+  .eyebrow{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--green-bright);
+    margin:0 0 10px;
+  }
+
+  .head h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--white);
+    font-size:30px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:0 0 12px;
+  }
+
+  .head p{color:var(--dim);font-size:15px;margin:0;max-width:46ch;}
+
+  .body{padding:26px;}
+
+  .field{margin-bottom:24px;}
+
+  label.q{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.02em;
+    margin:0 0 4px;
+  }
+
+  .hint{font-size:14px;color:var(--body);margin:0 0 12px;}
+
+  input[type=text]{
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    color:var(--heading);
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+  }
+
+  input[type=text]:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,168,107,.14);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+
+  .chip{
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--heading);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+
+  .chip:hover{border-color:#C9D0CD;}
+  .chip:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+
+  .chip[aria-pressed="true"]{
+    background:var(--dark);
+    border-color:var(--dark);
+    color:var(--white);
+  }
+
+  .ack{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:16px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+
+  .ack input[type=checkbox]{
+    width:20px;
+    height:20px;
+    margin:2px 0 0;
+    accent-color:var(--green);
+    flex-shrink:0;
+    cursor:pointer;
+  }
+
+  .ack input[type=checkbox]:focus-visible{outline:2px solid var(--green);outline-offset:3px;}
+
+  .ack label{
+    font-size:14px;
+    line-height:1.55;
+    color:var(--heading);
+    cursor:pointer;
+  }
+
+  .go{
+    display:block;
+    width:100%;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:17px;
+    color:var(--white);
+    background:var(--green);
+    border:none;
+    border-radius:999px;
+    padding:17px 24px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+
+  .go:hover{background:var(--green-hover);}
+  .go:focus-visible{outline:2px solid var(--dark);outline-offset:3px;}
+  .go[disabled]{background:#9FBFB2;cursor:default;}
+
+  .results{margin-top:26px;}
+  .results:empty{margin-top:0;}
+
+  .rlabel{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:15px;
+    letter-spacing:.06em;
+    margin:0 0 4px;
+  }
+
+  .rsub{font-size:14px;margin:0 0 16px;}
+
+  .care{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--dark);
+    border-radius:12px;
+    padding:16px 18px;
+    font-size:15px;
+    color:var(--heading);
+    margin-bottom:16px;
+  }
+
+  .move{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px 20px;
+    margin-bottom:10px;
+    display:flex;
+    gap:16px;
+  }
+
+  .move-num{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    font-size:22px;
+    color:var(--green);
+    line-height:1.2;
+    min-width:22px;
+  }
+
+  .move-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:4px;
+  }
+
+  .move h3{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:17px;
+    line-height:1.2;
+    letter-spacing:.02em;
+    margin:0;
+  }
+
+  .reps{
+    font-size:13px;
+    font-weight:700;
+    color:var(--green);
+    white-space:nowrap;
+  }
+
+  .move p{margin:0;font-size:15px;}
+
+  .note{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--green);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:15px;
+    color:var(--heading);
+    margin-top:14px;
+  }
+
+  .msg{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:15px;
+    text-align:center;
+  }
+
+  .cta{background:var(--dark);padding:26px;margin-top:26px;border-radius:16px;}
+  .cta p{color:var(--white);font-size:16px;margin:0 0 18px;}
+
+  .cta a{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:15px;
+    color:var(--white);
+    background:var(--green);
+    border-radius:999px;
+    padding:14px 30px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+
+  .cta a:hover{background:var(--green-hover);}
+  .cta a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;}
+
+  .legal{font-size:11px;line-height:1.6;color:#8A918E;margin:18px 2px 0;}
+
+  @media (max-width:520px){
+    .head{padding:24px 20px;}
+    .head h1{font-size:25px;}
+    .body{padding:20px;}
+    .cta{padding:22px 20px;}
+    .move{padding:16px;gap:12px;}
+    .move-top{flex-direction:column;gap:2px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="head">
+      <p class="eyebrow">Day 10 · Strength</p>
+      <h1>Session Swapper</h1>
+      <p>Can't do the follow along one today? Tell me why and I'll swap it for something you can do.</p>
+    </div>
+
+    <div class="body">
+
+      <div class="field">
+        <label class="q">What have you got to work with?</label>
+        <p class="hint">Pick everything you've actually got access to right now.</p>
+        <div class="chips" id="kit" role="group" aria-label="What equipment have you got">
+          <button type="button" class="chip" aria-pressed="false">Just me</button>
+          <button type="button" class="chip" aria-pressed="false">Dumbbells</button>
+          <button type="button" class="chip" aria-pressed="false">Kettlebell</button>
+          <button type="button" class="chip" aria-pressed="false">Resistance bands</button>
+          <button type="button" class="chip" aria-pressed="false">Full gym</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">How long have you actually got?</label>
+        <p class="hint">The real number, not the one you'd like it to be.</p>
+        <div class="chips" id="time" role="group" aria-label="How long have you got">
+          <button type="button" class="chip" aria-pressed="false">10 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">15 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">20 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">30 minutes</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">Where are you?</label>
+        <p class="hint">Pick one.</p>
+        <div class="chips" id="place" role="group" aria-label="Where are you training">
+          <button type="button" class="chip" aria-pressed="false">At home</button>
+          <button type="button" class="chip" aria-pressed="false">At the gym</button>
+          <button type="button" class="chip" aria-pressed="false">Outside</button>
+          <button type="button" class="chip" aria-pressed="false">Away or hotel</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q" for="hurt">Anything hurting or playing up?</label>
+        <p class="hint">Optional. Knee, shoulder, back, whatever it is. I'll work round it.</p>
+        <input type="text" id="hurt" placeholder="Left knee is a bit sore">
+      </div>
+
+      <div class="ack">
+        <input type="checkbox" id="ack">
+        <label for="ack">I understand this isn't medical advice, that I'm responsible for training safely, and that I'll stop if anything hurts.</label>
+      </div>
+
+      <button type="button" class="go" id="go" disabled>Swap my session</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="cta">
+        <p>That's one session, swapped. Zenith Accelerator is 6 weeks of training built round your kit, your knee and your week.</p>
+        <a href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">Read the full invite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="legal">The information provided by this tool is for general information and educational purposes only. It is not medical, nutritional or professional advice and should not be relied upon as such. Responses are generated by AI and may be inaccurate or incomplete. Always speak to your GP or a qualified healthcare professional before starting any new exercise or nutrition plan, particularly if you are pregnant, injured, taking medication or managing an existing health condition. Stop and seek medical advice if you feel unwell at any point. You use this tool entirely at your own risk. Zenith Fit accepts no liability for any loss, injury or damage arising from its use.</p>
+</div>
+
+<script>
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const MODEL  = 'claude-sonnet-4-6';
+
+let kit = [];
+let time = '';
+let place = '';
+
+function singleSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    group.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+    btn.setAttribute('aria-pressed','true');
+    set(btn.textContent.trim());
+  });
+}
+
+function multiSelect(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    const on = btn.getAttribute('aria-pressed') === 'true';
+    btn.setAttribute('aria-pressed', on ? 'false' : 'true');
+    const picked = [];
+    group.querySelectorAll('.chip').forEach(function(c){
+      if(c.getAttribute('aria-pressed') === 'true'){ picked.push(c.textContent.trim()); }
+    });
+    set(picked);
+  });
+}
+
+multiSelect('kit', function(v){ kit = v; });
+singleSelect('time', function(v){ time = v; });
+singleSelect('place', function(v){ place = v; });
+
+const results = document.getElementById('results');
+const goBtn = document.getElementById('go');
+const ack = document.getElementById('ack');
+
+ack.addEventListener('change', function(){
+  goBtn.disabled = !ack.checked;
+});
+
+function show(html){ results.innerHTML = html; sendHeight(); }
+function message(text){ show('<div class="msg">' + text + '</div>'); }
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+const CARE_LINE = 'You have mentioned something that is sore, so this session works round it completely. Nothing in here should hurt. If anything does, stop. And if it has been going on more than a week or so, get it looked at properly by your GP or a physio rather than training around it forever.';
+
+function buildPrompt(hurt){
+  return [
+"You are the Session Swapper tool on the Zenith Fit 14 Day Kickstart, Day 10. Day 10 is strength day. The follow along video is 15 to 20 minutes and the instruction is to go with intent rather than heavy, and to make it easier rather than skip it.",
+"",
+"Someone cannot do the follow along session today. Build them one session they can do right now.",
+"",
+"SAFETY RULES. These matter more than anything else:",
+"1. If they have named anything sore, painful or playing up, work round it completely. Nothing in the session should load or aggravate that area at all.",
+"2. NEVER tell anyone to push through, work through, train through or test pain. Not once, in any wording.",
+"3. Never diagnose anything. Never name a condition, an injury or a cause. You do not know what is wrong with them.",
+"4. Never prescribe a weight in kg or lbs. Effort only.",
+"",
+"PROGRAMMING RULES:",
+"5. One session only. Never a plan, a week or a programme. Just today.",
+"6. Only use equipment they have said they have. If they have said 'Just me' it is bodyweight only.",
+"7. Between 4 and 6 movements, sized to the time they have got. 10 minutes means 4 movements, 30 minutes means 6.",
+"8. Effort sits at leaving 2 or 3 reps in the tank on every set. Say that once, not on every movement.",
+"9. Rest is 45 seconds between sets on the main movements and 30 seconds on core.",
+"10. If you include a core movement it must be one of these and nothing else: forearm plank, dead bug, bird dog, Pallof press, side plank, suitcase carry.",
+"11. Include one movement that pushes, one that pulls if their kit allows it, and one that works the legs.",
+"",
+"WRITING RULES:",
+"12. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"13. Never mention calories, calorie targets, deficits, weight loss, body fat, burning anything off or food of any kind.",
+"14. Never frame training as making up for something eaten or drunk.",
+"15. Do not use dashes of any kind anywhere in your output.",
+"",
+"Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
+'{"moves":[{"name":"","reps":"","how":""}],"note":""}',
+"",
+"name: the movement, 5 words maximum.",
+"reps: sets and reps or time, for example '3 x 10' or '3 x 30 seconds'.",
+"how: 1 short sentence on how to do it well, or how to make it easier if they need to.",
+"note: one short line, 25 words maximum. Cover rest, effort or finishing strong. Not all three.",
+"",
+"Here is what they have told you.",
+"Equipment: " + (kit.length ? kit.join(", ") : "bodyweight only"),
+"Time available: " + time,
+"Where they are: " + place,
+"Sore or playing up: " + (hurt || "nothing mentioned")
+  ].join("\n");
+}
+
+function render(data, flagged){
+  let html = '<p class="rlabel">Today\'s session</p>';
+  html += '<p class="rsub">Get it done, then finish strong. That last bit matters.</p>';
+
+  if(flagged){ html += '<div class="care">' + CARE_LINE + '</div>'; }
+
+  data.moves.forEach(function(m, i){
+    html += '<div class="move">';
+    html += '<div class="move-num">' + (i + 1) + '</div>';
+    html += '<div style="flex:1;">';
+    html += '<div class="move-top"><h3>' + esc(m.name) + '</h3>';
+    html += '<span class="reps">' + esc(m.reps) + '</span></div>';
+    html += '<p>' + esc(m.how) + '</p>';
+    html += '</div></div>';
+  });
+
+  if(data.note){ html += '<div class="note">' + esc(data.note) + '</div>'; }
+
+  show(html);
+}
+
+goBtn.addEventListener('click', async function(){
+  const hurt = document.getElementById('hurt').value.trim();
+  const flagged = hurt.length > 0;
+
+  if(!kit.length){ message('Pick what you\'ve got to work with first.'); return; }
+  if(!time){ message('Pick how long you\'ve got.'); return; }
+  if(!place){ message('Pick where you are.'); return; }
+
+  goBtn.disabled = true;
+  goBtn.textContent = 'Having a look';
+  message('Building your session');
+
+  try{
+    const res = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        messages:[{ role:'user', content: buildPrompt(hurt) }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Bad response ' + res.status);
+
+    const data = await res.json();
+
+    let text = '';
+    if(Array.isArray(data.content)){
+      text = data.content.filter(function(b){ return b.type === 'text'; })
+                         .map(function(b){ return b.text; }).join('\n');
+    } else if(typeof data.completion === 'string'){
+      text = data.completion;
+    } else if(typeof data.text === 'string'){
+      text = data.text;
+    }
+
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+
+    let parsed = null;
+    try{ parsed = JSON.parse(text); }
+    catch(e){
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if(start > -1 && end > start){ parsed = JSON.parse(text.slice(start, end + 1)); }
+    }
+
+    if(parsed && Array.isArray(parsed.moves) && parsed.moves.length){
+      render(parsed, flagged);
+    } else {
+      message('That didn\'t come back right. Give it another go.');
+    }
+
+  } catch(err){
+    console.error(err);
+    message('Something went wrong at my end. Try again in a moment.');
+  }
+
+  goBtn.disabled = !ack.checked;
+  goBtn.textContent = 'Swap my session';
+});
+
+function sendHeight(){
+  if(window.parent === window) return;
+  window.parent.postMessage({ zenithHeight: document.documentElement.scrollHeight }, '*');
+}
+
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
