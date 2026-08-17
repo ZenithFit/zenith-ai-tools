@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protein Finder | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#00A86B;
+    --green-hover:#008755;
+    --green-bright:#3FD494;
+    --white:#FFFFFF;
+    --alt:#F4F6F5;
+    --dark:#0C0F11;
+    --heading:#111111;
+    --body:#4A4F4D;
+    --dim:#BFC6C3;
+    --line:#E4E8E6;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{margin:0;padding:0;background:transparent;}
+
+  body{
+    font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--body);
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:680px;margin:0 auto;padding:0;}
+
+  .card{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:22px;
+    overflow:hidden;
+  }
+
+  .head{
+    background:var(--dark);
+    padding:28px 26px 26px;
+  }
+
+  .eyebrow{
+    font-family:'DM Sans',sans-serif;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--green-bright);
+    margin:0 0 10px;
+  }
+
+  .head h1{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--white);
+    font-size:30px;
+    line-height:1.12;
+    letter-spacing:.01em;
+    margin:0 0 12px;
+  }
+
+  .head p{
+    color:var(--dim);
+    font-size:15px;
+    margin:0;
+    max-width:46ch;
+  }
+
+  .body{padding:26px;}
+
+  .field{margin-bottom:24px;}
+
+  label.q{
+    display:block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:16px;
+    letter-spacing:.02em;
+    margin:0 0 4px;
+  }
+
+  .hint{
+    font-size:14px;
+    color:var(--body);
+    margin:0 0 12px;
+  }
+
+  textarea,input[type=text]{
+    width:100%;
+    font-family:'DM Sans',sans-serif;
+    font-size:16px;
+    color:var(--heading);
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    resize:vertical;
+    line-height:1.5;
+  }
+
+  textarea{min-height:96px;}
+
+  textarea:focus,input[type=text]:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(0,168,107,.14);
+  }
+
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+
+  .chip{
+    font-family:'DM Sans',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    color:var(--heading);
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 18px;
+    cursor:pointer;
+    transition:background .15s ease,border-color .15s ease,color .15s ease;
+  }
+
+  .chip:hover{border-color:#C9D0CD;}
+
+  .chip:focus-visible{outline:2px solid var(--green);outline-offset:2px;}
+
+  .chip[aria-pressed="true"]{
+    background:var(--dark);
+    border-color:var(--dark);
+    color:var(--white);
+  }
+
+  .go{
+    display:block;
+    width:100%;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:17px;
+    color:var(--white);
+    background:var(--green);
+    border:none;
+    border-radius:999px;
+    padding:17px 24px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+
+  .go:hover{background:var(--green-hover);}
+
+  .go:focus-visible{outline:2px solid var(--dark);outline-offset:3px;}
+
+  .go[disabled]{background:#9FBFB2;cursor:default;}
+
+  .results{margin-top:26px;}
+
+  .results:empty{margin-top:0;}
+
+  .rlabel{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:15px;
+    letter-spacing:.06em;
+    margin:0 0 4px;
+  }
+
+  .rsub{font-size:14px;margin:0 0 16px;}
+
+  .opt{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:18px 20px;
+    margin-bottom:12px;
+  }
+
+  .opt-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:6px;
+  }
+
+  .opt h3{
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    color:var(--heading);
+    font-size:17px;
+    line-height:1.2;
+    letter-spacing:.02em;
+    margin:0;
+  }
+
+  .grams{
+    font-family:'DM Sans',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    color:var(--green);
+    white-space:nowrap;
+  }
+
+  .opt p{margin:0;font-size:15px;}
+
+  .note{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-left:3px solid var(--green);
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:15px;
+    margin-top:14px;
+  }
+
+  .msg{
+    background:var(--alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 18px;
+    font-size:15px;
+    text-align:center;
+  }
+
+  .cta{
+    background:var(--dark);
+    padding:26px;
+    margin-top:26px;
+    border-radius:16px;
+  }
+
+  .cta p{
+    color:var(--white);
+    font-size:16px;
+    margin:0 0 18px;
+  }
+
+  .cta a{
+    display:inline-block;
+    font-family:'Oswald',sans-serif;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+    font-size:15px;
+    color:var(--white);
+    background:var(--green);
+    border-radius:999px;
+    padding:14px 30px;
+    text-decoration:none;
+    transition:background .15s ease;
+  }
+
+  .cta a:hover{background:var(--green-hover);}
+
+  .cta a:focus-visible{outline:2px solid var(--green-bright);outline-offset:3px;}
+
+  .legal{
+    font-size:11px;
+    line-height:1.6;
+    color:#8A918E;
+    margin:18px 2px 0;
+  }
+
+  @media (max-width:520px){
+    .head{padding:24px 20px;}
+    .head h1{font-size:25px;}
+    .body{padding:20px;}
+    .cta{padding:22px 20px;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <div class="head">
+      <p class="eyebrow">Day 3 · Protein</p>
+      <h1>Protein Finder</h1>
+      <p>Tell me what you've got in and I'll give you a few ways to get protein into your next meal.</p>
+    </div>
+
+    <div class="body">
+
+      <div class="field">
+        <label class="q" for="have">What have you got in?</label>
+        <p class="hint">Whatever's in the fridge, freezer or cupboard. Doesn't need to be a full list.</p>
+        <textarea id="have" placeholder="Eggs, chicken breast, tin of tuna, Greek yoghurt, some frozen veg, bread, cheese"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="q">Which meal?</label>
+        <p class="hint">Pick one.</p>
+        <div class="chips" id="meal" role="group" aria-label="Which meal">
+          <button type="button" class="chip" aria-pressed="false">Breakfast</button>
+          <button type="button" class="chip" aria-pressed="false">Lunch</button>
+          <button type="button" class="chip" aria-pressed="false">Dinner</button>
+          <button type="button" class="chip" aria-pressed="false">Snack</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q">How long have you got?</label>
+        <p class="hint">Be honest, not optimistic.</p>
+        <div class="chips" id="time" role="group" aria-label="How long have you got">
+          <button type="button" class="chip" aria-pressed="false">No cooking</button>
+          <button type="button" class="chip" aria-pressed="false">5 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">15 minutes</button>
+          <button type="button" class="chip" aria-pressed="false">30 minutes</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="q" for="avoid">Anything you don't eat?</label>
+        <p class="hint">Optional. Allergies, veggie, dairy free, or just stuff you can't stand.</p>
+        <input type="text" id="avoid" placeholder="No fish, dairy free">
+      </div>
+
+      <button type="button" class="go" id="go">Find my protein</button>
+
+      <div class="results" id="results" aria-live="polite"></div>
+
+      <div class="cta">
+        <p>That's a few ideas for today. Zenith Accelerator is 6 weeks of your nutrition built round how you actually eat, with me checking in every Friday.</p>
+        <a href="https://gamma.app/docs/Your-Invite-into-Zenith-Accelerator-jc5qir6jw887fxm" target="_blank" rel="noopener">Read the full invite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <p class="legal">The information provided by this tool is for general information and educational purposes only. It is not medical, nutritional or professional advice and should not be relied upon as such. Responses are generated by AI and may be inaccurate or incomplete. Always speak to your GP or a qualified healthcare professional before starting any new exercise or nutrition plan, particularly if you are pregnant, injured, taking medication or managing an existing health condition. Stop and seek medical advice if you feel unwell at any point. You use this tool entirely at your own risk. Zenith Fit accepts no liability for any loss, injury or damage arising from its use.</p>
+</div>
+
+<script>
+const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+const MODEL  = 'claude-sonnet-4-6';
+
+let meal = '';
+let time = '';
+
+function wireChips(id, set){
+  const group = document.getElementById(id);
+  group.addEventListener('click', function(e){
+    const btn = e.target.closest('.chip');
+    if(!btn) return;
+    group.querySelectorAll('.chip').forEach(function(c){ c.setAttribute('aria-pressed','false'); });
+    btn.setAttribute('aria-pressed','true');
+    set(btn.textContent.trim());
+  });
+}
+
+wireChips('meal', function(v){ meal = v; });
+wireChips('time', function(v){ time = v; });
+
+const results = document.getElementById('results');
+const goBtn = document.getElementById('go');
+
+function show(html){
+  results.innerHTML = html;
+  sendHeight();
+}
+
+function message(text){
+  show('<div class="msg">' + text + '</div>');
+}
+
+function esc(s){
+  return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function buildPrompt(have, avoid){
+  return [
+"You are the Protein Finder tool on the Zenith Fit 14 Day Kickstart, Day 3. Day 3's task is protein at every meal.",
+"",
+"Someone has told you what food they have available. Give them 3 or 4 realistic protein options for that meal.",
+"",
+"RULES. Follow every one of these:",
+"1. British English. UK foods and UK supermarket products only. UK terms: yoghurt, mince, tinned, courgette, aubergine, porridge.",
+"2. Never mention calories, calorie targets, deficits, weight, weight loss, body fat or portion restriction.",
+"3. Never tell them to eat less of anything or to cut anything out.",
+"4. Never label food good, bad, clean, dirty, naughty, guilty, a treat or a cheat. No moralising about food at all.",
+"5. Never give medical, allergy, supplement or diagnostic advice. If they mention a medical condition, medication, allergy or pregnancy, do not advise on it. Instead use the note field to tell them to check it with their GP or a registered dietitian.",
+"6. Only use food they have said they have, plus basic staples nearly every kitchen has such as salt, pepper, oil, herbs. Do not send them shopping.",
+"7. Respect anything they have said they do not eat. No exceptions, no substitutions they did not ask for.",
+"8. Protein figures are rough approximations. Round to the nearest 5g.",
+"9. Do not use dashes of any kind anywhere in your output.",
+"10. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"",
+"Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
+'{"options":[{"name":"","protein":"","how":""}],"note":""}',
+"",
+"name: the actual food, 6 words maximum.",
+"protein: rough protein, formatted like 'around 35g protein'.",
+"how: 1 or 2 short sentences on how to make it, realistic for the time they have.",
+"note: one short practical line, 20 words maximum. Use this for the GP line if rule 5 applies.",
+"",
+"Here is what they have told you.",
+"Food available: " + have,
+"Meal: " + meal,
+"Time available: " + time,
+"Does not eat: " + (avoid || "nothing specified")
+  ].join("\n");
+}
+
+function render(data){
+  let html = '<p class="rlabel">Your options</p>';
+  html += '<p class="rsub">Pick one. Don\'t overthink it.</p>';
+
+  data.options.forEach(function(o){
+    html += '<div class="opt">';
+    html += '<div class="opt-top"><h3>' + esc(o.name) + '</h3>';
+    html += '<span class="grams">' + esc(o.protein) + '</span></div>';
+    html += '<p>' + esc(o.how) + '</p>';
+    html += '</div>';
+  });
+
+  if(data.note){
+    html += '<div class="note">' + esc(data.note) + '</div>';
+  }
+
+  show(html);
+}
+
+goBtn.addEventListener('click', async function(){
+  const have = document.getElementById('have').value.trim();
+  const avoid = document.getElementById('avoid').value.trim();
+
+  if(!have){ message('Tell me what food you\'ve got in first.'); return; }
+  if(!meal){ message('Pick which meal this is for.'); return; }
+  if(!time){ message('Pick how long you\'ve got.'); return; }
+
+  goBtn.disabled = true;
+  goBtn.textContent = 'Having a look';
+  message('Finding your options');
+
+  try{
+    const res = await fetch(WORKER, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        model: MODEL,
+        max_tokens: 1000,
+        messages:[{ role:'user', content: buildPrompt(have, avoid) }]
+      })
+    });
+
+    if(!res.ok) throw new Error('Bad response ' + res.status);
+
+    const data = await res.json();
+
+    let text = '';
+    if(Array.isArray(data.content)){
+      text = data.content.filter(function(b){ return b.type === 'text'; })
+                         .map(function(b){ return b.text; }).join('\n');
+    } else if(typeof data.completion === 'string'){
+      text = data.completion;
+    } else if(typeof data.text === 'string'){
+      text = data.text;
+    }
+
+    text = text.replace(/```json/gi,'').replace(/```/g,'').trim();
+
+    let parsed = null;
+    try{ parsed = JSON.parse(text); }
+    catch(e){
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if(start > -1 && end > start){ parsed = JSON.parse(text.slice(start, end + 1)); }
+    }
+
+    if(parsed && Array.isArray(parsed.options) && parsed.options.length){
+      render(parsed);
+    } else {
+      message('That didn\'t come back right. Give it another go.');
+    }
+
+  } catch(err){
+    console.error(err);
+    message('Something went wrong at my end. Try again in a moment.');
+  }
+
+  goBtn.disabled = false;
+  goBtn.textContent = 'Find my protein';
+});
+
+function sendHeight(){
+  if(window.parent === window) return;
+  const h = document.documentElement.scrollHeight;
+  window.parent.postMessage({ zenithHeight: h }, '*');
+}
+
+window.addEventListener('load', sendHeight);
+window.addEventListener('resize', sendHeight);
+setInterval(sendHeight, 800);
+</script>
+
+</body>
+</html>
