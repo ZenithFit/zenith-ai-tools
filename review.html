@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rate Your Day | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#FFFFFF;--alt:#F4F6F5;--dark:#0C0F11;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E3E7E5}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
+.oswald{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+header{background:var(--dark);color:#fff;padding:36px 0 30px}
+.brand{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.2em;color:var(--green-d);margin-bottom:14px}
+header h1{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:.02em;color:#fff}
+header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
+
+.strip{background:var(--alt);padding:22px 0 18px}
+.strip-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.strip-top h2{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.1em;color:var(--head)}
+.strip-top span{font-size:12px;color:var(--body)}
+.bars{display:flex;gap:10px;align-items:flex-end;height:96px}
+.bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
+.bar{width:100%;background:#C9CFCC;border-radius:6px 6px 0 0;min-height:6px;transition:height .4s ease}
+.bar.today{background:var(--green)}
+.bar-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:var(--head);text-align:center;margin-bottom:4px}
+.bar-lbl{font-size:11px;color:var(--body);text-align:center;margin-top:6px;white-space:nowrap}
+.empty{font-size:15px;color:var(--body);padding:14px 0 6px}
+.empty b{color:var(--head)}
+
+main{padding:28px 0 40px}
+.name-row{margin-bottom:26px}
+label.small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--head);margin-bottom:6px}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font-size:16px;color:var(--head);background:#fff}
+input[type=text]::placeholder{color:#9AA19E}
+
+.q{padding:18px 0;border-top:1px solid var(--line)}
+.q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.q-label{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:20px;letter-spacing:.03em;color:var(--head)}
+.q-hint{font-size:13px;color:var(--body);margin-bottom:12px}
+.row{display:flex;gap:5px}
+.row button{flex:1;height:38px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--head);font-size:14px;font-weight:500;padding:0;transition:background .12s,color .12s,border-color .12s}
+.row button.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.q.off .row button{opacity:.35;pointer-events:none}
+.rest{border:1px solid var(--line);background:#fff;color:var(--head);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.rest.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+.note{padding:18px 0 6px;border-top:1px solid var(--line)}
+textarea{width:100%;min-height:92px;border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-size:16px;font-family:inherit;color:var(--head);resize:vertical;background:#fff}
+textarea::placeholder{color:#9AA19E}
+
+.submit{margin-top:22px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:18px;letter-spacing:.08em;transition:background .15s}
+.submit:hover{background:var(--green-h)}
+.submit:disabled{background:#C9CFCC;cursor:not-allowed}
+.err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
+.err.on{display:block}
+
+.result{display:none;margin-top:32px;background:var(--dark);color:#fff;border-radius:24px;padding:28px 24px}
+.result.on{display:block}
+.score{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.score-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:64px;line-height:1;color:#fff}
+.score-of{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec)}
+.score-sub{font-size:13px;color:var(--sec);margin-bottom:20px}
+.reply{font-size:16px;line-height:1.55;color:#fff;white-space:pre-wrap}
+.reply-load{color:var(--sec);font-size:15px}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-d);margin-right:6px;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+.again{margin-top:22px;width:100%;height:48px;border-radius:999px;border:1px solid #2A2F33;background:transparent;color:#fff;font-size:15px;font-weight:500}
+.again:hover{border-color:var(--sec)}
+
+footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
+footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decoration:underline;padding:0}
+@media (prefers-reduced-motion:reduce){.bar,.row button,.submit{transition:none}.dot{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Zenith Fit</div>
+    <h1>Rate<br>Your Day</h1>
+    <p>Be honest. Nobody's marking this but you. Takes about a minute.</p>
+  </div>
+</header>
+
+<section class="strip">
+  <div class="wrap">
+    <div class="strip-top"><h2>Your last 6</h2><span id="strip-note"></span></div>
+    <div id="strip"></div>
+  </div>
+</section>
+
+<main>
+  <div class="wrap">
+
+    <div class="name-row">
+      <label class="small" for="name">First name</label>
+      <input type="text" id="name" placeholder="So it's your name on the reply" autocomplete="given-name">
+    </div>
+
+    <div id="questions"></div>
+
+    <div class="note">
+      <label class="small" for="note">What actually happened today?</label>
+      <textarea id="note" placeholder="One line is fine. Where it went well, where it didn't, what got in the way."></textarea>
+    </div>
+
+    <button class="submit" id="submit" disabled>Rate my day</button>
+    <div class="err" id="err"></div>
+
+    <div class="result" id="result">
+      <div class="score"><span class="score-num" id="score-num">0</span><span class="score-of" id="score-of">out of 60</span></div>
+      <div class="score-sub" id="score-sub"></div>
+      <div class="reply reply-load" id="reply"><span class="dot"></span>Mark's having a look</div>
+      <button class="again" id="again">Done for today</button>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Saved on this phone only. <button id="clear">Clear my history</button></div>
+</footer>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const KEY='zf_daily_review';
+const NAMEKEY='zf_review_name';
+
+const PILLARS=[
+  {id:'water',label:'Water',hint:'10 is you hit your water target all day. 5 is about half.'},
+  {id:'steps',label:'Steps',hint:'10 is you hit your step target. 5 is about half.'},
+  {id:'nutrition',label:'Nutrition',hint:'10 is on it all day. 5 is half the day on, half the day off.'},
+  {id:'training',label:'Training',hint:'10 is session done, properly. 5 is you did something but not what was planned.',rest:true},
+  {id:'sleep',label:'Sleep',hint:'10 is 7 plus hours and you woke up feeling it. 5 is short or broken.'},
+  {id:'mindset',label:'Mindset',hint:'10 is you felt in control of the day. 5 is you got through it.'}
+];
+
+let scores={};
+let restDay=false;
+
+function logToSheets(tool,fields={},message=''){
+  const payload={tool,message,...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+}
+
+function loadHistory(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(-30)));}catch(e){}}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function shortDate(key){const d=new Date(key+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric'});}
+function longDate(key){const d=new Date(key+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
+
+function renderStrip(){
+  const h=loadHistory().slice(-6);
+  const el=document.getElementById('strip');
+  const note=document.getElementById('strip-note');
+  if(!h.length){
+    el.innerHTML='<div class="empty"><b>Your first one.</b> Go.</div>';
+    note.textContent='';
+    return;
+  }
+  note.textContent=h.length<6?h.length+' so far':'';
+  const tk=todayKey();
+  el.innerHTML='<div class="bars">'+h.map(r=>{
+    const pct=Math.max(8,Math.round(r.total/r.max*100));
+    return '<div class="bar-col"><div class="bar-num">'+r.total+'</div><div class="bar'+(r.date===tk?' today':'')+'" style="height:'+pct+'%"></div><div class="bar-lbl">'+shortDate(r.date)+'</div></div>';
+  }).join('')+'</div>';
+}
+
+function renderQuestions(){
+  const el=document.getElementById('questions');
+  el.innerHTML=PILLARS.map(p=>{
+    let btns='';
+    for(let i=1;i<=10;i++)btns+='<button type="button" data-p="'+p.id+'" data-v="'+i+'" aria-label="'+p.label+' '+i+' out of 10">'+i+'</button>';
+    return '<div class="q" id="q-'+p.id+'"><div class="q-head"><div class="q-label">'+p.label+'</div>'+(p.rest?'<button type="button" class="rest" id="rest" aria-pressed="false">Rest day</button>':'')+'</div><div class="q-hint">'+p.hint+'</div><div class="row">'+btns+'</div></div>';
+  }).join('');
+  el.querySelectorAll('.row button').forEach(b=>b.addEventListener('click',()=>{
+    const p=b.dataset.p,v=+b.dataset.v;
+    scores[p]=v;
+    b.parentNode.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v===v));
+    checkReady();
+  }));
+  document.getElementById('rest').addEventListener('click',e=>{
+    restDay=!restDay;
+    e.currentTarget.classList.toggle('on',restDay);
+    e.currentTarget.setAttribute('aria-pressed',restDay);
+    document.getElementById('q-training').classList.toggle('off',restDay);
+    if(restDay){delete scores.training;document.querySelectorAll('#q-training .row button').forEach(x=>x.classList.remove('on'));}
+    checkReady();
+  });
+}
+
+function checkReady(){
+  const ok=PILLARS.every(p=>(p.rest&&restDay)||scores[p.id]);
+  document.getElementById('submit').disabled=!ok;
+}
+
+function buildPrompt(name,total,max,note,history){
+  const lines=PILLARS.map(p=>p.label+': '+((p.rest&&restDay)?'Rest day':scores[p.id]));
+  const scored=PILLARS.filter(p=>!(p.rest&&restDay));
+  const low=scored.reduce((a,b)=>scores[b.id]<scores[a.id]?b:a);
+  const high=scored.reduce((a,b)=>scores[b.id]>scores[a.id]?b:a);
+  let prev='None. This is their first review.';
+  if(history.length){
+    prev=history.slice(-6).map(r=>longDate(r.date)+': '+r.total+' out of '+r.max+', lowest '+r.low+(r.note?', note: "'+r.note+'"':'')).join('\n');
+  }
+  return 'Name: '+(name||'not given')+'\nToday: '+longDate(todayKey())+'\n\nScores out of 10:\n'+lines.join('\n')+'\n\nTotal: '+total+' out of '+max+'\nLowest: '+low.label+' ('+scores[low.id]+')\nHighest: '+high.label+' ('+scores[high.id]+')\n\nWhat happened today: '+(note||'nothing written')+'\n\nPrevious reviews, oldest first:\n'+prev;
+}
+
+const SYS=`You are Mark Davies, a UK fat loss coach. Someone has just rated their day out of 10 across water, steps, nutrition, training, sleep and mindset, and written a line about what actually happened. Write them a short reply.
+
+Exactly this shape. No headings, no labels, no bullet points, no bold.
+Line 1: the win. Name their highest score and make it mean something. 1 or 2 sentences.
+Line 2: the honest bit. Name the lowest score and say what you reckon actually happened, using their note. If they have previous reviews, compare today to last time in plain numbers in this same line. If today is lower, say it without drama. If it is higher, say what moved. 1 to 3 sentences.
+Line 3: one focus for tomorrow. One thing only, tied to the lowest score, small enough to actually do. Say what it is and when. Use "we". 1 or 2 sentences.
+Line 4: 💪 on its own.
+
+Blank line between each line.
+
+Voice: British English. Short punchy sentences. Full contractions always. Digits not words. Warm but direct. Talk to them like a mate who knows what they are capable of. Phrases like "don't panic", "nice and straightforward", "trust me", "boom", "something beats nothing", "never miss twice" where they fit naturally, never forced. One "okay?" or "alright?" at most in the whole reply.
+
+Rules. Never use dashes of any kind, use commas or full stops instead. Never use the phrases "my friend", "here's the thing", "it's not X it's Y", "I'm going to be straight with you". Never mention a programme, a coach, a check in, a plan they are on, or anything you cannot see. Never tell them to change calories, training or any target. Never call a low score a failure. A bad day is a bad day, tomorrow is the fix. Never give more than one focus. If training was a rest day do not treat it as a low score and do not mention it. If their note mentions something hard going on, illness, family, work stress, lead with that in line 2 and go softer, empathy first. Use their first name once at most, only in line 1, only if given. Keep the whole reply under 110 words. Sound like a real person typing on a phone, not an app.`;
+
+async function ask(system,userMsg){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:350,system,messages:[{role:'user',content:userMsg}]})});
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message||'Worker error');
+  return d.content[0].text;
+}
+
+async function submit(){
+  const btn=document.getElementById('submit');
+  const err=document.getElementById('err');
+  err.classList.remove('on');
+  const name=document.getElementById('name').value.trim();
+  const note=document.getElementById('note').value.trim();
+  if(name){try{localStorage.setItem(NAMEKEY,name);}catch(e){}}
+
+  const scored=PILLARS.filter(p=>!(p.rest&&restDay));
+  const total=scored.reduce((s,p)=>s+scores[p.id],0);
+  const max=scored.length*10;
+  const low=scored.reduce((a,b)=>scores[b.id]<scores[a.id]?b:a);
+  const history=loadHistory().filter(r=>r.date!==todayKey());
+
+  document.getElementById('score-num').textContent=total;
+  document.getElementById('score-of').textContent='out of '+max;
+  document.getElementById('score-sub').textContent=restDay?'Rest day, so training sits this one out.':'';
+  const reply=document.getElementById('reply');
+  reply.className='reply reply-load';
+  reply.innerHTML='<span class="dot"></span>Mark\'s having a look';
+  document.getElementById('result').classList.add('on');
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  btn.disabled=true;
+
+  try{
+    const text=await ask(SYS,buildPrompt(name,total,max,note,history));
+    reply.className='reply';
+    reply.textContent=text.trim();
+
+    const entry={date:todayKey(),total,max,low:low.label,rest:restDay,scores:{...scores},note};
+    history.push(entry);
+    saveHistory(history);
+    renderStrip();
+
+    logToSheets('Daily Review',{
+      field1_label:'Name',field1_value:name||'not given',
+      field2_label:'Score',field2_value:total+'/'+max,
+      field3_label:'Lowest',field3_value:low.label+' '+scores[low.id]
+    },'Note: '+(note||'none')+'\n\nReply: '+text.trim());
+  }catch(e){
+    document.getElementById('result').classList.remove('on');
+    err.textContent='That didn\'t send. Check your signal and tap Rate my day again.';
+    err.classList.add('on');
+    btn.disabled=false;
+  }
+}
+
+function resetForm(){
+  scores={};restDay=false;
+  document.querySelectorAll('.row button').forEach(x=>x.classList.remove('on'));
+  const r=document.getElementById('rest');r.classList.remove('on');r.setAttribute('aria-pressed','false');
+  document.getElementById('q-training').classList.remove('off');
+  document.getElementById('note').value='';
+  document.getElementById('result').classList.remove('on');
+  checkReady();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.getElementById('submit').addEventListener('click',submit);
+document.getElementById('again').addEventListener('click',resetForm);
+document.getElementById('clear').addEventListener('click',()=>{
+  if(confirm('Clear your saved reviews on this phone? Your scores are still safe with Mark.')){
+    try{localStorage.removeItem(KEY);}catch(e){}
+    renderStrip();
+  }
+});
+
+renderQuestions();
+renderStrip();
+try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
+</script>
+</body>
+</html>
