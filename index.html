@@ -1406,3 +1406,22 @@ function dlProtein(){if(lastPf)dl(lastPf,'zenithfit-protein-fix.html');}
 </script>
 </body>
 </html>
+<script>
+/* ===== CLIENT NAME (read from the link) ===== */
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  let name = (params.get('name') || '').trim();
+  name = name.replace(/[^a-zA-Z\s'-]/g,'').slice(0,20);
+  if(!name) return;  // no name in the link, everything stays as normal
+  name = name.charAt(0).toUpperCase() + name.slice(1);
+
+  const hero = document.querySelector('.bot-hero-title');
+  if(hero){ hero.innerHTML = 'Alright ' + name + ',<br><em>Ask Me Anything</em>'; }
+
+  const firstBub = document.querySelector('#msgs .bub');
+  if(firstBub){ firstBub.textContent = "Right " + name + ", what's going on? Ask me anything. Training, food, mindset, a week that's fallen apart. No stupid questions here. 💪"; }
+
+  const pnBub = document.querySelector('#pn-msgs .bub');
+  if(pnBub){ pnBub.textContent = "Right " + name + ", stop. Before you do anything, tell me what's going on. Tap one below or just type it. I'm not going anywhere. 💪"; }
+})();
+</script>
