@@ -120,7 +120,7 @@ footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decorat
     <div class="result" id="result">
       <div class="score"><span class="score-num" id="score-num">0</span><span class="score-of" id="score-of">out of 60</span></div>
       <div class="score-sub" id="score-sub"></div>
-      <div class="reply reply-load" id="reply"><span class="dot"></span>Mark's having a look</div>
+      <div class="reply reply-load" id="reply"><span class="dot"></span>AI Mark's having a look</div>
       <button class="again" id="again">Done for today</button>
     </div>
 
@@ -178,6 +178,7 @@ function renderStrip(){
     const lowScore=(r.scores&&r.low)?r.scores[Object.keys(r.scores).find(k=>k===r.low.toLowerCase())]:'';
     return '<div class="bar-col"><div class="bar-num">'+r.total+'</div><div class="bar'+(r.date===tk?' today':'')+'" style="height:'+pct+'%"></div><div class="bar-lbl">'+shortDate(r.date)+'</div><div class="bar-low">'+lowName+(lowScore?' '+lowScore:'')+'</div></div>';
   }).join('')+'</div>';
+  el.innerHTML+='<div class="pattern">The pillar under each bar was your lowest that day. That\'s the one to work on most.</div>';
   if(h.length>=3){
     const counts={};
     h.forEach(r=>{if(r.low)counts[r.low]=(counts[r.low]||0)+1;});
@@ -286,7 +287,7 @@ async function submit(){
   document.getElementById('score-sub').textContent=restDay?'Rest day, so training sits this one out.':'';
   const reply=document.getElementById('reply');
   reply.className='reply reply-load';
-  reply.innerHTML='<span class="dot"></span>Mark\'s having a look';
+  reply.innerHTML='<span class="dot"></span>AI Mark\'s having a look';
   document.getElementById('result').classList.add('on');
   document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
   btn.disabled=true;
