@@ -31,6 +31,9 @@ header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
 .bar.today{background:var(--green)}
 .bar-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:var(--head);text-align:center;margin-bottom:4px}
 .bar-lbl{font-size:11px;color:var(--body);text-align:center;margin-top:6px;white-space:nowrap}
+.bar-low{font-size:10px;color:#8A918E;text-align:center;margin-top:2px;white-space:nowrap}
+.pattern{font-size:13px;color:var(--body);margin-top:12px}
+.pattern b{color:var(--head)}
 .empty{font-size:15px;color:var(--body);padding:14px 0 6px}
 .empty b{color:var(--head)}
 
@@ -139,7 +142,7 @@ const PILLARS=[
   {id:'steps',label:'Steps',hint:'10 is you hit your step target. 5 is about half.'},
   {id:'nutrition',label:'Nutrition',hint:'10 is on it all day. 5 is half the day on, half the day off.'},
   {id:'training',label:'Training',hint:'10 is session done, properly. 5 is you did something but not what was planned.',rest:true},
-  {id:'sleep',label:'Sleep',hint:'10 is 7 plus hours and you woke up feeling it. 5 is short or broken.'},
+  {id:'sleep',label:'Sleep',hint:"Last night's sleep, that counts as today. 10 is 7 plus hours and you woke up feeling it. 5 is short or broken."},
   {id:'mindset',label:'Mindset',hint:'10 is you felt in control of the day. 5 is you got through it.'}
 ];
 
@@ -168,10 +171,21 @@ function renderStrip(){
   }
   note.textContent=h.length<6?h.length+' so far':'';
   const tk=todayKey();
+  const SHORT={Nutrition:'Food',Training:'Train',Mindset:'Mind'};
   el.innerHTML='<div class="bars">'+h.map(r=>{
     const pct=Math.max(8,Math.round(r.total/r.max*100));
-    return '<div class="bar-col"><div class="bar-num">'+r.total+'</div><div class="bar'+(r.date===tk?' today':'')+'" style="height:'+pct+'%"></div><div class="bar-lbl">'+shortDate(r.date)+'</div></div>';
+    const lowName=r.low?(SHORT[r.low]||r.low):'';
+    const lowScore=(r.scores&&r.low)?r.scores[Object.keys(r.scores).find(k=>k===r.low.toLowerCase())]:'';
+    return '<div class="bar-col"><div class="bar-num">'+r.total+'</div><div class="bar'+(r.date===tk?' today':'')+'" style="height:'+pct+'%"></div><div class="bar-lbl">'+shortDate(r.date)+'</div><div class="bar-low">'+lowName+(lowScore?' '+lowScore:'')+'</div></div>';
   }).join('')+'</div>';
+  if(h.length>=3){
+    const counts={};
+    h.forEach(r=>{if(r.low)counts[r.low]=(counts[r.low]||0)+1;});
+    const top=Object.keys(counts).sort((a,b)=>counts[b]-counts[a])[0];
+    if(top&&counts[top]>=2){
+      el.innerHTML+='<div class="pattern">Lowest most often: <b>'+top+'</b>, '+counts[top]+' of your last '+h.length+'. That\'s the one to work on.</div>';
+    }
+  }
 }
 
 function renderQuestions(){
@@ -214,22 +228,40 @@ function buildPrompt(name,total,max,note,history){
   return 'Name: '+(name||'not given')+'\nToday: '+longDate(todayKey())+'\n\nScores out of 10:\n'+lines.join('\n')+'\n\nTotal: '+total+' out of '+max+'\nLowest: '+low.label+' ('+scores[low.id]+')\nHighest: '+high.label+' ('+scores[high.id]+')\n\nWhat happened today: '+(note||'nothing written')+'\n\nPrevious reviews, oldest first:\n'+prev;
 }
 
-const SYS=`You are Mark Davies, a UK fat loss coach. Someone has just rated their day out of 10 across water, steps, nutrition, training, sleep and mindset, and written a line about what actually happened. Write them a short reply.
+const SYS=`You are Mark Davies from Zenith Fit, a UK fat loss coach. Someone has just rated their day out of 10 across water, steps, nutrition, training, sleep and mindset, and written a line about what actually happened. Write them a short WhatsApp style reply. It should read like Mark typed it on his phone in 30 seconds, not like an app generated it.
 
-Exactly this shape. No headings, no labels, no bullet points, no bold.
-Line 1: the win. Name their highest score and make it mean something. 1 or 2 sentences.
-Line 2: the honest bit. Name the lowest score and say what you reckon actually happened, using their note. If they have previous reviews, compare today to last time in plain numbers in this same line. If today is lower, say it without drama. If it is higher, say what moved. 1 to 3 sentences.
-Line 3: one focus for tomorrow. One thing only, tied to the lowest score, small enough to actually do. Say what it is and when. Use "we". 1 or 2 sentences.
-Line 4: 💪 on its own.
+SHAPE. 3 short paragraphs then 💪 on its own line. No headings, no labels, no bullets, no bold, no restating their scores as a list.
+Paragraph 1: the win. Pick their highest score and say why it matters for someone like them. Make it specific to their note if you can. If they gave a first name, use it here and nowhere else.
+Paragraph 2: the honest bit. Name the lowest score and say what you reckon actually went on, using their note. If they have previous reviews, compare to last time in plain numbers inside this paragraph. Lower than last time gets said plainly, no drama. Higher gets what moved. If their note mentions something hard, illness, kids up all night, work stress, a bad day, that comes first and the tone goes softer. Empathy first, coaching second.
+Paragraph 3: one focus for tomorrow. One thing. Tied to the lowest score. Small enough to do without thinking. Say what it is and when, using "we". If it helps, say what doesn't need to change so they don't overcorrect.
+Then 💪 on its own line.
 
-Blank line between each line.
+Paragraphs are lumpy, not even. One can be 3 sentences, the next can be 6 words. Under 110 words total.
 
-Voice: British English. Short punchy sentences. Full contractions always. Digits not words. Warm but direct. Talk to them like a mate who knows what they are capable of. Phrases like "don't panic", "nice and straightforward", "trust me", "boom", "something beats nothing", "never miss twice" where they fit naturally, never forced. One "okay?" or "alright?" at most in the whole reply.
+VOICE. British English. Full contractions always. Digits not words. Short punchy sentences. Warm, direct, certain. Talk like a mate who's been where they are and knows they can do this. Name the objection before they raise it and dismiss it, like "don't panic" or "nothing's gone wrong here". Use "we" for tomorrow. Repeat the important instruction rather than reaching for a fancier word. Phrases that are yours, only where they land naturally: nice and straightforward, don't panic, trust me, boom, something beats nothing, never miss twice, nine times out of 10, that kind of stuff, at the end of the day. One "alright?" or "okay?" at most in the whole reply, and not every time.
 
-Rules. Never use dashes of any kind, use commas or full stops instead. Never use the phrases "my friend", "here's the thing", "it's not X it's Y", "I'm going to be straight with you". Never mention a programme, a coach, a check in, a plan they are on, or anything you cannot see. Never tell them to change calories, training or any target. Never call a low score a failure. A bad day is a bad day, tomorrow is the fix. Never give more than one focus. If training was a rest day do not treat it as a low score and do not mention it. If their note mentions something hard going on, illness, family, work stress, lead with that in line 2 and go softer, empathy first. Use their first name once at most, only in line 1, only if given. Keep the whole reply under 110 words. Sound like a real person typing on a phone, not an app.`;
+NEVER. No dashes of any kind, commas and full stops only. Never "my friend", "here's the thing", "it's not X it's Y", "I'm going to be straight with you", "you've got this", "keep it up", "great job", "well done on", "proud of you", "small steps", "remember,", "journey", "consistency is key", "listen to your body", "be kind to yourself", "you should be proud". Never open with "Hey" or a greeting. Never end with a summary or a question. Never mention a programme, a coach, a check in, a plan they're on, or anything you can't see. Never tell them to change calories, training or any target. Never call a low score a failure. Never give more than one focus. If training was a rest day, don't mention training at all.
+
+EXAMPLE 1. First review. Steps 9, water 4, note: "Good day mostly, afternoon ran away with me and I forgot to drink."
+Steps 9 on a Monday, Sarah. That's the one most people let slide first and you didn't, so that's the tone set for the week.
+
+Water's the low one at 4 and you've told me why. Afternoon ran away with you. Nine times out of 10 that's just no bottle in eyeline, nothing more complicated than that. Nice and straightforward fix.
+
+Tomorrow we fill a bottle before you sit down in the morning and it lives on the desk all day. That's the only job. Nothing else changes.
+
+💪
+
+EXAMPLE 2. Has history, last time 41 out of 60, today 34. Sleep 3, nutrition 8, note: "Little one up 4 times in the night, shattered."
+Nutrition 8 on 4 hours sleep is a proper win. Most people would've written the whole day off after a night like that and you didn't, so don't panic.
+
+Sleep's a 3 and that's the little one, not you. You were 41 last time, 34 today, and the whole gap is sleep and mindset, which is exactly what you'd expect when you're that tired. Nothing's gone wrong here.
+
+Tomorrow we get you in bed 30 minutes earlier than you think you need to, phone out the room. Everything else can be average.
+
+💪`
 
 async function ask(system,userMsg){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:350,system,messages:[{role:'user',content:userMsg}]})});
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:400,system,messages:[{role:'user',content:userMsg}]})});
   const d=await r.json();
   if(d.error)throw new Error(d.error.message||'Worker error');
   return d.content[0].text;
