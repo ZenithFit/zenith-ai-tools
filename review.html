@@ -178,7 +178,7 @@ function renderStrip(){
     const lowScore=(r.scores&&r.low)?r.scores[Object.keys(r.scores).find(k=>k===r.low.toLowerCase())]:'';
     return '<div class="bar-col"><div class="bar-num">'+r.total+'</div><div class="bar'+(r.date===tk?' today':'')+'" style="height:'+pct+'%"></div><div class="bar-lbl">'+shortDate(r.date)+'</div><div class="bar-low">'+lowName+(lowScore?' '+lowScore:'')+'</div></div>';
   }).join('')+'</div>';
-  el.innerHTML+='<div class="pattern">The pillar under each bar was your lowest that day. That\'s the one to work on most.</div>';
+  el.innerHTML+='<div class="pattern">Your score underneath each bar shows the one thing to work on.</div>';
   if(h.length>=3){
     const counts={};
     h.forEach(r=>{if(r.low)counts[r.low]=(counts[r.low]||0)+1;});
