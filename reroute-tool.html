@@ -6,7 +6,7 @@
 <title>Reroute | Zenith Fit</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 <style>
   :root {
     --green:          #00A86B;
@@ -40,10 +40,12 @@
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-on-dark); background: rgba(63,212,148,0.10); border: 1px solid rgba(63,212,148,0.30); padding: 5px 16px; border-radius: 50px; margin-bottom: 20px; }
   .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-  .hero h1 { font-family: var(--font-head); font-size: clamp(40px, 7vw, 72px); font-weight: 700; line-height: 0.98; text-transform: uppercase; color: var(--white); letter-spacing: -0.01em; margin-bottom: 16px; }
+  .hero h1 { font-family: 'Plus Jakarta Sans', var(--font-body); font-size: clamp(34px, 5.2vw, 56px); font-weight: 800; line-height: 1.08; text-transform: none; color: var(--white); letter-spacing: -0.025em; margin-bottom: 16px; }
   .hero h1 em { font-style: normal; color: var(--green-on-dark); display: block; }
   .hero-body { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 560px; }
-  #gate h1 { font-size: clamp(30px, 4.6vw, 54px); line-height: 1.02; }
+  #gate h1 { font-size: clamp(40px, 6.4vw, 72px); line-height: 1.02; margin-bottom: 18px; }
+  .hero-sub { font-family: 'Plus Jakarta Sans', var(--font-body); font-size: clamp(18px, 2.2vw, 24px); font-weight: 700; line-height: 1.4; color: rgba(255,255,255,0.88); max-width: 620px; margin-bottom: 16px; }
+  .hero-sub em { font-style: normal; color: var(--green-on-dark); display: block; margin-top: 8px; }
   #gate .hero-body { margin-bottom: 26px; }
   .form-card { background: var(--white); border-radius: 12px; padding: 22px 24px 14px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 520px; }
   .form-card-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; text-transform: uppercase; color: var(--heading-light); line-height: 1.1; margin-bottom: 4px; }
@@ -119,7 +121,8 @@
 <section class="hero" id="gate">
   <div class="hero-inner">
     <div class="hero-badge"><span class="hero-dot"></span>Free · Takes 30 Seconds</div>
-    <h1 id="hero-title">Panicking About A Meal Out?<br>Worried About Your Holiday?<br>Just Eaten Badly And Feel Like The Week's Ruined? <em>Tell Me What's Going On. 30 Seconds. Sorted.</em></h1>
+    <h1 id="hero-title">Don't wait to start again on Monday...</h1>
+    <p class="hero-sub">Panicking about a meal out? Worried about your holiday? Just eaten badly and feel like the week's ruined? <em>Tell me what's going on. 30 seconds. Sorted.</em></p>
     <p class="hero-body">Whatever it is, type it in and I'll tell you exactly what to do next. No starting again Monday. No guilt. No binning the week.</p>
     <div class="form-card">
       <div class="form-card-title">Tell Me Where To Send It</div>
@@ -132,7 +135,7 @@
 <section class="hero" id="welcome" style="display:none;">
   <div class="hero-inner">
     <div class="hero-badge"><span class="hero-dot"></span>Mark's here</div>
-    <h1 id="welcome-title">Right, Stop. <em>Tell Me What's Going On.</em></h1>
+    <h1 id="welcome-title">Right, stop. <em>Tell me what's going on.</em></h1>
     <p class="hero-body">Meal out, holiday, just eaten badly, can't be bothered, don't know where to start. Whatever it is, tap one below or type it. We'll reroute from wherever you are, no going back to the start.</p>
   </div>
 </section>
@@ -258,7 +261,7 @@ function unlock(name){
   name=(name||'').trim().replace(/[^a-zA-Z\s'-]/g,'').slice(0,20);
   if(!name)return;
   name=name.charAt(0).toUpperCase()+name.slice(1);
-  document.getElementById('welcome-title').innerHTML='Right '+name+', Stop. <em>Tell Me What\'s Going On.</em>';
+  document.getElementById('welcome-title').innerHTML='Right '+name+', stop. <em>Tell me what\'s going on.</em>';
   document.getElementById('first-bub').textContent='Right '+name+', stop. Before you do anything, tell me what\'s going on. Tap one above or just type it. I\'m not going anywhere. 💪';
 }
 
