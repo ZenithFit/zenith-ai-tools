@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Reroute | Zenith Fit</title>
+<title>The Panic Button | Zenith Fit</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -115,7 +115,7 @@
 
 <div class="nav">
   <img src="https://images.squarespace-cdn.com/content/v1/69027ef0752df355a800877a/8eb1eeb7-6b91-48b5-9831-12ab7e006b3b/newlogositedm.png?format=300w" alt="Zenith Fit" class="nav-logo">
-  <div class="nav-tag">Reroute</div>
+  <div class="nav-tag">The Panic Button</div>
 </div>
 
 <section class="hero" id="gate">
@@ -125,7 +125,7 @@
     <p class="hero-sub">Panicking about a meal out? Worried about your holiday? Just eaten badly and feel like the week's ruined? <em>Tell me what's going on. 30 seconds. Sorted.</em></p>
     <p class="hero-body">Whatever it is, type it in and I'll tell you exactly what to do next. No starting again Monday. No guilt. No binning the week.</p>
     <div class="form-card">
-      <div class="form-card-title">Tell Me Where To Send It</div>
+      <div class="form-card-title">Get The Panic Button</div>
       <div class="form-card-sub">Opens straight away. Bin it any time.</div>
       <script async data-uid="afeac5d7e7" src="https://zenith-fit.kit.com/afeac5d7e7/index.js"></script>
     </div>
@@ -134,9 +134,9 @@
 
 <section class="hero" id="welcome" style="display:none;">
   <div class="hero-inner">
-    <div class="hero-badge"><span class="hero-dot"></span>Mark's here</div>
+    <div class="hero-badge"><span class="hero-dot"></span>You're in</div>
     <h1 id="welcome-title">Right, stop. <em>Tell me what's going on.</em></h1>
-    <p class="hero-body">Meal out, holiday, just eaten badly, can't be bothered, don't know where to start. Whatever it is, tap one below or type it. We'll reroute from wherever you are, no going back to the start.</p>
+    <p class="hero-body">Meal out, holiday, just eaten badly, can't be bothered, don't know where to start. Whatever it is, tap one below or type it. We'll sort it from wherever you are, no going back to the start.</p>
   </div>
 </section>
 
@@ -159,8 +159,8 @@
       <div class="chat-head">
         <div class="chat-av">M</div>
         <div>
-          <div class="chat-name">Reroute</div>
-          <div class="chat-status"><span class="chat-status-dot"></span>Right here with you</div>
+          <div class="chat-name">Panic Button</div>
+          <div class="chat-status"><span class="chat-status-dot"></span>AI, built by Mark</div>
         </div>
       </div>
       <div class="msgs" id="pn-msgs">
@@ -175,6 +175,8 @@
       </div>
     </div>
 
+    <div class="support-note" style="margin-top:12px;">The Panic Button's built by Mark and runs on AI. It sounds like him because he wrote every word of how it thinks, but it's not Mark live. Chats are saved so he can keep making it better, so don't type anything you wouldn't want stored. It's general guidance, not medical advice. If you've got a health condition, you're pregnant, or you're on medication, check with your GP first.</div>
+
     <div class="support-note">If things feel heavier than a craving right now and you're really struggling, you don't have to sort it on your own. <strong>Samaritans</strong> are there any time, day or night, on <strong>116 123</strong> (free). For anything around food and eating, <strong>Beat</strong> are on <strong>0808 801 0677</strong>.</div>
 
   </div>
@@ -188,7 +190,7 @@
   </div>
 </div>
 
-<footer>&copy; 2026 Zenith Fit. Structure beats motivation. Every single time.</footer>
+<footer>&copy; 2026 Zenith Fit. Structure beats motivation. Every single time. &nbsp;&middot;&nbsp; <a href="https://www.zenithfit.co.uk/privacy" style="color:rgba(255,255,255,0.5);text-decoration:underline;">Privacy</a></footer>
 
 <script>
 const API='https://zenith-fit.mark-5a5.workers.dev';
@@ -198,7 +200,7 @@ function logToSheets(tool,fields={},message=''){
   fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
 }
 
-const PNSYS=`You are Mark Davies from Zenith Fit. This is Reroute. Someone has come to you in a moment of panic about food, training, the scale, or their body, and your job is to reroute them from exactly where they are. Like a satnav after a wrong turn, you never send them back to the start, you just get them moving again from here.
+const PNSYS=`You are Mark Davies from Zenith Fit. This is the Panic Button. Someone has come to you in a moment of panic about food, training, the scale, or their body, and your job is to reroute them from exactly where they are. Like a satnav after a wrong turn, you never send them back to the start, you just get them moving again from here.
 
 WHO YOU ARE: Direct, warm, honest, been there yourself. You made every mistake there is with food and exercise so your clients do not have to. You never shame. You get it. You always talk about what we are going to do, not what they need to do.
 
@@ -234,7 +236,7 @@ async function pnSend(){
     const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:PNSYS,messages:pnHist})});
     const d=await r.json();if(d.error)throw new Error(d.error.message);
     const reply=d.content[0].text;pnHist.push({role:'assistant',content:reply});
-    logToSheets('Reroute',{},'Trigger: '+txt+' | Reply: '+reply.substring(0,300));
+    logToSheets('Panic Button Lead',{},'Trigger: '+txt+' | Reply: '+reply.substring(0,300));
     ti.remove();pnAdd(reply,'m');
   }catch(e){ti.remove();pnAdd("Something went wrong my end, but listen, whatever it was, it can wait 2 minutes. Get a glass of water and try me again. I'm not going anywhere.",'m');}
 }
