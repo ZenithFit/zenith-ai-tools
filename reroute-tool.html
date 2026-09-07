@@ -248,21 +248,43 @@ function pnTyping(){
   c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
 }
 
-/* UNLOCK. Kit redirects back here after the form with ?name=Sarah (or ?go=1). That hides the form and shows the tool. */
-(function(){
-  const params=new URLSearchParams(window.location.search);
-  let name=(params.get('name')||params.get('first_name')||'').trim();
-  name=name.replace(/[^a-zA-Z\s'-]/g,'').slice(0,20);
-  const unlocked=!!name||params.get('go')==='1';
-  if(!unlocked)return;
+/* UNLOCK. Works 2 ways so it does not depend on Kit settings. 1: the moment the Kit form is submitted on this page. 2: if Kit redirects back here with ?go=1 or a name on the link. */
+function unlock(name){
   document.getElementById('gate').style.display='none';
   document.getElementById('welcome').style.display='block';
   document.getElementById('tool').style.display='block';
   document.getElementById('next').style.display='block';
+  window.scrollTo({top:0,behavior:'auto'});
+  name=(name||'').trim().replace(/[^a-zA-Z\s'-]/g,'').slice(0,20);
   if(!name)return;
   name=name.charAt(0).toUpperCase()+name.slice(1);
   document.getElementById('welcome-title').innerHTML='Right '+name+', Stop. <em>Tell Me What\'s Going On.</em>';
   document.getElementById('first-bub').textContent='Right '+name+', stop. Before you do anything, tell me what\'s going on. Tap one above or just type it. I\'m not going anywhere. 💪';
+}
+
+/* Way 2: link params */
+(function(){
+  const p=new URLSearchParams(window.location.search);
+  const name=p.get('name')||p.get('first_name')||'';
+  if(name||p.get('go')==='1')unlock(name);
+})();
+
+/* Way 1: catch the Kit form submit on this page */
+(function(){
+  let done=false;
+  function hook(form){
+    if(form.dataset.zfHooked)return;
+    form.dataset.zfHooked='1';
+    form.addEventListener('submit',function(){
+      if(done)return;done=true;
+      const fn=form.querySelector('input[name*="first_name"]');
+      const name=fn?fn.value:'';
+      setTimeout(function(){unlock(name);},900);
+    });
+  }
+  function scan(){document.querySelectorAll('form.formkit-form, form[data-uid]').forEach(hook);}
+  scan();
+  new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
 </body>
