@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reroute | Zenith Fit</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green:          #00A86B;
+    --green-hover:    #008755;
+    --green-on-dark:  #3FD494;
+    --dark:           #0C0F11;
+    --dark-2:         #14181B;
+    --alt:            #F4F6F5;
+    --white:          #ffffff;
+    --heading-light:  #111111;
+    --body-light:     #4A4F4D;
+    --muted-light:    #7A7F7D;
+    --border:         rgba(17,17,17,0.09);
+    --font-head:      'Oswald', sans-serif;
+    --font-body:      'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--white); color: var(--heading-light); font-family: var(--font-body); font-size: 17px; line-height: 1.7; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; }
+  img { display: block; max-width: 100%; }
+  a { text-decoration: none; color: inherit; }
+  p { font-weight: 300; color: var(--body-light); }
+  strong { font-weight: 500; color: var(--heading-light); }
+
+  .nav { height: 64px; padding: 0 40px; display: flex; align-items: center; justify-content: space-between; background: var(--white); border-bottom: 1px solid var(--border); }
+  .nav-logo { height: 30px; width: auto; }
+  .nav-tag { font-family: var(--font-head); font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--green); }
+
+  .hero { background: var(--dark); padding: 56px 40px 48px; position: relative; overflow: hidden; }
+  .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(63,212,148,0.10) 0%, transparent 65%); pointer-events: none; }
+  .hero-inner { max-width: 760px; margin: 0 auto; position: relative; z-index: 1; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-head); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-on-dark); background: rgba(63,212,148,0.10); border: 1px solid rgba(63,212,148,0.30); padding: 5px 16px; border-radius: 50px; margin-bottom: 20px; }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .hero h1 { font-family: var(--font-head); font-size: clamp(40px, 7vw, 72px); font-weight: 700; line-height: 0.98; text-transform: uppercase; color: var(--white); letter-spacing: -0.01em; margin-bottom: 16px; }
+  .hero h1 em { font-style: normal; color: var(--green-on-dark); display: block; }
+  .hero-body { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.78); max-width: 560px; }
+  #gate h1 { font-size: clamp(30px, 4.6vw, 54px); line-height: 1.02; }
+  #gate .hero-body { margin-bottom: 26px; }
+  .form-card { background: var(--white); border-radius: 12px; padding: 22px 24px 14px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); max-width: 520px; }
+  .form-card-title { font-family: var(--font-head); font-size: 20px; font-weight: 700; text-transform: uppercase; color: var(--heading-light); line-height: 1.1; margin-bottom: 4px; }
+  .form-card-sub { font-size: 14px; color: var(--muted-light); margin-bottom: 10px; }
+  .form-card .formkit-form { box-shadow: none !important; border: none !important; }
+
+  .main { flex: 1; padding: 36px 40px 56px; }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .chip { background: var(--white); border: 1px solid rgba(17,17,17,0.16); border-radius: 50px; padding: 8px 16px; font-size: 13.5px; font-weight: 400; color: var(--body-light); cursor: pointer; transition: all .15s; }
+  .chip:hover { border-color: var(--heading-light); color: var(--heading-light); background: var(--alt); }
+
+  .chat-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.06); }
+  .chat-head { background: var(--dark-2); padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+  .chat-av { width: 38px; height: 38px; background: var(--green); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 700; color: var(--white); font-size: 15px; flex-shrink: 0; }
+  .chat-name { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.04em; line-height: 1; }
+  .chat-status { display: flex; align-items: center; gap: 5px; margin-top: 4px; font-size: 11.5px; color: rgba(255,255,255,0.55); }
+  .chat-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; }
+
+  .msgs { min-height: 340px; max-height: 420px; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; background: var(--alt); }
+  .msg { display: flex; gap: 9px; max-width: 84%; animation: fadeUp .2s ease; }
+  .msg.u { margin-left: auto; flex-direction: row-reverse; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+  .mav { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0; font-size: 10px; font-family: var(--font-head); }
+  .mav.m { background: var(--green); color: var(--white); }
+  .mav.u { background: rgba(17,17,17,0.12); color: var(--body-light); }
+  .bub { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 10px 14px; font-size: 14px; line-height: 1.6; color: var(--heading-light); font-weight: 300; }
+  .msg.u .bub { background: var(--dark); color: var(--white); border-color: transparent; }
+  .mt { font-size: 10.5px; color: var(--muted-light); margin-top: 3px; }
+  .tdot { width: 5px; height: 5px; background: var(--muted-light); border-radius: 50%; animation: tb 1.2s infinite; }
+  .tdot:nth-child(2) { animation-delay: .2s; } .tdot:nth-child(3) { animation-delay: .4s; }
+  @keyframes tb { 0%,60%,100%{transform:translateY(0);opacity:.3} 30%{transform:translateY(-4px);opacity:1} }
+
+  .chat-foot { background: var(--white); border-top: 1px solid var(--border); padding: 12px 14px; display: flex; gap: 10px; }
+  .cin { flex: 1; background: var(--alt); border: 1px solid var(--border); border-radius: 10px; padding: 11px 14px; color: var(--heading-light); font-family: var(--font-body); font-size: 15px; font-weight: 300; outline: none; resize: none; min-height: 46px; max-height: 110px; transition: border-color .15s; }
+  .cin:focus { border-color: var(--heading-light); background: var(--white); }
+  .cin::placeholder { color: #B0B4B2; }
+  .btn-send { background: var(--green); border: none; color: var(--white); padding: 10px 24px; font-family: var(--font-head); font-size: 13px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 50px; cursor: pointer; align-self: flex-end; transition: background .2s; }
+  .btn-send:hover { background: var(--green-hover); }
+  .btn-send:focus-visible { outline: 3px solid var(--green-on-dark); outline-offset: 3px; }
+
+  .support-note { margin-top: 16px; background: var(--alt); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; font-size: 12.5px; color: var(--body-light); line-height: 1.6; }
+  .support-note strong { font-weight: 500; }
+
+  .next-strip { background: var(--dark); padding: 32px 40px; text-align: center; }
+  .next-inner { max-width: 640px; margin: 0 auto; }
+  .next-label { font-family: var(--font-head); font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--green-on-dark); margin-bottom: 8px; }
+  .next-title { font-family: var(--font-head); font-size: clamp(22px, 3.5vw, 30px); font-weight: 700; text-transform: uppercase; color: var(--white); line-height: 1.1; margin-bottom: 8px; }
+  .next-sub { font-size: 15px; color: rgba(255,255,255,0.65); }
+
+  footer { background: var(--dark); padding: 18px 40px; text-align: center; color: rgba(255,255,255,0.3); font-size: 11px; font-family: var(--font-head); letter-spacing: 0.1em; text-transform: uppercase; border-top: 1px solid rgba(255,255,255,0.06); }
+
+  @media (max-width: 768px) {
+    .nav { padding: 0 20px; }
+    .nav-tag { display: none; }
+    .hero { padding: 40px 24px 36px; }
+    .main { padding: 24px 16px 40px; }
+    .msgs { min-height: 300px; max-height: 380px; }
+    .next-strip { padding: 28px 24px; }
+    footer { padding: 16px 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .msg, .hero-dot, .tdot { animation: none; } }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <img src="https://images.squarespace-cdn.com/content/v1/69027ef0752df355a800877a/8eb1eeb7-6b91-48b5-9831-12ab7e006b3b/newlogositedm.png?format=300w" alt="Zenith Fit" class="nav-logo">
+  <div class="nav-tag">Reroute</div>
+</div>
+
+<section class="hero" id="gate">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-dot"></span>Free · Takes 30 Seconds</div>
+    <h1 id="hero-title">Panicking About A Meal Out?<br>Worried About Your Holiday?<br>Just Eaten Badly And Feel Like The Week's Ruined? <em>Tell Me What's Going On. 30 Seconds. Sorted.</em></h1>
+    <p class="hero-body">Whatever it is, type it in and I'll tell you exactly what to do next. No starting again Monday. No guilt. No binning the week.</p>
+    <div class="form-card">
+      <div class="form-card-title">Tell Me Where To Send It</div>
+      <div class="form-card-sub">Opens straight away. Bin it any time.</div>
+      <script async data-uid="afeac5d7e7" src="https://zenith-fit.kit.com/afeac5d7e7/index.js"></script>
+    </div>
+  </div>
+</section>
+
+<section class="hero" id="welcome" style="display:none;">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="hero-dot"></span>Mark's here</div>
+    <h1 id="welcome-title">Right, Stop. <em>Tell Me What's Going On.</em></h1>
+    <p class="hero-body">Meal out, holiday, just eaten badly, can't be bothered, don't know where to start. Whatever it is, tap one below or type it. We'll reroute from wherever you are, no going back to the start.</p>
+  </div>
+</section>
+
+<div class="main" id="tool" style="display:none;">
+  <div class="wrap">
+
+    <div class="chips">
+      <div class="chip" onclick="pnChip(this)">I've just eaten badly and want to write the day off</div>
+      <div class="chip" onclick="pnChip(this)">I've got a meal out tonight</div>
+      <div class="chip" onclick="pnChip(this)">I'm going on holiday and I'm worried</div>
+      <div class="chip" onclick="pnChip(this)">The weekend always ruins me</div>
+      <div class="chip" onclick="pnChip(this)">I want to open the wine</div>
+      <div class="chip" onclick="pnChip(this)">I can't be bothered to train</div>
+      <div class="chip" onclick="pnChip(this)">I'm stressed and want to eat</div>
+      <div class="chip" onclick="pnChip(this)">I don't know where to start</div>
+      <div class="chip" onclick="pnChip(this)">The scale's gone up and I feel awful</div>
+    </div>
+
+    <div class="chat-wrap">
+      <div class="chat-head">
+        <div class="chat-av">M</div>
+        <div>
+          <div class="chat-name">Reroute</div>
+          <div class="chat-status"><span class="chat-status-dot"></span>Right here with you</div>
+        </div>
+      </div>
+      <div class="msgs" id="pn-msgs">
+        <div class="msg">
+          <div class="mav m">M</div>
+          <div><div class="bub" id="first-bub">Right, stop. Before you do anything, tell me what's going on. Tap one above or just type it. I'm not going anywhere. 💪</div><div class="mt">Now</div></div>
+        </div>
+      </div>
+      <div class="chat-foot">
+        <textarea class="cin" id="pn-cin" placeholder="Tell me what's going on..." rows="1" onkeydown="pnKbd(event)"></textarea>
+        <button class="btn-send" onclick="pnSend()">Send</button>
+      </div>
+    </div>
+
+    <div class="support-note">If things feel heavier than a craving right now and you're really struggling, you don't have to sort it on your own. <strong>Samaritans</strong> are there any time, day or night, on <strong>116 123</strong> (free). For anything around food and eating, <strong>Beat</strong> are on <strong>0808 801 0677</strong>.</div>
+
+  </div>
+</div>
+
+<div class="next-strip" id="next" style="display:none;">
+  <div class="next-inner">
+    <div class="next-label">What Happens Next</div>
+    <div class="next-title">Day 1 Lands In Your Inbox Tomorrow Morning</div>
+    <p class="next-sub">14 days, 1 short email a day, me on camera every time. Stuck before then? Hit reply on any email and it comes straight to me.</p>
+  </div>
+</div>
+
+<footer>&copy; 2026 Zenith Fit. Structure beats motivation. Every single time.</footer>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+function logToSheets(tool,fields={},message=''){
+  const payload={tool,message,...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+}
+
+const PNSYS=`You are Mark Davies from Zenith Fit. This is Reroute. Someone has come to you in a moment of panic about food, training, the scale, or their body, and your job is to reroute them from exactly where they are. Like a satnav after a wrong turn, you never send them back to the start, you just get them moving again from here.
+
+WHO YOU ARE: Direct, warm, honest, been there yourself. You made every mistake there is with food and exercise so your clients do not have to. You never shame. You get it. You always talk about what we are going to do, not what they need to do.
+
+WORK OUT WHICH MOMENT THIS IS from what they say, and respond to that moment. Do not give the same answer to all of them.
+
+1. ABOUT TO BREAK. A craving, a takeaway, the wine, stress eating, about to write the day off. Catch them. One human line acknowledging it, then the honest reframe: would the person they are trying to become do this right now, or is this just the day catching up with them. Then one tiny thing to do this second to break the spiral, a pint of water, brush your teeth, step out of the room, two minutes on your feet, one glass of water before the wine. Then the anchor: this is a never miss twice moment, one choice is nothing, it only becomes something if they let it become the whole night.
+
+2. ALREADY SLIPPED. They have eaten badly, had a big night, blown the weekend, missed a week. No guilt, none. One takeaway is a meal not a week. The reset is the next meal, never Monday. Tell them the one thing to do right now, usually water and a normal next meal, and that tomorrow is just a normal day. The week is never lost on the bad day, it is lost in the days after it when they decide it is ruined.
+
+3. SOMETHING COMING UP. A meal out, night out, holiday, wedding, work do, the weekend. Give a short game plan, 2 or 3 concrete moves, not an essay. Eat normally before it, never skip meals to save calories because that always backfires. Protein and veg first on the plate. Pick one thing to properly enjoy rather than half eating everything. Water between drinks. Next morning straight back to basics, normal breakfast, walk. Tell them the scale will be up after it and it is water and salt, not fat, so do not panic. For a holiday, the aim is come home roughly where you left, not lose weight on it, and that is a win.
+
+4. CAN'T BE BOTHERED. Training, the walk, cooking. Something beats nothing, every time. Shrink it until it is stupid easy. Ten minutes. Just get your shoes on. Just the first exercise. Then the never miss twice line. Never guilt them for it.
+
+5. DON'T KNOW WHERE TO START, overwhelmed, done it all before and none of it stuck. Do not hand them a plan. Give them one thing for this week and tell them that is all. Usually a daily walk or protein at every meal. The plan was never their problem, the start stop cycle was, and one thing done every day fixes that.
+
+6. THE SCALE or the mirror. Number up, feel awful. Reframe it plainly: water, salt, sleep, hormones, timing, a big meal the night before. Not fat. Fat does not show up overnight. One action, drink water, normal day, weigh again in a few days and look at the trend not the number.
+
+HOW YOU RESPOND every time: SHORT. 3 to 5 sentences. One clear thing to do. Human, warm, direct. British English. No dashes anywhere. No bullet points. Full contractions. Digits not words for numbers. Sound like a real person texting them back fast, not a chatbot. Use right, look, mate, don't panic, nice and straightforward, naturally and not every time. Never say great question, certainly, absolutely, I understand your concern. Never use the phrase here's the thing. Never write it's not X it's Y. If they come back a second or third time still wobbling, stay with them and go again, do not give up on them and do not repeat yourself word for word.
+
+If they ask for a full plan, a full meal guide, or a full holiday guide, give them the one next step now and mention that the rest lands over the next 14 days in the emails, starting tomorrow. Say it once, lightly, never as a sales pitch.
+
+NEVER give restrictive advice. Never tell them to skip a meal, slash calories, do extra cardio to make up for anything, or punish themselves in any way. That is the opposite of the point.
+
+CRISIS GUARDRAIL, this overrides everything: if the person shows signs of genuine emotional crisis, distress, self harm, or something darker than a craving or a wobble, stop coaching immediately. Do not reframe or push. Respond with real warmth and care, gently encourage them to reach out to someone they trust or their GP, and share the Samaritans line 116 123, free, any time, day or night. If it is specifically about food, eating, restriction or purging spiralling into something that scares them, gently mention Beat on 0808 801 0677. Make clear you are glad they reached out and they do not have to deal with it on their own.`;
+
+let pnHist=[];
+function pnChip(el){document.getElementById('pn-cin').value=el.textContent;pnSend();}
+function pnKbd(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();pnSend();}}
+async function pnSend(){
+  const inp=document.getElementById('pn-cin');const txt=inp.value.trim();if(!txt)return;
+  inp.value='';pnAdd(txt,'u');pnHist.push({role:'user',content:txt});const ti=pnTyping();
+  try{
+    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:PNSYS,messages:pnHist})});
+    const d=await r.json();if(d.error)throw new Error(d.error.message);
+    const reply=d.content[0].text;pnHist.push({role:'assistant',content:reply});
+    logToSheets('Reroute',{},'Trigger: '+txt+' | Reply: '+reply.substring(0,300));
+    ti.remove();pnAdd(reply,'m');
+  }catch(e){ti.remove();pnAdd("Something went wrong my end, but listen, whatever it was, it can wait 2 minutes. Get a glass of water and try me again. I'm not going anywhere.",'m');}
+}
+function pnAdd(txt,role){
+  const c=document.getElementById('pn-msgs');const d=document.createElement('div');
+  d.className='msg'+(role==='u'?' u':'');
+  const safe=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+  d.innerHTML=`<div class="mav ${role==='m'?'m':'u'}">${role==='m'?'M':'You'}</div><div><div class="bub">${safe}</div><div class="mt">Now</div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function pnTyping(){
+  const c=document.getElementById('pn-msgs');const d=document.createElement('div');d.className='msg';
+  d.innerHTML=`<div class="mav m">M</div><div style="display:flex;align-items:center;gap:4px;padding:10px 13px;background:var(--white);border:1px solid var(--border);border-radius:12px;"><div class="tdot"></div><div class="tdot"></div><div class="tdot"></div></div>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;return d;
+}
+
+/* UNLOCK. Kit redirects back here after the form with ?name=Sarah (or ?go=1). That hides the form and shows the tool. */
+(function(){
+  const params=new URLSearchParams(window.location.search);
+  let name=(params.get('name')||params.get('first_name')||'').trim();
+  name=name.replace(/[^a-zA-Z\s'-]/g,'').slice(0,20);
+  const unlocked=!!name||params.get('go')==='1';
+  if(!unlocked)return;
+  document.getElementById('gate').style.display='none';
+  document.getElementById('welcome').style.display='block';
+  document.getElementById('tool').style.display='block';
+  document.getElementById('next').style.display='block';
+  if(!name)return;
+  name=name.charAt(0).toUpperCase()+name.slice(1);
+  document.getElementById('welcome-title').innerHTML='Right '+name+', Stop. <em>Tell Me What\'s Going On.</em>';
+  document.getElementById('first-bub').textContent='Right '+name+', stop. Before you do anything, tell me what\'s going on. Tap one above or just type it. I\'m not going anywhere. 💪';
+})();
+</script>
+</body>
+</html>
