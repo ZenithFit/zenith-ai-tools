@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weekend Game Plan | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#FFFFFF;--alt:#F4F6F5;--dark:#0C0F11;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E3E7E5}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+header{background:var(--dark);color:#fff;padding:36px 0 30px}
+.brand{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.2em;color:var(--green-d);margin-bottom:14px}
+header h1{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:.02em;color:#fff}
+header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
+
+.last{background:var(--alt);padding:18px 0}
+.last p{font-size:14px;color:var(--body)}
+.last b{color:var(--head)}
+
+main{padding:28px 0 40px}
+.field{margin-bottom:26px}
+label.small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--head);margin-bottom:6px}
+.hint{font-size:13px;color:var(--body);margin-bottom:12px}
+.hint.warn{color:#B3261E;margin-top:8px;margin-bottom:0}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font-size:16px;color:var(--head);background:#fff}
+input[type=text]::placeholder{color:#9AA19E}
+textarea{width:100%;min-height:104px;border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-size:16px;font-family:inherit;color:var(--head);resize:vertical;background:#fff}
+textarea::placeholder{color:#9AA19E}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:#fff;color:var(--head);font-size:14px;font-weight:500;padding:9px 14px;border-radius:999px;transition:background .12s,color .12s,border-color .12s}
+.chip.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+.pills{display:flex;gap:6px}
+.pills button{flex:1;height:42px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--head);font-size:14px;font-weight:500;transition:background .12s,color .12s,border-color .12s}
+.pills button.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.pill-hint{font-size:13px;color:var(--body);margin-top:10px;min-height:20px}
+
+.submit{margin-top:8px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:18px;letter-spacing:.08em;transition:background .15s}
+.submit:hover{background:var(--green-h)}
+.submit:disabled{background:#C9CFCC;cursor:not-allowed}
+.err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
+.err.on{display:block}
+
+.result{display:none;margin-top:32px;background:var(--dark);color:#fff;border-radius:24px;padding:28px 24px}
+.result.on{display:block}
+.result h2{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec);margin-bottom:16px}
+.reply{font-size:16px;line-height:1.55;color:#fff;white-space:pre-wrap}
+.reply-load{color:var(--sec);font-size:15px}
+.dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-d);margin-right:6px;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
+.promise{display:none;margin-top:22px;padding-top:18px;border-top:1px solid #2A2F33}
+.promise.on{display:block}
+.promise-lbl{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
+.promise-txt{font-size:18px;font-weight:500;line-height:1.4;color:#fff}
+.actions{display:flex;gap:10px;margin-top:22px}
+.actions button{flex:1;height:48px;border-radius:999px;border:1px solid #2A2F33;background:transparent;color:#fff;font-size:15px;font-weight:500}
+.actions button:hover{border-color:var(--sec)}
+.actions button:disabled{opacity:.35;cursor:not-allowed}
+
+footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
+@media (prefers-reduced-motion:reduce){.chip,.pills button,.submit{transition:none}.dot{animation:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Zenith Fit</div>
+    <h1>Weekend<br>Game Plan</h1>
+    <p>Thursday night, 2 minutes. Decide how the weekend goes before the weekend decides for you.</p>
+  </div>
+</header>
+
+<section class="last" id="last" hidden>
+  <div class="wrap"><p id="last-txt"></p></div>
+</section>
+
+<main>
+  <div class="wrap">
+
+    <div class="field">
+      <label class="small" for="name">Full name</label>
+      <input type="text" id="name" placeholder="First and last name, e.g. Sarah Taylor" autocomplete="name">
+      <div class="hint warn" id="name-hint" hidden>First and last name please, so Mark knows which one of you it is.</div>
+    </div>
+
+    <div class="field">
+      <label class="small" for="plans">What have you actually got on?</label>
+      <div class="hint">Friday to Sunday. The lot. Nothing planned counts too, that's usually where the grazing starts.</div>
+      <textarea id="plans" placeholder="e.g. Friday drinks after work, Saturday kids' party, Sunday roast at the in laws."></textarea>
+    </div>
+
+    <div class="field">
+      <label class="small">What normally gets you?</label>
+      <div class="hint">Tap everything that applies. Be honest, nobody's marking this but you.</div>
+      <div class="chips" id="chips">
+        <button type="button" class="chip">Friday night takeaway</button>
+        <button type="button" class="chip">The drinks</button>
+        <button type="button" class="chip">Sunday roast and the sofa</button>
+        <button type="button" class="chip">No plan so I graze</button>
+        <button type="button" class="chip">Kids' parties and leftovers</button>
+        <button type="button" class="chip">I've been good all week so I deserve it</button>
+        <button type="button" class="chip">Nothing, I just switch off</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="small">How do you want it to go?</label>
+      <div class="pills" id="pills">
+        <button type="button" data-v="Relaxed">Relaxed</button>
+        <button type="button" data-v="Sensible" class="on">Sensible</button>
+        <button type="button" data-v="On it">On it</button>
+      </div>
+      <div class="pill-hint" id="pill-hint"></div>
+    </div>
+
+    <button class="submit" id="submit" disabled>Build my weekend</button>
+    <div class="err" id="err"></div>
+
+    <div class="result" id="result">
+      <h2>Your weekend</h2>
+      <div class="reply reply-load" id="reply"><span class="dot"></span>AI Mark's having a look</div>
+      <div class="promise" id="promise">
+        <div class="promise-lbl">Your promise for this weekend</div>
+        <div class="promise-txt" id="promise-txt"></div>
+      </div>
+      <div class="actions">
+        <button type="button" id="copy" disabled>Copy it</button>
+        <button type="button" id="again" disabled>Done</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">Saved on this phone only.</div>
+</footer>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const NAMEKEY='zf_review_name';      // shared with Rate Your Day so they only type it once
+const PROMISEKEY='zf_weekend_promise'; // read by Rate Your Day on Saturday
+
+const PILL_HINTS={
+  'Relaxed':"Big weekend, you know it. We're just stopping it turning into a write off.",
+  'Sensible':"Enjoy it, stay in control, back on it Monday without the guilt.",
+  'On it':"You want a result this weekend. We'll be tight without being miserable."
+};
+
+let strict='Sensible';
+
+function logToSheets(tool,fields={},message=''){
+  const payload={tool,message,...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+}
+
+function cleanName(raw){return (raw||'').trim().replace(/\s+/g,' ');}
+function nameOk(raw){return cleanName(raw).split(' ').filter(p=>p.length>=2).length>=2;}
+function firstName(raw){return cleanName(raw).split(' ')[0];}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+
+function chosenChips(){return [...document.querySelectorAll('#chips .chip.on')].map(c=>c.textContent);}
+
+function checkReady(){
+  const raw=document.getElementById('name').value;
+  const nOk=nameOk(raw);
+  document.getElementById('name-hint').hidden=!(cleanName(raw).length>0&&!nOk);
+  const pOk=document.getElementById('plans').value.trim().length>0;
+  document.getElementById('submit').disabled=!(nOk&&pOk);
+}
+
+function showLast(){
+  try{
+    const p=JSON.parse(localStorage.getItem(PROMISEKEY)||'null');
+    if(!p||!p.text)return;
+    const d=new Date(p.date+'T12:00:00');
+    const when=d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+    document.getElementById('last-txt').innerHTML='Last time ('+when+') you promised: <b>'+p.text.replace(/</g,'&lt;')+'</b>';
+    document.getElementById('last').hidden=false;
+  }catch(e){}
+}
+
+const SYS=`You are Mark Davies from Zenith Fit, a UK fat loss coach. It's Thursday night. A client has told you what they've got on this weekend, what normally derails them, and how they want it to go. Write them their weekend plan as a WhatsApp message. It should read like Mark typed it on his phone, not like an app generated it.
+
+SHAPE. Four short blocks then one promise line. No headings in capitals, no labels, no bullets, no bold, no numbered lists.
+Block 1: Friday. Two or three lines. Specific to what they wrote.
+Block 2: Saturday. Two or three lines. Specific to what they wrote. If there's a big meal or drinks, say exactly what to eat before it and how to handle it.
+Block 3: Sunday. Two or three lines. Sunday is where weekends quietly die, so cover the evening and getting set for Monday.
+Block 4: Three non negotiables, written as three plain sentences on three lines, not a list. Things like protein at every meal, steps done before the main event, a glass of water with every drink, no writing off a day for one meal. Pick the three that fit their weekend.
+Then a blank line, then the promise on its own line, starting exactly with "Promise: " followed by one sentence in the first person as if they're saying it, under 15 words, specific to their weakness. Example: "Promise: I'll get my steps done before the roast and stop at one plate."
+
+Start each of the first three blocks with the day name and a full stop, like "Friday." then the lines. Under 220 words before the promise line.
+
+Match the level they asked for. Relaxed means they're having a big one and you're keeping it from becoming a write off, so don't nag. Sensible means enjoy it and stay in control. On it means they want a result, be tighter, still no misery. Use what they said normally gets them. If they tapped "I've been good all week so I deserve it" or "nothing, I just switch off", name that gently, that's the real weekend problem not the roast.
+
+VOICE. British English. Full contractions always. Digits not words. Short punchy sentences. Warm, direct, certain. Talk like a mate who's been through it. "We" for the plan. Name the objection before they raise it and dismiss it, "don't panic", "nothing's off the table here". Phrases that are yours, only where they land naturally: nice and straightforward, don't panic, trust me, boom, something beats nothing, never miss twice, nine times out of 10, that kind of stuff, at the end of the day. Use their first name once, in the Friday block, nowhere else. Lumpy paragraphs, not even ones.
+
+NEVER. No dashes of any kind, commas and full stops only. Never "my friend", "here's the thing", "it's not X it's Y", "I'm going to be straight with you", "you've got this", "keep it up", "great job", "well done", "proud of you", "small steps", "remember,", "journey", "consistency is key", "listen to your body", "be kind to yourself", "treat yourself". Never open with a greeting. Never end with a question. Never tell them to skip a meal, cut calories, or do extra cardio to earn or undo food. Never mention a programme, a coach, a check in or anything you can't see. Never moralise about takeaways, roasts or drinks. Never add a summary after the promise line.
+
+EXAMPLE. Plans: "Friday nothing, Saturday night meal out with drinks for a 40th, Sunday roast at mum's." Gets them: The drinks, Sunday roast and the sofa. Level: Sensible.
+Friday. Nothing on, Sarah, so this is the easy one. Normal day, normal food, steps done, in bed at a decent time because Saturday's the one that matters. Don't start the weekend on Friday.
+
+Saturday. 40th, meal out, drinks. We eat properly all day, protein at every meal, no saving calories for tonight because nine times out of 10 that ends with you starving at the bar and ordering everything. Pick your drink before you go and stick to it. Water between each one, nice and straightforward. Enjoy the meal, one plate, one pudding if you want it.
+
+Sunday. Roast at mum's is fine, the sofa after it is the problem. Steps out the way in the morning before you go. Fill the plate with meat and veg first, then the potatoes. Then when you get home, tea, phone down, bag packed for Monday. That's the whole day.
+
+Protein at every meal, all 3 days.
+Steps done before the main event, not after.
+One glass of water with every drink on Saturday.
+
+Promise: I'll get my steps in before mum's and I'm not writing Sunday night off.`;
+
+async function ask(system,userMsg){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:700,system,messages:[{role:'user',content:userMsg}]})});
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message||'Worker error');
+  return d.content[0].text;
+}
+
+function splitPromise(text){
+  const t=text.trim();
+  const m=t.match(/(^|\n)\s*Promise:\s*(.+?)\s*$/i);
+  if(!m)return {body:t,promise:''};
+  return {body:t.slice(0,m.index).trim(),promise:m[2].trim()};
+}
+
+async function submit(){
+  const btn=document.getElementById('submit');
+  const err=document.getElementById('err');
+  err.classList.remove('on');
+
+  const fullName=cleanName(document.getElementById('name').value);
+  if(!nameOk(fullName)){
+    err.textContent='Pop your first and last name in so Mark knows which one of you it is.';
+    err.classList.add('on');
+    document.getElementById('name').focus();
+    return;
+  }
+  const plans=document.getElementById('plans').value.trim();
+  const gets=chosenChips();
+  const level=strict;
+  try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
+
+  const reply=document.getElementById('reply');
+  reply.className='reply reply-load';
+  reply.innerHTML='<span class="dot"></span>AI Mark\'s having a look';
+  document.getElementById('promise').classList.remove('on');
+  document.getElementById('copy').disabled=true;
+  document.getElementById('again').disabled=true;
+  document.getElementById('result').classList.add('on');
+  document.getElementById('result').scrollIntoView({behavior:'smooth',block:'start'});
+  btn.disabled=true;
+
+  const userMsg='Name: '+firstName(fullName)+'\nToday: Thursday\n\nWhat they have on this weekend: '+plans+'\n\nWhat normally gets them: '+(gets.length?gets.join(', '):'nothing tapped')+'\n\nHow they want it to go: '+level;
+
+  try{
+    const text=await ask(SYS,userMsg);
+    const {body,promise}=splitPromise(text);
+    reply.className='reply';
+    reply.textContent=body;
+    if(promise){
+      document.getElementById('promise-txt').textContent=promise;
+      document.getElementById('promise').classList.add('on');
+      try{localStorage.setItem(PROMISEKEY,JSON.stringify({date:todayKey(),text:promise,plans}));}catch(e){}
+    }
+    logToSheets('Weekend Game Plan',{
+      field1_label:'Name',field1_value:fullName,
+      field2_label:'Plans',field2_value:plans+(gets.length?' | Gets them: '+gets.join(', '):'')+' | Level: '+level,
+      field3_label:'Promise',field3_value:promise||'none'
+    },'Plan: '+text.trim());
+    document.getElementById('copy').disabled=false;
+  }catch(e){
+    document.getElementById('result').classList.remove('on');
+    err.textContent='That didn\'t send. Check your signal and tap Build my weekend again.';
+    err.classList.add('on');
+    btn.disabled=false;
+  }finally{
+    document.getElementById('again').disabled=false;
+  }
+}
+
+function resetForm(){
+  document.getElementById('plans').value='';
+  document.querySelectorAll('#chips .chip').forEach(c=>c.classList.remove('on'));
+  strict='Sensible';
+  document.querySelectorAll('#pills button').forEach(b=>b.classList.toggle('on',b.dataset.v==='Sensible'));
+  document.getElementById('pill-hint').textContent=PILL_HINTS['Sensible'];
+  document.getElementById('result').classList.remove('on');
+  showLast();
+  checkReady();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelectorAll('#chips .chip').forEach(c=>c.addEventListener('click',()=>c.classList.toggle('on')));
+document.querySelectorAll('#pills button').forEach(b=>b.addEventListener('click',()=>{
+  strict=b.dataset.v;
+  document.querySelectorAll('#pills button').forEach(x=>x.classList.toggle('on',x===b));
+  document.getElementById('pill-hint').textContent=PILL_HINTS[strict];
+}));
+document.getElementById('name').addEventListener('input',checkReady);
+document.getElementById('plans').addEventListener('input',checkReady);
+document.getElementById('submit').addEventListener('click',submit);
+document.getElementById('again').addEventListener('click',resetForm);
+document.getElementById('copy').addEventListener('click',()=>{
+  const p=document.getElementById('promise-txt').textContent;
+  const txt=document.getElementById('reply').textContent+(p?'\n\nPromise: '+p:'');
+  navigator.clipboard.writeText(txt).then(()=>{
+    const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>{b.textContent='Copy it';},2000);
+  });
+});
+
+document.getElementById('pill-hint').textContent=PILL_HINTS['Sensible'];
+try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
+showLast();
+checkReady();
+</script>
+</body>
+</html>
