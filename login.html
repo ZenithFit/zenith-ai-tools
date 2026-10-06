@@ -6,75 +6,90 @@
 <title>Zenith HQ — Log In</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
     font-family: 'DM Sans', sans-serif;
-    background: #0C0F11;
-    color: #FFFFFF;
+    background: #F4F4F2;
+    color: #111111;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 24px;
   }
   .card {
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 44px 36px 36px;
+    box-shadow: 0 14px 40px rgba(17, 17, 17, 0.07);
   }
   .brand {
-    text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
+  }
+  .brand .kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #00A86B;
+    margin-bottom: 12px;
   }
   .brand h1 {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 800;
     font-size: 34px;
-    letter-spacing: 2px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #111111;
   }
-  .brand h1 span { color: #3FD494; }
+  .brand h1 span { color: #00A86B; }
   .brand p {
-    color: #BFC6C3;
-    margin-top: 8px;
+    color: #6B706E;
+    margin-top: 12px;
     font-size: 15px;
+    line-height: 1.5;
   }
   label {
     display: block;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #BFC6C3;
-    margin: 20px 0 8px;
+    color: #8A8F8D;
+    margin: 22px 0 8px;
   }
   input {
     width: 100%;
     padding: 15px 18px;
     border-radius: 14px;
-    border: 1px solid #2A2F33;
-    background: #14181B;
-    color: #FFFFFF;
+    border: 1px solid #E4E6E4;
+    background: #FAFAF9;
+    color: #111111;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
     outline: none;
+    transition: border-color 0.15s ease;
   }
-  input:focus { border-color: #3FD494; }
+  input:focus { border-color: #00A86B; background: #FFFFFF; }
   button {
     width: 100%;
-    margin-top: 28px;
-    padding: 16px;
+    margin-top: 30px;
+    padding: 17px;
     border: none;
     border-radius: 999px;
     background: #00A86B;
     color: #FFFFFF;
-    font-family: 'Oswald', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
+    font-family: 'Archivo', sans-serif;
+    font-weight: 700;
     font-size: 16px;
+    letter-spacing: 0.01em;
     cursor: pointer;
+    transition: background 0.15s ease;
   }
   button:hover { background: #008755; }
   button:disabled { opacity: 0.6; cursor: wait; }
@@ -82,27 +97,37 @@
     display: none;
     margin-top: 18px;
     padding: 13px 16px;
-    border-radius: 12px;
-    background: rgba(220, 60, 60, 0.12);
-    border: 1px solid rgba(220, 60, 60, 0.4);
-    color: #FFB4B4;
+    border-radius: 14px;
+    background: #FDF0EF;
+    border: 1px solid #F3D2CE;
+    color: #B3402F;
     font-size: 14px;
     text-align: center;
   }
   .help {
-    margin-top: 28px;
+    margin-top: 26px;
     text-align: center;
-    color: #BFC6C3;
+    color: #8A8F8D;
     font-size: 13px;
     line-height: 1.6;
+  }
+  .baseline {
+    width: 100%;
+    max-width: 420px;
+    height: 3px;
+    background: #00A86B;
+    border-radius: 999px;
+    margin-top: 28px;
+    opacity: 0.9;
   }
 </style>
 </head>
 <body>
   <div class="card">
     <div class="brand">
-      <h1>Zenith <span>HQ</span></h1>
-      <p>Your members hub. Log in to get started.</p>
+      <div class="kicker">Members Only</div>
+      <h1>Welcome to<br>Zenith <span>HQ.</span></h1>
+      <p>Everything you need, in one place. Log in to get started.</p>
     </div>
 
     <form id="loginForm">
@@ -112,13 +137,14 @@
       <label for="password">Password</label>
       <input id="password" type="password" autocomplete="current-password" required>
 
-      <button id="loginBtn" type="submit">Log In</button>
+      <button id="loginBtn" type="submit">Log in</button>
     </form>
 
     <div class="error" id="errorBox"></div>
 
     <p class="help">Forgotten your login? Message Mark and he'll sort it.</p>
   </div>
+  <div class="baseline"></div>
 
 <script>
   const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
@@ -174,13 +200,13 @@
         errorBox.textContent = data.error || 'Something went wrong. Try again.';
         errorBox.style.display = 'block';
         btn.disabled = false;
-        btn.textContent = 'Log In';
+        btn.textContent = 'Log in';
       }
     } catch (err) {
       errorBox.textContent = 'Could not reach the server. Check your connection and try again.';
       errorBox.style.display = 'block';
       btn.disabled = false;
-      btn.textContent = 'Log In';
+      btn.textContent = 'Log in';
     }
   });
 </script>
