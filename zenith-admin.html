@@ -166,8 +166,8 @@
 
     <h2>Add a client.</h2>
     <div class="panel">
-      <label for="newName">Name (what they see, e.g. Sarah)</label>
-      <input id="newName" type="text">
+      <label for="newName">Full name, first and last (stamped on every Rate Your Day entry, e.g. Sarah Taylor)</label>
+      <input id="newName" type="text" placeholder="First and last name, exactly as you want it in the Sheet">
       <label for="newUsername">Username (what they log in with, e.g. sarah.taylor)</label>
       <input id="newUsername" type="text" autocapitalize="none" autocorrect="off">
       <label for="newPassword">Password (8+ characters)</label>
@@ -287,8 +287,13 @@
 
   async function addClient() {
     try {
+      const fullName = document.getElementById('newName').value.trim().replace(/\s+/g, ' ');
+      if (fullName.split(' ').filter(p => p.length >= 2).length < 2) {
+        show('addMsg', 'Full name needed, first and last. This is what gets stamped on their Rate Your Day entries.', false);
+        return;
+      }
       const body = {
-        name: document.getElementById('newName').value,
+        name: fullName,
         username: document.getElementById('newUsername').value,
         password: document.getElementById('newPassword').value,
         programme: document.getElementById('newProgramme').value
