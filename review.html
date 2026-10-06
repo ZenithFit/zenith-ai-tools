@@ -44,6 +44,9 @@ input[type=text]{width:100%;border:1px solid var(--line);border-radius:999px;pad
 input[type=text]::placeholder{color:#9AA19E}
 .name-hint{font-size:13px;color:var(--body);margin-top:8px}
 .name-hint.warn{color:#B3261E}
+.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body)}
+.hello.on{display:block}
+.hello b{color:var(--head)}
 
 .q{padding:18px 0;border-top:1px solid var(--line)}
 .q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
@@ -105,7 +108,9 @@ footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decorat
 <main>
   <div class="wrap">
 
-    <div class="name-row">
+    <div class="hello" id="hello"></div>
+
+    <div class="name-row" id="name-row">
       <label class="small" for="name">Full name</label>
       <input type="text" id="name" placeholder="First and last name, e.g. Sarah Taylor" autocomplete="name">
       <div class="name-hint" id="name-hint">First and last name please, so Mark knows which one of you it is.</div>
@@ -132,7 +137,7 @@ footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decorat
 </main>
 
 <footer>
-  <div class="wrap">Saved on this phone only. <button id="clear">Clear my history</button></div>
+  <div class="wrap"><span id="foot-note">Saved on this phone only. </span><button id="clear">Clear my history</button></div>
 </footer>
 
 <script>
@@ -140,6 +145,19 @@ const API='https://zenith-fit.mark-5a5.workers.dev';
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 const KEY='zf_daily_review';
 const NAMEKEY='zf_review_name';
+
+// HQ login, used silently if it's there. Never required.
+const TOKENKEY='zenith_token';
+const LOGNAMEKEY='zenith_name';
+let auth='no';            // 'no', 'maybe' (token found, not yet checked), 'yes' (checked with the Worker)
+let authName='';
+let authToken='';
+let serverHistory=null;   // replaces localStorage history once the Worker confirms who they are
+try{
+  authToken=localStorage.getItem(TOKENKEY)||'';
+  authName=localStorage.getItem(LOGNAMEKEY)||'';
+  if(authToken&&authName)auth='maybe';
+}catch(e){}
 
 const PILLARS=[
   {id:'water',label:'Water',hint:'10 is you hit your water target all day. 5 is about half.'},
@@ -158,7 +176,10 @@ function logToSheets(tool,fields={},message=''){
   fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
 }
 
-function loadHistory(){try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}}
+function loadHistory(){
+  if(serverHistory)return serverHistory;
+  try{return JSON.parse(localStorage.getItem(KEY)||'[]');}catch(e){return [];}
+}
 function saveHistory(h){try{localStorage.setItem(KEY,JSON.stringify(h.slice(-30)));}catch(e){}}
 function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function shortDate(key){const d=new Date(key+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric'});}
@@ -227,12 +248,67 @@ function renderQuestions(){
 
 function checkReady(){
   const scoresOk=PILLARS.every(p=>(p.rest&&restDay)||scores[p.id]);
+  if(auth!=='no'){
+    document.getElementById('submit').disabled=!scoresOk;
+    return;
+  }
   const raw=document.getElementById('name').value;
   const nOk=nameOk(raw);
   const hint=document.getElementById('name-hint');
   // Only go red once they've typed something that isn't a full name
   hint.classList.toggle('warn',cleanName(raw).length>0&&!nOk);
   document.getElementById('submit').disabled=!(scoresOk&&nOk);
+}
+
+// ---------- silent HQ login check, the page works exactly the same without it ----------
+
+function showLoggedIn(){
+  document.getElementById('name-row').style.display='none';
+  const h=document.getElementById('hello');
+  h.innerHTML='Alright <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
+  h.classList.add('on');
+  document.getElementById('foot-note').textContent='Saved to your Zenith account.';
+  document.getElementById('clear').style.display='none';
+  checkReady();
+}
+
+function showLoggedOut(){
+  auth='no';authToken='';serverHistory=null;
+  document.getElementById('name-row').style.display='';
+  document.getElementById('hello').classList.remove('on');
+  document.getElementById('foot-note').textContent='Saved on this phone only. ';
+  document.getElementById('clear').style.display='';
+  renderStrip();
+  checkReady();
+}
+
+async function initSession(){
+  if(auth==='no')return;
+  showLoggedIn(); // optimistic, so there's no flicker; undone below if the token's dead
+  try{
+    const r=await fetch(API+'/entries?tool=Daily%20Review&limit=60',{headers:{'Authorization':'Bearer '+authToken}});
+    if(r.status===401){
+      try{localStorage.removeItem(TOKENKEY);localStorage.removeItem(LOGNAMEKEY);localStorage.removeItem('zenith_programme');}catch(e){}
+      showLoggedOut();
+      return;
+    }
+    if(!r.ok)return; // network wobble or Worker hiccup: stay optimistic, Sheet logging still works
+    const d=await r.json();
+    auth='yes';
+    if(d.name)authName=d.name;
+    // Newest first from the Worker. Keep the latest per day, oldest first for the strip.
+    const seen={};
+    const list=[];
+    (d.entries||[]).forEach(e=>{
+      const en=e.data;
+      if(en&&en.date&&typeof en.total==='number'&&!seen[en.date]){seen[en.date]=1;list.push(en);}
+    });
+    list.sort((a,b)=>a.date<b.date?-1:1);
+    serverHistory=list.slice(-30);
+    try{localStorage.setItem(KEY,JSON.stringify(serverHistory));}catch(e){}
+    renderStrip();
+    showLoggedIn();
+  }catch(e){} // offline: carry on, nothing breaks
 }
 
 function buildPrompt(name,total,max,note,history){
@@ -292,16 +368,21 @@ async function submit(){
   const err=document.getElementById('err');
   err.classList.remove('on');
 
-  const fullName=cleanName(document.getElementById('name').value);
-  if(!nameOk(fullName)){
-    err.textContent='Pop your first and last name in so Mark knows which one of you it is.';
-    err.classList.add('on');
-    document.getElementById('name').focus();
-    return;
+  let fullName;
+  if(auth!=='no'){
+    fullName=cleanName(authName);
+  }else{
+    fullName=cleanName(document.getElementById('name').value);
+    if(!nameOk(fullName)){
+      err.textContent='Pop your first and last name in so Mark knows which one of you it is.';
+      err.classList.add('on');
+      document.getElementById('name').focus();
+      return;
+    }
+    try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
   }
   const first=firstName(fullName);
   const note=document.getElementById('note').value.trim();
-  try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
 
   // Capture everything now, before the wait, so nothing tapped during loading can change what gets logged
   const scored=PILLARS.filter(p=>!(p.rest&&restDay));
@@ -332,7 +413,13 @@ async function submit(){
     const entry={date:todayKey(),total,max,low:low.label,rest:wasRest,scores:snapshot,note};
     history.push(entry);
     saveHistory(history);
+    if(serverHistory)serverHistory=history.slice(-30);
     renderStrip();
+
+    // Logged in: a copy goes to their Zenith account too. Quiet, best effort, Sheet stays the record.
+    if(auth!=='no'&&authToken){
+      fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Daily Review',data:entry})}).catch(()=>{});
+    }
 
     logToSheets('Daily Review',{
       field1_label:'Name',field1_value:fullName,
@@ -374,6 +461,7 @@ renderQuestions();
 renderStrip();
 try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
 checkReady();
+initSession();
 </script>
 </body>
 </html>
