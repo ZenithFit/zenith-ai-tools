@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zenith HQ — Log In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0C0F11;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+  .brand {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .brand h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 34px;
+    letter-spacing: 2px;
+  }
+  .brand h1 span { color: #3FD494; }
+  .brand p {
+    color: #BFC6C3;
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #BFC6C3;
+    margin: 20px 0 8px;
+  }
+  input {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    border: 1px solid #2A2F33;
+    background: #14181B;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+  input:focus { border-color: #3FD494; }
+  button {
+    width: 100%;
+    margin-top: 28px;
+    padding: 16px;
+    border: none;
+    border-radius: 999px;
+    background: #00A86B;
+    color: #FFFFFF;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover { background: #008755; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+  .error {
+    display: none;
+    margin-top: 18px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    background: rgba(220, 60, 60, 0.12);
+    border: 1px solid rgba(220, 60, 60, 0.4);
+    color: #FFB4B4;
+    font-size: 14px;
+    text-align: center;
+  }
+  .help {
+    margin-top: 28px;
+    text-align: center;
+    color: #BFC6C3;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <h1>Zenith <span>HQ</span></h1>
+      <p>Your members hub. Log in to get started.</p>
+    </div>
+
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input id="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" required>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required>
+
+      <button id="loginBtn" type="submit">Log In</button>
+    </form>
+
+    <div class="error" id="errorBox"></div>
+
+    <p class="help">Forgotten your login? Message Mark and he'll sort it.</p>
+  </div>
+
+<script>
+  const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+
+  function destination() {
+    const params = new URLSearchParams(location.search);
+    return params.get('next') || 'index.html';
+  }
+
+  // Already logged in? Straight through.
+  (async function () {
+    const token = localStorage.getItem('zenith_token');
+    if (!token) return;
+    try {
+      const res = await fetch(WORKER + '/auth/me', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.ok) {
+        location.replace(destination());
+      } else {
+        localStorage.removeItem('zenith_token');
+        localStorage.removeItem('zenith_name');
+        localStorage.removeItem('zenith_programme');
+      }
+    } catch (e) { /* offline or worker down — stay on login */ }
+  })();
+
+  document.getElementById('loginForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('loginBtn');
+    const errorBox = document.getElementById('errorBox');
+    errorBox.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    try {
+      const res = await fetch(WORKER + '/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.token) {
+        localStorage.setItem('zenith_token', data.token);
+        localStorage.setItem('zenith_name', data.name);
+        localStorage.setItem('zenith_programme', data.programme);
+        location.replace(destination());
+      } else {
+        errorBox.textContent = data.error || 'Something went wrong. Try again.';
+        errorBox.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = 'Log In';
+      }
+    } catch (err) {
+      errorBox.textContent = 'Could not reach the server. Check your connection and try again.';
+      errorBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Log In';
+    }
+  });
+</script>
+</body>
+</html>
