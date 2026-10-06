@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Zenith HQ — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0C0F11;
+    color: #FFFFFF;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 26px;
+    margin-bottom: 4px;
+  }
+  h1 span { color: #3FD494; }
+  .sub { color: #BFC6C3; font-size: 14px; margin-bottom: 28px; }
+  h2 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 16px;
+    color: #BFC6C3;
+    margin: 32px 0 14px;
+  }
+  .panel {
+    background: #14181B;
+    border: 1px solid #2A2F33;
+    border-radius: 16px;
+    padding: 20px;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #BFC6C3;
+    margin: 14px 0 6px;
+  }
+  input, select {
+    width: 100%;
+    padding: 13px 15px;
+    border-radius: 12px;
+    border: 1px solid #2A2F33;
+    background: #0C0F11;
+    color: #FFFFFF;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+  }
+  input:focus, select:focus { border-color: #3FD494; }
+  .btn {
+    padding: 13px 26px;
+    border: none;
+    border-radius: 999px;
+    background: #00A86B;
+    color: #FFFFFF;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 18px;
+  }
+  .btn:hover { background: #008755; }
+  .btn.small {
+    padding: 8px 16px;
+    font-size: 12px;
+    margin: 0;
+  }
+  .btn.ghost {
+    background: transparent;
+    border: 1px solid #2A2F33;
+    color: #BFC6C3;
+  }
+  .btn.ghost:hover { border-color: #3FD494; color: #3FD494; background: transparent; }
+  .msg {
+    display: none;
+    margin-top: 16px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .msg.bad { background: rgba(220,60,60,0.12); border: 1px solid rgba(220,60,60,0.4); color: #FFB4B4; }
+  .msg.good { background: rgba(0,168,107,0.12); border: 1px solid rgba(0,168,107,0.4); color: #3FD494; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #BFC6C3;
+    padding: 10px 8px;
+    border-bottom: 1px solid #2A2F33;
+  }
+  td { padding: 12px 8px; border-bottom: 1px solid #1C2125; vertical-align: middle; }
+  .inactive td { color: #5A6065; }
+  .pill {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .pill.on { background: rgba(0,168,107,0.15); color: #3FD494; }
+  .pill.off { background: rgba(220,60,60,0.12); color: #FFB4B4; }
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .hidden { display: none; }
+  .tablewrap { overflow-x: auto; }
+  @media (max-width: 640px) {
+    body { padding: 16px; }
+    td, th { padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Zenith <span>HQ</span> Admin</h1>
+  <p class="sub">Your side of the house. Clients never see this page.</p>
+
+  <!-- UNLOCK -->
+  <div id="unlockPanel" class="panel">
+    <h2 style="margin-top:0">Unlock</h2>
+    <label for="adminKey">Admin key</label>
+    <input id="adminKey" type="password" autocomplete="off">
+    <button class="btn" onclick="unlock()">Unlock</button>
+    <div class="msg bad" id="unlockMsg"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div id="mainArea" class="hidden">
+
+    <h2>Add a client</h2>
+    <div class="panel">
+      <label for="newName">Name (what they see, e.g. Sarah)</label>
+      <input id="newName" type="text">
+      <label for="newUsername">Username (what they log in with, e.g. sarah.taylor)</label>
+      <input id="newUsername" type="text" autocapitalize="none" autocorrect="off">
+      <label for="newPassword">Password (8+ characters)</label>
+      <input id="newPassword" type="text" autocomplete="off">
+      <label for="newProgramme">Programme</label>
+      <select id="newProgramme">
+        <option>Accelerator</option>
+        <option>Momentum</option>
+        <option>Transformation</option>
+      </select>
+      <button class="btn" onclick="addClient()">Add Client</button>
+      <div class="msg" id="addMsg"></div>
+    </div>
+
+    <h2>Clients</h2>
+    <div class="panel">
+      <div class="tablewrap">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Username</th><th>Programme</th><th>Status</th><th>Last login</th><th></th></tr>
+          </thead>
+          <tbody id="clientRows"></tbody>
+        </table>
+      </div>
+      <div class="msg" id="listMsg"></div>
+      <button class="btn ghost" onclick="loadClients()" style="margin-top:16px">Refresh List</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+
+  function key() { return sessionStorage.getItem('zenith_admin_key') || ''; }
+
+  function show(id, text, good) {
+    const el = document.getElementById(id);
+    el.textContent = text;
+    el.className = 'msg ' + (good ? 'good' : 'bad');
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 5000);
+  }
+
+  async function api(path, method, body) {
+    const res = await fetch(WORKER + path, {
+      method: method || 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Key': key()
+      },
+      body: body ? JSON.stringify(body) : undefined
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    return data;
+  }
+
+  async function unlock() {
+    sessionStorage.setItem('zenith_admin_key', document.getElementById('adminKey').value);
+    try {
+      await api('/admin/clients');
+      document.getElementById('unlockPanel').classList.add('hidden');
+      document.getElementById('mainArea').classList.remove('hidden');
+      loadClients();
+    } catch (e) {
+      sessionStorage.removeItem('zenith_admin_key');
+      show('unlockMsg', 'Wrong key. Try again.', false);
+    }
+  }
+
+  document.getElementById('adminKey').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlock();
+  });
+
+  function fmtDate(d) {
+    if (!d) return 'Never';
+    const date = new Date(d.replace(' ', 'T') + 'Z');
+    return date.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+  }
+
+  async function loadClients() {
+    try {
+      const clients = await api('/admin/clients');
+      const rows = document.getElementById('clientRows');
+      rows.innerHTML = '';
+      if (!clients.length) {
+        rows.innerHTML = '<tr><td colspan="6" style="color:#BFC6C3">No clients yet. Add your first one above.</td></tr>';
+        return;
+      }
+      for (const c of clients) {
+        const tr = document.createElement('tr');
+        if (!c.active) tr.className = 'inactive';
+        tr.innerHTML =
+          '<td>' + esc(c.name) + '</td>' +
+          '<td>' + esc(c.username) + '</td>' +
+          '<td>' + esc(c.programme) + '</td>' +
+          '<td><span class="pill ' + (c.active ? 'on">Active' : 'off">Off') + '</span></td>' +
+          '<td>' + fmtDate(c.last_login) + '</td>' +
+          '<td class="actions">' +
+            (c.active
+              ? '<button class="btn small ghost" onclick="deactivate(\'' + esc(c.username) + '\')">Deactivate</button>'
+              : '<button class="btn small" onclick="reactivate(\'' + esc(c.username) + '\')">Reactivate</button>') +
+            '<button class="btn small ghost" onclick="resetPassword(\'' + esc(c.username) + '\')">New Password</button>' +
+          '</td>';
+        rows.appendChild(tr);
+      }
+    } catch (e) {
+      show('listMsg', e.message, false);
+    }
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  async function addClient() {
+    try {
+      const body = {
+        name: document.getElementById('newName').value,
+        username: document.getElementById('newUsername').value,
+        password: document.getElementById('newPassword').value,
+        programme: document.getElementById('newProgramme').value
+      };
+      await api('/admin/clients', 'POST', body);
+      show('addMsg', 'Client added. Send them their username and password.', true);
+      document.getElementById('newName').value = '';
+      document.getElementById('newUsername').value = '';
+      document.getElementById('newPassword').value = '';
+      loadClients();
+    } catch (e) {
+      show('addMsg', e.message, false);
+    }
+  }
+
+  async function deactivate(username) {
+    if (!confirm('Deactivate ' + username + '? They get logged out everywhere and cannot log back in. History is kept.')) return;
+    try {
+      await api('/admin/clients/deactivate', 'POST', { username });
+      loadClients();
+    } catch (e) { show('listMsg', e.message, false); }
+  }
+
+  async function reactivate(username) {
+    try {
+      await api('/admin/clients/reactivate', 'POST', { username });
+      loadClients();
+    } catch (e) { show('listMsg', e.message, false); }
+  }
+
+  async function resetPassword(username) {
+    const pw = prompt('New password for ' + username + ' (8+ characters):');
+    if (!pw) return;
+    try {
+      await api('/admin/clients/reset-password', 'POST', { username, password: pw });
+      show('listMsg', 'Password changed for ' + username + '. They are logged out everywhere and need the new one.', true);
+    } catch (e) { show('listMsg', e.message, false); }
+  }
+</script>
+</body>
+</html>
