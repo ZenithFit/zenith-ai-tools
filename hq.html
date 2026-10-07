@@ -25,6 +25,74 @@
 <h1 class="page">Hey <span data-first-name>there</span>.</h1>
 <p class="page-sub">Everything you need, one place. Have a look round.</p>
 
+<div class="dash-row" id="dash-row" style="display:none">
+  <div class="wk-card" id="wk-card" style="display:none">
+    <div class="wk-lbl">Your week</div>
+    <div class="wk-bars" id="wk-bars"></div>
+    <div class="wk-streak" id="wk-streak"></div>
+    <div class="wk-milestone" id="wk-milestone" style="display:none"></div>
+  </div>
+  <div class="pr-card" id="pr-card" style="display:none">
+    <div class="pr-lbl">Your promise for this weekend</div>
+    <div class="pr-text" id="pr-text"></div>
+    <div class="pr-sub">You made this on your Weekend Game Plan. Keep it, then tell Rate Your Day how it went.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  let t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+  if(!t)return;
+  fetch(API+'/entries?limit=120',{headers:{'Authorization':'Bearer '+t}}).then(r=>r.json()).then(d=>{
+    if(!d||!Array.isArray(d.entries))return;
+    const key=dt=>{const p=n=>String(n).padStart(2,'0');return dt.getFullYear()+'-'+p(dt.getMonth()+1)+'-'+p(dt.getDate());};
+    // one Daily Review per date, newest wins (list is newest first)
+    const byDate={};
+    d.entries.forEach(e=>{
+      if(e.tool!=='Daily Review'||!e.data||!e.data.date)return;
+      if(!byDate[e.data.date])byDate[e.data.date]=e.data;
+    });
+    // last 7 days, oldest to newest
+    const days=[];const now=new Date();
+    for(let i=6;i>=0;i--){const dt=new Date(now);dt.setDate(now.getDate()-i);days.push({k:key(dt),d:'SMTWTFS'[dt.getDay()]+(dt.getDay()===4||dt.getDay()===6?'':''),lbl:['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt.getDay()]});}
+    let any=false,html='';
+    days.forEach(dd=>{
+      const e=byDate[dd.k];
+      let pct=0;
+      if(e&&e.max>0){pct=Math.max(8,Math.round(100*e.total/e.max));any=true;}
+      html+='<div class="wk-col"><div class="wk-bar'+(e?'':' empty')+'" style="height:'+(e?pct:8)+'%"></div><div class="wk-day">'+dd.lbl[0]+'</div></div>';
+    });
+    // streak: consecutive days with an entry, ending today or yesterday
+    let streak=0;const start=byDate[key(now)]?0:1;
+    for(let i=start;;i++){const dt=new Date(now);dt.setDate(now.getDate()-i);if(byDate[key(dt)])streak++;else break;}
+    if(any||streak>0){
+      document.getElementById('wk-bars').innerHTML=html;
+      const st=document.getElementById('wk-streak');
+      if(streak>=2)st.innerHTML='<b>'+streak+' days rated in a row.</b> Keep it rolling.';
+      else if(streak===1)st.innerHTML='<b>1 day rated.</b> Day 2 is where streaks are born.';
+      else st.textContent='Rate today and start a streak.';
+      const ms=[100,50,30,14,7].find(m=>streak>=m);
+      if(ms){const el=document.getElementById('wk-milestone');el.style.display='block';el.textContent="That's "+ms+"+ days in a row. That's not luck, that's who you're becoming.";}
+      document.getElementById('wk-card').style.display='block';
+      document.getElementById('dash-row').style.display='grid';
+    }
+    // promise: Thu to Sun, freshest Weekend Game Plan within 4 days
+    const day=now.getDay();
+    if(day>=4||day===0){
+      const wk=d.entries.find(e=>e.tool==='Weekend Game Plan'&&e.data&&e.data.promise);
+      if(wk){
+        const made=new Date((wk.data.date||'')+'T00:00:00');
+        if(!isNaN(made)&&(now-made)/(1000*60*60*24)<=4){
+          document.getElementById('pr-text').textContent='“'+wk.data.promise+'”';
+          document.getElementById('pr-card').style.display='block';
+          document.getElementById('dash-row').style.display='grid';
+        }
+      }
+    }
+  }).catch(()=>{});
+})();
+</script>
+
 <div class="section-lbl">Quick links</div>
 <div class="quick">
   <a href="review.html">Rate Your Day</a>
