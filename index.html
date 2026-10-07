@@ -522,7 +522,8 @@ body {
 }
 .tool-card:active { transform: scale(.96); }
 .tool-ico { font-size: 22px; display: block; margin-bottom: 10px; }
-.tool-name { font-family: var(--font-head); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; color: var(--charcoal); line-height: 1.25; }
+.tool-name { font-family: var(--font-head); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; color: var(--charcoal); line-height: 1.25; display: block; }
+.tool-desc { display: block; font-size: 11.5px; color: var(--faint); margin-top: 4px; line-height: 1.45; }
 @media (min-width: 700px) { .home-grid { grid-template-columns: repeat(3,1fr); } }
 
 /* SCROLLBAR */
@@ -622,25 +623,25 @@ body {
       </div>
       <div class="home-sec">In The Moment</div>
       <div class="home-grid">
-        <div class="tool-card" onclick="goPage(&#39;panic&#39;)"><span class="tool-ico">🆘</span><span class="tool-name">Panic Button</span></div>
-        <div class="tool-card" onclick="goPage(&#39;honesty&#39;)"><span class="tool-ico">🪞</span><span class="tool-name">Honesty Check-In</span></div>
+        <div class="tool-card" onclick="goPage(&#39;panic&#39;)"><span class="tool-ico">🆘</span><span class="tool-name">Panic Button</span><span class="tool-desc">About to go off plan? Press this first.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;honesty&#39;)"><span class="tool-ico">🪞</span><span class="tool-name">Honesty Check-In</span><span class="tool-desc">A proper look in the mirror.</span></div>
       </div>
       <div class="home-sec">Nutrition</div>
       <div class="home-grid">
-        <div class="tool-card" onclick="goPage(&#39;protein&#39;)"><span class="tool-ico">🥩</span><span class="tool-name">Protein Fixer</span></div>
-        <div class="tool-card" onclick="goPage(&#39;recipe&#39;)"><span class="tool-ico">🍳</span><span class="tool-name">Recipe Generator</span></div>
-        <div class="tool-card" onclick="goPage(&#39;plan&#39;)"><span class="tool-ico">📋</span><span class="tool-name">5-Day Meal Planner</span></div>
-        <div class="tool-card" onclick="goPage(&#39;grocery&#39;)"><span class="tool-ico">🛒</span><span class="tool-name">Grocery List</span></div>
-        <div class="tool-card" onclick="goPage(&#39;food&#39;)"><span class="tool-ico">🔍</span><span class="tool-name">Food Checker</span></div>
-        <div class="tool-card" onclick="goPage(&#39;fridge&#39;)"><span class="tool-ico">🧊</span><span class="tool-name">What&#39;s In My Fridge?</span></div>
-        <div class="tool-card" onclick="goPage(&#39;eating&#39;)"><span class="tool-ico">🍽️</span><span class="tool-name">Eating Out Guide</span></div>
-        <div class="tool-card" onclick="goPage(&#39;supp&#39;)"><span class="tool-ico">💊</span><span class="tool-name">Supplement Checker</span></div>
+        <div class="tool-card" onclick="goPage(&#39;protein&#39;)"><span class="tool-ico">🥩</span><span class="tool-name">Protein Fixer</span><span class="tool-desc">Short on protein? Sorted in seconds.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;recipe&#39;)"><span class="tool-ico">🍳</span><span class="tool-name">Recipe Generator</span><span class="tool-desc">Exciting recipes that fit your calories.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;plan&#39;)"><span class="tool-ico">📋</span><span class="tool-name">5-Day Meal Planner</span><span class="tool-desc">Your next 5 days, planned for you.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;grocery&#39;)"><span class="tool-ico">🛒</span><span class="tool-name">Grocery List</span><span class="tool-desc">Your shop, written for you.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;food&#39;)"><span class="tool-ico">🔍</span><span class="tool-name">Food Checker</span><span class="tool-desc">Is it worth the calories? Find out.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;fridge&#39;)"><span class="tool-ico">🧊</span><span class="tool-name">What&#39;s In My Fridge?</span><span class="tool-desc">Make a meal from what you&#39;ve got in.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;eating&#39;)"><span class="tool-ico">🍽️</span><span class="tool-name">Eating Out Guide</span><span class="tool-desc">Order smart, enjoy it, no damage.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;supp&#39;)"><span class="tool-ico">💊</span><span class="tool-name">Supplement Checker</span><span class="tool-desc">Worth your money or snake oil?</span></div>
       </div>
       <div class="home-sec">Lifestyle</div>
       <div class="home-grid">
-        <div class="tool-card" onclick="goPage(&#39;weekend&#39;)"><span class="tool-ico">📅</span><span class="tool-name">Weekend Game Plan</span></div>
-        <div class="tool-card" onclick="goPage(&#39;travel&#39;)"><span class="tool-ico">✈️</span><span class="tool-name">Travel Game Plan</span></div>
-        <div class="tool-card" onclick="goPage(&#39;alcohol&#39;)"><span class="tool-ico">🍺</span><span class="tool-name">Alcohol Guide</span></div>
+        <div class="tool-card" onclick="goPage(&#39;weekend&#39;)"><span class="tool-ico">📅</span><span class="tool-name">Weekend Game Plan</span><span class="tool-desc">Get ahead of the weekend before it starts.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;travel&#39;)"><span class="tool-ico">✈️</span><span class="tool-name">Travel Game Plan</span><span class="tool-desc">Holidays and trips without the damage.</span></div>
+        <div class="tool-card" onclick="goPage(&#39;alcohol&#39;)"><span class="tool-ico">🍺</span><span class="tool-name">Alcohol Guide</span><span class="tool-desc">Enjoy a drink without undoing your week.</span></div>
       </div>
     </div>
 
