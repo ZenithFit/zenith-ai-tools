@@ -169,11 +169,15 @@ body {
 .hq-link:hover { background:#000; }
 
 .mob-toggle {
-  display: none; background: none;
+  display: flex; background: none;
   border: 1px solid var(--border-med);
   color: var(--charcoal); cursor: pointer;
-  padding: 7px 9px; border-radius: 7px; align-items: center;
+  padding: 7px 14px 7px 10px; border-radius: 30px; align-items: center; gap: 6px;
+  font-family: var(--font-body); font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+  transition: border-color .15s;
 }
+.mob-toggle:hover { border-color: var(--charcoal); }
+body[data-view="home"] .mob-toggle { display: none; }
 
 .content { padding: 32px; flex: 1; max-width: 860px; }
 .page { display: none; animation: fadeUp .2s ease; }
@@ -535,8 +539,6 @@ body {
 @media (max-width: 700px) {
   .sidebar { display: none; }
   .main { margin-left: 0; }
-  .mob-toggle { display: flex; }
-  body[data-view="home"] .mob-toggle { display: none; }
   .f2 { grid-template-columns: 1fr; }
   .content { padding: 16px 14px; }
   .bot-hero { flex-direction: column; align-items: flex-start; padding: 20px; }
@@ -594,8 +596,9 @@ body {
 <div class="main">
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:10px;">
-      <button class="mob-toggle" onclick="goPage('home')" aria-label="All tools">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2 4 8l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <button class="mob-toggle" onclick="goPage('home')" aria-label="Back to all tools">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 2 4 8l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Back
       </button>
       <div class="topbar-title" id="tb-title">Mark Bot</div>
     </div>
