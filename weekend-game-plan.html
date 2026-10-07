@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Weekend Game Plan | Zenith Fit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#FFFFFF;--alt:#F4F6F5;--dark:#0C0F11;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E3E7E5}
+:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#F4F4F2;--alt:#FFFFFF;--dark:#111111;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E4E6E4;--shadow:0 14px 40px rgba(17,17,17,.07)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -15,12 +15,12 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 button{font-family:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--green);outline-offset:2px}
 
-header{background:var(--dark);color:#fff;padding:36px 0 30px}
-.brand{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.2em;color:var(--green-d);margin-bottom:14px}
-header h1{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:.02em;color:#fff}
-header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
+header{background:var(--bg);color:var(--head);padding:36px 0 26px}
+.brand{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:2px;color:var(--green);margin-bottom:12px}
+header h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:38px;line-height:1.05;letter-spacing:-0.02em;color:var(--head)}
+header p{color:var(--body);margin-top:12px;font-size:15px;max-width:380px}
 
-.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body)}
+.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body);box-shadow:var(--shadow)}
 .hello.on{display:block}
 .hello b{color:var(--head)}
 
@@ -47,7 +47,7 @@ textarea::placeholder{color:#9AA19E}
 .pills button.on{background:var(--dark);color:#fff;border-color:var(--dark)}
 .pill-hint{font-size:13px;color:var(--body);margin-top:10px;min-height:20px}
 
-.submit{margin-top:8px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:18px;letter-spacing:.08em;transition:background .15s}
+.submit{margin-top:8px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-weight:700;font-size:17px;transition:background .15s}
 .submit:hover{background:var(--green-h)}
 .submit:disabled{background:#C9CFCC;cursor:not-allowed}
 .err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
@@ -55,14 +55,14 @@ textarea::placeholder{color:#9AA19E}
 
 .result{display:none;margin-top:32px;background:var(--dark);color:#fff;border-radius:24px;padding:28px 24px}
 .result.on{display:block}
-.result h2{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec);margin-bottom:16px}
+.result h2{font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec);margin-bottom:16px}
 .reply{font-size:16px;line-height:1.55;color:#fff;white-space:pre-wrap}
 .reply-load{color:var(--sec);font-size:15px}
 .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green-d);margin-right:6px;animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:.2}50%{opacity:1}}
 .promise{display:none;margin-top:22px;padding-top:18px;border-top:1px solid #2A2F33}
 .promise.on{display:block}
-.promise-lbl{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
+.promise-lbl{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
 .promise-txt{font-size:18px;font-weight:500;line-height:1.4;color:#fff}
 .actions{display:flex;gap:10px;margin-top:22px}
 .actions button{flex:1;height:48px;border-radius:999px;border:1px solid #2A2F33;background:transparent;color:#fff;font-size:15px;font-weight:500}
@@ -78,7 +78,7 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
 <header>
   <div class="wrap">
     <div class="brand">Zenith Fit</div>
-    <h1>Weekend<br>Game Plan</h1>
+    <h1>The Weekend Game Plan.</h1>
     <p>Decide how the weekend goes before the weekend decides for you.</p>
   </div>
 </header>
@@ -206,7 +206,7 @@ function checkReady(){
 function showLoggedIn(){
   document.getElementById('name-field').style.display='none';
   const h=document.getElementById('hello');
-  h.innerHTML='Alright <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
+  h.innerHTML='Hey <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
   h.classList.add('on');
   document.getElementById('foot-note').textContent='Saved to your Zenith account.';
   checkReady();
