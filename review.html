@@ -47,6 +47,11 @@ input[type=text]::placeholder{color:#9AA19E}
 .hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body)}
 .hello.on{display:block}
 .hello b{color:var(--head)}
+.wkp{display:none;margin-bottom:26px;background:var(--dark);border-radius:18px;padding:16px 18px}
+.wkp.on{display:block}
+.wkp-lbl{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
+.wkp-txt{font-size:16px;font-weight:500;line-height:1.4;color:#fff}
+.wkp-sub{font-size:13px;color:var(--sec);margin-top:8px}
 
 .q{padding:18px 0;border-top:1px solid var(--line)}
 .q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
@@ -109,6 +114,12 @@ footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decorat
   <div class="wrap">
 
     <div class="hello" id="hello"></div>
+
+    <div class="wkp" id="wkp">
+      <div class="wkp-lbl">Your promise for this weekend</div>
+      <div class="wkp-txt" id="wkp-txt"></div>
+      <div class="wkp-sub">You set this on Thursday. Your scores below tell us how it went, so be honest.</div>
+    </div>
 
     <div class="name-row" id="name-row">
       <label class="small" for="name">Full name</label>
@@ -260,6 +271,41 @@ function checkReady(){
   document.getElementById('submit').disabled=!(scoresOk&&nOk);
 }
 
+// ---------- weekend promise, set on the Game Plan Thursday, shown back Sat and Sun ----------
+
+const PROMISEKEY='zf_weekend_promise';
+let weekendPromise='';
+
+function isWeekend(){const d=new Date().getDay();return d===6||d===0;}
+function promiseFresh(p){
+  if(!p||!p.text||!p.date)return false;
+  const made=new Date(p.date+'T12:00:00');
+  const days=(Date.now()-made.getTime())/86400000;
+  return days>=0&&days<=4;
+}
+function showPromise(p){
+  weekendPromise=p.text;
+  document.getElementById('wkp-txt').textContent=p.text;
+  document.getElementById('wkp').classList.add('on');
+}
+function initPromise(){
+  if(!isWeekend())return;
+  let local=null;
+  try{local=JSON.parse(localStorage.getItem(PROMISEKEY)||'null');}catch(e){}
+  if(promiseFresh(local))showPromise(local);
+  // Logged in: check the account too, in case Thursday happened on a different device
+  if(auth!=='no'&&authToken){
+    fetch(API+'/entries?tool=Weekend%20Game%20Plan&limit=1',{headers:{'Authorization':'Bearer '+authToken}})
+      .then(r=>r.ok?r.json():null)
+      .then(d=>{
+        const en=d&&d.entries&&d.entries[0]&&d.entries[0].data;
+        if(!en||!en.promise)return;
+        const server={date:en.date,text:en.promise};
+        if(promiseFresh(server)&&(!promiseFresh(local)||server.date>=local.date))showPromise(server);
+      }).catch(()=>{});
+  }
+}
+
 // ---------- silent HQ login check, the page works exactly the same without it ----------
 
 function showLoggedIn(){
@@ -320,7 +366,7 @@ function buildPrompt(name,total,max,note,history){
   if(history.length){
     prev=history.slice(-6).map(r=>longDate(r.date)+': '+r.total+' out of '+r.max+', lowest '+r.low+(r.note?', note: "'+r.note+'"':'')).join('\n');
   }
-  return 'Name: '+(name||'not given')+'\nToday: '+longDate(todayKey())+'\n\nScores out of 10:\n'+lines.join('\n')+'\n\nTotal: '+total+' out of '+max+'\nLowest: '+low.label+' ('+scores[low.id]+')\nHighest: '+high.label+' ('+scores[high.id]+')\n\nWhat happened today: '+(note||'nothing written')+'\n\nPrevious reviews, oldest first:\n'+prev;
+  return 'Name: '+(name||'not given')+'\nToday: '+longDate(todayKey())+'\n\nScores out of 10:\n'+lines.join('\n')+'\n\nTotal: '+total+' out of '+max+'\nLowest: '+low.label+' ('+scores[low.id]+')\nHighest: '+high.label+' ('+scores[high.id]+')\n\nWhat happened today: '+(note||'nothing written')+(weekendPromise?'\n\nWeekend promise they set on Thursday: "'+weekendPromise+'"':'')+'\n\nPrevious reviews, oldest first:\n'+prev;
 }
 
 const SYS=`You are Mark Davies from Zenith Fit, a UK fat loss coach. Someone has just rated their day out of 10 across water, steps, nutrition, training, sleep and mindset, and written a line about what actually happened. Write them a short WhatsApp style reply. It should read like Mark typed it on his phone in 30 seconds, not like an app generated it.
@@ -332,6 +378,8 @@ Paragraph 3: one focus for tomorrow. One thing. Tied to the lowest score. Small 
 Then 💪 on its own line.
 
 Paragraphs are lumpy, not even. One can be 3 sentences, the next can be 6 words. Under 110 words total.
+
+PROMISE. If a weekend promise is included, it's Saturday or Sunday and they set that promise themselves on Thursday. Hold them to it, warmly. Read today's scores and note against it and say plainly whether it looks like it held or slipped, in one line, no telling off and no drama. If it clearly held, that IS the win and it goes in paragraph 1. If it slipped, it goes in paragraph 2, named once, then straight to what we do about it. Quote their own words back, a few of them, not the whole promise. If the scores and note don't tell you either way, ask nothing, just gently remind them the promise is still live for the rest of the weekend.
 
 VOICE. British English. Full contractions always. Digits not words. Short punchy sentences. Warm, direct, certain. Talk like a mate who's been where they are and knows they can do this. Name the objection before they raise it and dismiss it, like "don't panic" or "nothing's gone wrong here". Use "we" for tomorrow. Repeat the important instruction rather than reaching for a fancier word. Phrases that are yours, only where they land naturally: nice and straightforward, don't panic, trust me, boom, something beats nothing, never miss twice, nine times out of 10, that kind of stuff, at the end of the day. One "alright?" or "okay?" at most in the whole reply, and not every time.
 
@@ -462,6 +510,7 @@ renderStrip();
 try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
 checkReady();
 initSession();
+initPromise();
 </script>
 </body>
 </html>
