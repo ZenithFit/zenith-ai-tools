@@ -5,31 +5,31 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Rate Your Day | Zenith Fit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#FFFFFF;--alt:#F4F6F5;--dark:#0C0F11;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E3E7E5}
+:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#F4F4F2;--alt:#FFFFFF;--dark:#111111;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E4E6E4;--shadow:0 14px 40px rgba(17,17,17,.07)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
-.oswald{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.oswald{font-family:'Archivo',sans-serif;font-weight:800;letter-spacing:-0.01em}
 .wrap{max-width:520px;margin:0 auto;padding:0 20px}
 button{font-family:inherit;cursor:pointer}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--green);outline-offset:2px}
 
-header{background:var(--dark);color:#fff;padding:36px 0 30px}
-.brand{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.2em;color:var(--green-d);margin-bottom:14px}
-header h1{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:.02em;color:#fff}
-header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
+header{background:var(--bg);color:var(--head);padding:36px 0 26px}
+.brand{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:2px;color:var(--green);margin-bottom:12px}
+header h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:38px;line-height:1.05;letter-spacing:-0.02em;color:var(--head)}
+header p{color:var(--body);margin-top:12px;font-size:15px;max-width:380px}
 
 .strip{background:var(--alt);padding:22px 0 18px}
 .strip-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
-.strip-top h2{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.1em;color:var(--head)}
+.strip-top h2{font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.1em;color:var(--head)}
 .strip-top span{font-size:12px;color:var(--body)}
 .bars{display:flex;gap:10px;align-items:flex-end;height:96px}
 .bar-col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%}
-.bar{width:100%;background:#C9CFCC;border-radius:6px 6px 0 0;min-height:6px;transition:height .4s ease}
+.bar{width:100%;background:#DDE0DE;border-radius:6px 6px 0 0;min-height:6px;transition:height .4s ease}
 .bar.today{background:var(--green)}
-.bar-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:13px;color:var(--head);text-align:center;margin-bottom:4px}
+.bar-num{font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;color:var(--head);text-align:center;margin-bottom:4px}
 .bar-lbl{font-size:11px;color:var(--body);text-align:center;margin-top:6px;white-space:nowrap}
 .bar-low{font-size:10px;color:#8A918E;text-align:center;margin-top:2px;white-space:nowrap}
 .pattern{font-size:13px;color:var(--body);margin-top:12px}
@@ -44,18 +44,18 @@ input[type=text]{width:100%;border:1px solid var(--line);border-radius:999px;pad
 input[type=text]::placeholder{color:#9AA19E}
 .name-hint{font-size:13px;color:var(--body);margin-top:8px}
 .name-hint.warn{color:#B3261E}
-.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body)}
+.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body);box-shadow:var(--shadow)}
 .hello.on{display:block}
 .hello b{color:var(--head)}
 .wkp{display:none;margin-bottom:26px;background:var(--dark);border-radius:18px;padding:16px 18px}
 .wkp.on{display:block}
-.wkp-lbl{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
+.wkp-lbl{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:.12em;color:var(--green-d);margin-bottom:6px}
 .wkp-txt{font-size:16px;font-weight:500;line-height:1.4;color:#fff}
 .wkp-sub{font-size:13px;color:var(--sec);margin-top:8px}
 
 .q{padding:18px 0;border-top:1px solid var(--line)}
 .q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
-.q-label{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:20px;letter-spacing:.03em;color:var(--head)}
+.q-label{font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em;color:var(--head)}
 .q-hint{font-size:13px;color:var(--body);margin-bottom:12px}
 .row{display:flex;gap:5px}
 .row button{flex:1;height:38px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--head);font-size:14px;font-weight:500;padding:0;transition:background .12s,color .12s,border-color .12s}
@@ -68,7 +68,7 @@ input[type=text]::placeholder{color:#9AA19E}
 textarea{width:100%;min-height:92px;border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-size:16px;font-family:inherit;color:var(--head);resize:vertical;background:#fff}
 textarea::placeholder{color:#9AA19E}
 
-.submit{margin-top:22px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:18px;letter-spacing:.08em;transition:background .15s}
+.submit{margin-top:22px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-weight:700;font-size:17px;transition:background .15s}
 .submit:hover{background:var(--green-h)}
 .submit:disabled{background:#C9CFCC;cursor:not-allowed}
 .err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
@@ -77,8 +77,8 @@ textarea::placeholder{color:#9AA19E}
 .result{display:none;margin-top:32px;background:var(--dark);color:#fff;border-radius:24px;padding:28px 24px}
 .result.on{display:block}
 .score{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
-.score-num{font-family:'Oswald',sans-serif;font-weight:600;font-size:64px;line-height:1;color:#fff}
-.score-of{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec)}
+.score-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:64px;line-height:1;color:#fff}
+.score-of{font-weight:700;text-transform:uppercase;font-size:14px;letter-spacing:.12em;color:var(--sec)}
 .score-sub{font-size:13px;color:var(--sec);margin-bottom:20px}
 .reply{font-size:16px;line-height:1.55;color:#fff;white-space:pre-wrap}
 .reply-load{color:var(--sec);font-size:15px}
@@ -98,7 +98,7 @@ footer button{background:none;border:0;color:#9AA19E;font-size:12px;text-decorat
 <header>
   <div class="wrap">
     <div class="brand">Zenith Fit</div>
-    <h1>Rate<br>Your Day</h1>
+    <h1>Rate your day.</h1>
     <p>Be honest. Nobody's marking this but you. Takes about a minute.</p>
   </div>
 </header>
@@ -311,7 +311,7 @@ function initPromise(){
 function showLoggedIn(){
   document.getElementById('name-row').style.display='none';
   const h=document.getElementById('hello');
-  h.innerHTML='Alright <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
+  h.innerHTML='Hey <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
   h.classList.add('on');
   document.getElementById('foot-note').textContent='Saved to your Zenith account.';
   document.getElementById('clear').style.display='none';
