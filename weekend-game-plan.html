@@ -20,6 +20,10 @@ header{background:var(--dark);color:#fff;padding:36px 0 30px}
 header h1{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:.02em;color:#fff}
 header p{color:var(--sec);margin-top:12px;font-size:15px;max-width:380px}
 
+.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body)}
+.hello.on{display:block}
+.hello b{color:var(--head)}
+
 .last{background:var(--alt);padding:18px 0}
 .last p{font-size:14px;color:var(--body)}
 .last b{color:var(--head)}
@@ -86,7 +90,9 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
 <main>
   <div class="wrap">
 
-    <div class="field">
+    <div class="hello" id="hello"></div>
+
+    <div class="field" id="name-field">
       <label class="small" for="name">Full name</label>
       <input type="text" id="name" placeholder="First and last name, e.g. Sarah Taylor" autocomplete="name">
       <div class="hint warn" id="name-hint" hidden>First and last name please, so Mark knows which one of you it is.</div>
@@ -142,7 +148,7 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
 </main>
 
 <footer>
-  <div class="wrap">Saved on this phone only.</div>
+  <div class="wrap" id="foot-note">Saved on this phone only.</div>
 </footer>
 
 <script>
@@ -150,6 +156,18 @@ const API='https://zenith-fit.mark-5a5.workers.dev';
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 const NAMEKEY='zf_review_name';      // shared with Rate Your Day so they only type it once
 const PROMISEKEY='zf_weekend_promise'; // read by Rate Your Day on Saturday
+
+// HQ login, used silently if it's there. Never required.
+const TOKENKEY='zenith_token';
+const LOGNAMEKEY='zenith_name';
+let auth='no';
+let authName='';
+let authToken='';
+try{
+  authToken=localStorage.getItem(TOKENKEY)||'';
+  authName=localStorage.getItem(LOGNAMEKEY)||'';
+  if(authToken&&authName)auth='maybe';
+}catch(e){}
 
 const PILL_HINTS={
   'Relaxed':"Big weekend, you know it. We're just stopping it turning into a write off.",
@@ -172,11 +190,62 @@ function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMo
 function chosenChips(){return [...document.querySelectorAll('#chips .chip.on')].map(c=>c.textContent);}
 
 function checkReady(){
+  const pOk=document.getElementById('plans').value.trim().length>0;
+  if(auth!=='no'){
+    document.getElementById('submit').disabled=!pOk;
+    return;
+  }
   const raw=document.getElementById('name').value;
   const nOk=nameOk(raw);
   document.getElementById('name-hint').hidden=!(cleanName(raw).length>0&&!nOk);
-  const pOk=document.getElementById('plans').value.trim().length>0;
   document.getElementById('submit').disabled=!(nOk&&pOk);
+}
+
+// ---------- silent HQ login check, the page works exactly the same without it ----------
+
+function showLoggedIn(){
+  document.getElementById('name-field').style.display='none';
+  const h=document.getElementById('hello');
+  h.innerHTML='Alright <b>'+firstName(authName)+'</b>. We know it\'s you, no name needed.';
+  h.classList.add('on');
+  document.getElementById('foot-note').textContent='Saved to your Zenith account.';
+  checkReady();
+}
+
+function showLoggedOut(){
+  auth='no';authToken='';
+  document.getElementById('name-field').style.display='';
+  document.getElementById('hello').classList.remove('on');
+  document.getElementById('foot-note').textContent='Saved on this phone only.';
+  checkReady();
+}
+
+async function initSession(){
+  if(auth==='no')return;
+  showLoggedIn(); // optimistic, undone below if the token's dead
+  try{
+    const r=await fetch(API+'/entries?tool=Weekend%20Game%20Plan&limit=1',{headers:{'Authorization':'Bearer '+authToken}});
+    if(r.status===401){
+      try{localStorage.removeItem(TOKENKEY);localStorage.removeItem(LOGNAMEKEY);localStorage.removeItem('zenith_programme');}catch(e){}
+      showLoggedOut();
+      return;
+    }
+    if(!r.ok)return;
+    const d=await r.json();
+    auth='yes';
+    if(d.name)authName=d.name;
+    showLoggedIn();
+    // Their last promise from the account, in case Thursday happened on a different device
+    const en=d.entries&&d.entries[0]&&d.entries[0].data;
+    if(en&&en.promise&&en.date){
+      let local=null;
+      try{local=JSON.parse(localStorage.getItem(PROMISEKEY)||'null');}catch(e){}
+      if(!local||!local.date||en.date>=local.date){
+        try{localStorage.setItem(PROMISEKEY,JSON.stringify({date:en.date,text:en.promise,plans:en.plans||''}));}catch(e){}
+        showLast();
+      }
+    }
+  }catch(e){} // offline: carry on, nothing breaks
 }
 
 function showLast(){
@@ -239,17 +308,22 @@ async function submit(){
   const err=document.getElementById('err');
   err.classList.remove('on');
 
-  const fullName=cleanName(document.getElementById('name').value);
-  if(!nameOk(fullName)){
-    err.textContent='Pop your first and last name in so Mark knows which one of you it is.';
-    err.classList.add('on');
-    document.getElementById('name').focus();
-    return;
+  let fullName;
+  if(auth!=='no'){
+    fullName=cleanName(authName);
+  }else{
+    fullName=cleanName(document.getElementById('name').value);
+    if(!nameOk(fullName)){
+      err.textContent='Pop your first and last name in so Mark knows which one of you it is.';
+      err.classList.add('on');
+      document.getElementById('name').focus();
+      return;
+    }
+    try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
   }
   const plans=document.getElementById('plans').value.trim();
   const gets=chosenChips();
   const level=strict;
-  try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
 
   const reply=document.getElementById('reply');
   reply.className='reply reply-load';
@@ -272,6 +346,10 @@ async function submit(){
       document.getElementById('promise-txt').textContent=promise;
       document.getElementById('promise').classList.add('on');
       try{localStorage.setItem(PROMISEKEY,JSON.stringify({date:todayKey(),text:promise,plans}));}catch(e){}
+    }
+    // Logged in: a copy goes to their Zenith account too. Quiet, best effort, Sheet stays the record.
+    if(auth!=='no'&&authToken){
+      fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Weekend Game Plan',data:{date:todayKey(),plans,gets,level,promise:promise||''}})}).catch(()=>{});
     }
     logToSheets('Weekend Game Plan',{
       field1_label:'Name',field1_value:fullName,
@@ -323,6 +401,7 @@ document.getElementById('pill-hint').textContent=PILL_HINTS['Sensible'];
 try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
 showLast();
 checkReady();
+initSession();
 </script>
 </body>
 </html>
