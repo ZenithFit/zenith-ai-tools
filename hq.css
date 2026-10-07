@@ -1,0 +1,52 @@
+/* Zenith HQ shared skin */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--green:#00A86B;--green-h:#008755;--ink:#111111;--body:#4A4F4D;--mut:#6B706E;--lab:#8A8F8D;--bg:#F4F4F2;--card:#FFFFFF;--line:#E4E6E4;--soft:#FAFAF9;--shadow:0 14px 40px rgba(17,17,17,.07)}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer}
+.topline{height:3px;background:var(--green)}
+.topbar{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink)}
+.logo b{color:var(--green)}
+.logout{border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:13px;font-weight:500;padding:8px 16px;border-radius:999px;transition:border-color .15s}
+.logout:hover{border-color:var(--green)}
+.shell{max-width:1080px;margin:0 auto;padding:28px 20px 40px;display:flex;gap:36px}
+.side{display:none}
+.content{flex:1;min-width:0}
+.kicker{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+h1.page{font-family:'Archivo',sans-serif;font-weight:800;font-size:34px;line-height:1.05;letter-spacing:-0.02em;color:var(--ink)}
+.page-sub{color:var(--mut);margin-top:10px;font-size:15px;max-width:520px}
+.section-lbl{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--lab);margin:34px 0 14px}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+.card{background:var(--card);border-radius:20px;padding:22px;box-shadow:var(--shadow);display:block;transition:transform .12s}
+a.card:active{transform:scale(.985)}
+.card h3{font-family:'Archivo',sans-serif;font-weight:700;font-size:18px;letter-spacing:-0.01em;color:var(--ink);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.card h3 .arr{color:var(--green);font-weight:800;flex:none}
+.card p{font-size:14px;color:var(--mut);margin-top:6px}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);background:#E8F6F0;border-radius:999px;padding:5px 12px;margin-top:12px}
+.quick{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.quick a{background:var(--ink);color:#fff;font-size:14px;font-weight:500;padding:11px 18px;border-radius:999px}
+.quick a:hover{background:#000}
+.steps{counter-reset:s}
+.steps .card{position:relative;padding-left:66px}
+.steps .card::before{counter-increment:s;content:counter(s);position:absolute;left:22px;top:22px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.note{background:var(--soft);border:1px dashed var(--line);border-radius:20px;padding:20px 22px;font-size:14px;color:var(--mut)}
+.note b{color:var(--ink)}
+.bottom{position:fixed;left:0;right:0;bottom:0;z-index:30;background:var(--card);border-top:1px solid var(--line);display:flex}
+.bottom a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 0 12px;font-size:11px;font-weight:500;color:var(--mut)}
+.bottom a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bottom a.on{color:var(--green)}
+@media(min-width:900px){
+  body{padding-bottom:40px}
+  .bottom{display:none}
+  .side{display:block;width:230px;flex:none}
+  .side nav{position:sticky;top:86px;background:var(--card);border-radius:20px;box-shadow:var(--shadow);padding:14px;display:flex;flex-direction:column;gap:2px}
+  .side nav a{padding:11px 14px;border-radius:12px;font-size:14px;font-weight:500;color:var(--body)}
+  .side nav a:hover{background:var(--soft);color:var(--ink)}
+  .side nav a.on{background:#E8F6F0;color:var(--green);font-weight:700}
+  .side .div{height:1px;background:var(--line);margin:10px 4px}
+  .grid.two{grid-template-columns:1fr 1fr}
+  h1.page{font-size:42px}
+}
