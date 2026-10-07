@@ -6,29 +6,31 @@
 <title>Zenith Fit | Zenith AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --white:       #ffffff;
-  --off:         #F7F6F4;
-  --border:      rgba(0,0,0,0.08);
-  --border-med:  rgba(0,0,0,0.13);
-  --charcoal:    #1A1A1A;
-  --mid:         #555555;
-  --faint:       #999999;
-  --amber:       #3FD494;
-  --amber-dim:   #2CBD80;
-  --amber-bg:    rgba(63,212,148,0.09);
-  --amber-bdr:   rgba(63,212,148,0.28);
+  --bg:          #F4F4F2;
+  --white:       #FFFFFF;
+  --off:         #FAFAF9;
+  --border:      rgba(17,17,17,0.06);
+  --border-med:  rgba(17,17,17,0.12);
+  --charcoal:    #111111;
+  --mid:         #4A4F4D;
+  --faint:       #8A8F8D;
+  --amber:       #00A86B;
+  --amber-dim:   #008755;
+  --amber-bg:    #E8F6F0;
+  --amber-bdr:   rgba(0,168,107,0.25);
+  --shadow:      0 14px 40px rgba(17,17,17,0.07);
   --sidebar-w:   260px;
-  --font-head:   'Oswald', sans-serif;
+  --font-head:   'Archivo', sans-serif;
   --font-body:   'DM Sans', sans-serif;
 }
 
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body {
-  background: var(--white);
+  background: var(--bg);
   color: var(--charcoal);
   font-family: var(--font-body);
   min-height: 100vh;
@@ -56,12 +58,13 @@ body {
   padding: 24px 22px 20px;
   border-bottom: 1px solid var(--border);
 }
-.sb-logo img { height: 26px; width: auto; display: block; }
+.sb-wordmark { font-size: 13px; font-weight: 700; letter-spacing: 2px; color: var(--charcoal); font-family: var(--font-body); }
+.sb-wordmark b { color: var(--amber); }
 
 .sb-featured {
   margin: 16px 14px 4px;
   background: var(--charcoal);
-  border-radius: 10px;
+  border-radius: 16px;
   padding: 16px 18px;
   cursor: pointer;
   transition: opacity .2s;
@@ -73,8 +76,8 @@ body {
 .sb-featured-ico { font-size: 15px; }
 .sb-featured-name {
   font-family: var(--font-head);
-  font-size: 15px; font-weight: 700;
-  color: #fff; letter-spacing: 0.04em; text-transform: uppercase;
+  font-size: 15px; font-weight: 800;
+  color: #fff; letter-spacing: -0.01em;
 }
 .sb-featured-badge {
   margin-left: auto;
@@ -135,8 +138,8 @@ body {
 }
 .topbar-title {
   font-family: var(--font-head);
-  font-size: 16px; font-weight: 600;
-  color: var(--charcoal); letter-spacing: 0.06em; text-transform: uppercase;
+  font-size: 15px; font-weight: 700;
+  color: var(--charcoal); letter-spacing: -0.01em;
 }
 .topbar-right { display: flex; align-items: center; gap: 12px; }
 .topbar-pill {
@@ -156,13 +159,14 @@ body {
 }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-.dark-toggle {
-  background: none; border: 1px solid var(--border-med);
-  border-radius: 7px; padding: 6px 9px; font-size: 13px;
-  cursor: pointer; transition: background .15s; line-height: 1;
-  color: var(--mid);
+.hq-link {
+  display:flex; align-items:center; gap:6px;
+  background: var(--charcoal); color:#fff;
+  border-radius:30px; padding:6px 14px;
+  font-family: var(--font-body); font-size:12px; font-weight:700; letter-spacing:1px;
+  text-decoration:none;
 }
-.dark-toggle:hover { background: var(--off); }
+.hq-link:hover { background:#000; }
 
 .mob-toggle {
   display: none; background: none;
@@ -186,8 +190,8 @@ body {
 }
 .page-title {
   font-family: var(--font-head);
-  font-size: clamp(26px,4vw,36px); font-weight: 700;
-  color: var(--charcoal); letter-spacing: -0.01em; text-transform: uppercase;
+  font-size: clamp(26px,4vw,36px); font-weight: 800;
+  color: var(--charcoal); letter-spacing: -0.02em;
   line-height: 1.05; margin-bottom: 10px;
 }
 .page-desc {
@@ -198,10 +202,11 @@ body {
 /* CARDS */
 .card {
   background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: none;
+  border-radius: 20px;
   padding: 24px;
   margin-bottom: 16px;
+  box-shadow: var(--shadow);
 }
 .card-label {
   font-family: var(--font-head);
@@ -223,8 +228,8 @@ body {
 }
 .fi, .fs {
   background: var(--off);
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid #E4E6E4;
+  border-radius: 12px;
   padding: 11px 13px;
   color: var(--charcoal);
   font-family: var(--font-body);
@@ -234,8 +239,8 @@ body {
   width: 100%; appearance: none;
 }
 .fi:focus, .fs:focus {
-  border-color: var(--charcoal);
-  box-shadow: 0 0 0 3px rgba(26,26,26,0.06);
+  border-color: var(--amber);
+  box-shadow: 0 0 0 3px rgba(0,168,107,0.10);
   background: var(--white);
 }
 .fi::placeholder { color: #C0BDBA; }
@@ -254,15 +259,15 @@ body {
 }
 .btn:hover { background: #333; transform: translateY(-1px); }
 .btn:active { transform: translateY(0); }
-.btn-amber { background: var(--amber); color: #0C0F11; }
-.btn-amber:hover { background: var(--amber-dim); color: #0C0F11; }
+.btn-amber { background: var(--amber); color: #fff; }
+.btn-amber:hover { background: var(--amber-dim); color: #fff; }
 
 /* LOADING */
 .loading {
   display: none; flex-direction: column; align-items: center; gap: 14px;
   padding: 48px; color: var(--mid); font-size: 13px; font-weight: 300;
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 12px; margin-bottom: 16px;
+  background: var(--white); border: none; box-shadow: var(--shadow);
+  border-radius: 20px; margin-bottom: 16px;
 }
 .loading.on { display: flex; }
 .spin {
@@ -276,7 +281,7 @@ body {
 /* RESULTS */
 .result {
   display: none; background: var(--white);
-  border: 1px solid var(--border); border-radius: 12px;
+  border: none; border-radius: 20px; box-shadow: var(--shadow);
   overflow: hidden; margin-bottom: 16px; animation: fadeUp .3s ease;
 }
 .result.on { display: block; }
@@ -322,14 +327,14 @@ body {
 /* MARK BOT */
 .bot-hero {
   background: var(--charcoal);
-  border-radius: 12px; padding: 28px 28px 24px;
+  border-radius: 20px; padding: 28px 28px 24px; box-shadow: var(--shadow);
   margin-bottom: 18px;
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
 }
 .bot-hero-title {
   font-family: var(--font-head);
-  font-size: clamp(28px,4vw,38px); font-weight: 700;
-  color: #fff; text-transform: uppercase; line-height: 1.02; letter-spacing: -0.01em;
+  font-size: clamp(28px,4vw,38px); font-weight: 800;
+  color: #fff; line-height: 1.02; letter-spacing: -0.02em;
 }
 .bot-hero-title em { font-style: normal; color: var(--amber); }
 .bot-hero-sub {
@@ -376,7 +381,7 @@ body {
 .btn-targets-edit:hover { border-color: var(--charcoal); color: var(--charcoal); }
 
 /* CHAT */
-.chat-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.chat-wrap { background: var(--white); border: none; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
 .chat-head {
   background: var(--white); border-bottom: 1px solid var(--border);
   padding: 14px 18px; display: flex; align-items: center; gap: 12px;
@@ -386,7 +391,7 @@ body {
   border-radius: 50%; display: flex; align-items: center; justify-content: center;
   font-size: 16px; flex-shrink: 0;
 }
-.chat-name { font-family: var(--font-head); font-size: 16px; font-weight: 700; color: var(--charcoal); text-transform: uppercase; letter-spacing: 0.04em; }
+.chat-name { font-family: var(--font-head); font-size: 16px; font-weight: 800; color: var(--charcoal); letter-spacing: -0.01em; }
 .chat-status-row { display: flex; align-items: center; gap: 5px; margin-top: 1px; }
 .chat-status-dot { width: 5px; height: 5px; border-radius: 50%; background: #22c55e; }
 .chat-status-text { font-size: 11px; color: var(--faint); font-weight: 300; }
@@ -432,7 +437,7 @@ body {
   outline: none; transition: border-color .15s; resize: none;
   min-height: 42px; max-height: 96px;
 }
-.cin:focus { border-color: var(--charcoal); background: var(--white); }
+.cin:focus { border-color: var(--amber); background: var(--white); }
 .cin::placeholder { color: #C0BDBA; }
 .btn-send {
   background: var(--charcoal); border: none; color: #fff;
@@ -474,11 +479,11 @@ body {
 .modal-overlay.on { display: flex; }
 .modal {
   background: var(--white); border: 1px solid var(--border);
-  border-radius: 14px; padding: 28px;
+  border-radius: 20px; padding: 28px;
   width: 100%; max-width: 380px; margin: 20px;
   animation: fadeUp .2s ease;
 }
-.modal-title { font-family: var(--font-head); font-size: 22px; font-weight: 700; text-transform: uppercase; color: var(--charcoal); margin-bottom: 4px; }
+.modal-title { font-family: var(--font-head); font-size: 22px; font-weight: 800; letter-spacing: -0.01em; color: var(--charcoal); margin-bottom: 4px; }
 .modal-desc { font-size: 13px; color: var(--mid); margin-bottom: 20px; font-weight: 300; line-height: 1.55; }
 .modal-foot { display: flex; gap: 10px; margin-top: 18px; }
 .btn-ghost {
@@ -490,35 +495,35 @@ body {
 }
 .btn-ghost:hover { border-color: var(--charcoal); color: var(--charcoal); }
 
-/* DARK MODE */
-body.dark {
-  --white:       #141414;
-  --off:         #1C1C1C;
-  --border:      rgba(255,255,255,0.07);
-  --border-med:  rgba(255,255,255,0.13);
-  --charcoal:    #F0F0EE;
-  --mid:         #999999;
-  --faint:       #666666;
+
+/* TOOLS HOME */
+.home-hello { margin-bottom: 22px; }
+.home-feat {
+  background: var(--charcoal); border-radius: 20px; padding: 22px;
+  box-shadow: var(--shadow); cursor: pointer; margin-bottom: 20px;
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  transition: transform .12s;
 }
-body.dark .sidebar { background: #0E0E0E; border-right-color: rgba(255,255,255,0.07); }
-body.dark .topbar { background: rgba(20,20,20,0.95); }
-body.dark .bot-hero { background: #0E0E0E; }
-body.dark .chat-head { background: #141414; }
-body.dark .chat-wrap { background: #141414; }
-body.dark .chat-foot { background: #141414; }
-body.dark .modal { background: #1C1C1C; }
-body.dark .bub { background: #1C1C1C; }
-body.dark .msg.u .bub { background: #F0F0EE; color: #141414; }
-body.dark .sb-featured { background: #0E0E0E; outline-color: var(--amber); }
-body.dark .result { background: #141414; }
-body.dark .result-head { background: #1C1C1C; }
-body.dark .card { background: #141414; }
-body.dark .btn { background: #F0F0EE; color: #141414; }
-body.dark .btn:hover { background: #CCCCCC; }
-body.dark .btn-send { background: #F0F0EE; color: #141414; }
-body.dark .btn-send:hover { background: #CCCCCC; }
-body.dark .tip-bar { background: rgba(63,212,148,0.12); }
-body.dark .support-note { background: rgba(63,212,148,0.12); }
+.home-feat:active { transform: scale(.985); }
+.home-feat-name { font-family: var(--font-head); font-weight: 800; font-size: 21px; letter-spacing: -0.01em; color: #fff; }
+.home-feat-desc { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 3px; }
+.home-feat-badge {
+  background: var(--amber); color: #fff; border-radius: 30px; padding: 4px 11px;
+  font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; flex-shrink: 0;
+}
+.home-sec {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase;
+  color: var(--faint); margin: 24px 0 12px;
+}
+.home-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.tool-card {
+  background: var(--white); border: none; border-radius: 18px; padding: 18px 16px;
+  box-shadow: var(--shadow); cursor: pointer; transition: transform .12s;
+}
+.tool-card:active { transform: scale(.96); }
+.tool-ico { font-size: 22px; display: block; margin-bottom: 10px; }
+.tool-name { font-family: var(--font-head); font-weight: 700; font-size: 14px; letter-spacing: -0.01em; color: var(--charcoal); line-height: 1.25; }
+@media (min-width: 700px) { .home-grid { grid-template-columns: repeat(3,1fr); } }
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width: 3px; }
@@ -527,10 +532,10 @@ body.dark .support-note { background: rgba(63,212,148,0.12); }
 
 /* MOBILE */
 @media (max-width: 700px) {
-  .sidebar { transform: translateX(-100%); transition: transform .22s ease; }
-  .sidebar.open { transform: translateX(0); box-shadow: 12px 0 32px rgba(0,0,0,0.12); }
+  .sidebar { display: none; }
   .main { margin-left: 0; }
   .mob-toggle { display: flex; }
+  body[data-view="home"] .mob-toggle { display: none; }
   .f2 { grid-template-columns: 1fr; }
   .content { padding: 16px 14px; }
   .bot-hero { flex-direction: column; align-items: flex-start; padding: 20px; }
@@ -539,11 +544,11 @@ body.dark .support-note { background: rgba(63,212,148,0.12); }
 }
 </style>
 </head>
-<body>
+<body data-view="home">
 
 <aside class="sidebar" id="sidebar">
-  <div class="sb-logo">
-    <img src="https://images.squarespace-cdn.com/content/v1/69027ef0752df355a800877a/8eb1eeb7-6b91-48b5-9831-12ab7e006b3b/newlogositedm.png?format=300w" alt="Zenith Fit">
+  <div class="sb-logo" onclick="goPage('home')" style="cursor:pointer">
+    <div class="sb-wordmark">ZENITH <b>AI</b></div>
   </div>
 
   <div class="sb-featured on" id="sb-markbot" onclick="goPage('bot',this,'feat')">
@@ -588,21 +593,58 @@ body.dark .support-note { background: rgba(63,212,148,0.12); }
 <div class="main">
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:10px;">
-      <button class="mob-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M1 3h14M1 8h14M1 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <button class="mob-toggle" onclick="goPage('home')" aria-label="All tools">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 2 4 8l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>
       <div class="topbar-title" id="tb-title">Mark Bot</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-pill"><span class="live-dot"></span>AI Live</div>
-      <button class="dark-toggle" id="dark-toggle" onclick="toggleDark()">☀️</button>
+      <a class="hq-link" href="hq.html">HQ</a>
     </div>
   </div>
 
   <div class="content">
 
     <!-- MARK BOT -->
-    <div class="page on" id="page-bot">
+    <div class="page on" id="page-home">
+      <div class="home-hello">
+        <span class="page-hdr-eyebrow">Zenith AI</span>
+        <div class="page-title">Hey <span data-first-name>there</span>.</div>
+        <div class="page-desc">Whatever today needs, there&#39;s a tool for it.</div>
+      </div>
+      <div class="home-feat" onclick="goPage('bot')">
+        <div>
+          <div class="home-feat-name">Mark Bot</div>
+          <div class="home-feat-desc">Ask Mark anything. 24/7.</div>
+        </div>
+        <span class="home-feat-badge">Live</span>
+      </div>
+      <div class="home-sec">In The Moment</div>
+      <div class="home-grid">
+        <div class="tool-card" onclick="goPage(&#39;panic&#39;)"><span class="tool-ico">🆘</span><span class="tool-name">Panic Button</span></div>
+        <div class="tool-card" onclick="goPage(&#39;honesty&#39;)"><span class="tool-ico">🪞</span><span class="tool-name">Honesty Check-In</span></div>
+      </div>
+      <div class="home-sec">Nutrition</div>
+      <div class="home-grid">
+        <div class="tool-card" onclick="goPage(&#39;protein&#39;)"><span class="tool-ico">🥩</span><span class="tool-name">Protein Fixer</span></div>
+        <div class="tool-card" onclick="goPage(&#39;recipe&#39;)"><span class="tool-ico">🍳</span><span class="tool-name">Recipe Generator</span></div>
+        <div class="tool-card" onclick="goPage(&#39;plan&#39;)"><span class="tool-ico">📋</span><span class="tool-name">5-Day Meal Planner</span></div>
+        <div class="tool-card" onclick="goPage(&#39;grocery&#39;)"><span class="tool-ico">🛒</span><span class="tool-name">Grocery List</span></div>
+        <div class="tool-card" onclick="goPage(&#39;food&#39;)"><span class="tool-ico">🔍</span><span class="tool-name">Food Checker</span></div>
+        <div class="tool-card" onclick="goPage(&#39;fridge&#39;)"><span class="tool-ico">🧊</span><span class="tool-name">What&#39;s In My Fridge?</span></div>
+        <div class="tool-card" onclick="goPage(&#39;eating&#39;)"><span class="tool-ico">🍽️</span><span class="tool-name">Eating Out Guide</span></div>
+        <div class="tool-card" onclick="goPage(&#39;supp&#39;)"><span class="tool-ico">💊</span><span class="tool-name">Supplement Checker</span></div>
+      </div>
+      <div class="home-sec">Lifestyle</div>
+      <div class="home-grid">
+        <div class="tool-card" onclick="goPage(&#39;weekend&#39;)"><span class="tool-ico">📅</span><span class="tool-name">Weekend Game Plan</span></div>
+        <div class="tool-card" onclick="goPage(&#39;travel&#39;)"><span class="tool-ico">✈️</span><span class="tool-name">Travel Game Plan</span></div>
+        <div class="tool-card" onclick="goPage(&#39;alcohol&#39;)"><span class="tool-ico">🍺</span><span class="tool-name">Alcohol Guide</span></div>
+      </div>
+    </div>
+
+    <div class="page" id="page-bot">
       <div class="targets-bar">
         <div class="targets-group">
           <div class="targets-item">
@@ -1061,19 +1103,7 @@ body.dark .support-note { background: rgba(63,212,148,0.12); }
 </div>
 
 <script>
-const TITLES={bot:'Mark Bot',panic:'Panic Button',honesty:'Honesty Check-In',protein:'Protein Fixer',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide'};
-
-function toggleDark(){
-  const dark=document.body.classList.toggle('dark');
-  document.getElementById('dark-toggle').textContent=dark?'🌙':'☀️';
-  localStorage.setItem('zf-dark',dark?'1':'0');
-}
-(function(){
-  if(localStorage.getItem('zf-dark')==='1'){
-    document.body.classList.add('dark');
-    document.getElementById('dark-toggle').textContent='🌙';
-  }
-})();
+const TITLES={home:'Zenith AI',bot:'Mark Bot',panic:'Panic Button',honesty:'Honesty Check-In',protein:'Protein Fixer',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide'};
 
 const TIPS=["Protein at every meal. Not sometimes. Every single meal. That one habit alone will change the game.","Never miss twice. One bad meal is nothing. Two bad days becomes a pattern. Reset at the next meal.","Your steps matter more than you think. Walk more. It compounds massively over time.","Sleep is not a luxury. It is a non-negotiable part of fat loss. Protect it like a workout.","If it is not in the calendar it will not happen. Schedule your workouts like appointments.","Consistency beats perfection every single time. Show up imperfectly and keep showing up.","Two litres of water minimum every day. Most hunger is actually dehydration.","80/20. Eighty percent on it. Twenty percent living your life. That is what sustainable looks like.","Progressive overload. Get a little stronger every single week. That is the whole game.","Confidence comes from evidence. Stack small wins. Watch what it does to your self-belief.","You do not rise to the level of your motivation. You fall to the level of your systems.","What gets scheduled gets done. What does not get scheduled gets skipped. Every time.","Eating out is not the problem. Having no awareness around it is the problem.","The best plan is the one you actually stick to. Consistency over complexity. Always."];
 (function(){const idx=Math.floor(Date.now()/(1000*60*60*24))%TIPS.length;document.getElementById('tip-text').textContent=TIPS[idx];})();
@@ -1112,12 +1142,27 @@ function goPage(id,el,type){
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('on'));
   document.getElementById('sb-markbot').classList.remove('on');
   document.getElementById('page-'+id).classList.add('on');
-  if(type==='feat'){document.getElementById('sb-markbot').classList.add('on');}
-  else{el.classList.add('on');}
+  if(id==='bot'){document.getElementById('sb-markbot').classList.add('on');}
+  else if(el&&el.classList&&el.classList.contains('sb-item')){el.classList.add('on');}
   document.getElementById('tb-title').textContent=TITLES[id];
-  document.getElementById('sidebar').classList.remove('open');
+  document.body.dataset.view=id;
   window.scrollTo({top:0,behavior:'smooth'});
 }
+// Hey (name) everywhere if this phone is logged into HQ. Never required.
+(function(){
+  try{
+    const n=localStorage.getItem('zenith_name');
+    if(!n||!localStorage.getItem('zenith_token'))return;
+    const first=n.split(' ')[0];
+    document.querySelectorAll('[data-first-name]').forEach(function(e){e.textContent=first;});
+    const hero=document.querySelector('.bot-hero-title');
+    if(hero){hero.innerHTML='OK '+first+',<br><em>Ask Me Anything</em>';}
+    const firstBub=document.querySelector('#msgs .bub');
+    if(firstBub){firstBub.textContent="Right "+first+", what's going on? Ask me anything. Training, food, mindset, a week that's fallen apart. No stupid questions here. \ud83d\udcaa";}
+    const pnBub=document.querySelector('#pn-msgs .bub');
+    if(pnBub){pnBub.textContent="Right "+first+", stop. Before you do anything, tell me what's going on. Tap one below or just type it. I'm not going anywhere. \ud83d\udcaa";}
+  }catch(e){}
+})();
 
 const API='https://zenith-fit.mark-5a5.workers.dev';
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
