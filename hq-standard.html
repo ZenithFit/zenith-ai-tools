@@ -22,162 +22,18 @@
   <main class="content">
 
 <a class="back-pill" href="hq.html" style="display:inline-flex;align-items:center;gap:7px;background:#FFFFFF;border:1.5px solid #E4E6E4;color:#111111;font-weight:700;font-size:13px;padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:18px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
-<style>
-.bh-card{background:#fff;border-radius:20px;padding:24px 24px 22px;box-shadow:0 14px 40px rgba(17,17,17,.07);border-top:4px solid #00A86B;margin-bottom:14px}
-.bh-name{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-0.02em;color:#111}
-.bh-punch{margin-top:6px;font-size:15px;font-weight:700;font-style:italic;color:#00A86B}
-.ticks{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:10px}
-.ticks li{position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#4A4F4D}
-.ticks li::before{content:'';position:absolute;left:0;top:1px;width:21px;height:21px;border-radius:50%;background:#E8F6F0 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' stroke='%2300A86B' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat}
-.ticks li b{color:#111}
-.me-card{background:#0C0F11;border-radius:22px;padding:28px 26px 26px;color:#fff}
-.me-card .ticks li{color:#E4E8E6}
-.me-card .ticks li b{color:#fff}
-.me-card .ticks li::before{background-color:#1A2A23;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' stroke='%233FD494' stroke-width='2.2' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
-.me-head{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-0.02em}
-.me-sign{margin-top:20px;padding-top:16px;border-top:1px solid #23282B;font-size:15px;color:#BFC6C3}
-.me-sign b{display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;color:#fff;margin-top:4px}
-.ten{background:#fff;border-radius:22px;padding:26px;box-shadow:0 14px 40px rgba(17,17,17,.07);display:flex;gap:20px;align-items:flex-start;margin-top:8px}
-.ten-num{font-family:'Archivo',sans-serif;font-weight:800;font-size:64px;line-height:.85;letter-spacing:-0.04em;color:#111;flex:none}
-.ten h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:21px;line-height:1.15;letter-spacing:-0.01em;color:#111}
-.ten p{margin-top:8px;font-size:14.5px;line-height:1.6;color:#4A4F4D}
-.commit{margin:40px 0 10px;background:#fff;border:2px solid #111;border-radius:26px;padding:34px 26px 30px;text-align:center}
-.commit h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:40px;line-height:1;letter-spacing:-0.03em;color:#111}
-.commit p{margin:12px auto 0;max-width:380px;font-size:15px;line-height:1.6;color:#4A4F4D}
-.in-btn{margin-top:24px;width:100%;max-width:340px;height:60px;border:0;border-radius:999px;background:#00A86B;color:#fff;font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;letter-spacing:-0.01em;transition:background .15s}
-.in-btn:hover{background:#008755}
-.in-btn:disabled{background:#C9CFCC;cursor:wait}
-.in-btn:focus-visible{outline:3px solid #00A86B;outline-offset:3px}
-.in-done{display:none}
-.commit.done .in-btn,.commit.done .commit-ask{display:none}
-.commit.done .in-done{display:block}
-.in-tick{width:64px;height:64px;border-radius:50%;background:#00A86B;margin:0 auto 18px;display:flex;align-items:center;justify-content:center}
-.in-tick svg{width:30px;height:30px}
-.commit.pop .in-tick{animation:inpop .45s cubic-bezier(.2,1.4,.4,1)}
-@keyframes inpop{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
-.in-err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
-@media(max-width:420px){.ten{flex-direction:column;gap:12px}.commit h2{font-size:34px}}
-@media(prefers-reduced-motion:reduce){.commit.pop .in-tick{animation:none}}
-</style>
-
 <div class="kicker">The Zenith Standard</div>
-<h1 class="page">Your side. My side.</h1>
-<p class="page-sub">This is how we work together, written down so there&rsquo;s no grey area. Read it properly, then tell me you&rsquo;re in at the bottom.</p>
-
-<div class="section-lbl">Your side: 3 core behaviours</div>
-
-<div class="bh-card">
-  <div class="bh-name">Do the work.</div>
-  <div class="bh-punch">Even the minimum version. Something beats nothing.</div>
-  <ul class="ticks">
-    <li>Every training session logged in the app.</li>
-    <li>Your daily step target hit.</li>
-    <li>One promise to yourself every day, and you keep it.</li>
-    <li>Miss one? Fine. Never miss twice.</li>
-  </ul>
-</div>
-
-<div class="bh-card">
-  <div class="bh-name">Be honest.</div>
-  <div class="bh-punch">Log the bad days too. Especially the bad days.</div>
-  <ul class="ticks">
-    <li>Food logged every single day, photos or numbers.</li>
-    <li>Your check in in by <b>3pm Friday</b>. If another day works better for you, tell me and we&rsquo;ll switch it.</li>
-  </ul>
-</div>
-
-<div class="bh-card">
-  <div class="bh-name">Never go quiet.</div>
-  <div class="bh-punch">If it&rsquo;s slipping, tell me. Silence is the one thing I can&rsquo;t coach.</div>
-  <ul class="ticks">
-    <li>Tools and resources first. HQ, the AI tools, the Sunday Session. Most answers are already in there.</li>
-    <li>Message me <b>7am to 7pm, Monday to Friday</b>.</li>
-    <li>Weekends, resources first and sleep on it. Really struggling? Message me.</li>
-  </ul>
-</div>
-
-<div class="section-lbl">My side: what you get from me</div>
-
-<div class="me-card">
-  <div class="me-head">Here&rsquo;s what I commit to you.</div>
-  <ul class="ticks">
-    <li>Your check in reply, written plus a voice note, <b>back by the end of Friday</b> so you&rsquo;re set for the weekend.</li>
-    <li>Messages answered, <b>usually within 30 to 60 minutes</b>, 7am to 7pm Monday to Friday.</li>
-    <li>Your programme reviewed every 4 to 6 weeks and changed when it needs to be.</li>
-    <li>A new Sunday Session every week.</li>
-    <li>A live call once a month. One topic, then your questions.</li>
-    <li>Zenith HQ and the AI tools, any time, day or night.</li>
-  </ul>
-  <div class="me-sign">That&rsquo;s my side. Every single week.<b>Mark</b></div>
-</div>
-
-<div class="section-lbl">How we think: the 8 standards</div>
-<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">01</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Never Miss Twice</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">A bad day is life. A bad week is a choice.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Missing one workout, one walk, going over your calories one night, none of that matters. It happens to everyone, me included. The standard is simple: whatever you missed, the very next one gets done. One slip never becomes two.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">02</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Something Beats Nothing</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Done beats perfect, every single time.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">10 minutes beats zero. A walk round the block beats the sofa. Half the workout beats no workout. You don&rsquo;t need the full version of the plan today, you just need a version of it.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">03</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Keep Your Word To Yourself</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Small promises, kept daily, rebuild everything.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">If you told a mate you&rsquo;d meet them at 7, you&rsquo;d be there. Start treating yourself like that mate. Pick one small promise a day, I&rsquo;ll drink my water, I&rsquo;ll get my steps in, and keep it. Keep it enough days in a row and you start trusting yourself again. That&rsquo;s the whole game.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">04</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Show Up On The Bad Weeks</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">I don&rsquo;t need your best week. I need your honest one.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Anyone can send a check in after a perfect week. The one that actually changes you is the one you send when it&rsquo;s gone wrong and you&rsquo;d rather hide. You will never be judged for a bad week here, not once. Going quiet is the only thing that sets you back.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">05</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Live The 80/20</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">On it 80% of the time, living your life the other 20.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">That means the birthday cake gets eaten. The Friday takeaway happens. No banned foods, no cancelled plans, no apologising for being a human. A diet that can&rsquo;t survive your actual life was never going to work anyway.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">06</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Excuses Are Habits, Not Reasons</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Busy is real. Tired is real. Today still counts.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">I&rsquo;m not pretending your life isn&rsquo;t full on. It is. But there&rsquo;s always a version of today that still counts. Can&rsquo;t do 45 minutes? Do 15. Can&rsquo;t face the gym? Walk. Say the excuse out loud, then find the version of today you can do.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">07</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Don&rsquo;t Wait For Monday</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">The restart is the very next meal, not next week.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Monday is just a day. So is the 1st of January. Rough morning? Fix it at lunch. Blowout weekend? Back on it Sunday night, not Monday week. The faster you restart, the less there is to undo.</p></div></div><div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">08</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Boring Wins</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Water, steps, protein, sleep. Repeat.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">No hacks, no detoxes, no 6 week shred nonsense. It&rsquo;s not exciting, and that&rsquo;s exactly why it works. The people who get the results you want are the ones who stopped looking for exciting and started repeating the basics.</p></div></div>
+<h1 class="page">The 8 standards.</h1>
+<p class="page-sub">These aren&rsquo;t rules I give you. They&rsquo;re standards you hold yourself to. This is what being a Zenith Fit client means.</p>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">01</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Never Miss Twice</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">A bad day is life. A bad week is a choice.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Missing one workout, one walk, going over your calories one night, none of that matters. It happens to everyone, me included. The standard is simple: whatever you missed, the very next one gets done. One slip never becomes two.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">02</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Something Beats Nothing</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Done beats perfect, every single time.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">10 minutes beats zero. A walk round the block beats the sofa. Half the workout beats no workout. You don&rsquo;t need the full version of the plan today, you just need a version of it.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">03</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Keep Your Word To Yourself</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Small promises, kept daily, rebuild everything.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">If you told a mate you&rsquo;d meet them at 7, you&rsquo;d be there. Start treating yourself like that mate. Pick one small promise a day, I&rsquo;ll drink my water, I&rsquo;ll get my steps in, and keep it. Keep it enough days in a row and you start trusting yourself again. That&rsquo;s the whole game.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">04</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Show Up On The Bad Weeks</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">I don&rsquo;t need your best week. I need your honest one.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Anyone can send a check in after a perfect week. The one that actually changes you is the one you send when it&rsquo;s gone wrong and you&rsquo;d rather hide. You will never be judged for a bad week here, not once. Going quiet is the only thing that sets you back.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">05</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Live The 80/20</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">On it 80% of the time, living your life the other 20.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">That means the birthday cake gets eaten. The Friday takeaway happens. No banned foods, no cancelled plans, no apologising for being a human. A diet that can&rsquo;t survive your actual life was never going to work anyway.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">06</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Excuses Are Habits, Not Reasons</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Busy is real. Tired is real. Today still counts.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">I&rsquo;m not pretending your life isn&rsquo;t full on. It is. But there&rsquo;s always a version of today that still counts. Can&rsquo;t do 45 minutes? Do 15. Can&rsquo;t face the gym? Walk. Say the excuse out loud, then find the version of today you can do.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">07</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Don&rsquo;t Wait For Monday</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">The restart is the very next meal, not next week.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">Monday is just a day. So is the 1st of January. Rough morning? Fix it at lunch. Blowout weekend? Back on it Sunday night, not Monday week. The faster you restart, the less there is to undo.</p></div></div>
+<div class="std-card" style="background:#0C0F11;border-radius:20px;padding:26px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start"><div class="std-num" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:36px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em">08</div><div class="std-body" style="flex:1;min-width:0"><div class="std-name" style="font-family:'Archivo',sans-serif;font-weight:900;font-size:21px;line-height:1.15;color:#FFFFFF;text-transform:uppercase">Boring Wins</div><div class="std-punch" style="margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494">Water, steps, protein, sleep. Repeat.</div><p class="std-txt" style="margin:10px 0 0;font-size:14.5px;line-height:1.6;color:#BFC6C3">No hacks, no detoxes, no 6 week shred nonsense. It&rsquo;s not exciting, and that&rsquo;s exactly why it works. The people who get the results you want are the ones who stopped looking for exciting and started repeating the basics.</p></div></div>
 <div class="std-close" style="margin:34px 0 10px;text-align:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;color:#111111">Read them again. Which one did you break last week?<span style="display:block;margin-top:6px;color:#00A86B">Start there.</span></div>
-
-<div class="section-lbl">One more thing</div>
-<div class="ten">
-  <div class="ten-num">10</div>
-  <div>
-    <h3>If it&rsquo;s ever less than a 10, tell me.</h3>
-    <p>If you&rsquo;d ever score your coaching less than 10 out of 10, don&rsquo;t sit on it and don&rsquo;t quietly drift off. Message me and tell me what would make it a 10. I&rsquo;d much rather hear it in week 3 than find out in week 12.</p>
-  </div>
-</div>
-
-<div class="commit" id="commit">
-  <div class="commit-ask">
-    <h2>Are you in?</h2>
-    <p>Tap the button and that&rsquo;s you committing to your side. I&rsquo;ve already committed to mine.</p>
-  </div>
-  <button class="in-btn" id="in-btn" type="button">I&rsquo;m in</button>
-  <div class="in-err" id="in-err">That didn&rsquo;t go through. Check your signal and tap I&rsquo;m in again.</div>
-  <div class="in-done" aria-live="polite">
-    <div class="in-tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-    <h2 id="in-title">You&rsquo;re in.</h2>
-    <p id="in-sub">Now go and live it. Boom.</p>
-  </div>
-</div>
-
-<script>
-const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
-const STD_TOOL='Zenith Standard';
-const STD_KEY='zf_standard_in';
-function zTok(){try{return localStorage.getItem('zenith_token')||'';}catch(e){return '';}}
-function zName(){try{return localStorage.getItem('zenith_name')||'';}catch(e){return '';}}
-function niceDate(iso){const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
-function showIn(date,animate){
-  const c=document.getElementById('commit');
-  const first=(zName()||'').split(' ')[0];
-  document.getElementById('in-title').textContent=first?'You\u2019re in, '+first+'.':'You\u2019re in.';
-  document.getElementById('in-sub').textContent='Committed on '+niceDate(date)+'. Now go and live it. Boom.';
-  c.classList.add('done');
-  if(animate){c.classList.remove('pop');void c.offsetWidth;c.classList.add('pop');}
-}
-document.getElementById('in-btn').addEventListener('click',function(){
-  const btn=this,t=zTok(),date=new Date().toISOString().slice(0,10);
-  document.getElementById('in-err').style.display='none';
-  btn.disabled=true;
-  const sheet=fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:STD_TOOL,message:'',
-    field1_label:'Name',field1_value:zName(),field2_label:'Committed',field2_value:"I'm in",field3_label:'Date',field3_value:date})});
-  const acct=t?fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
-    body:JSON.stringify({tool:STD_TOOL,data:{committed:true,date}})}):Promise.resolve();
-  Promise.allSettled([sheet,acct]).then(function(r){
-    if(r[0].status==='rejected'&&r[1].status!=='fulfilled'){btn.disabled=false;document.getElementById('in-err').style.display='block';return;}
-    try{localStorage.setItem(STD_KEY,date);}catch(e){}
-    showIn(date,true);
-  });
-});
-(function(){
-  let local='';try{local=localStorage.getItem(STD_KEY)||'';}catch(e){}
-  if(local)showIn(local,false);
-  const t=zTok();if(!t)return;
-  fetch(API+'/entries?tool='+encodeURIComponent(STD_TOOL)+'&limit=1',{headers:{'Authorization':'Bearer '+t}})
-    .then(r=>r.ok?r.json():null).then(d=>{
-      const e=d&&d.entries&&d.entries[0];
-      if(e&&e.data&&e.data.committed){try{localStorage.setItem(STD_KEY,e.data.date);}catch(x){}showIn(e.data.date,false);}
-    }).catch(()=>{});
-})();
-</script>
 
   </main>
 </div>
