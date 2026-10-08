@@ -25,7 +25,7 @@
 <h1 class="page">Hey <span data-first-name>there</span>.</h1>
 <p class="page-sub">Everything you need, one place. Have a look round.</p>
 
-<div class="q-card"><div class="q-lbl">Today&rsquo;s one liner</div><div class="q-txt" id="q-txt"></div><div class="q-sig">Mark</div></div>
+<div class="q-card"><div class="q-lbl">Today&rsquo;s Motivation</div><div class="q-txt" id="q-txt"></div></div>
 <script>
 (function(){
   var Q=["You don't rise to your motivation. You fall to your systems.", "Never miss twice.", "Something beats nothing. Every single time.", "Consistency beats intensity. Always has.", "Fat loss should feel boring. Boring works.", "You've not lost your discipline. You've lost your evidence. Go make some.", "The plan isn't the problem. Doing it is. Good news, that's fixable today.", "Comfortable is the enemy.", "Excuses are habits, not reasons.", "A bad day only becomes a problem when you let it turn into a bad week.", "Don't start again on Monday. Start at your next meal.", "You show up for everyone else without question. Today, show up for you.", "80% on it, 20% living your life. That's the whole trick.", "Motivation gets you started. Systems keep you going.", "The scale is data, not a verdict.", "Small promises, kept daily, rebuild everything.", "One walk. One glass of water. One win. Stack them.", "You don't need a perfect week. You need a repeatable one.", "Eat the frog. Hard thing first, easy day after.", "The workout you don't fancy is usually the one you need.", "Progress hides in the weeks that feel average.", "Your future self is watching. Make them proud.", "It's not about being good at this. It's about being consistent at this.", "Water, steps, protein, sleep. Boring? Yes. Undefeated? Also yes.", "You're one decision away from a better day.", "Done beats perfect.", "Don't trust the process. Do the process. Trust comes after.", "This was never just about your weight.", "Keep the promise you made to yourself last night.", "Nobody else can do your reps. That's the best part."];
@@ -70,7 +70,7 @@
       const e=byDate[dd.k];
       let pct=0;
       if(e&&e.max>0){pct=Math.max(8,Math.round(100*e.total/e.max));any=true;}
-      html+='<div class="wk-col"><div class="wk-bar'+(e?'':' empty')+'" style="height:'+(e?pct:8)+'%"></div><div class="wk-day">'+dd.lbl[0]+'</div></div>';
+      html+='<div class="wk-col">'+(e?'<div class="wk-val">'+e.total+'</div>':'')+'<div class="wk-bar'+(e?'':' empty')+'" style="height:'+(e?pct:8)+'%"></div><div class="wk-day">'+dd.lbl[0]+'</div></div>';
     });
     // streak: consecutive days with an entry, ending today or yesterday
     let streak=0;const start=byDate[key(now)]?0:1;
