@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sunday Prep | Zenith Fit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00A86B;--green-h:#008755;--green-d:#3FD494;--bg:#F4F4F2;--alt:#FFFFFF;--dark:#111111;--deep:#0C0F11;--head:#111111;--body:#4A4F4D;--sec:#BFC6C3;--line:#E4E6E4;--shadow:0 14px 40px rgba(17,17,17,.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased}
+.wrap{max-width:520px;margin:0 auto;padding:0 20px}
+button{font-family:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+
+header{padding:36px 0 22px}
+.brand{font-weight:700;text-transform:uppercase;font-size:12px;letter-spacing:2px;color:var(--green);margin-bottom:12px}
+header h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:38px;line-height:1.05;letter-spacing:-0.02em;color:var(--head)}
+header p{color:var(--body);margin-top:12px;font-size:15px;max-width:400px}
+.wk-of{display:inline-block;margin-top:16px;background:var(--alt);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--head)}
+
+.hello{display:none;margin-bottom:26px;background:var(--alt);border-radius:18px;padding:14px 18px;font-size:15px;color:var(--body);box-shadow:var(--shadow)}
+.hello.on{display:block}
+.hello b{color:var(--head)}
+
+.last{display:none;margin-bottom:26px;border-left:3px solid var(--green);background:var(--alt);border-radius:0 18px 18px 0;padding:14px 18px;font-size:14px;color:var(--body)}
+.last.on{display:block}
+.last b{color:var(--head)}
+
+main{padding:4px 0 40px}
+.field{margin-bottom:28px}
+label.small,.small{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--head);margin-bottom:6px}
+.hint{font-size:13px;color:var(--body);margin-bottom:12px}
+.hint.warn{color:#B3261E;margin-top:8px;margin-bottom:0}
+input[type=text]{width:100%;border:1px solid var(--line);border-radius:999px;padding:12px 16px;font-size:16px;color:var(--head);background:#fff}
+input[type=text]::placeholder{color:#9AA19E}
+.meal{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.meal span{flex:0 0 74px;font-size:13px;font-weight:700;color:var(--head)}
+.meal input{flex:1}
+
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.day{height:46px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--head);font-size:13px;font-weight:700;transition:background .12s,color .12s,border-color .12s}
+.day.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.why{margin-top:12px}
+
+.scale{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.scale button{height:44px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--head);font-size:14px;font-weight:700;transition:background .12s,color .12s,border-color .12s}
+.scale button.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.scale-ends{display:flex;justify-content:space-between;font-size:12px;color:#9AA19E;margin-top:8px}
+
+.submit{margin-top:8px;width:100%;height:56px;border-radius:999px;border:0;background:var(--green);color:#fff;font-weight:700;font-size:17px;transition:background .15s}
+.submit:hover{background:var(--green-h)}
+.submit:disabled{background:#C9CFCC;cursor:not-allowed}
+.todo{margin-top:10px;font-size:13px;color:#9AA19E;text-align:center;min-height:20px}
+.err{display:none;margin-top:12px;font-size:14px;color:#B3261E}
+.err.on{display:block}
+
+/* the locked in card */
+.result{display:none;margin-top:8px;background:var(--deep);color:#fff;border-radius:26px;padding:30px 24px 24px;overflow:hidden}
+.result.on{display:block}
+.tick{width:58px;height:58px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;margin-bottom:18px;transform:scale(.4);opacity:0}
+.tick svg{width:28px;height:28px}
+.tick path{stroke-dasharray:30;stroke-dashoffset:30}
+.result.on .tick{animation:pop .45s cubic-bezier(.2,1.4,.4,1) forwards}
+.result.on .tick path{animation:draw .35s .3s ease-out forwards}
+@keyframes pop{to{transform:scale(1);opacity:1}}
+@keyframes draw{to{stroke-dashoffset:0}}
+.r-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:30px;line-height:1.08;letter-spacing:-0.02em}
+.r-sub{color:var(--sec);font-size:15px;margin-top:8px}
+
+.r-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:26px 0 8px}
+.r-day{display:flex;flex-direction:column;align-items:center;gap:7px}
+.r-dot{width:100%;max-width:40px;aspect-ratio:1;border-radius:50%;border:1.5px solid #2A2F33;display:flex;align-items:center;justify-content:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;color:#6B7370}
+.r-dot.train{background:var(--green-d);border-color:var(--green-d);color:var(--deep)}
+.r-dot.tough{box-shadow:0 0 0 3px var(--deep),0 0 0 5px #fff}
+.r-lab{font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B7370;height:12px}
+.r-lab.tough{color:#fff}
+.r-key{display:flex;gap:16px;font-size:12px;color:var(--sec);margin-bottom:6px}
+.r-key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.r-key .k1{background:var(--green-d)}
+.r-key .k2{border:2px solid #fff}
+
+.r-block{border-top:1px solid #23282B;padding-top:18px;margin-top:18px}
+.r-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--green-d);margin-bottom:6px}
+.r-focus{font-family:'Archivo',sans-serif;font-weight:800;font-size:22px;line-height:1.25;letter-spacing:-0.01em}
+.r-food div{font-size:15px;color:#fff;margin-top:4px}
+.r-food b{color:var(--sec);font-weight:500;display:inline-block;min-width:88px}
+.r-note{font-size:15px;line-height:1.6;color:#fff;margin-top:2px}
+.r-close{margin-top:22px;font-size:15px;line-height:1.6;color:var(--sec)}
+.r-close b{color:#fff}
+.actions{display:flex;gap:10px;margin-top:22px}
+.actions button{flex:1;height:48px;border-radius:999px;border:1px solid #2A2F33;background:transparent;color:#fff;font-size:15px;font-weight:500}
+.actions button:hover{border-color:var(--sec)}
+
+footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
+@media (max-width:360px){.scale{grid-template-columns:repeat(5,1fr)}}
+@media (prefers-reduced-motion:reduce){.day,.scale button,.submit{transition:none}.result.on .tick{animation:none;transform:none;opacity:1}.result.on .tick path{animation:none;stroke-dashoffset:0}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brand">Zenith Fit</div>
+    <h1>Sunday Prep.</h1>
+    <p>Plan the week while your head's clear. 5 minutes now and Monday can't catch you out.</p>
+    <div class="wk-of" id="wk-of"></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <div class="hello" id="hello"></div>
+    <div class="last" id="last"></div>
+
+    <form id="form" onsubmit="return false">
+
+    <div class="field" id="name-field">
+      <label class="small" for="name">Full name</label>
+      <input type="text" id="name" placeholder="First and last name, e.g. Sarah Taylor" autocomplete="name">
+      <div class="hint warn" id="name-hint" hidden>First and last name please, so Mark knows which one of you it is.</div>
+    </div>
+
+    <div class="field">
+      <label class="small" for="focus">Your focus this week</label>
+      <div class="hint">One thing. Specific enough that on Friday you'll know if you did it or not.</div>
+      <input type="text" id="focus" placeholder="Example: log every meal, all 7 days">
+    </div>
+
+    <div class="field">
+      <div class="small" id="train-lbl">Which days are you training?</div>
+      <div class="hint">Tap every day a session's going in.</div>
+      <div class="days" id="train" role="group" aria-labelledby="train-lbl"></div>
+    </div>
+
+    <div class="field">
+      <div class="small" id="food-lbl">Plan Monday's food</div>
+      <div class="hint">Protein in every meal. That's the only rule.</div>
+      <div class="meal"><span>Breakfast</span><input type="text" id="m-b" placeholder="e.g. yoghurt and berries"></div>
+      <div class="meal"><span>Lunch</span><input type="text" id="m-l" placeholder="e.g. chicken wrap"></div>
+      <div class="meal"><span>Dinner</span><input type="text" id="m-d" placeholder="e.g. salmon, rice and veg"></div>
+    </div>
+
+    <div class="field">
+      <div class="small" id="tough-lbl">Which day this week is going to be the most difficult?</div>
+      <div class="hint">Late finish, kids' clubs, a night out, whatever it is. Tap one.</div>
+      <div class="days" id="tough" role="group" aria-labelledby="tough-lbl"></div>
+      <input type="text" class="why" id="why" placeholder="What's going on that day? (optional)">
+    </div>
+
+    <div class="field">
+      <div class="small" id="ready-lbl">How ready do you feel for this week?</div>
+      <div class="scale" id="ready" role="group" aria-labelledby="ready-lbl"></div>
+      <div class="scale-ends"><span>Not feeling it</span><span>Bring it on</span></div>
+    </div>
+
+    <button type="button" class="submit" id="submit" disabled>Lock in my week</button>
+    <div class="todo" id="todo"></div>
+    <div class="err" id="err"></div>
+
+    </form>
+
+    <div class="result" id="result" aria-live="polite">
+      <div class="tick"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="r-title" id="r-title"></div>
+      <div class="r-sub">I'll be going through these first thing Monday.</div>
+
+      <div class="r-week" id="r-week"></div>
+      <div class="r-key"><span><i class="k1"></i>Training</span><span><i class="k2"></i>Toughest day</span></div>
+
+      <div class="r-block">
+        <div class="r-lbl">Your focus</div>
+        <div class="r-focus" id="r-focus"></div>
+      </div>
+
+      <div class="r-block">
+        <div class="r-lbl" id="r-food-lbl">Monday's food</div>
+        <div class="r-food" id="r-food"></div>
+      </div>
+
+      <div class="r-block">
+        <div class="r-lbl" id="r-tough-lbl"></div>
+        <div class="r-note" id="r-tough"></div>
+      </div>
+
+      <div class="r-block">
+        <div class="r-lbl">How you're feeling</div>
+        <div class="r-note" id="r-ready"></div>
+      </div>
+
+      <div class="r-close"><b>That's your week planned. Nice and straightforward.</b><br>Screenshot this and keep it somewhere you'll see it.</div>
+
+      <div class="actions">
+        <button type="button" id="copy">Copy it</button>
+        <button type="button" id="again">Done</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap" id="foot-note">Saved on this phone only.</div>
+</footer>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const TOOL='Sunday Prep';
+const NAMEKEY='zf_review_name';   // shared with Rate Your Day and Weekend Game Plan so they only type it once
+const PREPKEY='zf_sunday_prep';   // this week's plan, kept on the phone
+
+// HQ login, used silently if it's there. Never required.
+const TOKENKEY='zenith_token';
+const LOGNAMEKEY='zenith_name';
+let auth='no',authName='',authToken='';
+try{
+  authToken=localStorage.getItem(TOKENKEY)||'';
+  authName=localStorage.getItem(LOGNAMEKEY)||'';
+  if(authToken&&authName)auth='maybe';
+}catch(e){}
+
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const FULL={Mon:'Monday',Tue:'Tuesday',Wed:'Wednesday',Thu:'Thursday',Fri:'Friday',Sat:'Saturday',Sun:'Sunday'};
+let training=new Set(),toughest='',ready=0;
+
+// ---------- dates ----------
+function ymd(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function weekStart(){
+  // Sat or Sun: plan the week coming. Any other day: the week we're in.
+  const d=new Date();d.setHours(12,0,0,0);
+  const w=d.getDay();
+  if(w===0)d.setDate(d.getDate()+1);
+  else if(w===6)d.setDate(d.getDate()+2);
+  else d.setDate(d.getDate()-(w-1));
+  return d;
+}
+const WEEK=weekStart();
+const WEEKKEY=ymd(WEEK);
+const isSunday=new Date().getDay()===0;
+const FOODLABEL=isSunday?"Monday's food":"Tomorrow's food";
+
+function cleanName(raw){return (raw||'').trim().replace(/\s+/g,' ');}
+function nameOk(raw){return cleanName(raw).split(' ').filter(p=>p.length>=2).length>=2;}
+function firstName(raw){return cleanName(raw).split(' ')[0];}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+function logToSheets(tool,fields={},message=''){
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool,message,...fields})}).catch(()=>{});
+}
+
+// ---------- build the tap controls ----------
+function buildDays(id,multi){
+  const box=document.getElementById(id);
+  DAYS.forEach(d=>{
+    const b=document.createElement('button');
+    b.type='button';b.className='day';b.textContent=d;b.dataset.d=d;
+    b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',()=>{
+      if(multi){
+        training.has(d)?training.delete(d):training.add(d);
+        b.classList.toggle('on',training.has(d));
+        b.setAttribute('aria-pressed',training.has(d));
+      }else{
+        toughest=(toughest===d)?'':d;
+        box.querySelectorAll('.day').forEach(x=>{x.classList.toggle('on',x.dataset.d===toughest);x.setAttribute('aria-pressed',x.dataset.d===toughest);});
+      }
+      checkReady();
+    });
+    box.appendChild(b);
+  });
+}
+function buildScale(){
+  const box=document.getElementById('ready');
+  for(let i=1;i<=10;i++){
+    const b=document.createElement('button');
+    b.type='button';b.textContent=i;b.setAttribute('aria-pressed','false');
+    b.addEventListener('click',()=>{
+      ready=i;
+      box.querySelectorAll('button').forEach(x=>{const on=+x.textContent===i;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});
+      checkReady();
+    });
+    box.appendChild(b);
+  }
+}
+
+function meals(){
+  return {b:document.getElementById('m-b').value.trim(),l:document.getElementById('m-l').value.trim(),d:document.getElementById('m-d').value.trim()};
+}
+
+function missing(){
+  const out=[];
+  if(auth==='no'&&!nameOk(document.getElementById('name').value))out.push('your name');
+  if(!document.getElementById('focus').value.trim())out.push('your focus');
+  if(!training.size)out.push('training days');
+  const m=meals();if(!m.b&&!m.l&&!m.d)out.push('some food');
+  if(!toughest)out.push('your toughest day');
+  if(!ready)out.push('how ready you feel');
+  return out;
+}
+
+function checkReady(){
+  if(auth==='no'){
+    const raw=document.getElementById('name').value;
+    document.getElementById('name-hint').hidden=!(cleanName(raw).length>0&&!nameOk(raw));
+  }
+  const m=missing();
+  document.getElementById('submit').disabled=m.length>0;
+  document.getElementById('todo').textContent=m.length?'Still to do: '+m.join(', ')+'.':'';
+}
+
+// ---------- silent HQ login check, works exactly the same without it ----------
+function showLoggedIn(){
+  document.getElementById('name-field').style.display='none';
+  const h=document.getElementById('hello');
+  h.innerHTML='Hey <b>'+esc(firstName(authName))+'</b>. We know it\'s you, no name needed.';
+  h.classList.add('on');
+  document.getElementById('foot-note').textContent='Saved to your Zenith account.';
+  checkReady();
+}
+function showLoggedOut(){
+  auth='no';authToken='';
+  document.getElementById('name-field').style.display='';
+  document.getElementById('hello').classList.remove('on');
+  document.getElementById('foot-note').textContent='Saved on this phone only.';
+  checkReady();
+}
+async function initSession(){
+  if(auth==='no')return;
+  showLoggedIn();
+  try{
+    const r=await fetch(API+'/entries?tool='+encodeURIComponent(TOOL)+'&limit=1',{headers:{'Authorization':'Bearer '+authToken}});
+    if(r.status===401){
+      try{localStorage.removeItem(TOKENKEY);localStorage.removeItem(LOGNAMEKEY);localStorage.removeItem('zenith_programme');}catch(e){}
+      showLoggedOut();return;
+    }
+    if(!r.ok)return;
+    const d=await r.json();
+    auth='yes';
+    if(d.name)authName=d.name;
+    showLoggedIn();
+    const en=d.entries&&d.entries[0]&&d.entries[0].data;
+    if(en&&en.focus&&en.week){
+      let local=null;try{local=JSON.parse(localStorage.getItem(PREPKEY)||'null');}catch(e){}
+      if(!local||!local.week||en.week>=local.week){
+        try{localStorage.setItem(PREPKEY,JSON.stringify(en));}catch(e){}
+        showLast();
+      }
+    }
+  }catch(e){}
+}
+
+// Last week's focus, so they see it before setting a new one
+function showLast(){
+  try{
+    const p=JSON.parse(localStorage.getItem(PREPKEY)||'null');
+    if(!p||!p.focus||!p.week||p.week>=WEEKKEY)return;
+    const el=document.getElementById('last');
+    el.innerHTML='Last week your focus was: <b>'+esc(p.focus)+'</b><br>Did it happen? Be honest with yourself before you set this one.';
+    el.classList.add('on');
+  }catch(e){}
+}
+
+// ---------- the bits that make the result card feel like Mark ----------
+function toughLine(day,why){
+  const d=FULL[day];
+  const lines={
+    Mon:"Monday's the tough one, so the plan you've just written for Monday's food is doing the heavy lifting. Get it prepped tonight and it's half done before the day's started.",
+    Fri:"Friday's the one. End of the week, tired, the takeaway menu starts looking at you. Decide now what Friday tea is and it stops being a decision on the night.",
+    Sat:"Saturday's the one. Get your steps and protein in early so the evening's just the evening, nothing to undo.",
+    Sun:"Sunday's the one, which is funny because you're filling this in on one. Get Sunday's steps done in the morning and set yourself up for next week before the sofa wins."
+  };
+  let line=lines[day]||(d+"'s the one. You know it's coming now, so it can't catch you off guard. Decide tonight what "+d+" looks like, even the minimum version, and it's just another day.");
+  if(why)line+=' And whatever happens on '+d+', never miss twice.';
+  return line;
+}
+function readyLine(n){
+  if(n<=4)return "Not feeling it this week? That's fine, honestly. Hit your minimums, nail your focus and we build from there. Something beats nothing, every time.";
+  if(n<=7)return "Solid. Not every week needs to feel like a 10. Get Monday done properly and the rest of the week follows it.";
+  return "Love that. Use it. Get Monday banked early while you're feeling like this.";
+}
+
+function showResult(data,first){
+  document.getElementById('r-title').textContent='Week locked in, '+first+'.';
+  const wk=document.getElementById('r-week');wk.innerHTML='';
+  DAYS.forEach(d=>{
+    const t=data.training.includes(d),tough=data.toughest===d;
+    wk.insertAdjacentHTML('beforeend','<div class="r-day"><div class="r-dot'+(t?' train':'')+(tough?' tough':'')+'">'+d.charAt(0)+'</div><div class="r-lab'+(tough?' tough':'')+'">'+(tough?'Tough':'')+'</div></div>');
+  });
+  document.getElementById('r-focus').textContent=data.focus;
+  document.getElementById('r-food-lbl').textContent=data.foodLabel;
+  const f=[];
+  if(data.food.b)f.push('<div><b>Breakfast</b>'+esc(data.food.b)+'</div>');
+  if(data.food.l)f.push('<div><b>Lunch</b>'+esc(data.food.l)+'</div>');
+  if(data.food.d)f.push('<div><b>Dinner</b>'+esc(data.food.d)+'</div>');
+  document.getElementById('r-food').innerHTML=f.join('');
+  document.getElementById('r-tough-lbl').textContent='Watch out for '+FULL[data.toughest];
+  document.getElementById('r-tough').textContent=toughLine(data.toughest,data.why);
+  document.getElementById('r-ready').textContent=readyLine(data.ready);
+  document.getElementById('form').style.display='none';
+  const r=document.getElementById('result');
+  r.classList.remove('on');void r.offsetWidth;r.classList.add('on');
+  r.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function submit(){
+  const err=document.getElementById('err');
+  err.classList.remove('on');
+  if(missing().length){checkReady();return;}
+
+  let fullName;
+  if(auth!=='no'){fullName=cleanName(authName);}
+  else{
+    fullName=cleanName(document.getElementById('name').value);
+    try{localStorage.setItem(NAMEKEY,fullName);}catch(e){}
+  }
+
+  const data={
+    week:WEEKKEY,
+    date:ymd(new Date()),
+    focus:document.getElementById('focus').value.trim(),
+    training:DAYS.filter(d=>training.has(d)),
+    food:meals(),
+    foodLabel:FOODLABEL,
+    toughest,
+    why:document.getElementById('why').value.trim(),
+    ready
+  };
+
+  // Phone copy
+  try{localStorage.setItem(PREPKEY,JSON.stringify(data));}catch(e){}
+
+  // Logged in: a copy goes to their Zenith account too. Quiet, best effort, Sheet stays the record.
+  if(auth!=='no'&&authToken){
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:TOOL,data})}).catch(()=>{});
+  }
+
+  const foodTxt=[data.food.b&&'Breakfast: '+data.food.b,data.food.l&&'Lunch: '+data.food.l,data.food.d&&'Dinner: '+data.food.d].filter(Boolean).join(' | ');
+  logToSheets(TOOL,{
+    field1_label:'Name',field1_value:fullName,
+    field2_label:'Focus',field2_value:data.focus,
+    field3_label:'Week',field3_value:'Training: '+data.training.join(', ')+' ('+data.training.length+' days) | Toughest: '+FULL[data.toughest]+(data.why?' ('+data.why+')':'')+' | Ready: '+data.ready+'/10'
+  },'Week of '+WEEKKEY+' | '+data.foodLabel+': '+foodTxt);
+
+  showResult(data,firstName(fullName));
+}
+
+function copyText(){
+  const p=JSON.parse(localStorage.getItem(PREPKEY)||'null');if(!p)return '';
+  const lines=['My week, sorted ✅','','Focus: '+p.focus,'Training: '+p.training.map(d=>FULL[d]).join(', ')];
+  if(p.food.b||p.food.l||p.food.d){lines.push('',p.foodLabel+':');if(p.food.b)lines.push('Breakfast: '+p.food.b);if(p.food.l)lines.push('Lunch: '+p.food.l);if(p.food.d)lines.push('Dinner: '+p.food.d);}
+  lines.push('','Toughest day: '+FULL[p.toughest]+(p.why?' ('+p.why+')':''));
+  return lines.join('\n');
+}
+
+function resetForm(){
+  ['focus','m-b','m-l','m-d','why'].forEach(id=>document.getElementById(id).value='');
+  training.clear();toughest='';ready=0;
+  document.querySelectorAll('.day,.scale button').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-pressed','false');});
+  document.getElementById('result').classList.remove('on');
+  document.getElementById('form').style.display='';
+  checkReady();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ---------- go ----------
+document.getElementById('wk-of').textContent='Week of '+WEEK.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+document.getElementById('food-lbl').textContent='Plan '+FOODLABEL;
+buildDays('train',true);
+buildDays('tough',false);
+buildScale();
+['name','focus','m-b','m-l','m-d'].forEach(id=>document.getElementById(id).addEventListener('input',checkReady));
+document.getElementById('submit').addEventListener('click',submit);
+document.getElementById('again').addEventListener('click',resetForm);
+document.getElementById('copy').addEventListener('click',()=>{
+  navigator.clipboard.writeText(copyText()).then(()=>{
+    const b=document.getElementById('copy');b.textContent='Copied';setTimeout(()=>{b.textContent='Copy it';},2000);
+  }).catch(()=>{});
+});
+try{const n=localStorage.getItem(NAMEKEY);if(n)document.getElementById('name').value=n;}catch(e){}
+showLast();
+checkReady();
+initSession();
+</script>
+</body>
+</html>
