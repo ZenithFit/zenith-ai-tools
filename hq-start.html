@@ -24,11 +24,55 @@
 <a class="back-pill" href="hq.html" style="display:inline-flex;align-items:center;gap:7px;background:#FFFFFF;border:1.5px solid #E4E6E4;color:#111111;font-weight:700;font-size:13px;padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:18px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
 <div class="kicker">Start here</div>
 <h1 class="page">Your first week, sorted.</h1>
-<p class="page-sub">Work through these in order. Nice and straightforward, no rush.</p>
-<div class="section-lbl">The steps</div>
-<div class="grid steps">
-<div class="card"><h3>Watch your welcome video</h3><p>Mark walks you through how the programme works and what happens next.</p><span class="chip">Being built</span></div><div class="card"><h3>Get the app set up</h3><p>Everfit downloaded, logged in, notifications on.</p><span class="chip">Being built</span></div><div class="card"><h3>Do your first check in</h3><p>Weigh in, measurements, photos. Your starting line, nobody else sees it.</p><span class="chip">Being built</span></div><div class="card"><h3>Meet your workouts</h3><p>Where your sessions live and how to log them.</p><span class="chip">Being built</span></div><div class="card"><h3>Join the group</h3><p>Where the team lives. Say hello, nobody bites.</p><span class="chip">Being built</span></div>
-</div>
+<p class="page-sub">8 short videos and your 7 day plan. Work through them in order, top to bottom. Nice and straightforward, no rush.</p>
+<p class="vid-progress" id="vid-progress"></p>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176248150" title="Start Here" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Start Here</div><div class="vid-sub">Watch this one first. What you&rsquo;ve just joined and what happens next.</div><button class="vid-done" data-vid="1176248150" data-title="Start Here" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176646961" title="How the Coaching Works" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">How the Coaching Works</div><div class="vid-sub">Check ins, feedback, how we actually work together week to week.</div><button class="vid-done" data-vid="1176646961" data-title="How the Coaching Works" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176647112" title="Day 1: What to Do Today" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Day 1: What to Do Today</div><div class="vid-sub">Your actual first day. No guesswork, just do this.</div><button class="vid-done" data-vid="1176647112" data-title="Day 1: What to Do Today" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176646842" title="Check-Ins" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Check-Ins</div><div class="vid-sub">Friday check ins, what to send and why they matter so much.</div><button class="vid-done" data-vid="1176646842" data-title="Check-Ins" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176647209" title="How to Measure Properly" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">How to Measure Properly</div><div class="vid-sub">Same spot, same conditions, every time. Here&rsquo;s how.</div><button class="vid-done" data-vid="1176647209" data-title="How to Measure Properly" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176647567" title="WhatsApp" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">WhatsApp</div><div class="vid-sub">How to message me, what to fire over, and when.</div><button class="vid-done" data-vid="1176647567" data-title="WhatsApp" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176647665" title="Support and Boundaries" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Support and Boundaries</div><div class="vid-sub">What you can expect from me, and what I expect back.</div><button class="vid-done" data-vid="1176647665" data-title="Support and Boundaries" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176257761" title="Quick Wins" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Quick Wins</div><div class="vid-sub">Easy wins you can bank this week while your programme&rsquo;s being built.</div><button class="vid-done" data-vid="1176257761" data-title="Quick Wins" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="section-lbl">Your first 7 days</div>
+<div class="note"><b>The 7 Day Action Plan.</b> Everything above, on one page you can keep. Move every day, anchor your meals with protein, never miss twice.<br><br><a href="7-Day-Action-Plan.pdf" download style="display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#FFFFFF;font-weight:700;font-size:14px;padding:12px 22px;border-radius:999px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9M4 7l4 4 4-4M2 14h12"/></svg>Download the plan</a></div>
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const START_TOTAL=8;
+function zTok(){try{return localStorage.getItem('zenith_token')||'';}catch(e){return '';}}
+function paintProgress(){
+  const n=document.querySelectorAll('.vid-done.on').length;
+  const el=document.getElementById('vid-progress');
+  if(n===0){el.innerHTML='Tick each one off as you go, so we both know where you&#39;re up to.';return;}
+  if(n>=START_TOTAL){el.classList.add('done');el.innerHTML='All 8 watched. You&#39;re fully set up. Boom.';return;}
+  el.innerHTML='<b>'+n+' of '+START_TOTAL+' watched.</b> Keep going.';
+}
+function markWatched(btn){
+  if(btn.classList.contains('on'))return;
+  btn.classList.add('on');btn.textContent='Watched';
+  paintProgress();
+  const t=zTok();
+  if(t){
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
+      body:JSON.stringify({tool:'Start Here Watched',data:{video:btn.dataset.vid,title:btn.dataset.title,date:new Date().toISOString().slice(0,10)}})}).catch(()=>{});
+  }
+  let nm='';try{nm=localStorage.getItem('zenith_name')||'';}catch(e){}
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:'Start Here Watched',message:'',
+    field1_label:'Name',field1_value:nm,field2_label:'Video',field2_value:btn.dataset.title})}).catch(()=>{});
+}
+(function(){
+  const t=zTok();if(!t){paintProgress();return;}
+  fetch(API+'/entries?tool='+encodeURIComponent('Start Here Watched')+'&limit=50',{headers:{'Authorization':'Bearer '+t}})
+    .then(r=>r.json()).then(d=>{
+      if(d&&Array.isArray(d.entries))d.entries.forEach(e=>{
+        if(!e.data||!e.data.video)return;
+        const b=document.querySelector('.vid-done[data-vid="'+e.data.video+'"]');
+        if(b){b.classList.add('on');b.textContent='Watched';}
+      });
+      paintProgress();
+    }).catch(()=>paintProgress());
+})();
+</script>
 
   </main>
 </div>
