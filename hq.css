@@ -65,6 +65,14 @@ a.card:active{transform:scale(.985)}
 .steps{counter-reset:s}
 .steps .card{position:relative;padding-left:66px}
 .steps .card::before{counter-increment:s;content:counter(s);position:absolute;left:22px;top:22px;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.std-card{background:#0C0F11;border-radius:20px;padding:26px 26px 28px;margin-bottom:16px;display:flex;gap:20px;align-items:flex-start}
+.std-num{font-family:'Archivo',sans-serif;font-weight:900;font-size:40px;line-height:1;color:#3FD494;flex:0 0 auto;letter-spacing:-0.02em}
+.std-name{font-family:'Archivo',sans-serif;font-weight:900;font-size:22px;line-height:1.15;color:#FFFFFF;text-transform:uppercase;letter-spacing:.01em}
+.std-punch{margin-top:8px;font-size:15px;font-weight:700;font-style:italic;color:#3FD494}
+.std-txt{margin-top:10px;font-size:14.5px;line-height:1.6;color:#BFC6C3}
+.std-close{margin:34px 0 10px;text-align:center;font-family:'Archivo',sans-serif;font-weight:800;font-size:20px;color:var(--ink)}
+.std-close span{display:block;margin-top:6px;color:var(--green)}
+@media(max-width:420px){.std-card{flex-direction:column;gap:10px}.std-num{font-size:34px}}
 .note{background:var(--soft);border:1px dashed var(--line);border-radius:20px;padding:20px 22px;font-size:14px;color:var(--mut)}
 .note b{color:var(--ink)}
 .back-pill{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1.5px solid var(--line);color:var(--ink);font-weight:700;font-size:13px;padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:18px}
