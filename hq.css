@@ -26,6 +26,11 @@ a.card:active{transform:scale(.985)}
 .card h3 .arr{color:var(--green);font-weight:800;flex:none}
 .card p{font-size:14px;color:var(--mut);margin-top:6px}
 .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);background:#E8F6F0;border-radius:999px;padding:5px 12px;margin-top:12px}
+.vid-card{background:#fff;border-radius:20px;padding:18px 18px 20px;box-shadow:0 14px 40px rgba(17,17,17,.07);margin-bottom:18px}
+.vid-frame{position:relative;width:100%;padding-top:56.25%;border-radius:12px;overflow:hidden;background:#111}
+.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-title{font-family:'Archivo',sans-serif;font-weight:800;font-size:17px;letter-spacing:-0.01em;margin:14px 0 4px}
+.vid-sub{font-size:13.5px;color:var(--mut)}
 .dash-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0 4px}
 @media(max-width:760px){.dash-row{grid-template-columns:1fr}}
 .wk-card{background:#fff;border-radius:20px;padding:20px 22px;box-shadow:0 14px 40px rgba(17,17,17,.07);border-top:3px solid var(--green)}
