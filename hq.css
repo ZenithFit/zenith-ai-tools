@@ -2,7 +2,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--green:#00A86B;--green-h:#008755;--ink:#111111;--body:#4A4F4D;--mut:#6B706E;--lab:#8A8F8D;--bg:#F4F4F2;--card:#FFFFFF;--line:#E4E6E4;--soft:#FAFAF9;--shadow:0 14px 40px rgba(17,17,17,.07)}
 html{-webkit-text-size-adjust:100%}
-body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(1000px 540px at 50% -140px,rgba(0,168,107,.16),rgba(0,168,107,0) 65%) no-repeat,var(--bg);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:84px}
 a{text-decoration:none;color:inherit}
 button{font-family:inherit;cursor:pointer}
 .topline{height:3px;background:var(--green)}
