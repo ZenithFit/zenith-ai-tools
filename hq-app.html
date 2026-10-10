@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>How to Use the App | Zenith HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css">
+<script src="hq.js"></script>
+</head>
+<body>
+<div class="topline"></div>
+<div class="topbar" style="background:rgba(255,255,255,.68);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)"><div class="topbar-in">
+  <a class="logo" href="hq.html" style="display:inline-flex;align-items:center;gap:9px"><img src="zf-logo.png" alt="" width="28" height="28" style="display:block" onerror="this.style.display='none'">ZENITH <b>HQ</b></a>
+  <button class="logout" onclick="zenithLogout()">Log out</button>
+</div></div>
+<div class="shell">
+  <aside class="side"><nav><a href="hq.html">Dashboard</a><a href="hq-start.html">Start Here</a><a href="hq-app.html" class="on">How to Use the App</a><a href="hq-method.html">The Zenith Fit Method</a><a href="index.html">AI Tools</a><a href="hq-workouts.html">Follow Along Workouts</a><a href="hq-sessions.html">The Sunday Session</a><a href="hq-nutrition.html">Nutrition</a><a href="hq-lifestyle.html">Lifestyle</a><a href="hq-podcast.html">The Podcast</a><a href="hq-standard.html">The Zenith Standard</a><a href="hq-downloads.html">Downloads</a><a href="hq-faqs.html">FAQs</a><div class="div"></div><a href="review.html">Rate Your Day</a><a href="weekend-game-plan.html">Weekend Game Plan</a><a href="sunday-prep.html">Sunday Prep</a></nav></aside>
+  <main class="content">
+
+<a class="back-pill" href="hq.html" style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.6);-webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);border:1.5px solid rgba(17,17,17,.08);color:#111111;font-weight:700;font-size:13px;padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:18px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
+<div class="kicker">How to Use the App</div>
+<h1 class="page">Know the app inside out.</h1>
+<p class="page-sub">9 short videos covering every bit of Everfit. Watch what you need, tick as you go, and come back whenever you forget something. Nobody remembers it all first time, don&rsquo;t worry.</p>
+<p class="vid-progress" id="vid-progress"></p>
+<div class="vid-card" id="av1"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029231?h=16b1ec853d" title="App Dashboard Overview" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">App Dashboard Overview</div><div class="vid-sub">Your first look round. Where everything lives and what to tap.</div><button class="vid-done" data-vid="1211029231" data-title="App Dashboard Overview" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av2"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029495?h=c3de4e18c3" title="Navigating Your Profile" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Navigating Your Profile</div><div class="vid-sub">Your profile, your details, your settings. The housekeeping bit.</div><button class="vid-done" data-vid="1211029495" data-title="Navigating Your Profile" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av3"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029228?h=ee22da671c" title="How to Log Workouts" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">How to Log Workouts</div><div class="vid-sub">Ticking off sessions, logging your weights, marking it done.</div><button class="vid-done" data-vid="1211029228" data-title="How to Log Workouts" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av4"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029230?h=72ddc4b7b0" title="How to Do Your Check Ins" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">How to Do Your Check Ins</div><div class="vid-sub">The Friday routine, start to finish. The backbone of the whole programme.</div><button class="vid-done" data-vid="1211029230" data-title="How to Do Your Check Ins" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av5"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029383?h=1f16a720c7" title="Managing Nutrition" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Managing Nutrition</div><div class="vid-sub">Logging your food, hitting your targets, keeping it honest.</div><button class="vid-done" data-vid="1211029383" data-title="Managing Nutrition" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av6"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029514?h=c3afb747a9" title="Using the Shopping List" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Using the Shopping List</div><div class="vid-sub">Build your list in the app and shop without thinking.</div><button class="vid-done" data-vid="1211029514" data-title="Using the Shopping List" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av7"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029229?h=87e6eaf620" title="Adding a Goal" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Adding a Goal</div><div class="vid-sub">Set your goal properly so we can both track it.</div><button class="vid-done" data-vid="1211029229" data-title="Adding a Goal" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av8"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029333?h=0a4123fba1" title="Internal Messaging System" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Internal Messaging System</div><div class="vid-sub">Messaging inside the app and where to find my replies.</div><button class="vid-done" data-vid="1211029333" data-title="Internal Messaging System" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<div class="vid-card" id="av9"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029294?h=434ffae36d" title="Integrating Health Devices" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Integrating Health Devices</div><div class="vid-sub">Sync your watch or tracker so your steps count themselves.</div><button class="vid-done" data-vid="1211029294" data-title="Integrating Health Devices" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const APP_TOTAL=9;
+function zTok(){try{return localStorage.getItem('zenith_token')||'';}catch(e){return '';}}
+function paintProgress(){
+  const n=document.querySelectorAll('.vid-done.on').length;
+  const el=document.getElementById('vid-progress');
+  if(n===0){el.innerHTML='Tick each one off as you watch, so you know what you&#39;ve covered.';return;}
+  if(n>=APP_TOTAL){el.classList.add('done');el.innerHTML='All 9 watched. You know the app better than most coaches do. Boom.';return;}
+  el.innerHTML='<b>'+n+' of '+APP_TOTAL+' watched.</b> Keep going.';
+}
+function markWatched(btn){
+  if(btn.classList.contains('on'))return;
+  btn.classList.add('on');btn.textContent='Watched';
+  paintProgress();
+  const t=zTok();
+  if(t){
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
+      body:JSON.stringify({tool:'App Videos Watched',data:{video:btn.dataset.vid,title:btn.dataset.title,date:new Date().toISOString().slice(0,10)}})}).catch(()=>{});
+  }
+  let nm='';try{nm=localStorage.getItem('zenith_name')||'';}catch(e){}
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:'App Videos Watched',message:'',
+    field1_label:'Name',field1_value:nm,field2_label:'Video',field2_value:btn.dataset.title})}).catch(()=>{});
+}
+(function(){
+  paintProgress();
+  const t=zTok();if(!t)return;
+  fetch(API+'/entries?tool='+encodeURIComponent('App Videos Watched')+'&limit=50',{headers:{'Authorization':'Bearer '+t}})
+    .then(r=>r.json()).then(d=>{
+      if(d&&Array.isArray(d.entries))d.entries.forEach(e=>{
+        if(!e.data||!e.data.video)return;
+        const b=document.querySelector('.vid-done[data-vid="'+e.data.video+'"]');
+        if(b){b.classList.add('on');b.textContent='Watched';}
+      });
+      paintProgress();
+    }).catch(()=>{});
+})();
+</script>
+
+<script>
+(function(){
+  var h=location.hash?location.hash.slice(1):'';
+  if(!h)return;
+  var el=document.getElementById(h);
+  if(!el)return;
+  setTimeout(function(){
+    el.scrollIntoView({behavior:'smooth',block:'center'});
+    el.style.transition='box-shadow .4s';
+    el.style.boxShadow='0 0 0 3px rgba(0,168,107,.55)';
+    setTimeout(function(){el.style.boxShadow='';},2200);
+  },150);
+})();
+</script>
+
+  </main>
+</div>
+<nav class="bottom" style="background:rgba(255,255,255,.68);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px)"><a href="hq.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg><span>Home</span></a><a href="index.html"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>Tools</span></a><a href="hq-sessions.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg><span>Sessions</span></a><a href="hq-nutrition.html"><svg viewBox="0 0 24 24"><path d="M4 11h16"/><path d="M5 11a7 7 0 0 1 14 0"/><path d="M3 15h18"/></svg><span>Nutrition</span></a></nav>
+</body>
+</html>
