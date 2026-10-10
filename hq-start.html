@@ -25,13 +25,33 @@
 <div class="kicker">Start here</div>
 <h1 class="page">Your first week, sorted.</h1>
 <p class="page-sub">First up, tick off the setup bits. Then 8 short videos and your 7 day plan, in order, top to bottom. Nice and straightforward, no rush.</p>
+<style>
+.cl-row{position:relative;display:flex;align-items:flex-start;gap:13px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:18px;padding:15px 16px;margin-bottom:10px;transition:border-color .25s,background .25s,transform .12s,box-shadow .25s}
+.cl-row:active{transform:scale(.985)}
+.cl-row.done{border-color:rgba(0,168,107,.45);background:linear-gradient(0deg,rgba(0,168,107,.045),rgba(0,168,107,.045)),#FFFFFF;box-shadow:0 6px 22px rgba(0,168,107,.08)}
+.cl-tick{flex:0 0 auto;width:30px;height:30px;margin-top:0;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;transition:border-color .2s,background .2s,box-shadow .2s}
+.cl-tick svg{opacity:0;transform:scale(.4);transition:opacity .15s,transform .2s}
+.cl-tick.on{background:#00A86B;border-color:#00A86B;box-shadow:0 4px 14px rgba(0,168,107,.35);animation:clpop .35s cubic-bezier(.34,1.56,.64,1)}
+.cl-tick.on svg{opacity:1;transform:scale(1)}
+@keyframes clpop{0%{transform:scale(.8)}55%{transform:scale(1.12)}100%{transform:scale(1)}}
+.cl-body{flex:1;min-width:0}
+.cl-title{font-weight:700;font-size:14.5px;color:#111111;transition:color .25s}
+.cl-sub{font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px}
+.cl-chip{display:inline-block;background:rgba(0,168,107,.1);color:#00A86B;font-size:10.5px;font-weight:800;letter-spacing:.4px;padding:3px 8px;border-radius:999px;vertical-align:2px;margin-left:6px}
+.cl-btn{display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#FFFFFF;font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;text-decoration:none;margin-top:10px;box-shadow:0 4px 14px rgba(0,168,107,.25);transition:background .2s,transform .12s,box-shadow .2s}
+.cl-btn:active{transform:scale(.97)}
+#cl-bar{height:8px;background:#E4E6E4;border-radius:999px;overflow:hidden;margin:4px 0 8px}
+#cl-fill{height:100%;width:0%;background:linear-gradient(90deg,#00A86B,#3FD494);border-radius:999px;transition:width .5s cubic-bezier(.22,1,.36,1)}
+#cl-progress{margin:0 0 14px}
+</style>
 <div class="section-lbl">First things first</div>
+<div id="cl-bar"><div id="cl-fill"></div></div>
 <p class="vid-progress" id="cl-progress"></p>
-<div style="display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:16px;padding:14px 16px;margin-bottom:10px"><button class="cl-tick" data-item="app" data-title="Downloaded the Everfit app" data-req="1" onclick="markItem(this)" aria-label="Tick: Downloaded the Everfit app" style="flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;font-size:15px;font-weight:800;line-height:1;cursor:pointer;padding:0"></button><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14.5px;color:#111111">Downloaded the Everfit app</div><div style="font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px">Your workouts, check ins and food logging all live in there.</div></div></div>
-<div style="display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:16px;padding:14px 16px;margin-bottom:10px"><button class="cl-tick" data-item="forms" data-title="Completed your welcome forms" data-req="1" onclick="markItem(this)" aria-label="Tick: Completed your welcome forms" style="flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;font-size:15px;font-weight:800;line-height:1;cursor:pointer;padding:0"></button><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14.5px;color:#111111">Completed your welcome forms</div><div style="font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px">They tell me everything I need to build your plan properly.</div></div></div>
-<div style="display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:16px;padding:14px 16px;margin-bottom:10px"><button class="cl-tick" data-item="appvids" data-title="Watched the How to Use the App videos" data-req="1" onclick="markItem(this)" aria-label="Tick: Watched the How to Use the App videos" style="flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;font-size:15px;font-weight:800;line-height:1;cursor:pointer;padding:0"></button><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14.5px;color:#111111">Watched the How to Use the App videos</div><div style="font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px">Already know your way round Everfit? Tick it and move on.</div><div style="margin-top:10px"><a href="hq-app.html" style="display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#FFFFFF;font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch the videos</a></div></div></div>
-<div style="display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:16px;padding:14px 16px;margin-bottom:10px"><button class="cl-tick" data-item="group" data-title="Joined the WhatsApp group" data-req="" onclick="markItem(this)" aria-label="Tick: Joined the WhatsApp group" style="flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;font-size:15px;font-weight:800;line-height:1;cursor:pointer;padding:0"></button><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14.5px;color:#111111">Joined the WhatsApp group<span style="display:inline-block;background:rgba(0,168,107,.1);color:#00A86B;font-size:10.5px;font-weight:800;letter-spacing:.4px;padding:3px 8px;border-radius:999px;vertical-align:2px;margin-left:6px">OPTIONAL</span></div><div style="font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px">Totally optional, no pressure either way. Good bunch in there though.</div><div style="margin-top:10px"><a href="https://chat.whatsapp.com/IgSdjx6j0i0C4qyBIawIAK?mode=gi_t" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#FFFFFF;font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Join the group</a></div></div></div>
-<div style="display:flex;align-items:flex-start;gap:12px;background:#FFFFFF;border:1.5px solid #E4E6E4;border-radius:16px;padding:14px 16px;margin-bottom:10px"><button class="cl-tick" data-item="imin" data-title="Messaged Mark to say I&rsquo;m in" data-req="1" onclick="markItem(this)" aria-label="Tick: Messaged Mark to say I&rsquo;m in" style="flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:999px;border:2px solid #CFD6D2;background:#FFFFFF;color:#FFFFFF;font-size:15px;font-weight:800;line-height:1;cursor:pointer;padding:0"></button><div style="flex:1;min-width:0"><div style="font-weight:700;font-size:14.5px;color:#111111">Messaged Mark to say I&rsquo;m in</div><div style="font-size:12.5px;line-height:1.5;color:#4A4F4D;margin-top:2px">One message, 2 words, and we&rsquo;re off. Or add me yourself: 07837 950573.</div><div style="margin-top:10px"><a href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#FFFFFF;font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Message Mark</a></div></div></div>
+<div class="cl-row"><button class="cl-tick" data-item="app" data-title="Downloaded the Everfit app" data-req="1" onclick="markItem(this)" aria-label="Tick: Downloaded the Everfit app"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button><div class="cl-body"><div class="cl-title">Downloaded the Everfit app</div><div class="cl-sub">Your workouts, check ins and food logging all live in there.</div></div></div>
+<div class="cl-row"><button class="cl-tick" data-item="forms" data-title="Completed your welcome forms" data-req="1" onclick="markItem(this)" aria-label="Tick: Completed your welcome forms"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button><div class="cl-body"><div class="cl-title">Completed your welcome forms</div><div class="cl-sub">They tell me everything I need to build your plan properly.</div></div></div>
+<div class="cl-row"><button class="cl-tick" data-item="appvids" data-title="Watched the How to Use the App videos" data-req="1" onclick="markItem(this)" aria-label="Tick: Watched the How to Use the App videos"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button><div class="cl-body"><div class="cl-title">Watched the How to Use the App videos</div><div class="cl-sub">Already know your way round Everfit? Tick it and move on.</div><div><a class="cl-btn" href="hq-app.html"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg> Watch the videos</a></div></div></div>
+<div class="cl-row"><button class="cl-tick" data-item="group" data-title="Joined the WhatsApp group" data-req="" onclick="markItem(this)" aria-label="Tick: Joined the WhatsApp group"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button><div class="cl-body"><div class="cl-title">Joined the WhatsApp group<span class="cl-chip">OPTIONAL</span></div><div class="cl-sub">Totally optional, no pressure either way. Good bunch in there though.</div><div><a class="cl-btn" href="https://chat.whatsapp.com/IgSdjx6j0i0C4qyBIawIAK?mode=gi_t" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Join the group</a></div></div></div>
+<div class="cl-row"><button class="cl-tick" data-item="imin" data-title="Messaged Mark to say I&rsquo;m in" data-req="1" onclick="markItem(this)" aria-label="Tick: Messaged Mark to say I&rsquo;m in"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></button><div class="cl-body"><div class="cl-title">Messaged Mark to say I&rsquo;m in</div><div class="cl-sub">One message, 2 words, and we&rsquo;re off. Or add me yourself: 07837 950573.</div><div><a class="cl-btn" href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Message Mark</a></div></div></div>
 <div class="section-lbl">The welcome videos</div>
 <p class="vid-progress" id="vid-progress"></p>
 <div class="vid-card"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1176248150" title="Start Here" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Start Here</div><div class="vid-sub">Watch this one first. What you&rsquo;ve just joined and what happens next.</div><button class="vid-done" data-vid="1176248150" data-title="Start Here" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
@@ -81,43 +101,54 @@ function markWatched(btn){
     }).catch(()=>paintProgress());
 })();
 
-function setTickOn(b){
-  if(b.classList.contains('on'))return;
-  b.classList.add('on');
-  b.style.background='#00A86B';b.style.borderColor='#00A86B';b.textContent='✓';
+function setTick(b,on){
+  b.classList.toggle('on',on);
+  var r=b.closest('.cl-row');if(r)r.classList.toggle('done',on);
 }
 function paintCl(){
   const req=document.querySelectorAll('.cl-tick[data-req="1"]');
   const n=document.querySelectorAll('.cl-tick[data-req="1"].on').length;
   const el=document.getElementById('cl-progress');
+  const fill=document.getElementById('cl-fill');
+  if(fill)fill.style.width=Math.round(n/req.length*100)+'%';
   if(!el)return;
-  if(n===0){el.innerHTML='Tick these off as you get them done.';return;}
+  if(n===0){el.classList.remove('done');el.innerHTML='Tick these off as you get them done.';return;}
   if(n>=req.length){el.classList.add('done');el.innerHTML='All sorted. Welcome aboard, properly. Boom.';return;}
+  el.classList.remove('done');
   el.innerHTML='<b>'+n+' of '+req.length+' sorted.</b> Keep going.';
 }
 function markItem(btn){
-  if(btn.classList.contains('on'))return;
-  setTickOn(btn);
+  const on=!btn.classList.contains('on');
+  setTick(btn,on);
   paintCl();
   const t=zTok();
   if(t){
     fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
-      body:JSON.stringify({tool:'Start Checklist',data:{item:btn.dataset.item,title:btn.dataset.title,date:new Date().toISOString().slice(0,10)}})}).catch(()=>{});
+      body:JSON.stringify({tool:'Start Checklist',data:{item:btn.dataset.item,title:btn.dataset.title,action:on?'tick':'untick',when:Date.now(),date:new Date().toISOString().slice(0,10)}})}).catch(()=>{});
   }
   let nm='';try{nm=localStorage.getItem('zenith_name')||'';}catch(e){}
   fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:'Start Checklist',message:'',
-    field1_label:'Name',field1_value:nm,field2_label:'Item',field2_value:btn.dataset.title})}).catch(()=>{});
+    field1_label:'Name',field1_value:nm,field2_label:'Item',field2_value:(on?'':'Unticked: ')+btn.dataset.title})}).catch(()=>{});
 }
 (function(){
   paintCl();
   const t=zTok();if(!t)return;
-  fetch(API+'/entries?tool='+encodeURIComponent('Start Checklist')+'&limit=50',{headers:{'Authorization':'Bearer '+t}})
+  fetch(API+'/entries?tool='+encodeURIComponent('Start Checklist')+'&limit=100',{headers:{'Authorization':'Bearer '+t}})
     .then(r=>r.json()).then(d=>{
-      if(d&&Array.isArray(d.entries))d.entries.forEach(e=>{
-        if(!e.data||!e.data.item)return;
-        const b=document.querySelector('.cl-tick[data-item="'+e.data.item+'"]');
-        if(b)setTickOn(b);
-      });
+      if(d&&Array.isArray(d.entries)){
+        const state={};
+        d.entries.forEach(e=>{
+          if(!e.data||!e.data.item)return;
+          const w=e.data.when||0;
+          if(!(e.data.item in state)||w>=state[e.data.item].w){
+            state[e.data.item]={w:w,on:e.data.action!=='untick'};
+          }
+        });
+        Object.keys(state).forEach(it=>{
+          const b=document.querySelector('.cl-tick[data-item="'+it+'"]');
+          if(b)setTick(b,state[it].on);
+        });
+      }
       paintCl();
     }).catch(()=>{});
 })();
