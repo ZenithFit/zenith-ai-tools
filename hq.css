@@ -142,7 +142,12 @@ a.card:active{transform:scale(.985)}
 .pr-card .pr-sub{color:var(--mut)}
 @media(min-width:761px){
 .hi{font-size:44px}
-.sess2 img{aspect-ratio:16/6.2}
+.sess2{display:grid;grid-template-columns:42% 1fr;align-items:stretch}
+.sess2 img{aspect-ratio:16/9;height:100%;object-fit:cover}
+.sess2 .s2-sc{display:none}
+.sess2 .s2-ov{position:static;padding:24px 26px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.sess2 .s2-ov h3{font-size:24px}
+.sess2 .s2-ov p{font-size:13.5px;margin-top:8px}
 .grid2{grid-template-columns:1fr 1fr 1fr}
 .h2-top{gap:26px}
 .h2-stats{flex-direction:row;justify-content:space-around;align-items:center}
