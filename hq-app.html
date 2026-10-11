@@ -7,7 +7,7 @@
 <title>How to Use the App | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="hq.css">
 <script src="hq.js"></script>
 </head>
@@ -25,6 +25,7 @@
 <div class="kicker">How to Use the App</div>
 <h1 class="page">Know the app inside out.</h1>
 <p class="page-sub">9 short videos covering every bit of Everfit. Watch what you need, tick as you go, and come back whenever you forget something. Nobody remembers it all first time, don&rsquo;t worry.</p>
+<div class="ap-bar"><i class="ap-fill" id="ap-fill"></i></div>
 <p class="vid-progress" id="vid-progress"></p>
 <div class="vid-card" id="av1"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029231?h=16b1ec853d" title="App Dashboard Overview" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">App Dashboard Overview</div><div class="vid-sub">Your first look round. Where everything lives and what to tap.</div><button class="vid-done" data-vid="1211029231" data-title="App Dashboard Overview" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
 <div class="vid-card" id="av2"><div class="vid-frame"><iframe src="https://player.vimeo.com/video/1211029495?h=c3de4e18c3" title="Navigating Your Profile" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div><div class="vid-title">Navigating Your Profile</div><div class="vid-sub">Your profile, your details, your settings. The housekeeping bit.</div><button class="vid-done" data-vid="1211029495" data-title="Navigating Your Profile" onclick="markWatched(this)">Tick this to confirm you watched this video</button></div>
@@ -41,6 +42,7 @@ const APP_TOTAL=9;
 function zTok(){try{return localStorage.getItem('zenith_token')||'';}catch(e){return '';}}
 function paintProgress(){
   const n=document.querySelectorAll('.vid-done.on').length;
+  const f=document.getElementById('ap-fill');if(f)f.style.width=Math.round(100*n/APP_TOTAL)+'%';
   const el=document.getElementById('vid-progress');
   if(n===0){el.innerHTML='Tick each one off as you watch, so you know what you&#39;ve covered.';return;}
   if(n>=APP_TOTAL){el.classList.add('done');el.innerHTML='All 9 watched. You know the app better than most coaches do. Boom.';return;}
