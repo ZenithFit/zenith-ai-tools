@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Goal Builder | Zenith Fit</title>
+<link rel="icon" href="zf-logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--green:#00A86B;--greenD:#3FD494;--bg:#1B2126;--card:#242B30;--line:#333C41;--ink:#FFFFFF;--body:#BFC6C3;--mut:#8A938F}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:radial-gradient(900px 480px at 50% -120px,rgba(0,168,107,.16),rgba(0,168,107,0) 65%),var(--bg);color:var(--ink);min-height:100vh;padding-bottom:60px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:rgba(27,33,38,.72);-webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:9px;font-family:'Oswald','Archivo',sans-serif;font-weight:600;letter-spacing:2px;font-size:15px;color:#fff;text-decoration:none}
+.brand img{width:26px;height:26px;border-radius:7px}
+.wrap{padding:22px 18px;max-width:460px;margin:0 auto}
+.back-pill{display:inline-flex;align-items:center;gap:7px;background:rgba(36,43,48,.72);border:1.5px solid var(--line);border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:700;color:#fff;text-decoration:none;margin-bottom:20px}
+.kick{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--greenD);text-transform:uppercase;margin-bottom:8px}
+h1{font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:31px;text-transform:uppercase;letter-spacing:.5px;line-height:1.08;color:#fff}
+.sub{color:var(--body);font-size:14.5px;line-height:1.55;margin-top:10px}
+.hello{display:none;margin-top:10px;font-size:13.5px;color:var(--greenD);font-weight:700}
+.namebox{margin-top:18px}
+.mode{display:flex;gap:10px;margin:22px 0 4px}
+.mode button{flex:1;text-align:center;background:none;border:1.5px solid var(--line);border-radius:999px;padding:12px 6px;font-weight:800;font-size:13.5px;color:var(--body);font-family:inherit;cursor:pointer}
+.mode button.on{background:rgba(63,212,148,.14);border-color:var(--greenD);color:var(--greenD)}
+.f{margin-top:18px}
+.f label{display:block;font-size:13.5px;font-weight:800;color:#fff;margin-bottom:4px}
+.f .hint{font-size:12px;color:var(--mut);margin-bottom:8px}
+.f textarea,.f input{width:100%;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;font-size:15px;color:#fff;font-family:inherit;resize:vertical}
+.f textarea::placeholder,.f input::placeholder{color:var(--mut)}
+.f textarea:focus,.f input:focus{outline:none;border-color:var(--greenD)}
+#realignQ{display:none}
+.btn{display:block;width:100%;text-align:center;background:var(--green);color:#fff;font-weight:800;font-size:15px;border:none;border-radius:999px;padding:15px;margin-top:22px;font-family:inherit;cursor:pointer}
+.btn:disabled{opacity:.55}
+.err{display:none;margin-top:12px;font-size:13.5px;color:#FF8A8A;font-weight:600}
+.think{display:none;margin-top:22px;color:var(--mut);font-size:13.5px;font-weight:700}
+.think i{display:inline-block;width:9px;height:9px;border-radius:999px;background:var(--greenD);margin-right:8px;animation:gb-pulse 1s infinite}
+@keyframes gb-pulse{0%,100%{opacity:.3}50%{opacity:1}}
+.bub{background:var(--card);border:1px solid var(--line);border-radius:18px 18px 18px 6px;padding:15px 16px;font-size:14.5px;color:var(--body);line-height:1.6;margin-top:18px;white-space:pre-wrap}
+.bub b{color:#fff}
+#digBox{display:none}
+#digBox textarea{margin-top:12px}
+.reply{display:none;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;margin-top:22px}
+.glbl{font-size:11px;font-weight:800;letter-spacing:1.8px;color:var(--greenD);text-transform:uppercase;margin-bottom:10px}
+.goalhead{font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:21px;text-transform:uppercase;letter-spacing:.3px;line-height:1.22;color:#fff}
+.sect{font-size:14px;color:var(--body);line-height:1.6;margin-top:14px;white-space:pre-wrap}
+.sect b{color:#fff}
+.pg{margin-top:14px;border-top:1px solid var(--line);padding-top:4px}
+.pgn{display:flex;gap:10px;align-items:flex-start;margin-top:12px}
+.pgn .dot{width:22px;height:22px;flex:0 0 auto;border-radius:999px;background:rgba(63,212,148,.14);color:var(--greenD);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.pgn p{margin:0;font-size:14px;color:var(--body);line-height:1.55}
+.appline{margin-top:18px;background:rgba(63,212,148,.1);border:1px solid rgba(63,212,148,.3);border-radius:14px;padding:13px 14px;font-size:13.5px;color:var(--body);line-height:1.55}
+.appline a{color:var(--greenD);font-weight:800;text-decoration:none}
+.again{display:none;margin-top:16px;text-align:center}
+.again button{background:none;border:1.5px solid var(--line);border-radius:999px;padding:11px 18px;color:var(--body);font-weight:700;font-size:13.5px;font-family:inherit;cursor:pointer}
+footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding:0 20px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="top"><a class="brand" href="hq.html"><img src="zf-logo.png" alt="">ZENITH <span style="color:var(--greenD)">&nbsp;HQ</span></a></div>
+
+<div class="wrap">
+<a class="back-pill" href="hq.html" onclick="if(history.length>1){history.back();return false;}">&#8249;&nbsp; Back</a>
+
+<div class="kick">The Goal Builder</div>
+<h1>Find your goal.</h1>
+<p class="sub">Most people can't answer "what's your goal?" and that's completely normal. So I'm not going to ask it. Answer these honestly instead, and I'll hand your goal back to you, built properly.</p>
+<p class="hello" id="hello"></p>
+
+<div id="formBox">
+<div class="f namebox" id="namebox">
+<label for="gb-name">Your full name</label>
+<div class="hint">First and last, so I know whose goal this is.</div>
+<input id="gb-name" autocomplete="name" placeholder="e.g. Sarah Taylor">
+</div>
+
+<div class="mode">
+<button type="button" id="modeNew" class="on">Setting a new goal</button>
+<button type="button" id="modeRe">Realigning my goal</button>
+</div>
+
+<div class="f" id="realignQ">
+<label for="q0">What's your current goal, and what's stopped working?</label>
+<textarea id="q0" rows="3" placeholder="What were you aiming at, and where did it drift?"></textarea>
+</div>
+
+<div class="f">
+<label for="q1">What's going on right now?</label>
+<div class="hint">What made you open this today. Be honest, nobody else reads this.</div>
+<textarea id="q1" rows="3"></textarea>
+</div>
+
+<div class="f">
+<label for="q2">What have you tried before, and what actually happened?</label>
+<textarea id="q2" rows="3"></textarea>
+</div>
+
+<div class="f">
+<label for="q3">If this worked, what's different in 6 months?</label>
+<div class="hint">Not numbers. What does your life look like.</div>
+<textarea id="q3" rows="3"></textarea>
+</div>
+
+<div class="f">
+<label for="q4">Anything on the horizon?</label>
+<div class="hint">Wedding, holiday, health thing. Optional.</div>
+<input id="q4">
+</div>
+
+<div class="f">
+<label for="q5">Honestly, what can you give this each week?</label>
+<div class="hint">Sessions, minutes, walks. The real number, not the hopeful one.</div>
+<input id="q5" placeholder="e.g. 3 sessions, 30 to 40 mins">
+</div>
+
+<button class="btn" id="goBtn">Let's get clear on my goal</button>
+<div class="err" id="err"></div>
+</div>
+
+<div class="think" id="think"><i></i>Mark's having a proper look at this...</div>
+
+<div id="digWrap" style="display:none">
+<div class="bub" id="digQ"></div>
+<div class="f" id="digBox" style="display:block">
+<textarea id="digA" rows="3" placeholder="Say it how it is."></textarea>
+<button class="btn" id="digBtn">That's the real reason</button>
+<div class="err" id="digErr"></div>
+</div>
+</div>
+
+<div class="reply" id="reply">
+<div class="glbl">Your goal, built properly</div>
+<div class="goalhead" id="rHead"></div>
+<div class="sect" id="rWhy"></div>
+<div class="pg" id="rProc"></div>
+<div class="sect" id="rStraight"></div>
+<div class="sect" id="rWeek"></div>
+<div class="appline">Now make it official: <a href="hq-app.html#av7">add your goal in the Everfit app</a>. 2 minutes, and there's a video showing you exactly how.</div>
+</div>
+
+<div class="again" id="again"><button type="button" onclick="location.reload()">Start again</button></div>
+
+<footer>Private between you and Mark. Your answers aren't shared with other clients.</footer>
+</div>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const NAMEKEY='zf_review_name'; // shared with Rate Your Day so nobody types their name twice
+const TOKENKEY='zenith_token';
+const LOGNAMEKEY='zenith_name';
+
+let auth='no',authName='',authToken='';
+try{
+  authToken=localStorage.getItem(TOKENKEY)||'';
+  authName=localStorage.getItem(LOGNAMEKEY)||'';
+  if(authToken)auth='maybe';
+}catch(e){}
+
+function logToSheets(tool,fields={},message=''){
+  const payload={tool,message,...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+}
+function cleanName(raw){return (raw||'').trim().replace(/\s+/g,' ');}
+function nameOk(raw){return cleanName(raw).split(' ').filter(p=>p.length>=2).length>=2;}
+function firstName(raw){return cleanName(raw).split(' ')[0];}
+function el(id){return document.getElementById(id);}
+
+function showLoggedIn(){
+  el('namebox').style.display='none';
+  if(authName){el('hello').style.display='block';el('hello').textContent='Alright, '+firstName(authName)+'. This one\u2019s worth slowing down for.';}
+}
+function showLoggedOut(){
+  auth='no';authToken='';
+  el('namebox').style.display='block';el('hello').style.display='none';
+  try{const saved=localStorage.getItem(NAMEKEY);if(saved&&!el('gb-name').value)el('gb-name').value=saved;}catch(e){}
+}
+async function verify(){
+  if(auth==='no'){showLoggedOut();return;}
+  showLoggedIn();
+  try{
+    const r=await fetch(API+'/entries?tool=Goal%20Builder&limit=1',{headers:{'Authorization':'Bearer '+authToken}});
+    if(r.status===401){
+      try{localStorage.removeItem(TOKENKEY);localStorage.removeItem(LOGNAMEKEY);localStorage.removeItem('zenith_programme');}catch(e){}
+      showLoggedOut();return;
+    }
+    if(!r.ok)return;
+    const d=await r.json();
+    auth='yes';
+    if(d.name){authName=d.name;}
+    showLoggedIn();
+  }catch(e){}
+}
+verify();
+
+// mode toggle
+let mode='new';
+el('modeNew').onclick=()=>{mode='new';el('modeNew').classList.add('on');el('modeRe').classList.remove('on');el('realignQ').style.display='none';};
+el('modeRe').onclick=()=>{mode='realign';el('modeRe').classList.add('on');el('modeNew').classList.remove('on');el('realignQ').style.display='block';};
+
+const SYSTEM=`You are Mark Davies, a UK online fat loss coach (Zenith Fit, coaching since 2014). You are helping one of your own clients get clear on their goal. Voice: direct, warm, British English, full contractions, short punchy sentences, no dashes anywhere, no emojis, no bullet symbols. Never call the person a failure. Call patterns out, then show them you've got them. Mirror their exact words back wherever possible.
+
+Your coaching rules: fat loss of roughly 0.5 to 1lb a week is realistic, no extremes, process beats outcome, consistency beats intensity, never miss twice, 80/20, something beats nothing. Process goals must fit INSIDE the weekly capacity they stated, never more. If their hoped timeline is unrealistic, say so kindly but plainly and give the realistic version. If they are realigning, respect what the old goal got right before changing it.
+
+You reply in exactly one of two formats and nothing else:
+
+Format 1, when their why is still surface level and you need to dig once:
+DIG: followed by one short question in your voice. React to something specific they wrote. Dig into why it actually matters or what it's costing them. One question only, maximum 3 sentences.
+
+Format 2, when you have enough (and ALWAYS on the second turn):
+GOAL:
+HEADLINE: their goal in one sentence, concrete, realistic, timeframed to any real event they mentioned. Maximum 18 words.
+WHY: start with "Why this is yours." Then 2 to 4 sentences built from their own words, especially anything from the dig. End by telling them to read this back when it gets hard.
+PROCESS: exactly 2 or 3 lines, each starting with a number and a full stop like "1. ". Behaviours they control, sized to their stated capacity. These ARE the goal, the scale is just the scoreboard.
+STRAIGHT: start with "Straight with you." Name the pattern from their past attempts without blaming them, and say what's different this time. 2 to 3 sentences.
+WEEK1: start with "Your first 7 days." Exactly 3 tiny actions in one short paragraph: book the sessions in, tell Mark the goal in a message or the group, rate your day each night.
+
+Use the section labels exactly as shown, each on its own line.`;
+
+let convo=[];
+let formAnswers=null;
+let digAnswer='';
+
+function collect(){
+  const name=auth==='yes'?authName:cleanName(el('gb-name').value);
+  const a={
+    name,
+    mode,
+    current:el('q0').value.trim(),
+    now:el('q1').value.trim(),
+    tried:el('q2').value.trim(),
+    six:el('q3').value.trim(),
+    horizon:el('q4').value.trim(),
+    capacity:el('q5').value.trim()
+  };
+  return a;
+}
+function formText(a){
+  let t='Mode: '+(a.mode==='realign'?'Realigning an existing goal':'Setting a new goal')+'\n';
+  if(a.mode==='realign'&&a.current)t+='Current goal and what stopped working: '+a.current+'\n';
+  t+='What\u2019s going on right now: '+a.now+'\n';
+  t+='Tried before and what happened: '+a.tried+'\n';
+  t+='Different in 6 months if it worked: '+a.six+'\n';
+  if(a.horizon)t+='On the horizon: '+a.horizon+'\n';
+  t+='Honest weekly capacity: '+a.capacity;
+  return t;
+}
+
+async function ask(messages,forceGoal){
+  const sys=forceGoal?SYSTEM+'\n\nYou have already asked your one digging question. You MUST now reply in Format 2 starting with GOAL:':SYSTEM;
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:900,system:sys,messages})});
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message||'Worker error');
+  return d.content[0].text;
+}
+
+function parseGoal(text){
+  const t=text.replace(/^\s*GOAL:\s*/i,'');
+  const grab=(label,next)=>{
+    const re=new RegExp(label+':\\s*([\\s\\S]*?)(?='+next+':|$)','i');
+    const m=t.match(re);
+    return m?m[1].trim():'';
+  };
+  return {
+    head:grab('HEADLINE','WHY'),
+    why:grab('WHY','PROCESS'),
+    proc:grab('PROCESS','STRAIGHT'),
+    straight:grab('STRAIGHT','WEEK1'),
+    week:grab('WEEK1','ZZZ')
+  };
+}
+
+function renderGoal(g){
+  el('rHead').textContent=g.head;
+  el('rWhy').textContent=g.why;
+  const lines=g.proc.split('\n').map(s=>s.trim()).filter(s=>/^\d+\./.test(s));
+  let h='<p style="margin:10px 0 0;font-size:14px;color:var(--body)"><b style="color:#fff">The things that get you there.</b> These are the goal. The scale is just the scoreboard.</p>';
+  lines.forEach((ln,i)=>{h+='<div class="pgn"><div class="dot">'+(i+1)+'</div><p>'+ln.replace(/^\d+\.\s*/,'')+'</p></div>';});
+  el('rProc').innerHTML=h;
+  el('rStraight').textContent=g.straight;
+  el('rWeek').textContent=g.week;
+  el('reply').style.display='block';
+  el('again').style.display='block';
+  el('reply').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function finish(text,a){
+  const g=parseGoal(text);
+  if(!g.head){
+    // model ignored the format, show it raw rather than losing the reply
+    el('rHead').textContent='Your goal';
+    el('rWhy').textContent=text.replace(/^\s*GOAL:\s*/i,'');
+    el('reply').style.display='block';el('again').style.display='block';
+  }else{
+    renderGoal(g);
+  }
+  el('think').style.display='none';
+  // log everywhere, Sheet is the record
+  logToSheets('Goal Builder',{
+    field1_label:'Name',field1_value:a.name,
+    field2_label:'Mode',field2_value:a.mode==='realign'?'Realigning':'New goal',
+    field3_label:'Goal',field3_value:g.head||text.slice(0,180),
+    field4_label:'Their why',field4_value:(digAnswer||a.six).slice(0,400),
+    field5_label:'Capacity',field5_value:a.capacity,
+    field6_label:'Process goals',field6_value:(g.proc||'').replace(/\n+/g,' | ').slice(0,400)
+  },formText(a));
+  if(auth==='yes'&&authToken){
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Goal Builder',data:{mode:a.mode,goal:g.head||'',why:digAnswer||a.six,capacity:a.capacity,process:g.proc||'',answers:formText(a)}})}).catch(()=>{});
+  }
+}
+
+el('goBtn').onclick=async()=>{
+  const a=collect();
+  el('err').style.display='none';
+  if(auth!=='yes'&&!nameOk(a.name)){el('err').textContent='Pop your full name in first, first and last.';el('err').style.display='block';return;}
+  if(!a.now||!a.tried||!a.six||!a.capacity){el('err').textContent='Fill the written bits in properly, the tool\u2019s only as good as what you give it.';el('err').style.display='block';return;}
+  if(a.mode==='realign'&&!a.current){el('err').textContent='Tell me what the current goal is first, even roughly.';el('err').style.display='block';return;}
+  if(auth!=='yes'){try{localStorage.setItem(NAMEKEY,a.name);}catch(e){}}
+  formAnswers=a;
+  el('goBtn').disabled=true;
+  el('formBox').style.display='none';
+  el('think').style.display='block';
+  convo=[{role:'user',content:'Here are my answers:\n\n'+formText(a)}];
+  try{
+    const out=await ask(convo,false);
+    el('think').style.display='none';
+    if(/^\s*DIG:/i.test(out)){
+      convo.push({role:'assistant',content:out});
+      el('digQ').textContent=out.replace(/^\s*DIG:\s*/i,'');
+      el('digWrap').style.display='block';
+      el('digQ').scrollIntoView({behavior:'smooth',block:'start'});
+    }else{
+      finish(out,a);
+    }
+  }catch(e){
+    el('think').style.display='none';
+    el('formBox').style.display='block';
+    el('goBtn').disabled=false;
+    el('err').textContent='That didn\u2019t go through. Give it another tap, and if it keeps happening message Mark.';
+    el('err').style.display='block';
+  }
+};
+
+el('digBtn').onclick=async()=>{
+  const ans=el('digA').value.trim();
+  el('digErr').style.display='none';
+  if(!ans){el('digErr').textContent='Go on, say it properly. This bit matters most.';el('digErr').style.display='block';return;}
+  digAnswer=ans;
+  el('digBtn').disabled=true;
+  el('digBox').style.display='none';
+  el('think').style.display='block';
+  convo.push({role:'user',content:ans});
+  try{
+    const out=await ask(convo,true);
+    finish(out,formAnswers);
+  }catch(e){
+    el('think').style.display='none';
+    el('digBox').style.display='block';
+    el('digBtn').disabled=false;
+    el('digErr').textContent='That didn\u2019t go through. Give it another tap.';
+    el('digErr').style.display='block';
+  }
+};
+</script>
+</body>
+</html>
