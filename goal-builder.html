@@ -54,6 +54,9 @@ h1{font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:31px;text
 .again{display:none;margin-top:16px;text-align:center}
 .again button{background:none;border:1.5px solid var(--line);border-radius:999px;padding:11px 18px;color:var(--body);font-weight:700;font-size:13.5px;font-family:inherit;cursor:pointer}
 footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding:0 20px;line-height:1.6}
+.evbtn{display:block;text-align:center;background:#3FD494;color:#0C0F11;font-weight:700;padding:15px 22px;border-radius:999px;text-decoration:none;font-size:15px;margin-top:18px}
+.evsub{margin-top:10px;text-align:center;font-size:12.5px;color:var(--body);opacity:.85}
+.evsub a{color:#3FD494}
 </style>
 </head>
 <body>
@@ -108,9 +111,9 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 </div>
 
 <div class="f">
-<label for="q5">Honestly, what can you give this each week?</label>
-<div class="hint">Sessions, minutes, walks. The real number, not the hopeful one.</div>
-<input id="q5" placeholder="e.g. 3 sessions, 30 to 40 mins">
+<label for="q5">What's staying as you are actually costing you?</label>
+<div class="hint">Be honest. The photos you dodge, the energy, the stuff you put off.</div>
+<textarea id="q5" rows="3"></textarea>
 </div>
 
 <button class="btn" id="goBtn">Let's get clear on my goal</button>
@@ -132,10 +135,17 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 <div class="glbl">Your goal, built properly</div>
 <div class="goalhead" id="rHead"></div>
 <div class="sect" id="rWhy"></div>
-<div class="pg" id="rProc"></div>
-<div class="sect" id="rStraight"></div>
-<div class="sect" id="rWeek"></div>
-<div class="appline">Now make it official: <a href="hq-app.html#av7">add your goal in the Everfit app</a>. 2 minutes, and there's a video showing you exactly how.</div>
+<div class="pg">
+<p style="margin:10px 0 0;font-size:14px;color:var(--body)">These are the basics of how you get there. I'll add the rest in around you personally, so we can absolutely smash this.</p>
+<div class="pgn"><div class="dot">1</div><p>Hit your sessions</p></div>
+<div class="pgn"><div class="dot">2</div><p>Get your steps in</p></div>
+<div class="pgn"><div class="dot">3</div><p>Drink your water</p></div>
+<div class="pgn"><div class="dot">4</div><p>Stick to your calories</p></div>
+<div class="pgn"><div class="dot">5</div><p>Check in every Friday</p></div>
+</div>
+<div class="sect">This is just as much a mentality shift as a physical change. Once we get your mindset in the right place, the physical side gets a lot easier. That's something we're going to work on together.</div>
+<a class="evbtn" href="https://apps.apple.com/app/id1438926364" onclick="return zfEverfit(event)">Pop your goal into Everfit ↗</a>
+<div class="evsub">Not sure where goals live in the app? <a href="hq-app.html#av7">Watch the 40 second how to</a></div>
 </div>
 
 <div class="again" id="again"><button type="button" onclick="location.reload()">Start again</button></div>
@@ -200,23 +210,29 @@ el('modeRe').onclick=()=>{mode='realign';el('modeRe').classList.add('on');el('mo
 
 const SYSTEM=`You are Mark Davies, a UK online fat loss coach (Zenith Fit, coaching since 2014). You are helping one of your own clients get clear on their goal. Voice: direct, warm, British English, full contractions, short punchy sentences, no dashes anywhere, no emojis, no bullet symbols. Never call the person a failure. Call patterns out, then show them you've got them. Mirror their exact words back wherever possible.
 
-Your coaching rules: fat loss of roughly 0.5 to 1lb a week is realistic, no extremes, process beats outcome, consistency beats intensity, never miss twice, 80/20, something beats nothing. Process goals must fit INSIDE the weekly capacity they stated, never more. If their hoped timeline is unrealistic, say so kindly but plainly and give the realistic version. If they are realigning, respect what the old goal got right before changing it.
+This tool is ONLY about clarity. You never build plans. You never prescribe sessions, workouts, steps, calories, macros, timelines of training or any numbers of that kind. Mark builds every client's plan himself. If their hoped outcome is unrealistic for the timeframe (fat loss of roughly 0.5 to 1lb a week is realistic), quietly word the headline as the realistic version instead, no lecture. If they are realigning, respect what the old goal got right before changing it.
 
 You reply in exactly one of two formats and nothing else:
 
 Format 1, when their why is still surface level and you need to dig once:
-DIG: followed by one short question in your voice. React to something specific they wrote. Dig into why it actually matters or what it's costing them. One question only, maximum 3 sentences.
+DIG: followed by one short question in your voice. React to something specific they wrote. Dig into why it actually matters, using what they said staying the same is costing them. One question only, maximum 3 sentences.
 
 Format 2, when you have enough (and ALWAYS on the second turn):
 GOAL:
-HEADLINE: their goal in one sentence, concrete, realistic, timeframed to any real event they mentioned. Maximum 18 words.
-WHY: start with "Why this is yours." Then 2 to 4 sentences built from their own words, especially anything from the dig. End by telling them to read this back when it gets hard.
-PROCESS: exactly 2 or 3 lines, each starting with a number and a full stop like "1. ". Behaviours they control, sized to their stated capacity. These ARE the goal, the scale is just the scoreboard.
-STRAIGHT: start with "Straight with you." Name the pattern from their past attempts without blaming them, and say what's different this time. 2 to 3 sentences.
-WEEK1: start with "Your first 7 days." Exactly 3 tiny actions in one short paragraph: book the sessions in, tell Mark the goal in a message or the group, rate your day each night.
+HEADLINE: their goal in one sentence, concrete, realistic, in their own words wherever possible, timeframed to any real event they mentioned. An outcome and how life feels, never a plan. Maximum 18 words.
+WHY: start with "Why this is yours." Then 2 to 4 sentences built from their own words, especially anything from the dig and what staying the same is costing them. End by telling them to read this back when it gets hard.
 
 Use the section labels exactly as shown, each on its own line.`;
 
+function zfEverfit(e){
+  e.preventDefault();
+  if(/Android/i.test(navigator.userAgent)){
+    window.location.href='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.everfit;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.everfit;end';
+  }else{
+    window.location.href='https://apps.apple.com/app/id1438926364';
+  }
+  return false;
+}
 let convo=[];
 let formAnswers=null;
 let digAnswer='';
@@ -231,7 +247,7 @@ function collect(){
     tried:el('q2').value.trim(),
     six:el('q3').value.trim(),
     horizon:el('q4').value.trim(),
-    capacity:el('q5').value.trim()
+    cost:el('q5').value.trim()
   };
   return a;
 }
@@ -242,7 +258,7 @@ function formText(a){
   t+='Tried before and what happened: '+a.tried+'\n';
   t+='Different in 6 months if it worked: '+a.six+'\n';
   if(a.horizon)t+='On the horizon: '+a.horizon+'\n';
-  t+='Honest weekly capacity: '+a.capacity;
+  t+='What staying the same is costing them: '+a.cost;
   return t;
 }
 
@@ -263,22 +279,13 @@ function parseGoal(text){
   };
   return {
     head:grab('HEADLINE','WHY'),
-    why:grab('WHY','PROCESS'),
-    proc:grab('PROCESS','STRAIGHT'),
-    straight:grab('STRAIGHT','WEEK1'),
-    week:grab('WEEK1','ZZZ')
+    why:grab('WHY','ZZZ')
   };
 }
 
 function renderGoal(g){
   el('rHead').textContent=g.head;
   el('rWhy').textContent=g.why;
-  const lines=g.proc.split('\n').map(s=>s.trim()).filter(s=>/^\d+\./.test(s));
-  let h='<p style="margin:10px 0 0;font-size:14px;color:var(--body)"><b style="color:#fff">The things that get you there.</b> These are the goal. The scale is just the scoreboard.</p>';
-  lines.forEach((ln,i)=>{h+='<div class="pgn"><div class="dot">'+(i+1)+'</div><p>'+ln.replace(/^\d+\.\s*/,'')+'</p></div>';});
-  el('rProc').innerHTML=h;
-  el('rStraight').textContent=g.straight;
-  el('rWeek').textContent=g.week;
   el('reply').style.display='block';
   el('again').style.display='block';
   el('reply').scrollIntoView({behavior:'smooth',block:'start'});
@@ -301,11 +308,10 @@ function finish(text,a){
     field2_label:'Mode',field2_value:a.mode==='realign'?'Realigning':'New goal',
     field3_label:'Goal',field3_value:g.head||text.slice(0,180),
     field4_label:'Their why',field4_value:(digAnswer||a.six).slice(0,400),
-    field5_label:'Capacity',field5_value:a.capacity,
-    field6_label:'Process goals',field6_value:(g.proc||'').replace(/\n+/g,' | ').slice(0,400)
+    field5_label:'Costing them',field5_value:a.cost.slice(0,400)
   },formText(a));
   if(auth==='yes'&&authToken){
-    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Goal Builder',data:{mode:a.mode,goal:g.head||'',why:digAnswer||a.six,capacity:a.capacity,process:g.proc||'',answers:formText(a)}})}).catch(()=>{});
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Goal Builder',data:{mode:a.mode,goal:g.head||'',why:digAnswer||a.six,cost:a.cost,answers:formText(a)}})}).catch(()=>{});
   }
 }
 
@@ -313,7 +319,7 @@ el('goBtn').onclick=async()=>{
   const a=collect();
   el('err').style.display='none';
   if(auth!=='yes'&&!nameOk(a.name)){el('err').textContent='Pop your full name in first, first and last.';el('err').style.display='block';return;}
-  if(!a.now||!a.tried||!a.six||!a.capacity){el('err').textContent='Fill the written bits in properly, the tool\u2019s only as good as what you give it.';el('err').style.display='block';return;}
+  if(!a.now||!a.tried||!a.six||!a.cost){el('err').textContent='Fill the written bits in properly, the tool\u2019s only as good as what you give it.';el('err').style.display='block';return;}
   if(a.mode==='realign'&&!a.current){el('err').textContent='Tell me what the current goal is first, even roughly.';el('err').style.display='block';return;}
   if(auth!=='yes'){try{localStorage.setItem(NAMEKEY,a.name);}catch(e){}}
   formAnswers=a;
