@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
+<meta name="theme-color" content="#1B2126">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zenith Fit | Zenith AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Oswald:wght@500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:          #F4F4F2;
@@ -545,6 +546,72 @@ body[data-view="home"] .mob-toggle { display: none; }
   .bot-hero-ico { display: none; }
   .msgs { min-height: 260px; max-height: 300px; }
 }
+
+/* ===== HQ DARK SKIN (Oct 2026), matches Zenith HQ ===== */
+html{color-scheme:dark;background:#1B2126}
+:root{
+  --bg:#1B2126;--white:#242B30;--off:#20272B;
+  --border:rgba(255,255,255,0.06);--border-med:#333C41;
+  --charcoal:#FFFFFF;--mid:#BFC6C3;--faint:#8A938F;
+  --amber:#00A86B;--amber-dim:#008755;--amber-bg:rgba(63,212,148,0.10);--amber-bdr:rgba(63,212,148,0.28);
+  --shadow:0 14px 40px rgba(0,0,0,0.35);
+}
+body{background:radial-gradient(1000px 540px at 50% -140px,rgba(0,168,107,.16),rgba(0,168,107,0) 65%) no-repeat,#1B2126;color:#BFC6C3}
+body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:#00A86B;z-index:400}
+.sidebar{background:#1B2126;border-right:1px solid #333C41;top:3px;height:calc(100vh - 3px)}
+.sb-logo,.sb-foot{border-color:#333C41}
+.sb-featured{background:#0C0F11;border:1.5px solid #333C41}
+.sb-featured-badge{color:#FFFFFF}
+.sb-item:hover,.sb-item.on{background:#242B30;color:#FFFFFF}
+.topbar{top:3px;background:rgba(27,33,38,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
+.topbar-pill{background:#242B30;border-color:#333C41}
+.hq-link{background:#242B30;border:1px solid #333C41;color:#FFFFFF}
+.hq-link:hover{background:#242B30;border-color:#00A86B}
+.mob-toggle{background:rgba(36,43,48,.72);border:1.5px solid #333C41;color:#FFFFFF}
+.mob-toggle:hover{border-color:#00A86B}
+.page-hdr-eyebrow{color:#3FD494;font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px}
+.page-title{font-family:'Oswald','Archivo',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.5px;line-height:1.08;font-size:clamp(28px,4.4vw,36px)}
+.card,.result,.loading,.chat-wrap,.tool-card,.modal{background:#242B30;border:1.5px solid #333C41;box-shadow:none}
+.result-head{background:#20272B;border-bottom:1px solid #333C41}
+.result-actions{border-top-color:#333C41}
+.fi,.fs,.cin{background:#1B2126;border:1.5px solid #333C41;color:#FFFFFF}
+.fi:focus,.fs:focus,.cin:focus{background:#1B2126;border-color:#3FD494;box-shadow:0 0 0 3px rgba(63,212,148,.12)}
+.fi::placeholder,.cin::placeholder{color:#6E7773}
+.fs option{background:#242B30;color:#FFFFFF}
+.btn{background:#00A86B;color:#FFFFFF}
+.btn:hover{background:#008755}
+.btn-sm{background:#20272B;border-color:#333C41;color:#FFFFFF}
+.btn-sm:hover{background:#00A86B;color:#FFFFFF}
+.btn-send{background:#00A86B;color:#FFFFFF}
+.btn-send:hover{background:#008755}
+.btn-ghost{border-color:#333C41;color:#BFC6C3}
+.btn-ghost:hover{border-color:#FFFFFF;color:#FFFFFF}
+.spin{border-color:#333C41;border-top-color:#3FD494}
+.chip{background:#242B30;border:1.5px solid #333C41;color:#BFC6C3}
+.chip:hover{background:rgba(63,212,148,.14);border-color:#3FD494;color:#FFFFFF}
+.bot-hero,.home-feat{background:#0C0F11;border:1.5px solid #333C41;box-shadow:0 14px 40px rgba(0,0,0,.35);background-image:radial-gradient(600px 220px at 85% -40%,rgba(0,168,107,.22),rgba(0,168,107,0) 70%)}
+.bot-hero-title em{color:#3FD494}
+.home-feat-badge{background:#00A86B;color:#FFFFFF}
+.home-sec{color:#8A938F}
+.tool-card{transition:transform .12s,border-color .15s}
+.tool-card:hover{border-color:#3FD494}
+.tool-name{color:#FFFFFF}
+.chat-head,.chat-foot{background:#242B30;border-color:#333C41}
+.chat-av,.mav.m{background:#0C0F11;border:1.5px solid #333C41;color:#FFFFFF}
+.mav.u{background:#333C41;color:#FFFFFF}
+.msgs{background:#1B2126}
+.bub{background:#242B30;border:1px solid #333C41;color:#E6EAE8}
+.msg.u .bub{background:rgba(0,168,107,.22);border:1px solid rgba(63,212,148,.35);color:#FFFFFF}
+.chat-copy-btn{border-color:#333C41;color:#BFC6C3}
+.chat-copy-btn:hover{background:#20272B;color:#FFFFFF}
+.tdot{background:#BFC6C3}
+.tip-bar-label{color:#3FD494}
+.targets-bar,.privacy-note{background:#20272B;border:1px solid #333C41}
+.btn-targets-edit{border-color:#333C41;color:#BFC6C3}
+.btn-targets-edit:hover{border-color:#FFFFFF;color:#FFFFFF}
+.modal-overlay{background:rgba(8,10,12,.7)}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15)}
+@media(max-width:700px){.topbar-pill{display:none}.topbar{padding:0 14px}}
 </style>
 </head>
 <body data-view="home">
@@ -603,7 +670,7 @@ body[data-view="home"] .mob-toggle { display: none; }
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M10 2 4 8l6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         Back
       </button>
-      <div class="topbar-title" id="tb-title">Mark Bot</div>
+      <div class="topbar-title" id="tb-title">Zenith AI</div>
     </div>
     <div class="topbar-right">
       <div class="topbar-pill"><span class="live-dot"></span>AI Live</div>
