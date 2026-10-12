@@ -170,7 +170,9 @@ body{background:radial-gradient(1000px 540px at 50% -140px,rgba(0,168,107,.18),r
 .wk-bar.empty{background:#333C41}
 .wk-col.today .wk-day{color:#3FD494}
 .wk-streak b,.tile2 h4,.card h3{color:#FFFFFF}
-.quick a{background:#3FD494;color:#1B2126;font-weight:800}
+.quick a{background:#3FD494;color:#1B2126;font-weight:800;transition:background .15s,color .15s,transform .12s}
+.quick a:hover{background:#00A86B;color:#FFFFFF}
+.quick a:active{transform:scale(.97)}
 .t2-ic{background:rgba(63,212,148,.12)}
 .t2-ic svg,.tile2 .t2-ic svg *{stroke:#3FD494}
 .side nav{background:var(--card);border:1px solid var(--line)}
