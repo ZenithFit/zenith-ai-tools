@@ -1,11 +1,10 @@
 function zfEverfit(e){
-  e.preventDefault();
   if(/Android/i.test(navigator.userAgent)){
+    e.preventDefault();
     window.location.href='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.everfit;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.everfit;end';
-  }else{
-    window.location.href='https://apps.apple.com/app/id1438926364';
+    return false;
   }
-  return false;
+  return true;
 }
 // Zenith HQ shared gate + helpers. Runs before paint so logged out visitors never see the page.
 const API='https://zenith-fit.mark-5a5.workers.dev';

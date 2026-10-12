@@ -144,7 +144,7 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 <div class="pgn"><div class="dot">5</div><p>Check in every Friday</p></div>
 </div>
 <div class="sect">This is just as much a mentality shift as a physical change. Once we get your mindset in the right place, the physical side gets a lot easier. That's something we're going to work on together.</div>
-<a class="evbtn" href="https://apps.apple.com/app/id1438926364" onclick="return zfEverfit(event)">Pop your goal into Everfit ↗</a>
+<a class="evbtn" href="https://apps.apple.com/app/id1438926364" target="_blank" rel="noopener" onclick="return zfEverfit(event)">Pop your goal into Everfit ↗</a>
 <div class="evsub">Not sure where goals live in the app? <a href="hq-app.html#av7">Watch the 40 second how to</a></div>
 </div>
 
@@ -153,17 +153,6 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 <footer>Private between you and Mark. Your answers aren't shared with other clients.</footer>
 </div>
 
-<script>
-// Shared voice rules, added to every AI prompt on this page
-const VOICE=`
-VOICE RULES. These sit on top of everything above and win if anything clashes.
-British English. Full contractions every time: it's, don't, you're, I'd, that's, here's. Never write "it is", "do not", "I am", "that is", "you are" when a contraction would be said out loud. Digits not words for numbers.
-No dashes of any kind, anywhere, including lists and recipes. Commas and full stops instead.
-Never use: "my friend", "here's the thing", "here is the thing", "it's not X, it's Y" or "that's not X, that's Y" in any form, "I'm going to be straight with you", "I'll be honest with you" or any version of them, "that's not nothing", "this is the honest bit", "trust the process", "nudge", "just sit with that", "park it", "character flaw", "no fluff", "hey friend", "nitpicking", "consistency is key".
-Don't open every reply with "Right". Don't ask a question and answer it yourself more than once. Don't line up 3 balanced phrases in a row for rhythm. Don't finish with a summary of what you just said.
-Don't lean on stock lines. "Honestly", "massive", "game changer" and "boom" get used once at most, and only where they genuinely fit.
-`;
-</script>
 <script>
 const API='https://zenith-fit.mark-5a5.workers.dev';
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
@@ -236,13 +225,12 @@ WHY: start with "Why this is yours." Then 2 to 4 sentences built from their own 
 Use the section labels exactly as shown, each on its own line.`;
 
 function zfEverfit(e){
-  e.preventDefault();
   if(/Android/i.test(navigator.userAgent)){
+    e.preventDefault();
     window.location.href='intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.everfit;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.everfit;end';
-  }else{
-    window.location.href='https://apps.apple.com/app/id1438926364';
+    return false;
   }
-  return false;
+  return true;
 }
 let convo=[];
 let formAnswers=null;
@@ -275,7 +263,7 @@ function formText(a){
 
 async function ask(messages,forceGoal){
   const sys=forceGoal?SYSTEM+'\n\nYou have already asked your one digging question. You MUST now reply in Format 2 starting with GOAL:':SYSTEM;
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:900,system:sys+VOICE,messages})});
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:900,system:sys,messages})});
   const d=await r.json();
   if(d.error)throw new Error(d.error.message||'Worker error');
   return d.content[0].text;

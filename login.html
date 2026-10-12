@@ -6,14 +6,14 @@
 <title>Zenith HQ — Log In</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
   body {
     font-family: 'DM Sans', sans-serif;
-    background: #F4F4F2;
-    color: #111111;
+    background: #1B2126;
+    color: #FFFFFF;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,10 +23,11 @@
   .card {
     width: 100%;
     max-width: 420px;
-    background: #FFFFFF;
+    background: #242B30;
+    border: 1.5px solid #333C41;
     border-radius: 24px;
     padding: 44px 36px 36px;
-    box-shadow: 0 14px 40px rgba(17, 17, 17, 0.07);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
   }
   .brand {
     margin-bottom: 36px;
@@ -36,20 +37,21 @@
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: #00A86B;
+    color: #3FD494;
     margin-bottom: 12px;
   }
   .brand h1 {
-    font-family: 'Archivo', sans-serif;
-    font-weight: 800;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
     font-size: 34px;
     line-height: 1.05;
-    letter-spacing: -0.02em;
-    color: #111111;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
   }
-  .brand h1 span { color: #00A86B; }
+  .brand h1 span { color: #3FD494; }
   .brand p {
-    color: #6B706E;
+    color: #BFC6C3;
     margin-top: 12px;
     font-size: 15px;
     line-height: 1.5;
@@ -60,22 +62,22 @@
     font-weight: 700;
     letter-spacing: 1.5px;
     text-transform: uppercase;
-    color: #8A8F8D;
+    color: #BFC6C3;
     margin: 22px 0 8px;
   }
   input {
     width: 100%;
     padding: 15px 18px;
     border-radius: 14px;
-    border: 1px solid #E4E6E4;
-    background: #FAFAF9;
-    color: #111111;
+    border: 1.5px solid #4C555B;
+    background: #20272B;
+    color: #FFFFFF;
     font-size: 16px;
     font-family: 'DM Sans', sans-serif;
     outline: none;
     transition: border-color 0.15s ease;
   }
-  input:focus { border-color: #00A86B; background: #FFFFFF; }
+  input:focus { border-color: #3FD494; background: #20272B; }
   button {
     width: 100%;
     margin-top: 30px;
@@ -84,7 +86,7 @@
     border-radius: 999px;
     background: #00A86B;
     color: #FFFFFF;
-    font-family: 'Archivo', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 700;
     font-size: 16px;
     letter-spacing: 0.01em;
@@ -98,16 +100,17 @@
     margin-top: 18px;
     padding: 13px 16px;
     border-radius: 14px;
-    background: #FDF0EF;
-    border: 1px solid #F3D2CE;
-    color: #B3402F;
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.35);
+    color: #FF9B93;
     font-size: 14px;
     text-align: center;
   }
   .help {
     margin-top: 26px;
     text-align: center;
-    color: #8A8F8D;
+    color: #BFC6C3;
+    opacity: 0.8;
     font-size: 13px;
     line-height: 1.6;
   }
@@ -115,7 +118,7 @@
     width: 100%;
     max-width: 420px;
     height: 3px;
-    background: #00A86B;
+    background: #3FD494;
     border-radius: 999px;
     margin-top: 28px;
     opacity: 0.9;
