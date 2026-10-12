@@ -160,6 +160,17 @@ body { background:var(--off); color:var(--charcoal); font-family:var(--font-body
 </div>
 
 <script>
+// Shared voice rules, added to every AI prompt on this page
+const VOICE=`
+VOICE RULES. These sit on top of everything above and win if anything clashes.
+British English. Full contractions every time: it's, don't, you're, I'd, that's, here's. Never write "it is", "do not", "I am", "that is", "you are" when a contraction would be said out loud. Digits not words for numbers.
+No dashes of any kind, anywhere, including lists and recipes. Commas and full stops instead.
+Never use: "my friend", "here's the thing", "here is the thing", "it's not X, it's Y" or "that's not X, that's Y" in any form, "I'm going to be straight with you", "I'll be honest with you" or any version of them, "that's not nothing", "this is the honest bit", "trust the process", "nudge", "just sit with that", "park it", "character flaw", "no fluff", "hey friend", "nitpicking", "consistency is key".
+Don't open every reply with "Right". Don't ask a question and answer it yourself more than once. Don't line up 3 balanced phrases in a row for rhythm. Don't finish with a summary of what you just said.
+Don't lean on stock lines. "Honestly", "massive", "game changer" and "boom" get used once at most, and only where they genuinely fit.
+`;
+</script>
+<script>
 const API='https://zenith-fit.mark-5a5.workers.dev';
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 function logToSheets(tool,fields={},message=''){
@@ -168,7 +179,7 @@ function logToSheets(tool,fields={},message=''){
 }
 
 async function ask(system,userMsg){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:1200,system,messages:[{role:'user',content:userMsg}]})});
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:1200,system:system+VOICE,messages:[{role:'user',content:userMsg}]})});
   const d=await r.json();
   if(d.error)throw new Error(d.error.message);
   return d.content[0].text;
