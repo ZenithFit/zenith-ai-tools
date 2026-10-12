@@ -130,8 +130,8 @@ a.card:active{transform:scale(.985)}
 .s2-ov h3{color:#fff;font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:20px;text-transform:uppercase;letter-spacing:.4px;line-height:1.12;margin:0}
 .s2-ov p{color:#BFC6C3;font-size:12.5px;margin-top:4px;font-weight:500}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tile2{background:#242B30;border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:block;transition:transform .12s}
-.tile2:hover{transform:translateY(-2px)}
+.tile2{background:#242B30;border-radius:20px;padding:16px;box-shadow:0 8px 24px rgba(0,0,0,.06);display:block;transition:transform .18s,box-shadow .25s}
+.tile2:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(63,212,148,.10),0 10px 34px rgba(0,168,107,.28),0 0 22px rgba(63,212,148,.18)}
 .tile2:active{transform:scale(.97)}
 .t2-ic{width:38px;height:38px;border-radius:12px;background:rgba(0,168,107,.10);display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .tile2 h4{font-size:14px;font-weight:800;color:var(--ink);margin:0}
