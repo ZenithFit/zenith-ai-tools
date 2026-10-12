@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zenith HQ — Log In</title>
+<title>Log In | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
@@ -154,7 +154,9 @@
 
   function destination() {
     const params = new URLSearchParams(location.search);
-    return params.get('next') || 'index.html';
+    const n = params.get('next') || '';
+    // Only ever send people to our own pages, never off site.
+    return /^[a-z0-9-]+\.html([?#].*)?$/i.test(n) ? n : 'index.html';
   }
 
   // Already logged in? Straight through.
@@ -172,7 +174,7 @@
         localStorage.removeItem('zenith_name');
         localStorage.removeItem('zenith_programme');
       }
-    } catch (e) { /* offline or worker down — stay on login */ }
+    } catch (e) { /* offline or worker down, stay on login */ }
   })();
 
   document.getElementById('loginForm').addEventListener('submit', async function (e) {
