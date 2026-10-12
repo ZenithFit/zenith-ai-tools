@@ -93,7 +93,7 @@
 <h1 class="page">Press play, follow me.</h1>
 <p class="page-sub">Workouts and yoga you do with me on screen. These are extras on top of your programme. Your main training still lives in the Everfit app, nothing&rsquo;s moved.</p>
 <input id="fw-q" class="fw-search" type="search" autocomplete="off" placeholder="Search... abs, upper body, HIIT, block 2">
-<div class="fw-lbl">What kit have you got?</div>
+<div class="fw-lbl">What have you got? Tap as many as you like</div>
 <div class="fw-chips" id="fw-kit"></div>
 <div class="fw-lbl">How long have you got?</div>
 <div class="fw-chips" id="fw-time"></div>
@@ -112,14 +112,14 @@ var FW_W=[{"id":"PsMV9liMmh0","t":"Full Body Dumbbell Workout in 15 Minutes","s"
 var FW_Y=[{"b":"intro","id":"6qAOaVUlo_E","t":"Introduction to Yoga","s":158},{"b":"b1","id":"NJsz6ti7L3o","t":"Block 1, Session 1","s":1928},{"b":"b1","id":"FjkSY1s_hfY","t":"Block 1, Session 2","s":1845},{"b":"b1","id":"-cWHvj8cB3o","t":"Block 1, Session 3","s":1959},{"b":"b1","id":"z2Sg7C8DySE","t":"Block 1, Session 4","s":1881},{"b":"b2","id":"hLwNpvXllGs","t":"Block 2, Session 1","s":2296},{"b":"b2","id":"BqiTHc4k-4Y","t":"Block 2, Session 2","s":1977},{"b":"b2","id":"Gvyb2M4WcQ8","t":"Block 2, Session 3","s":1929},{"b":"b2","id":"GJxIfT6muLI","t":"Block 2, Session 4","s":1955},{"b":"b3","id":"mgYuUhA-aos","t":"Block 3, Session 1","s":1117},{"b":"b3","id":"W1LGt_s7kk0","t":"Block 3, Session 2","s":1029},{"b":"b3","id":"3o7WYMjXAkg","t":"Block 3, Session 3","s":1039},{"b":"b3","id":"0BwmcAGOiKc","t":"Block 3, Session 4","s":1093},{"b":"b3","id":"ErUgIvWrbN8","t":"Block 3, Session 5","s":1261},{"b":"b3","id":"155YPhgEHj8","t":"Block 3, Session 6","s":1695},{"b":"b3","id":"bzacnRqUlYk","t":"Block 3, Session 7","s":1595},{"b":"b3","id":"Zs0Kt9VTRXs","t":"Block 3, Session 8","s":994},{"b":"b3","id":"xjReNewuF4M","t":"Block 3, Session 9","s":953},{"b":"b3","id":"pMZCq684vbM","t":"Block 3, Session 10","s":997},{"b":"b3","id":"fsw51bm9bOw","t":"Block 3, Session 11","s":1055},{"b":"b3","id":"ZchWftnpScA","t":"Block 3, Session 12","s":1072},{"b":"b3","id":"dvWLLLEKyDg","t":"Block 3, Session 13","s":1142},{"b":"bonus","id":"ZwNBhxOK1bI","t":"Session 14","s":1209},{"b":"bonus","id":"5sS7An9yJc4","t":"Spring Session","s":944},{"b":"bonus","id":"Qkt9CvSmFss","t":"December Session 1","s":1161},{"b":"bonus","id":"DtU9eM7lSEU","t":"December Session 2","s":1373},{"b":"bonus","id":"10U9bfBVj2s","t":"December Session 3","s":1184},{"b":"bonus","id":"_bBywB2aBS8","t":"December Session 4","s":1126}];
 var SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 var FW_TOOL='Follow Along Done';
-var KITS=[['all','All'],['bw','Bodyweight'],['db','Dumbbells'],['kb','Kettlebell'],['sep'],['yoga','Yoga']];
-var KIT_LV={bw:1,db:2,kb:3};
-var KIT_HINT={all:'Showing everything, workouts and yoga.',bw:'Showing <b>bodyweight only</b> workouts. No kit needed.',db:'Showing <b>bodyweight and dumbbell</b> workouts.',kb:'Showing <b>bodyweight, dumbbell and kettlebell</b> workouts. The lot.',yoga:'Showing <b>yoga only</b>. Just you and a mat.'};
+var KITS=[['all','All'],['bw','Bodyweight'],['db','Dumbbells'],['kb','Kettlebell'],['abs','Abs & Core'],['yoga','Yoga']];
 var TIMES=[['any','Any length',0,999],['u10','Under 10 mins',0,9],['10','10 to 20 mins',10,20],['20','20 to 30 mins',21,30],['30','30 plus',31,999]];
 var FW_KW={db:'dumbbell dumbbells db',kb:'kettlebell kettlebells kb',bw:'bodyweight no equipment',hiit:'hiit tabata emom cardio',abs:'abs core',low:'low impact gentle beginner'};
-var fwDone={},fwCur=null,fwKit='all',fwTime='any',FW_ALL={};
-try{fwKit=localStorage.getItem('zf_fw_kit')||'all';if(!KIT_HINT[fwKit])fwKit='all';}catch(e){}
-FW_W.forEach(function(v){v.k='w';FW_ALL[v.id]=v;});FW_Y.forEach(function(v){v.k='y';FW_ALL[v.id]=v;});
+var fwDone={},fwCur=null,fwSel={},fwTime='any',FW_ALL={};
+try{JSON.parse(localStorage.getItem('zf_fw_sel')||'[]').forEach(function(k){if(['bw','db','kb','abs','yoga'].indexOf(k)>-1)fwSel[k]=1;});}catch(e){}
+function selList(){return Object.keys(fwSel).filter(function(k){return fwSel[k];});}
+function needs(v){var r=[];if(v.g.indexOf('db')>-1)r.push('db');if(v.g.indexOf('kb')>-1)r.push('kb');if(!r.length&&v.l===3)r=['db','kb'];return r;}
+FW_W.forEach(function(v){v.k='w';v.r=needs(v);v.a=v.g.indexOf('abs')>-1;FW_ALL[v.id]=v;});FW_Y.forEach(function(v){v.k='y';FW_ALL[v.id]=v;});
 function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;');}
 function mn(s){return Math.max(1,Math.round(s/60));}
 function mins(s){return mn(s)+' min';}
@@ -132,19 +132,31 @@ function terms(){return document.getElementById('fw-q').value.toLowerCase().spli
 function timeOk(v){var t=TIMES.filter(function(x){return x[0]===fwTime;})[0],m=mn(v.s);return m>=t[2]&&m<=t[3];}
 function searchOk(v,q,extra){if(!q.length)return true;var hay=(v.t+' '+extra+' '+mins(v.s)).toLowerCase();return q.every(function(t){return hay.indexOf(t)>-1;});}
 function renderChips(){
-  var showThirty=(fwKit==='all'||fwKit==='yoga');
+  var sel=selList(),showThirty=(!sel.length||fwSel.yoga);
   if(!showThirty&&fwTime==='30')fwTime='any';
-  document.getElementById('fw-kit').innerHTML=KITS.map(function(k){return k[0]==='sep'?'<span class="sep"></span>':'<button class="fw-chip'+(k[0]===fwKit?' on':'')+'" onclick="fwSetKit(\''+k[0]+'\')">'+k[1]+'</button>';}).join('');
+  document.getElementById('fw-kit').innerHTML=KITS.map(function(k){var on=k[0]==='all'?!sel.length:!!fwSel[k[0]];return '<button class="fw-chip'+(on?' on':'')+'" aria-pressed="'+on+'" onclick="fwSetKit(\''+k[0]+'\')">'+k[1]+'</button>';}).join('');
   document.getElementById('fw-time').innerHTML=TIMES.filter(function(t){return t[0]!=='30'||showThirty;}).map(function(t){return '<button class="fw-chip'+(t[0]===fwTime?' on':'')+'" onclick="fwSetTime(\''+t[0]+'\')">'+t[1]+'</button>';}).join('');
 }
-function fwSetKit(k){fwKit=k;try{localStorage.setItem('zf_fw_kit',k);}catch(e){}renderAll();}
+function fwSetKit(k){if(k==='all'){fwSel={};}else{fwSel[k]=!fwSel[k];}try{localStorage.setItem('zf_fw_sel',JSON.stringify(selList()));}catch(e){}renderAll();}
 function fwSetTime(t){fwTime=(fwTime===t&&t!=='any')?'any':t;renderAll();}
+function hintText(){
+  var sel=selList();if(!sel.length)return 'Showing everything, workouts and yoga.';
+  var kit=sel.filter(function(k){return k==='bw'||k==='db'||k==='kb';});var parts=[];
+  if(kit.length||fwSel.abs){var names=['bodyweight'];if(fwSel.db)names.push('dumbbell');if(fwSel.kb)names.push('kettlebell');
+    var w=(!kit.length)?'all':(names.length===1?'bodyweight only':names.slice(0,-1).join(', ')+' and '+names[names.length-1]);
+    parts.push('<b>'+w+(fwSel.abs?' abs and core':'')+'</b> workouts');}
+  if(fwSel.yoga)parts.push('<b>yoga</b>');
+  return 'Showing '+parts.join(' plus ')+'.';
+}
 function renderAll(){
   renderChips();
   var q=terms(),total=0,html='';
-  if(fwKit!=='yoga'){
-    var lv=KIT_LV[fwKit]||9;
-    var list=FW_W.filter(function(v){return v.l<=lv&&timeOk(v)&&searchOk(v,q,v.g.map(function(x){return FW_KW[x]||'';}).join(' '));});
+  var sel=selList(),kitSel=fwSel.bw||fwSel.db||fwSel.kb,showW=!sel.length||kitSel||fwSel.abs,showY=!sel.length||fwSel.yoga;
+  if(showW){
+    var list=FW_W.filter(function(v){
+      if(kitSel&&!v.r.every(function(x){return fwSel[x];}))return false;
+      if(fwSel.abs&&!v.a)return false;
+      return timeOk(v)&&searchOk(v,q,v.g.map(function(x){return FW_KW[x]||'';}).join(' '));});
     total+=list.length;
     [['Under 10 mins',0,9],['10 to 20 mins',10,20],['20 to 30 mins',21,999]].forEach(function(g){
       var l=list.filter(function(v){var m=mn(v.s);return m>=g[1]&&m<=g[2];});
@@ -153,12 +165,12 @@ function renderAll(){
   }
   document.getElementById('fw-groups').innerHTML=html;
   var yh='';
-  if(fwKit==='all'||fwKit==='yoga'){
+  if(showY){
     var filtering=q.length||fwTime!=='any';
     var ok=function(v){return timeOk(v)&&searchOk(v,q,'yoga stretch '+(v.b==='bonus'?'bonus december spring':''));};
     var intro=FW_Y.filter(function(v){return v.b==='intro';})[0];
     var CH='<svg class="chev" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 6 8 10.5 12.5 6"/></svg>';
-    if(fwKit==='all')yh+='<div class="fw-group-h fw-yoga-h"><h2>Yoga</h2><span></span></div>';
+    if(showW)yh+='<div class="fw-group-h fw-yoga-h"><h2>Yoga</h2><span></span></div>';
     if(ok(intro)){total++;yh+='<div class="fw-intro fw-card" id="fw-'+esc(intro.id)+'">'+thumb(intro)+'<div class="fw-meta"><div class="fw-title">Start here: '+esc(intro.t)+'<p>Watch this first, then work through the blocks in order. Block 1 is the foundations.</p></div>'+tick(intro)+'</div></div>';}
     [['b1','Block 1','The foundations. Slower, longer sessions to learn the flows.',true],['b2','Block 2','Building on Block 1. Same length, a bit more to it.',false],['b3','Block 3','Shorter sessions, 15 to 30 minutes. Perfect for rest days.',false],['bonus','Bonus sessions','Extra flows outside the blocks. Dip in whenever.',false]].forEach(function(b){
       var all=FW_Y.filter(function(v){return v.b===b[0];});
@@ -168,7 +180,7 @@ function renderAll(){
     });
   }
   document.getElementById('fw-yoga').innerHTML=yh;
-  var hint=KIT_HINT[fwKit];
+  var hint=hintText();
   hint+=total?' <span style="color:#8A938F">'+total+' session'+(total===1?'':'s')+'.</span>':'';
   if(!total)hint='Nothing matching that. Try a different length or clear the search.';
   document.getElementById('fw-hint').innerHTML=hint;
@@ -201,8 +213,8 @@ function fwClose(){document.getElementById('fw-modal').classList.remove('open');
 document.addEventListener('keydown',function(e){if(e.key==='Escape')fwClose();});
 (function(){
   var h=location.hash,m=h.match(/^#fw-(.+)$/),target=null;
-  if(h==='#yoga')fwKit='yoga';
-  if(m){target=FW_ALL[decodeURIComponent(m[1])];if(target){fwKit='all';fwTime='any';}}
+  if(h==='#yoga')fwSel={yoga:1};
+  if(m){target=FW_ALL[decodeURIComponent(m[1])];if(target){fwSel={};fwTime='any';}}
   document.getElementById('fw-q').addEventListener('input',renderAll);
   renderAll();
   if(target){var d=document.getElementById('blk-'+target.b);if(d)d.open=true;var el=document.getElementById('fw-'+target.id);
