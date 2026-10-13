@@ -10,6 +10,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="hq.css?v=25">
 <script src="hq.js?v=25"></script>
+<style>
+.goal-card{position:relative;background:#242B30;border:1px solid #333C41;border-radius:20px;padding:20px 22px 18px;margin:22px 0 18px;overflow:hidden}
+.goal-card:before{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(63,212,148,.16),rgba(63,212,148,0) 70%);pointer-events:none}
+.gc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;position:relative}
+.gc-lbl{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#3FD494}
+.gc-edit{font-size:12.5px;font-weight:700;color:#BFC6C3;text-decoration:none;border:1px solid #333C41;border-radius:999px;padding:5px 12px;transition:border-color .15s,color .15s}
+.gc-edit:hover{border-color:#3FD494;color:#FFFFFF}
+.gc-goal{font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:24px;line-height:1.15;letter-spacing:.01em;color:#FFFFFF;position:relative}
+.gc-why{margin-top:14px;padding:2px 0 2px 14px;border-left:3px solid #3FD494;color:#D9DEDC;font-size:15px;line-height:1.55;position:relative}
+.gc-why b{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8A938F;margin-bottom:4px}
+.gc-foot{margin-top:14px;font-size:12.5px;color:#8A938F;position:relative}
+.gc-empty p{color:#BFC6C3;font-size:15px;line-height:1.5;margin:2px 0 14px;position:relative}
+.gc-btn{position:relative;display:inline-flex;align-items:center;gap:8px;background:#3FD494;color:#1B2126;font-weight:800;font-size:15px;border-radius:999px;padding:12px 20px;text-decoration:none;transition:background .15s,color .15s}
+.gc-btn:hover{background:#00A86B;color:#FFFFFF}
+@media(min-width:900px){.gc-goal{font-size:30px}}
+</style>
 </head>
 <body>
 <div class="topline"></div>
@@ -34,6 +50,36 @@
 })();
 </script>
 
+<div class="goal-card" id="goal-card" style="display:none"></div>
+<script>
+(function(){
+  let t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+  if(!t)return;
+  const box=document.getElementById('goal-card');
+  const esc=v=>String(v||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const M=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  fetch(API+'/entries?tool='+encodeURIComponent('Goal Builder')+'&limit=1',{headers:{'Authorization':'Bearer '+t}})
+    .then(r=>r.ok?r.json():null).then(d=>{
+      if(!d||!Array.isArray(d.entries))return;
+      const e=d.entries[0];
+      if(e&&e.data&&e.data.goal){
+        let when='';
+        if(e.created_at){const dt=new Date(e.created_at.replace(' ','T')+'Z');if(!isNaN(dt))when='Set '+dt.getDate()+' '+M[dt.getMonth()]+'. ';}
+        box.innerHTML='<div class="gc-top"><span class="gc-lbl">Your goal</span><a class="gc-edit" href="goal-builder.html?mode=realign">Update</a></div>'
+          +'<div class="gc-goal">'+esc(e.data.goal)+'</div>'
+          +(e.data.why?'<div class="gc-why"><b>Why it matters</b>'+esc(e.data.why)+'</div>':'')
+          +'<div class="gc-foot">'+when+'You wrote this. Hold yourself to it.</div>';
+      }else{
+        box.classList.add('gc-empty');
+        box.innerHTML='<div class="gc-top"><span class="gc-lbl">Your goal</span></div>'
+          +'<div class="gc-goal">Not set yet.</div>'
+          +'<p>2 minutes of honesty and you&rsquo;ll know exactly what you&rsquo;re chasing and why. It&rsquo;ll sit right here, every time you log in.</p>'
+          +'<a class="gc-btn" href="goal-builder.html">Let&rsquo;s get clear on my goal</a>';
+      }
+      box.style.display='block';
+    }).catch(()=>{});
+})();
+</script>
 <div class="dash-row" id="dash-row" style="display:none">
   <div class="wk-card" id="wk-card" style="display:none">
     <div class="wk-lbl">Your week</div>

@@ -207,6 +207,7 @@ verify();
 let mode='new';
 el('modeNew').onclick=()=>{mode='new';el('modeNew').classList.add('on');el('modeRe').classList.remove('on');el('realignQ').style.display='none';};
 el('modeRe').onclick=()=>{mode='realign';el('modeRe').classList.add('on');el('modeNew').classList.remove('on');el('realignQ').style.display='block';};
+try{if(new URLSearchParams(location.search).get('mode')==='realign')el('modeRe').click();}catch(e){}
 
 const SYSTEM=`You are Mark Davies, a UK online fat loss coach (Zenith Fit, coaching since 2014). You are helping one of your own clients get clear on their goal. Voice: direct, warm, British English, full contractions, short punchy sentences, no dashes anywhere, no emojis, no bullet symbols. Never call the person a failure. Call patterns out, then show them you've got them. Mirror their exact words back wherever possible.
 
