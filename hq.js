@@ -51,3 +51,35 @@ function zenithLogout(silent){
   if(silent||!t){done();return;}
   fetch(API+'/auth/logout',{method:'POST',headers:{'Authorization':'Bearer '+t}}).catch(function(){}).finally(done);
 }
+
+// v25 sidebar: Rate Your Day streak ring + Start Here progress (desktop only)
+(function(){
+  function run(){
+    if(!document.getElementById('sx-ring'))return;
+    if(!window.matchMedia||!window.matchMedia('(min-width:900px)').matches)return;
+    let t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+    if(!t)return;
+    const H={headers:{'Authorization':'Bearer '+t}};
+    const key=function(dt){const p=n=>String(n).padStart(2,'0');return dt.getFullYear()+'-'+p(dt.getMonth()+1)+'-'+p(dt.getDate());};
+    fetch(API+'/entries?tool='+encodeURIComponent('Daily Review')+'&limit=120',H).then(r=>r.ok?r.json():null).then(function(d){
+      if(!d||!Array.isArray(d.entries))return;
+      const by={};d.entries.forEach(function(e){if(e.tool==='Daily Review'&&e.data&&e.data.date)by[e.data.date]=1;});
+      const now=new Date();let s=0;const st=by[key(now)]?0:1;
+      for(let i=st;i<400;i++){const dt=new Date(now);dt.setDate(now.getDate()-i);if(by[key(dt)])s++;else break;}
+      const done=!!by[key(now)];
+      const goal=s>=30?100:s>=14?30:s>=7?14:7;
+      document.getElementById('sx-num').textContent=s;
+      document.getElementById('sx-arc').setAttribute('stroke-dashoffset',(119.4*(1-Math.min(s,goal)/goal)).toFixed(1));
+      document.getElementById('sx-t').textContent=s===0?'Rate Your Day':(s===1?'1 day streak':s+' day streak');
+      document.getElementById('sx-s').textContent=done?'Today\u2019s rated. Nice.':(s>0?'Rate today before bed':'Start your streak tonight');
+    }).catch(function(){});
+    fetch(API+'/entries?tool='+encodeURIComponent('Start Checklist')+'&limit=100',H).then(r=>r.ok?r.json():null).then(function(d){
+      if(!d||!Array.isArray(d.entries))return;
+      const req=['app','forms','appvids','goal','imin'];const st={};
+      d.entries.forEach(function(e){if(!e.data||!e.data.item)return;const w=e.data.when||0;if(!(e.data.item in st)||w>=st[e.data.item].w)st[e.data.item]={w:w,on:e.data.action!=='untick'};});
+      const n=req.filter(k=>st[k]&&st[k].on).length;
+      document.getElementById('sx-start').textContent=n>=req.length?'\u2713':n+'/'+req.length;
+    }).catch(function(){});
+  }
+  if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}
+})();

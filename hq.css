@@ -183,3 +183,30 @@ body{background:radial-gradient(1000px 540px at 50% -140px,rgba(0,168,107,.18),r
 .bottom a.on svg{stroke:#3FD494}
 .topline{background:var(--green)}
 input::placeholder{color:#8A938F}
+
+/* ---- v25 Whoop sidebar + bottom bar ---- */
+@media(min-width:900px){
+  .side{width:250px}
+  .side nav.sx{background:#0C0F11;border:1px solid #20272B;border-radius:22px;box-shadow:0 14px 40px rgba(0,0,0,.45);padding:14px 12px;gap:1px;max-height:calc(100vh - 110px);overflow-y:auto;scrollbar-width:none}
+  .side nav.sx::-webkit-scrollbar{display:none}
+  .side nav.sx a{position:relative;display:flex;align-items:center;gap:12px;padding:6px 10px;border-radius:11px;font-size:13.5px;font-weight:500;color:#BFC6C3;transition:background .15s,color .15s}
+  .side nav.sx a svg{width:17px;height:17px;flex:none;stroke:#7E8884;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s}
+  .side nav.sx a:hover{background:#151A1D;color:#FFFFFF}
+  .side nav.sx a:hover svg{stroke:#BFC6C3}
+  .side nav.sx a.on{background:#151A1D;color:#FFFFFF;font-weight:700}
+  .side nav.sx a.on svg{stroke:#3FD494}
+  .side nav.sx a.on:before{content:"";position:absolute;left:-12px;top:6px;bottom:6px;width:3px;border-radius:3px;background:#3FD494;box-shadow:0 0 10px #3FD494}
+  .sx-g{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#5E6864;font-weight:700;padding:11px 10px 4px}
+  .sx-c{margin-left:auto;font-size:11px;font-weight:700;color:#3FD494}
+  .side nav.sx a.sx-ring{background:#151A1D;border:1px solid #242B30;border-radius:16px;padding:10px 12px;gap:12px;margin-bottom:6px}
+  .side nav.sx a.sx-ring:hover{border-color:#333C41}
+  .side nav.sx a.sx-ring svg.sx-r{width:44px;height:44px;stroke:none}
+  .sx-ring b{display:block;color:#FFFFFF;font-size:13px}
+  .sx-ring small{display:block;color:#BFC6C3;font-size:11.5px;font-weight:500;margin-top:2px}
+}
+.bottom{background:rgba(12,15,17,.86)!important;border-top:1px solid #20272B!important}
+.bottom a{color:#7E8884;font-weight:600;position:relative}
+.bottom a svg{stroke-width:1.7}
+.bottom a.on{color:#FFFFFF}
+.bottom a.on svg{stroke:#3FD494}
+.bottom a.on:before{content:"";position:absolute;top:0;left:50%;width:22px;height:3px;margin-left:-11px;border-radius:0 0 3px 3px;background:#3FD494;box-shadow:0 0 10px #3FD494}
