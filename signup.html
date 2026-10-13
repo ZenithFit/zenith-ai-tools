@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create Your Account | Zenith HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #1B2126;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: #242B30;
+    border: 1.5px solid #333C41;
+    border-radius: 24px;
+    padding: 44px 36px 36px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  }
+  .brand {
+    margin-bottom: 36px;
+  }
+  .brand .kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3FD494;
+    margin-bottom: 12px;
+  }
+  .brand h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 34px;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+  }
+  .brand h1 span { color: #3FD494; }
+  .brand p {
+    color: #BFC6C3;
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #BFC6C3;
+    margin: 22px 0 8px;
+  }
+  input {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    border: 1.5px solid #4C555B;
+    background: #20272B;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input:focus { border-color: #3FD494; background: #20272B; }
+  button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 17px;
+    border: none;
+    border-radius: 999px;
+    background: #00A86B;
+    color: #FFFFFF;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button:hover { background: #008755; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+  .error {
+    display: none;
+    margin-top: 18px;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.35);
+    color: #FF9B93;
+    font-size: 14px;
+    text-align: center;
+  }
+  .help {
+    margin-top: 26px;
+    text-align: center;
+    color: #BFC6C3;
+    opacity: 0.8;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .baseline {
+    width: 100%;
+    max-width: 420px;
+    height: 3px;
+    background: #3FD494;
+    border-radius: 999px;
+    margin-top: 28px;
+    opacity: 0.9;
+  }
+  .hint { font-size: 12.5px; color: #8A938F; margin-top: 7px; line-height: 1.45; }
+  .help a { color: #3FD494; font-weight: 700; text-decoration: none; }
+  .bad { display: none; padding: 16px 18px; border-radius: 14px; background: #20272B; border: 1px solid #333C41; color: #BFC6C3; font-size: 15px; line-height: 1.55; }
+  .bad b { color: #FFFFFF; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="brand">
+      <div class="kicker">Zenith Fit</div>
+      <h1>Create your<br><span>account.</span></h1>
+      <p>Takes 30 seconds, then you're straight into HQ.</p>
+    </div>
+
+    <div class="bad" id="badLink"><b>This link doesn't look right.</b><br>No stress. Message Mark and he'll send you a fresh one.</div>
+
+    <form id="signupForm">
+      <label for="name">Full name</label>
+      <input id="name" type="text" autocomplete="name" autocapitalize="words" placeholder="e.g. Sarah Jones" required>
+      <div class="hint">First and last, so Mark knows it's you.</div>
+
+      <label for="username">Choose a username</label>
+      <input id="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="e.g. sarah.jones" required>
+      <div class="hint">Lowercase, no spaces. You'll use this to log in.</div>
+
+      <label for="password">Choose a password</label>
+      <input id="password" type="password" autocomplete="new-password" placeholder="8 or more characters" minlength="8" required>
+
+      <button id="goBtn" type="submit">Create my account</button>
+    </form>
+
+    <div class="error" id="errorBox"></div>
+
+    <p class="help">Already got an account? <a href="login.html?next=hq.html">Log in</a></p>
+  </div>
+  <div class="baseline"></div>
+
+<script>
+  const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+  const params = new URLSearchParams(location.search);
+  const CODE = (params.get('c') || '').trim();
+  const PROGRAMME = (params.get('p') || '').trim();
+
+  if (!CODE) {
+    document.getElementById('signupForm').style.display = 'none';
+    document.getElementById('badLink').style.display = 'block';
+  }
+
+  // Already logged in? Straight to HQ.
+  (async function () {
+    const token = localStorage.getItem('zenith_token');
+    if (!token) return;
+    try {
+      const res = await fetch(WORKER + '/auth/me', { headers: { 'Authorization': 'Bearer ' + token } });
+      if (res.ok) location.replace('hq.html');
+    } catch (e) { /* stay here */ }
+  })();
+
+  // Tidy the username as they type: lowercase, spaces become dots.
+  const u = document.getElementById('username');
+  u.addEventListener('input', function () {
+    const v = u.value.toLowerCase().replace(/\s+/g, '.');
+    if (v !== u.value) u.value = v;
+  });
+
+  document.getElementById('signupForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const btn = document.getElementById('goBtn');
+    const errorBox = document.getElementById('errorBox');
+    errorBox.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Setting you up...';
+
+    const fail = function (msg) {
+      errorBox.textContent = msg;
+      errorBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Create my account';
+    };
+
+    try {
+      const res = await fetch(WORKER + '/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: CODE,
+          programme: PROGRAMME,
+          name: document.getElementById('name').value,
+          username: u.value,
+          password: document.getElementById('password').value
+        })
+      });
+      const data = await res.json();
+      if (res.ok && data.token) {
+        localStorage.setItem('zenith_token', data.token);
+        localStorage.setItem('zenith_name', data.name);
+        localStorage.setItem('zenith_programme', data.programme);
+        btn.textContent = 'Boom. In you come.';
+        location.replace('hq.html');
+      } else {
+        fail(data.error || 'Something went wrong. Try again.');
+      }
+    } catch (err) {
+      fail('Could not reach the server. Check your connection and try again.');
+    }
+  });
+</script>
+</body>
+</html>

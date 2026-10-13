@@ -156,7 +156,7 @@
     const params = new URLSearchParams(location.search);
     const n = params.get('next') || '';
     // Only ever send people to our own pages, never off site.
-    return /^[a-z0-9-]+\.html([?#].*)?$/i.test(n) ? n : 'index.html';
+    return /^[a-z0-9-]+\.html([?#].*)?$/i.test(n) ? n : 'hq.html';
   }
 
   // Already logged in? Straight through.
