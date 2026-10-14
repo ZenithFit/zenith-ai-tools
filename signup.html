@@ -151,7 +151,8 @@
       <label for="password">Choose a password</label>
       <input id="password" type="password" autocomplete="new-password" placeholder="8 or more characters" minlength="8" required>
 
-      <button id="goBtn" type="submit">Create my account</button>
+      <div id="zcSlot"></div>
+      <button id="goBtn" type="submit" disabled>Create my account</button>
     </form>
 
     <div class="error" id="errorBox"></div>
@@ -199,7 +200,7 @@
     const fail = function (msg) {
       errorBox.textContent = msg;
       errorBox.style.display = 'block';
-      btn.disabled = false;
+      btn.disabled = !(window.zfConsentTicked && window.zfConsentTicked());
       btn.textContent = 'Create my account';
     };
 
@@ -212,7 +213,8 @@
           programme: PROGRAMME,
           name: document.getElementById('name').value,
           username: u.value,
-          password: document.getElementById('password').value
+          password: document.getElementById('password').value,
+          consent: !!(window.zfConsentTicked && window.zfConsentTicked())
         })
       });
       const data = await res.json();
@@ -220,6 +222,7 @@
         localStorage.setItem('zenith_token', data.token);
         localStorage.setItem('zenith_name', data.name);
         localStorage.setItem('zenith_programme', data.programme);
+        if (window.ZFC) { ZFC.remember(); ZFC.logSheet(data.name, 'Signup'); }
         btn.textContent = 'Boom. In you come.';
         location.replace('hq.html');
       } else {
@@ -229,6 +232,16 @@
       fail('Could not reach the server. Check your connection and try again.');
     }
   });
+</script>
+<script src="zf-consent.js?v=1"></script>
+<script>
+  (function(){
+    var slot=document.getElementById('zcSlot');
+    var tickBox=ZFC.signupBox(slot);
+    var go=document.getElementById('goBtn');
+    tickBox.addEventListener('change',function(){go.disabled=!tickBox.checked;});
+    window.zfConsentTicked=function(){return tickBox.checked;};
+  })();
 </script>
 </body>
 </html>

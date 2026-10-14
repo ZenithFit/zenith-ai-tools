@@ -179,7 +179,7 @@ const PILL_HINTS={
 let strict='Sensible';
 
 function logToSheets(tool,fields={},message=''){
-  const payload={tool,message,...fields};
+  const payload={tool,message:(window.ZFC?ZFC.stamp(message):message),...fields};
   fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
 }
 
@@ -404,5 +404,7 @@ showLast();
 checkReady();
 initSession();
 </script>
+<script src="zf-consent.js?v=1"></script>
+<script>if(window.ZFC)ZFC.tick(document.getElementById('submit'),{light:true});</script>
 </body>
 </html>

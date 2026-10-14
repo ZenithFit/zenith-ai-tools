@@ -187,7 +187,7 @@
       <div class="tablewrap">
         <table>
           <thead>
-            <tr><th>Name</th><th>Username</th><th>Programme</th><th>Status</th><th>Last login</th><th></th></tr>
+            <tr><th>Name</th><th>Username</th><th>Programme</th><th>Status</th><th>Health consent</th><th>Last login</th><th></th></tr>
           </thead>
           <tbody id="clientRows"></tbody>
         </table>
@@ -256,7 +256,7 @@
       const rows = document.getElementById('clientRows');
       rows.innerHTML = '';
       if (!clients.length) {
-        rows.innerHTML = '<tr><td colspan="6" style="color:#8A8F8D">No clients yet. Add your first one above.</td></tr>';
+        rows.innerHTML = '<tr><td colspan="7" style="color:#8A8F8D">No clients yet. Add your first one above.</td></tr>';
         return;
       }
       for (const c of clients) {
@@ -267,12 +267,16 @@
           '<td>' + esc(c.username) + '</td>' +
           '<td>' + esc(c.programme) + '</td>' +
           '<td><span class="pill ' + (c.active ? 'on">Active' : 'off">Off') + '</span></td>' +
+          '<td>' + consentCell(c) + '</td>' +
           '<td>' + fmtDate(c.last_login) + '</td>' +
           '<td class="actions">' +
             (c.active
               ? '<button class="btn small ghost" onclick="deactivate(\'' + esc(c.username) + '\')">Deactivate</button>'
               : '<button class="btn small" onclick="reactivate(\'' + esc(c.username) + '\')">Reactivate</button>') +
             '<button class="btn small ghost" onclick="resetPassword(\'' + esc(c.username) + '\')">New password</button>' +
+            (c.consent_status === 'given'
+              ? '<button class="btn small ghost" style="color:#B3402F" onclick="withdrawConsent(\'' + esc(c.username) + '\', \'' + esc(c.name) + '\')">Withdraw consent</button>'
+              : '') +
           '</td>';
         rows.appendChild(tr);
       }
@@ -307,6 +311,28 @@
     } catch (e) {
       show('addMsg', e.message, false);
     }
+  }
+
+  function consentCell(c) {
+    const sub = t => '<div style="font-size:12px;color:#6B706E;margin-top:4px">' + t + '</div>';
+    if (c.consent_status === 'given') return '<span class="pill on">Given</span>' + sub(fmtDate(c.consent_at) + (c.consent_version ? ' (' + esc(c.consent_version) + ')' : ''));
+    if (c.consent_status === 'withdrawn') return '<span class="pill off">Withdrawn</span>' + sub(fmtDate(c.consent_at));
+    return '<span class="pill off">Not given</span>' + sub('Sees the consent card next time');
+  }
+
+  async function withdrawConsent(username, name) {
+    if (!confirm('Withdraw health consent for ' + name + '? They\'ll see the consent card again the next time they open HQ, and can\'t get in without agreeing. Nothing is deleted.')) return;
+    try {
+      await api('/admin/clients/withdraw-consent', 'POST', { username });
+      const when = new Date().toISOString();
+      fetch('https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec', {
+        method: 'POST', mode: 'no-cors',
+        body: JSON.stringify({ tool: 'Health Consent', message: 'Consent withdrawn ' + when + ' via Admin',
+          field1_label: 'Name', field1_value: name, field2_label: 'Version', field2_value: 'Withdrawn',
+          field3_label: 'Where', field3_value: 'Admin', field4_label: 'Timestamp', field4_value: when })
+      }).catch(() => {});
+      loadClients();
+    } catch (e) { show('listMsg', e.message, false); }
   }
 
   async function deactivate(username) {

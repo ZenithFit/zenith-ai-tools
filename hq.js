@@ -83,3 +83,6 @@ function zenithLogout(silent){
   }
   if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}
 })();
+
+// Health data consent gate (GDPR): nobody gets into HQ without it.
+if(window.ZFC)ZFC.gate();
