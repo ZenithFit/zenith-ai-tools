@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
-<script>
-/* HQ login gate: the AI tools are members only. Runs before paint. */
-(function(){
-  var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
-  var here=(location.pathname.split('/').pop()||'index.html')+location.search+location.hash;
-  if(!t){location.replace('login.html?next='+encodeURIComponent(here));return;}
-  fetch('https://zenith-fit.mark-5a5.workers.dev/auth/me',{headers:{'Authorization':'Bearer '+t}}).then(function(r){
-    if(r.status===401){try{localStorage.removeItem('zenith_token');localStorage.removeItem('zenith_name');localStorage.removeItem('zenith_programme');}catch(e){}
-      location.replace('login.html?next='+encodeURIComponent(here));}
-  }).catch(function(){});
-})();
-</script>
+<!-- Tools are open to every client. Logged in HQ members get their account consent check; everyone else ticks once per phone. -->
 
 <meta name="theme-color" content="#1B2126">
 <meta charset="UTF-8">
@@ -1635,8 +1624,8 @@ function dlHM(){if(lastHM)dl(lastHM,'zenithfit-hormones-plan.html');}
 function dlHonesty(){if(lastH)dl(lastH,'zenithfit-honesty-check.html');}
 function dlProtein(){if(lastPf)dl(lastPf,'zenithfit-protein-fix.html');}
 </script>
-<script src="zf-consent.js?v=1"></script>
-<script>if(window.ZFC)ZFC.gate();</script>
+<script src="zf-consent.js?v=2"></script>
+<script>if(window.ZFC)ZFC.openGate();</script>
 </body>
 </html>
 <script>

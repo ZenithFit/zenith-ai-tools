@@ -112,7 +112,17 @@
     });
   }
 
-  function showGate(name) {
+  // For pages anyone can use (the AI tools page): HQ members get the account check,
+  // everyone else agrees once on this phone.
+  function openGate() {
+    if (token()) return gate();
+    if (remembered()) return;
+    css();
+    if (document.body) showGate('', true);
+    else document.addEventListener('DOMContentLoaded', function () { showGate('', true); });
+  }
+
+  function showGate(name, local) {
     var wrap = document.createElement('div');
     wrap.className = 'zg';
     wrap.setAttribute('role', 'dialog');
@@ -131,6 +141,13 @@
     box.input.addEventListener('change', function () { btn.disabled = !box.input.checked; });
     btn.addEventListener('click', function () {
       if (!box.input.checked) return;
+      if (local) {
+        remember();
+        logSheet('', 'AI tools page');
+        wrap.remove();
+        document.documentElement.style.overflow = '';
+        return;
+      }
       btn.disabled = true; btn.textContent = 'Saving...'; err.style.display = 'none';
       fetch(API + '/auth/consent', {
         method: 'POST',
@@ -204,7 +221,7 @@
   }
 
   window.ZFC = {
-    VERSION: VERSION, gate: gate, tick: tick, stamp: stamp,
+    VERSION: VERSION, gate: gate, openGate: openGate, tick: tick, stamp: stamp,
     signupBox: signupBox, logSheet: logSheet, remember: remember, forget: forget
   };
 })();
