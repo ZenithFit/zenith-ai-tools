@@ -66,8 +66,8 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 <a class="back-pill" href="hq.html" onclick="if(history.length>1){history.back();return false;}">&#8249;&nbsp; Back</a>
 
 <div class="kick">The Goal Builder</div>
-<h1>Find your goal.</h1>
-<p class="sub">Most people can't answer "what's your goal?" and that's completely normal. So I'm not going to ask it. Answer these honestly instead, and I'll hand your goal back to you, built properly.</p>
+<h1 id="gbH">Find your goal.</h1>
+<p class="sub" id="gbSub">Most people can't answer "what's your goal?" and that's completely normal. So I'm not going to ask it. Answer these honestly instead, and I'll hand your goal back to you, built properly.</p>
 <p class="hello" id="hello"></p>
 
 <div id="formBox">
@@ -144,8 +144,6 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 <div class="pgn"><div class="dot">5</div><p>Check in every Friday</p></div>
 </div>
 <div class="sect">This is just as much a mentality shift as a physical change. Once we get your mindset in the right place, the physical side gets a lot easier. That's something we're going to work on together.</div>
-<a class="evbtn" href="https://apps.apple.com/app/id1438926364" target="_blank" rel="noopener" onclick="return zfEverfit(event)">Pop your goal into Everfit ↗</a>
-<div class="evsub">Not sure where goals live in the app? <a href="hq-app.html#av7">Watch the 40 second how to</a></div>
 </div>
 
 <div class="again" id="again"><button type="button" onclick="location.reload()">Start again</button></div>
@@ -205,8 +203,10 @@ verify();
 
 // mode toggle
 let mode='new';
-el('modeNew').onclick=()=>{mode='new';el('modeNew').classList.add('on');el('modeRe').classList.remove('on');el('realignQ').style.display='none';};
-el('modeRe').onclick=()=>{mode='realign';el('modeRe').classList.add('on');el('modeNew').classList.remove('on');el('realignQ').style.display='block';};
+const GB_COPY={new:['Find your goal.',el('gbSub').textContent],realign:['Reset your goal.','Goals drift, and that\u2019s normal. Tell me what\u2019s changed and what\u2019s stopped working, and I\u2019ll rebuild your goal around where you are now.']};
+function gbCopy(m){el('gbH').textContent=GB_COPY[m][0];el('gbSub').textContent=GB_COPY[m][1];}
+el('modeNew').onclick=()=>{mode='new';gbCopy('new');el('modeNew').classList.add('on');el('modeRe').classList.remove('on');el('realignQ').style.display='none';};
+el('modeRe').onclick=()=>{mode='realign';gbCopy('realign');el('modeRe').classList.add('on');el('modeNew').classList.remove('on');el('realignQ').style.display='block';};
 try{if(new URLSearchParams(location.search).get('mode')==='realign')el('modeRe').click();}catch(e){}
 
 const SYSTEM=`You are Mark Davies, a UK online fat loss coach (Zenith Fit, coaching since 2014). You are helping one of your own clients get clear on their goal. Voice: direct, warm, British English, full contractions, short punchy sentences, no dashes anywhere, no emojis, no bullet symbols. Never call the person a failure. Call patterns out, then show them you've got them. Mirror their exact words back wherever possible.

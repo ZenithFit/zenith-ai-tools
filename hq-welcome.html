@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<title>Welcome | Zenith HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css?v=41">
+<script src="zf-consent.js?v=2"></script>
+<script src="hq.js?v=41"></script>
+
+</head>
+<body>
+<header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
+<div class="shell">
+<aside class="side"><nav><a href="hq.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="hq-sessions.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg>Watch</a><a href="hq-tools.html"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Tools</a><a href="hq-guides.html"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg>Guides</a><a href="hq-coaching.html" class="on"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Coaching</a></nav><a class="side-msg" href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener">Message Mark</a></aside>
+<main class="content">
+<a class="back-pill" href="hq-coaching.html"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
+<div class="kicker">Start here</div>
+<h1 class="page">Welcome to <em>HQ.</em></h1>
+<p class="page-sub">A quick hello from me, then a 2 minute tour so you know where everything lives.</p>
+<div id="wv"></div>
+<script>
+(function(){
+  var V=window.ZF_VIDEOS||{},box=document.getElementById('wv'),html='';
+  function frame(url){var u=String(url||'');var y=u.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);var v=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/|\?h=)?([0-9a-f]+)?/);
+    if(y)return 'https://www.youtube.com/embed/'+y[1];if(v)return 'https://player.vimeo.com/video/'+v[1]+(v[2]?'?h='+v[2]:'');return '';}
+  [['welcome','Welcome from Mark','Who I am, what HQ is for, and how we&rsquo;re going to do this.'],['tour','How to use HQ','Home, Watch, Tools, Guides and Coaching. Where everything lives.']].forEach(function(x){
+    var src=frame(V[x[0]]);
+    html+='<div class="vid-card">'+(src?'<div class="vid-frame"><iframe src="'+src+'" title="'+x[1]+'" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div>':'<div class="vid-frame" style="display:flex;align-items:center;justify-content:center;color:#9AA3A0;font-size:14px;font-weight:600">Video landing soon</div>')+'<div class="vid-title">'+x[1]+'</div><div class="vid-sub">'+x[2]+'</div></div>';
+  });
+  box.innerHTML=html;
+  if(V.welcome){
+    try{localStorage.setItem('zf_welcome_seen','1');}catch(e){}
+    var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+    if(t)fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'HQ Welcome Watched',data:{when:Date.now()}})}).catch(function(){});
+  }
+})();
+</script>
+</main>
+</div>
+<nav class="bottom"><a href="hq.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="hq-sessions.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg>Watch</a><a href="hq-tools.html"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Tools</a><a href="hq-guides.html"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg>Guides</a><a href="hq-coaching.html" class="on"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Coaching</a></nav>
+</body>
+</html>

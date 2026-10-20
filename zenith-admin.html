@@ -116,6 +116,14 @@
     border-bottom: 1px solid #ECEDEB;
     font-weight: 700;
   }
+  textarea { width:100%; min-height:110px; padding:13px 16px; border-radius:12px; border:1px solid #E4E6E4; background:#FAFAF9; color:#111; font:15px/1.5 'DM Sans',sans-serif; outline:none; resize:vertical }
+  textarea:focus { border-color:#00A86B; background:#fff }
+  .hint { font-size:13px; color:#8A8F8D; margin-top:8px }
+  .hint b { color:#4A4F4D }
+  .prog { display:flex; flex-direction:column; gap:6px; min-width:150px }
+  .prog select, .prog input { padding:8px 10px; font-size:13.5px; border-radius:10px }
+  .prog select.unset { border-color:#F0C66B; background:#FFF8E8 }
+  .prog .saved { font-size:11.5px; color:#0B7A51; min-height:14px }
   td { padding: 14px 8px; border-bottom: 1px solid #F1F2F0; vertical-align: middle; }
   tr:last-child td { border-bottom: none; }
   .inactive td { color: #B4B8B6; }
@@ -164,6 +172,15 @@
   <!-- MAIN -->
   <div id="mainArea" class="hidden">
 
+    <h2>This week&rsquo;s message.</h2>
+    <div class="panel">
+      <label for="weekMsg">Shows at the top of every client&rsquo;s Home, on the card with your photo</label>
+      <textarea id="weekMsg" maxlength="400" placeholder="2 or 3 lines. Write it on a Sunday when you plan the week."></textarea>
+      <div class="hint"><span id="msgCount">0</span>/400 &middot; <span id="msgWhen">Not set yet</span>. If you skip a week, last week&rsquo;s stays up.</div>
+      <button class="btn" onclick="saveMessage()">Save message</button>
+      <div class="msg" id="weekMsgMsg"></div>
+    </div>
+
     <h2>Add a client.</h2>
     <div class="panel">
       <label for="newName">Full name, first and last (stamped on every Rate Your Day entry, e.g. Sarah Taylor)</label>
@@ -192,6 +209,7 @@
           <tbody id="clientRows"></tbody>
         </table>
       </div>
+      <p class="hint"><b>Programme:</b> this shows on their Home. Accelerator shows Week 1 of 6 and so on, worked out from the start date. Momentum and Transformation just show the name. Anyone on <b>Not set</b> sees no programme line at all, so nothing ever looks wrong. Changes save straight away.</p>
       <div class="msg" id="listMsg"></div>
       <button class="btn ghost" onclick="loadClients()" style="margin-top:18px">Refresh list</button>
     </div>
@@ -234,6 +252,7 @@
       document.getElementById('unlockPanel').classList.add('hidden');
       document.getElementById('mainArea').classList.remove('hidden');
       loadClients();
+      loadMessage();
     } catch (e) {
       sessionStorage.removeItem('zenith_admin_key');
       show('unlockMsg', 'Wrong key. Try again.', false);
@@ -265,7 +284,7 @@
         tr.innerHTML =
           '<td style="font-weight:700">' + esc(c.name) + '</td>' +
           '<td>' + esc(c.username) + '</td>' +
-          '<td>' + esc(c.programme) + '</td>' +
+          '<td>' + progCell(c) + '</td>' +
           '<td><span class="pill ' + (c.active ? 'on">Active' : 'off">Off') + '</span></td>' +
           '<td>' + consentCell(c) + '</td>' +
           '<td>' + fmtDate(c.last_login) + '</td>' +
@@ -282,6 +301,54 @@
       }
     } catch (e) {
       show('listMsg', e.message, false);
+    }
+  }
+
+  function progCell(c) {
+    const set = c.prog_set === 1 ? c.programme : '';
+    const u = esc(c.username);
+    const opts = ['', 'Accelerator', 'Momentum', 'Transformation'].map(p =>
+      '<option value="' + p + '"' + (p === set ? ' selected' : '') + '>' + (p || 'Not set') + '</option>').join('');
+    const start = c.start_date || String(c.created_at || '').slice(0, 10);
+    return '<div class="prog" data-u="' + u + '">' +
+      '<select class="' + (set ? '' : 'unset') + '" onchange="saveProgramme(this)">' + opts + '</select>' +
+      '<input type="date" value="' + esc(start) + '" title="Accelerator start date" style="display:' + (set === 'Accelerator' ? 'block' : 'none') + '" onchange="saveProgramme(this)">' +
+      '<span class="saved"></span></div>';
+  }
+
+  async function saveProgramme(el) {
+    const box = el.closest('.prog');
+    const sel = box.querySelector('select'), date = box.querySelector('input'), note = box.querySelector('.saved');
+    date.style.display = sel.value === 'Accelerator' ? 'block' : 'none';
+    sel.classList.toggle('unset', !sel.value);
+    note.textContent = 'Saving...'; note.style.color = '#8A8F8D';
+    try {
+      const r = await api('/admin/clients/programme', 'POST', { username: box.dataset.u, programme: sel.value, start_date: sel.value === 'Accelerator' ? date.value : '' });
+      if (r.start_date) date.value = r.start_date;
+      note.textContent = 'Saved'; note.style.color = '';
+      setTimeout(() => { note.textContent = ''; }, 2500);
+    } catch (e) {
+      note.textContent = e.message; note.style.color = '#B3402F';
+    }
+  }
+
+  async function loadMessage() {
+    try {
+      const m = await api('/admin/message');
+      const box = document.getElementById('weekMsg');
+      box.value = m.value || '';
+      document.getElementById('msgCount').textContent = box.value.length;
+      document.getElementById('msgWhen').textContent = m.updated_at && m.value ? 'Last updated ' + fmtDate(m.updated_at) : 'Not set yet';
+    } catch (e) { /* the Worker update isn't in yet */ }
+  }
+
+  async function saveMessage() {
+    try {
+      const m = await api('/admin/message', 'POST', { text: document.getElementById('weekMsg').value });
+      document.getElementById('msgWhen').textContent = 'Last updated ' + fmtDate(m.updated_at);
+      show('weekMsgMsg', 'Saved. Every client sees it next time they open Home.', true);
+    } catch (e) {
+      show('weekMsgMsg', e.message, false);
     }
   }
 
@@ -358,6 +425,7 @@
       show('listMsg', 'Password changed for ' + username + '. They are logged out everywhere and need the new one.', true);
     } catch (e) { show('listMsg', e.message, false); }
   }
+  document.getElementById('weekMsg').addEventListener('input', e => { document.getElementById('msgCount').textContent = e.target.value.length; });
 </script>
 </body>
 </html>

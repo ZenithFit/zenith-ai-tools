@@ -3,13 +3,13 @@
 <head>
 <!-- Tools are open to every client. Logged in HQ members get their account consent check; everyone else ticks once per phone. -->
 
-<meta name="theme-color" content="#1B2126">
+<meta name="theme-color" content="#000000">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zenith Fit | Zenith AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Oswald:wght@500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&family=Archivo:wght@600;700;800&family=Oswald:wght@500;600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:          #F4F4F2;
@@ -549,70 +549,72 @@ body[data-view="home"] .mob-toggle { display: none; }
   .msgs { min-height: 260px; max-height: 300px; }
 }
 
-/* ===== HQ DARK SKIN (Oct 2026), matches Zenith HQ ===== */
-html{color-scheme:dark;background:#1B2126}
+/* ===== HQ LIGHT SKIN (Oct 2026), matches Zenith HQ ===== */
+html{color-scheme:light;background:#F4F6F5}
 :root{
-  --bg:#1B2126;--white:#242B30;--off:#20272B;
-  --border:rgba(255,255,255,0.06);--border-med:#333C41;
-  --charcoal:#FFFFFF;--mid:#BFC6C3;--faint:#8A938F;
-  --amber:#00A86B;--amber-dim:#008755;--amber-bg:rgba(63,212,148,0.10);--amber-bdr:rgba(63,212,148,0.28);
-  --shadow:0 14px 40px rgba(0,0,0,0.35);
+  --bg:#F4F6F5;--white:#FFFFFF;--off:#F7F9F8;
+  --border:#E3E7E5;--border-med:#E3E7E5;
+  --charcoal:#111111;--mid:#4A4F4D;--faint:#7A7F7D;
+  --amber:#00A86B;--amber-dim:#008755;--amber-bg:#E9F7F0;--amber-bdr:rgba(0,168,107,0.28);
+  --shadow:0 10px 28px rgba(17,17,17,0.06);
+  --font-head:'Roboto Slab',Georgia,serif;--font-body:'Inter Tight','DM Sans',system-ui,sans-serif;
 }
-body{background:radial-gradient(1000px 540px at 50% -140px,rgba(0,168,107,.16),rgba(0,168,107,0) 65%) no-repeat,#1B2126;color:#BFC6C3}
-body::before{content:"";position:fixed;top:0;left:0;right:0;height:3px;background:#00A86B;z-index:400}
-.sidebar{background:#1B2126;border-right:1px solid #333C41;top:3px;height:calc(100vh - 3px)}
-.sb-logo,.sb-foot{border-color:#333C41}
-.sb-featured{background:#0C0F11;border:1.5px solid #333C41}
+body{background:radial-gradient(900px 420px at 100% -120px,rgba(63,212,148,.24),rgba(63,212,148,0) 62%) no-repeat,#F4F6F5;color:#4A4F4D;font-family:'Inter Tight','DM Sans',system-ui,sans-serif}
+.sidebar{background:#FFFFFF;border-right:1px solid #E3E7E5}
+.sb-logo,.sb-foot{border-color:#E3E7E5}
+.sb-featured{background:#0C0F11;border:1px solid #0C0F11}
 .sb-featured-badge{color:#FFFFFF}
-.sb-item:hover,.sb-item.on{background:#242B30;color:#FFFFFF}
-.topbar{top:3px;background:rgba(27,33,38,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid rgba(255,255,255,.06)}
-.topbar-pill{background:#242B30;border-color:#333C41}
-.hq-link{background:#242B30;border:1px solid #333C41;color:#FFFFFF}
-.hq-link:hover{background:#242B30;border-color:#00A86B}
-.mob-toggle{background:rgba(36,43,48,.72);border:1.5px solid #333C41;color:#FFFFFF}
-.mob-toggle:hover{border-color:#00A86B}
-.page-hdr-eyebrow{color:#3FD494;font-family:'DM Sans',sans-serif;font-weight:700;font-size:12px;letter-spacing:2px}
-.page-title{font-family:'Oswald','Archivo',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:.5px;line-height:1.08;font-size:clamp(28px,4.4vw,36px)}
-.card,.result,.loading,.chat-wrap,.tool-card,.modal{background:#242B30;border:1.5px solid #333C41;box-shadow:none}
-.result-head{background:#20272B;border-bottom:1px solid #333C41}
-.result-actions{border-top-color:#333C41}
-.fi,.fs,.cin{background:#1B2126;border:1.5px solid #333C41;color:#FFFFFF}
-.fi:focus,.fs:focus,.cin:focus{background:#1B2126;border-color:#3FD494;box-shadow:0 0 0 3px rgba(63,212,148,.12)}
-.fi::placeholder,.cin::placeholder{color:#6E7773}
-.fs option{background:#242B30;color:#FFFFFF}
+.sb-item:hover,.sb-item.on{background:#E9F7F0;color:#111111}
+.topbar{background:#000000;border-bottom:1px solid #15191C;-webkit-backdrop-filter:none;backdrop-filter:none}
+.topbar-title{color:#FFFFFF;font-family:'Roboto Slab',Georgia,serif;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.topbar-pill{background:transparent;border:1px solid #2A3034;color:#BFC6C3}
+.hq-link{background:transparent;border:1px solid #2A3034;color:#FFFFFF}
+.hq-link:hover{border-color:#3FD494}
+.mob-toggle{background:transparent;border:1px solid #2A3034;color:#FFFFFF}
+.mob-toggle:hover{border-color:#3FD494}
+.page-hdr-eyebrow{color:#7A7F7D;font-family:'Inter Tight',sans-serif;font-weight:500;font-size:13.5px;letter-spacing:0;text-transform:none}
+.page-title{font-family:'Roboto Slab',Georgia,serif;font-weight:800;text-transform:uppercase;letter-spacing:0;line-height:1.04;font-size:clamp(28px,4.4vw,38px);color:#111111}
+.page-title em{color:#00A86B}
+.card,.result,.loading,.chat-wrap,.tool-card,.modal{background:#FFFFFF;border:1px solid #E3E7E5;box-shadow:0 6px 18px rgba(17,17,17,.04)}
+.result-head{background:#F7F9F8;border-bottom:1px solid #E3E7E5}
+.result-actions{border-top-color:#E3E7E5}
+.fi,.fs,.cin{background:#FFFFFF;border:1px solid #E3E7E5;color:#111111}
+.fi:focus,.fs:focus,.cin:focus{background:#FFFFFF;border-color:#00A86B;box-shadow:0 0 0 3px rgba(0,168,107,.12)}
+.fi::placeholder,.cin::placeholder{color:#9AA19E}
 .btn{background:#00A86B;color:#FFFFFF}
 .btn:hover{background:#008755}
-.btn-sm{background:#20272B;border-color:#333C41;color:#FFFFFF}
+.btn-sm{background:#FFFFFF;border-color:#E3E7E5;color:#111111}
 .btn-sm:hover{background:#00A86B;color:#FFFFFF}
 .btn-send{background:#00A86B;color:#FFFFFF}
 .btn-send:hover{background:#008755}
-.btn-ghost{border-color:#333C41;color:#BFC6C3}
-.btn-ghost:hover{border-color:#FFFFFF;color:#FFFFFF}
-.spin{border-color:#333C41;border-top-color:#3FD494}
-.chip{background:#242B30;border:1.5px solid #333C41;color:#BFC6C3}
-.chip:hover{background:rgba(63,212,148,.14);border-color:#3FD494;color:#FFFFFF}
-.bot-hero,.home-feat{background:#0C0F11;border:1.5px solid #333C41;box-shadow:0 14px 40px rgba(0,0,0,.35);background-image:radial-gradient(600px 220px at 85% -40%,rgba(0,168,107,.22),rgba(0,168,107,0) 70%)}
+.btn-ghost{border-color:#E3E7E5;color:#4A4F4D}
+.btn-ghost:hover{border-color:#111111;color:#111111}
+.spin{border-color:#E3E7E5;border-top-color:#00A86B}
+.chip{background:#FFFFFF;border:1px solid #E3E7E5;color:#4A4F4D}
+.chip:hover{background:#E9F7F0;border-color:#00A86B;color:#111111}
+.bot-hero,.home-feat{background:#0C0F11;border:1px solid #0C0F11;box-shadow:0 14px 34px rgba(0,0,0,.18);background-image:radial-gradient(600px 220px at 85% -40%,rgba(0,168,107,.30),rgba(0,168,107,0) 70%)}
+.bot-hero-title,.home-feat-title{font-family:'Roboto Slab',Georgia,serif;font-weight:800;text-transform:uppercase}
 .bot-hero-title em{color:#3FD494}
-.home-feat-badge{background:#00A86B;color:#FFFFFF}
-.home-sec{color:#8A938F}
-.tool-card{transition:transform .18s,box-shadow .25s,background .25s}
-.tool-card:hover{border-color:#333C41;transform:translateY(-2px);background:#262E33;box-shadow:0 0 0 1px rgba(63,212,148,.10),0 10px 34px rgba(0,168,107,.28),0 0 22px rgba(63,212,148,.18)}
-.tool-name{color:#FFFFFF}
-.chat-head,.chat-foot{background:#242B30;border-color:#333C41}
-.chat-av,.mav.m{background:#0C0F11;border:1.5px solid #333C41;color:#FFFFFF}
-.mav.u{background:#333C41;color:#FFFFFF}
-.msgs{background:#1B2126}
-.bub{background:#242B30;border:1px solid #333C41;color:#E6EAE8}
-.msg.u .bub{background:rgba(0,168,107,.22);border:1px solid rgba(63,212,148,.35);color:#FFFFFF}
-.chat-copy-btn{border-color:#333C41;color:#BFC6C3}
-.chat-copy-btn:hover{background:#20272B;color:#FFFFFF}
-.tdot{background:#BFC6C3}
-.tip-bar-label{color:#3FD494}
-.targets-bar,.privacy-note{background:#20272B;border:1px solid #333C41}
-.btn-targets-edit{border-color:#333C41;color:#BFC6C3}
-.btn-targets-edit:hover{border-color:#FFFFFF;color:#FFFFFF}
-.modal-overlay{background:rgba(8,10,12,.7)}
-::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15)}
+.home-feat-badge{background:#3FD494;color:#0C0F11}
+.home-sec{color:#00A86B;font-weight:700;letter-spacing:.14em}
+.tool-card{transition:transform .18s,box-shadow .25s,border-color .25s}
+.tool-card:hover{border-color:#BFE6D2;transform:translateY(-2px);background:linear-gradient(135deg,#E8F7EF 0%,#FFFFFF 65%);box-shadow:0 10px 26px rgba(0,168,107,.12)}
+.tool-name{color:#111111}
+.chat-head,.chat-foot{background:#FFFFFF;border-color:#E3E7E5}
+.chat-av,.mav.m{background:#0C0F11;border:1px solid #0C0F11;color:#FFFFFF}
+.mav.u{background:#E3E7E5;color:#111111}
+.msgs{background:#F4F6F5}
+.bub{background:#FFFFFF;border:1px solid #E3E7E5;color:#111111}
+.msg.u .bub{background:#E3F5EC;border:1px solid #BFE6D2;color:#111111}
+.chat-copy-btn{border-color:#E3E7E5;color:#4A4F4D}
+.chat-copy-btn:hover{background:#F4F6F5;color:#111111}
+.tdot{background:#9AA19E}
+.tip-bar-label{color:#00A86B}
+.targets-bar,.privacy-note{background:#FFFFFF;border:1px solid #E3E7E5}
+.btn-targets-edit{border-color:#E3E7E5;color:#4A4F4D}
+.btn-targets-edit:hover{border-color:#111111;color:#111111}
+.modal-overlay{background:rgba(12,15,17,.5)}
+::-webkit-scrollbar-thumb{background:rgba(17,17,17,0.15)}
 @media(max-width:700px){.topbar-pill{display:none}.topbar{padding:0 14px}}
 </style>
 </head>
@@ -1623,6 +1625,16 @@ function dlHW(){if(lastHW)dl(lastHW,'zenithfit-hormones-plan.html');}
 function dlHM(){if(lastHM)dl(lastHM,'zenithfit-hormones-plan.html');}
 function dlHonesty(){if(lastH)dl(lastH,'zenithfit-honesty-check.html');}
 function dlProtein(){if(lastPf)dl(lastPf,'zenithfit-protein-fix.html');}
+</script>
+<script>
+/* Deep links from HQ: ?tool=supp opens that tool, ?ask=... opens Mark Bot with the question typed in. */
+(function(){
+  try{
+    var p=new URLSearchParams(location.search),tool=p.get('tool'),ask=p.get('ask');
+    if(ask){goPage('bot');var c=document.getElementById('cin');if(c){c.value=ask;setTimeout(function(){c.focus();},300);}return;}
+    if(tool&&document.getElementById('page-'+tool))goPage(tool);
+  }catch(e){}
+})();
 </script>
 <script src="zf-consent.js?v=2"></script>
 <script>if(window.ZFC)ZFC.openGate();</script>
