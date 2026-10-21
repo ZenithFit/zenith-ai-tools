@@ -7,10 +7,23 @@
 <title>FAQs | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=43">
+<link rel="stylesheet" href="hq.css?v=47">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
+<style>
+.faq-btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.faq-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 20px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none!important;transition:transform .15s,filter .15s}
+.faq-btn:active{transform:scale(.98)}
+.faq-btn.ai{background:linear-gradient(180deg,#4BE0A0 0%,#2FC584 100%);color:#0C0F11!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 8px 20px rgba(0,168,107,.25)}
+.faq-btn.wa{background:#0C0F11;color:#FFFFFF!important}
+.faq-btn:hover{filter:brightness(1.05)}
+.faq-btn:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+</style>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
 <header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
@@ -47,7 +60,11 @@
 <details id="q16" style="background:#FFFFFF;border:1.5px solid #E3E7E5;border-radius:16px;padding:0;margin-bottom:10px;overflow:hidden"><summary style="list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;padding:16px 18px;font-weight:700;font-size:15px;color:#111111">How do I message you, and when do you reply?<span style="flex:0 0 auto;color:#00A86B;font-weight:800">+</span></summary><div style="padding:0 18px 16px;font-size:14.5px;line-height:1.6;color:#4A4F4D">WhatsApp, any time, about anything. Workouts, food, a wobble, a win. I&rsquo;ll get back to you as quick as I can, usually the same day. The Support and Boundaries video in Start Here covers how it all works.</div></details>
 <details id="q17" style="background:#FFFFFF;border:1.5px solid #E3E7E5;border-radius:16px;padding:0;margin-bottom:10px;overflow:hidden"><summary style="list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;padding:16px 18px;font-weight:700;font-size:15px;color:#111111">Something&rsquo;s not working in the app or the HQ.<span style="flex:0 0 auto;color:#00A86B;font-weight:800">+</span></summary><div style="padding:0 18px 16px;font-size:14.5px;line-height:1.6;color:#4A4F4D">Message me with a screenshot and I&rsquo;ll get it sorted. Don&rsquo;t sit on it for a week being annoyed at it, I can usually fix things the same day.</div></details>
 <details id="q18" style="background:#FFFFFF;border:1.5px solid #E3E7E5;border-radius:16px;padding:0;margin-bottom:10px;overflow:hidden"><summary style="list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;padding:16px 18px;font-weight:700;font-size:15px;color:#111111">I can&rsquo;t log into the HQ.<span style="flex:0 0 auto;color:#00A86B;font-weight:800">+</span></summary><div style="padding:0 18px 16px;font-size:14.5px;line-height:1.6;color:#4A4F4D">Message me and I&rsquo;ll sort your login out. Takes me 2 minutes. While you&rsquo;re at it, add the HQ to your phone&rsquo;s home screen, share button then Add to Home Screen, so it&rsquo;s always one tap away.</div></details>
-<div class="note"><b>Not covered here?</b> Message me on WhatsApp. If you&rsquo;re wondering it, half the group is too, and it&rsquo;ll probably end up on this page.</div>
+<div class="note faq-help"><b>Can&rsquo;t find it in here?</b> Ask Mark AI, it&rsquo;s got my answers to hundreds of questions, any time of day. Or message me. If you&rsquo;re wondering it, half the group is too, and it&rsquo;ll probably end up on this page.
+<div class="faq-btns">
+<a class="faq-btn ai" href="index.html?tool=bot"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg>Ask Mark AI</a>
+<a class="faq-btn wa" href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>Message Mark</a>
+</div></div>
 <script>
 (function(){
   if(location.hash){var el=document.querySelector(location.hash);if(el&&el.tagName==='DETAILS'){el.open=true;setTimeout(function(){el.scrollIntoView({block:'center'});},100);}}

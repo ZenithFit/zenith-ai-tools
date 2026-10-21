@@ -7,10 +7,14 @@
 <title>Home | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=43">
+<link rel="stylesheet" href="hq.css?v=47">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
 <header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
@@ -49,6 +53,31 @@
 </div>
 <div class="home-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="hq-search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Search anything... creatine, holidays, scales"></div>
 <div id="hq-results"></div>
+
+<section class="zc-card a2hs" id="a2hs" style="display:none" aria-label="Put Zenith HQ on your home screen">
+  <div class="a2hs-top"><img src="/apple-touch-icon.png" alt="" width="52" height="52"><div><h3>Put HQ on your home screen</h3><p>One tap, like an app. Takes 20 seconds.</p></div></div>
+  <ol id="a2hs-steps"></ol>
+  <div class="a2hs-foot"><button type="button" id="a2hs-done" class="pill">Done it</button><button type="button" id="a2hs-other" class="a2hs-link"></button></div>
+</section>
+<script>
+(function(){
+  var ua=navigator.userAgent, box=document.getElementById('a2hs');
+  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+  var force=/[?&]a2hs=1/.test(location.search);
+  var done=false;try{done=localStorage.getItem('zf_a2hs_done')==='1';}catch(e){}
+  var phone=/iPhone|iPad|iPod|Android/i.test(ua)||(/Macintosh/.test(ua)&&navigator.maxTouchPoints>1);
+  if(standalone||(!force&&(done||!phone)))return;
+  var IOS=['Tap the <b>Share</b> button. In Safari it&rsquo;s the square with an arrow, at the bottom of the screen.','Scroll down and tap <b>Add to Home Screen</b>.','Tap <b>Add</b> in the top corner. Done, it&rsquo;s on your home screen with the Zenith Fit logo.'];
+  var AND=['Tap the <b>3 dots</b> in the top corner of Chrome.','Tap <b>Add to Home screen</b> (it might say Install app).','Tap <b>Add</b>. Done, it&rsquo;s on your home screen with the Zenith Fit logo.'];
+  var isAnd=/Android/i.test(ua);
+  function paint(a){document.getElementById('a2hs-steps').innerHTML=(a?AND:IOS).map(function(t){return '<li>'+t+'</li>';}).join('');document.getElementById('a2hs-other').textContent=a?'On an iPhone?':'On Android?';isAnd=a;}
+  paint(isAnd);
+  document.getElementById('a2hs-other').addEventListener('click',function(){paint(!isAnd);});
+  document.getElementById('a2hs-done').addEventListener('click',function(){try{localStorage.setItem('zf_a2hs_done','1');}catch(e){}box.style.display='none';});
+  box.style.display='block';
+  if(force)setTimeout(function(){box.scrollIntoView({behavior:'smooth',block:'center'});},400);
+})();
+</script>
 
 <script>
 (function(){

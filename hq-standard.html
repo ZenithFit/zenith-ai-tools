@@ -7,10 +7,24 @@
 <title>The Zenith Standard | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=43">
+<link rel="stylesheet" href="hq.css?v=47">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
+<style>
+/* v47: Mark's commitments as a dark card so the text reads properly */
+.my-side{background:radial-gradient(380px 240px at 105% -20%,rgba(63,212,148,.26),rgba(63,212,148,0) 62%),linear-gradient(160deg,#151A1D 0%,#0C0F11 70%);box-shadow:0 18px 40px rgba(12,15,17,.24);color:#E4E8E6}
+.my-side-h{font-family:var(--slab,'Roboto Slab',Georgia,serif);font-weight:800;text-transform:uppercase;font-size:24px;line-height:1.1;color:#FFFFFF}
+.my-side .me-ticks li{color:#BFC6C3!important}
+.my-side .me-ticks li b{color:#FFFFFF!important}
+.my-side .me-ticks li::before{background-color:rgba(63,212,148,.16)!important}
+.my-side>div:last-child{color:#BFC6C3!important;border-top-color:#2A3236!important}
+.my-side>div:last-child b{color:#FFFFFF!important;font-family:var(--slab,'Roboto Slab',Georgia,serif)!important}
+</style>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
 <header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
@@ -50,8 +64,8 @@
 
 <div class="section-lbl">My side: what you get from me</div>
 
-<div style="background:#F4F6F5;border-radius:22px;padding:28px 26px 26px;color:#111111">
-<div style="font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.1;letter-spacing:-0.02em">Here&rsquo;s what I commit to you.</div>
+<div class="my-side" style="border-radius:24px;padding:28px 26px 26px">
+<div class="my-side-h">Here&rsquo;s what I commit to you.</div>
 <ul class="bh-ticks me-ticks"><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">Your check in reply, written plus a voice note, <b>back by the end of Friday</b> so you&rsquo;re set for the weekend.</li><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">Messages answered, <b>usually within 30 to 60 minutes</b>, 7am to 7pm Monday to Friday.</li><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">Your programme reviewed every 4 to 6 weeks and changed when it needs to be.</li><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">A new Sunday Session every week.</li><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">A live call once a month. One topic, then your questions.</li><li style="position:relative;padding-left:32px;font-size:14.5px;line-height:1.55;color:#E4E8E6">Zenith HQ and the AI tools, any time, day or night.</li></ul>
 <div style="margin-top:20px;padding-top:16px;border-top:1px solid #23282B;font-size:15px;color:#4A4F4D">That&rsquo;s my side. Every single week.<b style="display:block;font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;color:#111111;margin-top:4px">Mark</b></div>
 </div>

@@ -309,3 +309,15 @@ a.fx-td:hover{border-color:#2E383D}
 .pc-list li{margin:5px 0}
 .pc-sig{display:block;max-width:240px;width:60%;margin:14px 0 4px;border-bottom:1px solid var(--line)}
 .pc-foot{margin:10px 0 0;font-size:13.5px;color:var(--mut)}
+
+/* ===== v47: put HQ on your home screen ===== */
+.a2hs{margin-top:14px}
+.a2hs-top{display:flex;gap:14px;align-items:center}
+.a2hs-top img{width:52px;height:52px;border-radius:13px;flex:none;box-shadow:0 6px 16px rgba(12,15,17,.2)}
+.a2hs-top h3{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:var(--ink);font-size:17px;line-height:1.1;margin:0}
+.a2hs-top p{margin:3px 0 0;font-size:14px;color:var(--mut)}
+#a2hs-steps{margin:14px 0 0;padding-left:20px;font-size:15px;line-height:1.5;color:var(--body)}
+#a2hs-steps li{margin:6px 0}
+#a2hs-steps b{color:var(--ink)}
+.a2hs-foot{display:flex;align-items:center;gap:16px;margin-top:14px;flex-wrap:wrap}
+.a2hs-link{background:none;border:0;padding:0;font:600 14px var(--sans);color:var(--green);text-decoration:underline;text-underline-offset:3px;cursor:pointer}

@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;800&family=Inter+Tight:wght@400;500;700&family=Archivo:wght@600;700;800;900&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=44">
+<link rel="stylesheet" href="hq.css?v=47">
 <style>
 /* Onboarding only. Everything else comes from hq.css so it always matches HQ */
 body{padding-bottom:0}
@@ -288,6 +288,10 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 .ob-consent{background:#fff;border:1px solid #E3E8E6;border-radius:18px;padding:14px 16px}
 @media (prefers-reduced-motion:reduce){.ob-step .ob-btn::before,.ob-step .ob-btn::after{transition:none}}
 </style>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
 <header class="tb"><div class="tb-in"><span class="tb-logo"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</span><span class="ob-step-pill" id="count">Step 1 of 6</span></div></header>
@@ -335,21 +339,13 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 
   <div class="section-lbl">Got the app and done your forms?</div>
   <div class="card">
-    <p class="ob-p" style="margin-top:0">Your welcome form and PAR Q are what I build your programme from, so they need to be in before anything else.</p>
-    <p class="ob-p">Not done them yet? Don&rsquo;t panic. Pop back into the app, takes 5 minutes, then come straight back here. Your progress is saved.</p>
+    <p class="ob-p" style="margin-top:0">This is the <b>Everfit app</b>, where you filled in your <b>welcome form and PAR Q</b>. That&rsquo;s what I build your programme from.</p>
+    <p class="ob-p"><b>Already done them?</b> Tick both boxes below and carry on.</p>
+    <p class="ob-p"><b>Not yet?</b> Tap the button to go back into the app. It takes 5 minutes, then come straight back here. Your progress is saved.</p>
     <a class="ob-store" id="toApp" href="https://apps.apple.com/app/id1438926364" style="margin-top:14px">Take me back to the app</a>
   </div>
   <button class="cl-row" data-tick="app"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">I&rsquo;m in the app</span><span class="cl-sub" style="display:block">Downloaded and logged in</span></span></button>
   <button class="cl-row" data-tick="forms"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">My forms are done</span><span class="cl-sub" style="display:block">Welcome form and PAR Q</span></span></button>
-
-  <div id="groupBox" style="display:none">
-    <div class="section-lbl">Join the group</div>
-    <div class="card">
-      <p class="ob-p" style="margin-top:0">This is where you&rsquo;ll find me day to day. Any question, any wobble, any night out you&rsquo;re not sure how to handle.</p>
-      <a class="ob-store" id="groupLink" target="_blank" rel="noopener" style="margin-top:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>Join the WhatsApp group</a>
-    </div>
-    <button class="cl-row" data-tick="group"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">I&rsquo;ve joined the group</span><span class="cl-sub" style="display:block">You&rsquo;ll get my message in there today</span></span></button>
-  </div>
 
   <p class="ob-err" id="err2" role="alert"></p>
   <button class="ob-btn" id="go2">Continue</button>
@@ -562,7 +558,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
   var API = 'https://zenith-fit.mark-5a5.workers.dev';
   // Your WhatsApp group invite link. Paste it in and the "Join the group" step appears. Blank = I add them in my reply.
-  var GROUP_LINK = 'https://chat.whatsapp.com/IgSdjx6j0i0C4qyBIawIAK?mode=gi_t';
+  var GROUP_LINK = ''; // group link lives in the welcome page, emails and Everfit, not here, so nobody gets taken away mid onboarding
   var TOKEN_KEY = 'zenith_token';
   var KEY = 'zf_onboarding';
   var NAMEKEY = 'zf_review_name'; // shared with Goal Builder and Rate Your Day so nobody types their name twice
@@ -681,11 +677,8 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   /* ===== PAGE 2: app and group ===== */
   $('#go2').addEventListener('click', function(){
     if(!S.ticks.app || !S.ticks.forms){ $('#err2').textContent = 'Tick both to show me you’re set up. No forms, no programme.'; return; }
-    if(GROUP_LINK && !S.ticks.group){ $('#err2').textContent = 'Last one. Join the group and tick it, that’s where I’ll be.'; return; }
     $('#err2').textContent = ''; show(3);
   });
-  if(GROUP_LINK){ $('#groupBox').style.display=''; $('#groupLink').href = GROUP_LINK; }
-  $('#groupLink').addEventListener('click', function(){ log('Opened group link'); });
 
   // Everfit on Android opens the app directly; iPhone goes via the App Store page which shows Open
   $('#toApp').addEventListener('click', function(e){
