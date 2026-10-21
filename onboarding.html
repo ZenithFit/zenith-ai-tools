@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;800&family=Inter+Tight:wght@400;500;700&family=Archivo:wght@600;700;800;900&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=43">
+<link rel="stylesheet" href="hq.css?v=44">
 <style>
 /* Onboarding only. Everything else comes from hq.css so it always matches HQ */
 body{padding-bottom:0}
@@ -224,6 +224,44 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 .ob-hero h1.page{color:#3FD494}
 .ob-hero + .page-sub{margin-top:18px!important}
 #toApp{text-decoration:none}
+
+/* ===== v43 onboarding additions ===== */
+.ob-progs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ob-prog{background:#fff;border:1.5px solid #E3E8E6;border-radius:16px;padding:14px 8px;text-align:center;cursor:pointer;font-family:inherit;color:#4A4F4D;transition:border-color .15s,background .15s,box-shadow .15s}
+.ob-prog b{display:block;font-size:14.5px;color:#111111}
+.ob-prog span{display:block;font-size:12.5px;margin-top:2px}
+.ob-prog:hover{border-color:#00A86B}
+.ob-prog.on{border-color:#00A86B;background:linear-gradient(0deg,rgba(0,168,107,.07),rgba(0,168,107,.07)),#fff;box-shadow:0 8px 22px rgba(0,168,107,.14)}
+.ob-prog.on b{color:#00875A}
+.ob-prog:focus-visible,.ob-store:focus-visible,#pwShow:focus-visible{outline:3px solid #3FD494;outline-offset:2px}
+.ob-pw{display:flex;gap:8px;align-items:center}
+.ob-pw input{flex:1}
+#pwShow{flex:none;border:1.5px solid #E3E8E6;background:#fff;border-radius:12px;padding:12px 14px;font:600 13px inherit;color:#111;cursor:pointer}
+.ob-consent{display:flex;gap:11px;align-items:flex-start;margin-top:16px;font-size:13px;line-height:1.5;color:#4A4F4D;cursor:pointer}
+.ob-consent input{flex:none;width:20px;height:20px;margin-top:2px;accent-color:#00A86B}
+.ob-consent a{color:#00875A}
+.ob-loggedin{display:flex;flex-direction:column;gap:2px;margin-top:14px}
+.ob-loggedin b{color:#111111}
+.ob-stores{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.ob-store{display:inline-flex;align-items:center;gap:8px;background:#0C0F11;color:#fff!important;text-decoration:none;font-weight:600;font-size:14.5px;padding:11px 18px;border-radius:999px}
+.ob-store:hover{background:#1A1F22}
+.ob-dark{position:relative;overflow:hidden;background:radial-gradient(380px 240px at 105% -20%,rgba(63,212,148,.26),rgba(63,212,148,0) 62%),linear-gradient(160deg,#151A1D 0%,#0C0F11 70%)!important;border:1px solid #1F262A!important;color:#BFC6C3;border-radius:24px;box-shadow:0 18px 40px rgba(12,15,17,.24)!important}
+.ob-dark-lbl{margin:0 0 10px;font-size:14px;font-weight:500;color:#3FD494}
+.ob-dark .ob-tl b{color:#FFFFFF}
+.ob-dark .ob-tl span{color:#BFC6C3}
+.ob-dark .ob-tl li::after{background:#2A3236}
+.ob-final{padding:24px 22px}
+.ob-final-h{font-family:var(--slab,'Roboto Slab',Georgia,serif);font-weight:800;text-transform:uppercase;color:#FFFFFF;font-size:26px;line-height:1.08;margin-bottom:10px}
+.ob-final-h .first-name{color:#3FD494!important}
+.ob-final p{color:#BFC6C3;font-size:15px;line-height:1.5;margin:8px 0}
+.ob-final .ob-hint{color:#8A938F;text-align:left}
+.ob-final .ob-btn{margin-top:14px;text-decoration:none}
+.ob-final .ob-hq{background:#3FD494!important;color:#0C0F11!important;box-shadow:0 8px 24px rgba(63,212,148,.3)!important}
+.ob-final .ob-hq:hover{background:#5BE0A7!important}
+.ob-final .ob-pw input{background:#151A1D!important;border:1.5px solid #2A3236!important;color:#fff!important;border-radius:12px;padding:12px 14px;font-size:15px}
+.ob-final #pwShow{background:#151A1D;border-color:#2A3236;color:#fff}
+.ob-final #pwSave{background:#FFFFFF!important;color:#0C0F11!important;box-shadow:none!important}
+.ob-final #waBtn{background:transparent!important;border:1.5px solid #3FD494!important;color:#FFFFFF!important;box-shadow:none!important}
 </style>
 </head>
 <body>
@@ -245,6 +283,13 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
     <label class="ob-field"><span>Email</span><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="The one you used for the app"></label>
     <p class="cl-sub" style="margin-top:12px">Use the same email you used for the app. Keeps everything nice and straightforward.</p>
   </div>
+
+  <div id="acctBox">
+    <label class="ob-field" id="codeRow" style="display:none"><span>Access code</span><input id="acode" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="It&rsquo;s in your welcome email"></label>
+    <label class="ob-consent"><input type="checkbox" id="consent"><span>I agree to Zenith Fit storing and using the health and wellbeing information I share (such as my weight, measurements, food, training, sleep, mood and any health conditions) so Mark can coach me. I understand it&rsquo;s stored securely with the services listed in the <a href="https://www.zenithfit.co.uk/privacy" target="_blank" rel="noopener">privacy notice</a>, and I can withdraw my consent at any time by messaging Mark.</span></label>
+    <p class="ob-hint" style="text-align:left;margin-top:12px">Been here before? <a href="login.html?next=onboarding.html">Log in and carry on</a></p>
+  </div>
+  <div class="card ob-loggedin" id="inBox" style="display:none"><b>You&rsquo;re logged into HQ</b><span id="inName"></span></div>
   <p class="ob-err" id="err1" role="alert"></p>
   <button class="ob-btn" id="go1">Let’s go</button>
 </section>
@@ -263,14 +308,26 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
     <div class="vid-sub">A quick hello from me and what the next 48 hours look like.</div>
   </div>
 
-  <div class="section-lbl">Forms done?</div>
+  <div class="section-lbl">Got the app and done your forms?</div>
   <div class="card">
-    <p class="ob-p" style="margin-top:0">Your welcome form and PAR Q need to be in before we go any further, because that’s what I build your programme from.</p>
-    <p class="ob-p"><b>Done them? Press Continue.</b></p>
-    <p class="ob-p">Not yet? Don’t panic. Pop back into the app, get them done, takes 5 minutes, and come straight back here.</p>
-    <a class="cl-btn" id="toApp" href="https://apps.apple.com/app/id1438926364" style="display:inline-flex;align-items:center;gap:8px;background:#00A86B;color:#fff;font-weight:700;font-size:13px;padding:10px 18px;border-radius:999px;margin-top:14px">Take me back to the app</a>
+    <p class="ob-p" style="margin-top:0">Your welcome form and PAR Q are what I build your programme from, so they need to be in before anything else.</p>
+    <p class="ob-p">Not done them yet? Don&rsquo;t panic. Pop back into the app, takes 5 minutes, then come straight back here. Your progress is saved.</p>
+    <a class="ob-store" id="toApp" href="https://apps.apple.com/app/id1438926364" style="margin-top:14px">Take me back to the app</a>
   </div>
-  <button class="ob-btn" data-next>Continue</button>
+  <button class="cl-row" data-tick="app"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">I&rsquo;m in the app</span><span class="cl-sub" style="display:block">Downloaded and logged in</span></span></button>
+  <button class="cl-row" data-tick="forms"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">My forms are done</span><span class="cl-sub" style="display:block">Welcome form and PAR Q</span></span></button>
+
+  <div id="groupBox" style="display:none">
+    <div class="section-lbl">Join the group</div>
+    <div class="card">
+      <p class="ob-p" style="margin-top:0">This is where you&rsquo;ll find me day to day. Any question, any wobble, any night out you&rsquo;re not sure how to handle.</p>
+      <a class="ob-store" id="groupLink" target="_blank" rel="noopener" style="margin-top:12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>Join the WhatsApp group</a>
+    </div>
+    <button class="cl-row" data-tick="group"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span><span class="cl-title" style="display:block">I&rsquo;ve joined the group</span><span class="cl-sub" style="display:block">You&rsquo;ll get my message in there today</span></span></button>
+  </div>
+
+  <p class="ob-err" id="err2" role="alert"></p>
+  <button class="ob-btn" id="go2">Continue</button>
 </section>
 
 <!-- 3 -->
@@ -385,7 +442,8 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   <p class="page-sub">I’ll be reading it while I build your programme.</p>
 
   <div class="section-lbl">Over the next 48 hours</div>
-  <div class="card">
+  <div class="card ob-dark">
+    <p class="ob-dark-lbl">What I&rsquo;m building for you</p>
     <ol class="ob-tl">
       <li><b>Your programme</b><span>In the app, built around you and your equipment</span></li>
       <li><b>Your nutrition strategy</b><span>How we’re going to approach your food</span></li>
@@ -447,14 +505,24 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   <div id="signDock"><button class="ob-btn" id="signBtn" disabled>Sign my promise</button></div>
 
   <div class="ob-after" id="after">
-    <div class="section-lbl">You’re in</div>
-    <div class="hi">That’s it, <span class="first-name">mate</span>. You’re in.</div>
-    <p class="ob-p">Keep hold of this. When it gets tough, and at some point it will, this is what we come back to.</p>
-    <p class="ob-p">Last thing. Drop me a message so I know you’re through. Everything’s saved, so you don’t need to come back to this page.</p>
-    <a class="ob-btn" id="waBtn" target="_blank" rel="noopener">Message Mark “I’m in”</a>
-    <p class="ob-hint" id="waNote"></p>
-    <p class="ob-hint">That’s the last step. Once you’ve sent it, you’re all done and I’ll add you to the group in my reply.</p>
-    <div class="note" style="margin:26px 0 40px;text-align:center"><b>Then sit back. Your programme’s on its way.</b></div>
+    <div class="ob-dark ob-final">
+      <p class="ob-dark-lbl">You&rsquo;re in</p>
+      <div class="ob-final-h">That&rsquo;s it, <span class="first-name">mate</span>. You&rsquo;re in.</div>
+      <p>Keep hold of this. When it gets tough, and at some point it will, this is what we come back to.</p>
+      <p>2 last things.</p>
+      <a class="ob-btn" id="waBtn" target="_blank" rel="noopener">1. Message Mark &ldquo;I&rsquo;m in&rdquo;</a>
+      <p class="ob-hint" id="waNote"></p>
+      <div id="pwBox">
+        <p style="margin-top:18px"><b style="color:#fff">2. Set a password for Zenith HQ.</b> Your email&rsquo;s your login, so this is all you need to get back in.</p>
+        <span class="ob-pw"><input id="pword" type="password" autocomplete="new-password" placeholder="At least 8 characters" aria-label="Choose a password"><button type="button" id="pwShow" aria-label="Show password">Show</button></span>
+        <p class="ob-err" id="errPw" role="alert"></p>
+        <button class="ob-btn" id="pwSave" type="button">Save my password</button>
+      </div>
+      <p class="ob-hint" id="pwDone" style="display:none">Password saved. Your login is <b id="pwEmail" style="color:#fff"></b></p>
+      <a class="ob-btn ob-hq" id="hqBtn" href="hq.html"><span id="hqNum">3.</span>&nbsp;Enter Zenith HQ</a>
+      <p class="ob-hint">Your goal&rsquo;s already in there waiting for you. Save HQ to your home screen so it&rsquo;s one tap away.</p>
+    </div>
+    <div class="note" style="margin:22px 0 40px;text-align:center"><b>Then sit back. Your programme&rsquo;s on its way.</b></div>
   </div>
 </section>
 
@@ -467,7 +535,10 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   var MARK_WHATSAPP_NUMBER = '';
   var MARK_WA_FALLBACK = 'https://wa.me/message/DHJN6EF5HJXPA1';
   var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
-  var API = 'https://zenith-fit.mark-5a5.workers.dev'; // Worker: /onboarding route still to be added in the HQ chat
+  var API = 'https://zenith-fit.mark-5a5.workers.dev';
+  // Your WhatsApp group invite link. Paste it in and the "Join the group" step appears. Blank = I add them in my reply.
+  var GROUP_LINK = 'https://chat.whatsapp.com/IgSdjx6j0i0C4qyBIawIAK?mode=gi_t';
+  var TOKEN_KEY = 'zenith_token';
   var KEY = 'zf_onboarding';
   var NAMEKEY = 'zf_review_name'; // shared with Goal Builder and Rate Your Day so nobody types their name twice
 
@@ -485,6 +556,17 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 
   /* ===== STATE ===== */
   var S = {step:1,name:'',email:'',ticks:{},now:'',nowDone:false,goal:false,vids:{},signed:false,sig:'',signedAt:''};
+  // Signup code arrives on the link (hq.zenithfit.co.uk/start?c=...). Remembered on this phone.
+  var CODE = '';
+  try{ CODE = new URLSearchParams(location.search).get('c') || localStorage.getItem('zf_ob_code') || ''; if(CODE) localStorage.setItem('zf_ob_code', CODE); }catch(e){}
+  // Programme comes from the Stripe thank you link (?p=accelerator). Nobody's asked. No link, Mark sets it in admin.
+  var PROG = '';
+  try{
+    var pq = (new URLSearchParams(location.search).get('p') || localStorage.getItem('zf_ob_prog') || '').toLowerCase();
+    PROG = {accelerator:'Accelerator',momentum:'Momentum',transformation:'Transformation'}[pq] || '';
+    if(PROG) localStorage.setItem('zf_ob_prog', pq);
+  }catch(e){}
+  function token(){ try{ return localStorage.getItem(TOKEN_KEY)||''; }catch(e){ return ''; } }
   try{ var saved = JSON.parse(localStorage.getItem(KEY)||'null'); if(saved) S = Object.assign(S, saved); }catch(e){}
   function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
 
@@ -493,7 +575,8 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
     var msg = 'Onboarding: ' + event + (extra ? ' | ' + extra : '');
     var payload = {tool:'Onboarding', name:S.name, email:S.email, event:event, message:msg};
     try{ fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(function(){}); }catch(e){}
-    // TODO (HQ chat): also POST to API + '/onboarding' so it saves to D1 and tags in Kit on completion
+    var t = token();
+    if(t){ try{ fetch(API + '/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'Onboarding',data:{event:event,step:S.step,extra:extra||''}})}).catch(function(){}); }catch(e){} }
   }
 
   var $ = function(s,r){return (r||document).querySelector(s)};
@@ -519,20 +602,65 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 
   /* ===== PAGE 1 ===== */
   $('#fname').value = S.name; $('#email').value = S.email;
+  var LOGGED = false, HASPW = false;
+  function acctMode(name){
+    LOGGED = !!name;
+    $('#acctBox').style.display = LOGGED ? 'none' : '';
+    $('#inBox').style.display = LOGGED ? '' : 'none';
+    if(LOGGED) $('#inName').textContent = 'Logged in as ' + name + '. Carry on.';
+  }
+  acctMode('');
+  if(!CODE) $('#codeRow').style.display = '';
+  if(token()){
+    fetch(API + '/auth/me',{headers:{'Authorization':'Bearer '+token()}}).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+      if(d && d.name){ HASPW = d.has_password !== false; acctMode(d.name); renderPw(); if(!S.name){ S.name=d.name; $('#fname').value=d.name; fillNames(); } if(d.email && !S.email){ S.email=d.email; $('#email').value=d.email; save(); } }
+    }).catch(function(){});
+  }
   $('#go1').addEventListener('click', function(){
+    var btn = this;
     var n = $('#fname').value.trim().replace(/\s+/g,' ');
     var e = $('#email').value.trim().toLowerCase();
     var err = $('#err1');
     if(n.split(' ').length < 2){ err.textContent = 'Pop your full name in, first and last.'; $('#fname').focus(); return; }
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e)){ err.textContent = 'That email doesn’t look right. Check it and try again.'; $('#email').focus(); return; }
-    err.textContent = '';
-    var isNew = !S.name;
+    var isNew = !S.started;
     S.name = n.replace(/\b\w/g, function(c){return c.toUpperCase();}); S.email = e; save();
     try{ localStorage.setItem(NAMEKEY, S.name); }catch(x){}
     fillNames();
-    if(isNew) log('Started');
-    show(2);
+    function next(){ err.textContent=''; if(isNew){ S.started=true; save(); log('Started', PROG || 'Programme not set'); } show(2); }
+    if(LOGGED){ next(); return; }
+    var code = CODE || $('#acode').value.trim();
+    if(!code){ err.textContent = 'Pop your access code in. It’s in your welcome email.'; $('#acode').focus(); return; }
+    if(!$('#consent').checked){ err.textContent = 'Tick the box to agree, then we’re off.'; return; }
+    err.textContent = ''; btn.disabled = true; btn.textContent = 'Setting you up...';
+    var body = {code:code, name:S.name, email:e, consent:true, source:'onboarding'};
+    if(PROG){ body.programme = PROG; body.programme_confirmed = true; }
+    fetch(API + '/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
+    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, status:r.status, j:j}; }); }).then(function(res){
+      btn.disabled = false; btn.textContent = 'Let’s go';
+      if(res.j && res.j.code === 'email_exists'){ err.innerHTML = 'You’ve already got an HQ login with that email. <a href="login.html?next=onboarding.html">Log in and carry on</a>.'; return; }
+      if(!res.ok || !res.j.token){ err.textContent = (res.j && res.j.error) || 'Something went wrong there. Try again in a sec.'; return; }
+      try{
+        localStorage.setItem(TOKEN_KEY, res.j.token);
+        localStorage.setItem('zenith_name', res.j.name || S.name);
+        localStorage.setItem('zenith_programme', res.j.programme || '');
+        localStorage.setItem('zf_consent', 'v1 Oct 2026');
+      }catch(x){}
+      HASPW = res.j.has_password !== false; acctMode(S.name); renderPw(); next();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Let’s go';
+      err.textContent = 'Couldn’t reach HQ just now. Check your signal and try again.';
+    });
   });
+
+  /* ===== PAGE 2: app and group ===== */
+  $('#go2').addEventListener('click', function(){
+    if(!S.ticks.app || !S.ticks.forms){ $('#err2').textContent = 'Tick both to show me you’re set up. No forms, no programme.'; return; }
+    if(GROUP_LINK && !S.ticks.group){ $('#err2').textContent = 'Last one. Join the group and tick it, that’s where I’ll be.'; return; }
+    $('#err2').textContent = ''; show(3);
+  });
+  if(GROUP_LINK){ $('#groupBox').style.display=''; $('#groupLink').href = GROUP_LINK; }
+  $('#groupLink').addEventListener('click', function(){ log('Opened group link'); });
 
   // Everfit on Android opens the app directly; iPhone goes via the App Store page which shows Open
   $('#toApp').addEventListener('click', function(e){
@@ -553,7 +681,9 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   $$('[data-tick]').forEach(function(t){
     t.addEventListener('click', function(){
       S.ticks[t.dataset.tick] = !S.ticks[t.dataset.tick]; save(); renderTicks();
-      $('#err3').textContent = '';
+      if($('#err3')) $('#err3').textContent = ''; if($('#err2')) $('#err2').textContent = '';
+      var lbl = {app:'In the app', forms:'Forms done', group:'Joined the group'}[t.dataset.tick];
+      if(S.ticks[t.dataset.tick] && lbl) log(lbl);
     });
   });
   function renderNow(){
@@ -589,7 +719,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   }
   $('#goalDone').addEventListener('click', goalSet);
   // Goal Builder can call parent.postMessage('zf-goal-set','*') when it saves, and this moves on by itself
-  window.addEventListener('message', function(e){ if(e.data === 'zf-goal-set') goalSet(); });
+  window.addEventListener('message', function(e){ if(e.origin === location.origin && e.data === 'zf-goal-set') goalSet(); });
   $('#go4').addEventListener('click', function(){ show(5); });
 
   /* ===== PAGE 5 ===== */
@@ -670,14 +800,42 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
     S.signed = true; S.signedAt = today(); save();
     renderSigned();
     log('Promise signed', 'Completed onboarding. Book to order.');
-    // TODO (HQ chat): POST signature + all onboarding data to API + '/onboarding' (D1), which tags them in Kit for the day 2 HQ email
+    // Save the signed promise to their HQ account (shown on the Coaching page). Small copy of the signature keeps it light.
+    var t = token();
+    if(t){
+      var small = S.sig;
+      try{ var c2=document.createElement('canvas'), sc=Math.min(1, 520/cv.width); c2.width=Math.round(cv.width*sc); c2.height=Math.round(cv.height*sc); c2.getContext('2d').drawImage(cv,0,0,c2.width,c2.height); small=c2.toDataURL('image/png'); }catch(x){}
+      fetch(API + '/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'Onboarding Promise',data:{name:S.name,signedAt:S.signedAt,sig:small.length<75000?small:''}})}).catch(function(){});
+    }
     setTimeout(function(){ $('#after').scrollIntoView({behavior:'smooth', block:'start'}); }, 250);
   });
   $('#waBtn').addEventListener('click', function(){ log('Messaged Mark'); });
+  $('#hqBtn').addEventListener('click', function(){ log('Entered HQ'); });
+
+  /* ===== Password for HQ, at the very end ===== */
+  function renderPw(){
+    var need = LOGGED && !HASPW;
+    $('#pwBox').style.display = need ? '' : 'none';
+    $('#hqNum').textContent = need ? '3.' : '2.';
+  }
+  $('#pwShow').addEventListener('click', function(){ var p=$('#pword'); var sh=p.type==='password'; p.type=sh?'text':'password'; this.textContent=sh?'Hide':'Show'; });
+  $('#pwSave').addEventListener('click', function(){
+    var b = this, pw = $('#pword').value, er = $('#errPw');
+    if(pw.length < 8){ er.textContent = 'At least 8 characters, please.'; return; }
+    b.disabled = true; b.textContent = 'Saving...';
+    fetch(API + '/auth/password',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({password:pw})})
+    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); }).then(function(res){
+      b.disabled = false; b.textContent = 'Save my password';
+      if(!res.ok){ er.textContent = (res.j && res.j.error) || 'That didn’t save. Try again.'; return; }
+      er.textContent=''; HASPW = true; renderPw();
+      $('#pwEmail').textContent = S.email; $('#pwDone').style.display = '';
+      log('Password set');
+    }).catch(function(){ b.disabled = false; b.textContent = 'Save my password'; er.textContent = 'Couldn’t reach HQ. Check your signal and try again.'; });
+  });
   
 
   /* ===== BOOT ===== */
-  fillNames(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned();
+  fillNames(); renderPw(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned();
   show(S.name ? Math.min(Math.max(S.step,2),6) : 1);
 })();
 </script>
