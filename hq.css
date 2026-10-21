@@ -245,3 +245,58 @@ a.fx-td:hover{border-color:#2E383D}
 @keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
 @media (min-width:700px){.fx-photo{height:330px;background-position:center 22%}.fx-quote{font-size:23px}}
 @media (prefers-reduced-motion:reduce){.fx.rise,.wk-col.today .wk-bar.empty,.pill.rated svg{animation:none}.fx-fill,.wk-bar{transition:none}}
+
+/* ===== v41.1: desktop Home ===== */
+@media (min-width:1000px){
+  .content:has(#fx-home){max-width:none}
+  .fx-split{display:grid;grid-template-columns:minmax(300px,40%) 1fr;min-height:430px}
+  .fx-split .fx-photo{grid-row:1/3;height:auto;min-height:100%;background-position:center 20%}
+  .fx-split .fx-photo::after{background:linear-gradient(90deg,rgba(12,15,17,0) 55%,#0C0F11 100%)}
+  .fx-split .fx-msg{margin-top:0;padding:46px 44px 0 34px;align-self:end}
+  .fx-split .fx-from{font-size:15px}
+  .fx-split .fx-quote{font-size:27px;line-height:1.3;max-width:30ch;margin-top:10px}
+  .fx-split .fx-where{margin:26px 44px 0 34px;padding:22px 0 36px;align-self:start}
+  .fx-split .fx-prog b{font-size:28px}
+  .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:stretch}
+  .home-grid>.zc-card{margin-bottom:0}
+  .home-grid>#goal-card{grid-column:1/-1}
+  .home-grid #goal-card .goal-txt{font-size:30px;max-width:34ch}
+  .home-grid #goal-card .goal-why{max-width:60ch}
+  .home-grid #rate-card{display:flex;flex-direction:column;justify-content:space-between}
+  .home-grid #rate-card .wk-bars{height:110px}
+  .home-grid .ses{align-items:center;gap:18px}
+  .home-grid .ses-th{width:46%;height:auto;aspect-ratio:16/10}
+  .home-grid .ses-t{font-size:18px}
+  .home-grid .ses-s{font-size:14px}
+  .home-search{margin-top:16px}
+}
+@media (min-width:1000px){
+  #fx-week[data-done]{display:grid!important;grid-template-columns:58% 1fr;align-items:center}
+  #fx-week .fx-vid::after{background:linear-gradient(90deg,rgba(12,15,17,0) 70%,#0C0F11 100%)}
+  #fx-week .fx-body{padding:28px 32px}
+  #fx-week .fx-body h2{font-size:26px}
+}
+@media (min-width:1400px){.fx-split .fx-quote{font-size:30px}}
+.fx-body .fx-from{color:#3FD494}
+
+/* ===== v43: bottom bar stays put on iPhone (no frosted glass, own layer) ===== */
+.bottom{background:#FFFFFF!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;transform:translate3d(0,0,0);-webkit-transform:translate3d(0,0,0);will-change:transform;box-shadow:0 -6px 20px rgba(17,17,17,.05)}
+
+/* ===== v43: desktop sidebar ===== */
+@media (min-width:900px){
+  .side nav{position:relative;overflow:hidden;background:radial-gradient(260px 200px at 110% -10%,rgba(63,212,148,.22),rgba(63,212,148,0) 65%),linear-gradient(170deg,#151A1D 0%,#0C0F11 75%);border:1px solid #1F262A;border-radius:24px;padding:16px 12px 12px;box-shadow:0 20px 44px rgba(12,15,17,.22)}
+  .side nav::before{content:"Zenith HQ";display:block;font-family:var(--slab);font-weight:800;text-transform:uppercase;letter-spacing:.06em;font-size:12px;color:#3FD494;padding:2px 12px 12px;border-bottom:1px solid #1F262A;margin-bottom:8px}
+  .side nav a{color:#BFC6C3;font-weight:600;font-size:15px;padding:12px 14px;border-radius:14px;margin:2px 0;transition:background .15s,color .15s,transform .15s}
+  .side nav a svg{stroke:#8A938F;width:20px;height:20px;transition:stroke .15s}
+  .side nav a:hover{background:#151A1D;color:#FFFFFF;transform:translateX(2px)}
+  .side nav a:hover svg{stroke:#3FD494}
+  .side nav a.on{background:#3FD494;color:#0C0F11;font-weight:700;box-shadow:0 8px 22px rgba(63,212,148,.28)}
+  .side nav a.on svg{stroke:#0C0F11}
+  .side nav a.on:before{display:none}
+  .side nav a:focus-visible{outline:3px solid #3FD494;outline-offset:2px}
+  .side .side-msg{margin-top:12px;display:flex;align-items:center;justify-content:flex-start;gap:12px;background:#FFFFFF;color:var(--ink);border:1px solid var(--line);border-radius:20px;padding:12px 14px;box-shadow:0 10px 26px rgba(17,17,17,.06);font-weight:700;font-size:14.5px;text-decoration:none;transition:border-color .15s,transform .15s}
+  .side .side-msg:hover{background:#FFFFFF;border-color:var(--green);transform:translateY(-1px)}
+  .side .side-msg .av{flex:none;width:42px;height:42px;border-radius:50%;background:#1A1F22 url(mark-hero.jpg) center 15%/cover no-repeat;border:2px solid #3FD494;position:relative}
+  .side .side-msg b{display:block;font-size:14.5px}
+  .side .side-msg small{display:block;font-weight:500;font-size:12.5px;color:var(--mut);margin-top:1px}
+}
