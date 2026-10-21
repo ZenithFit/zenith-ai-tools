@@ -7,7 +7,7 @@
 <title>Coaching | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=43">
+<link rel="stylesheet" href="hq.css?v=44">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
@@ -24,6 +24,32 @@
   <div class="fx-me"><span class="av" role="img" aria-label="Mark"></span><div><h2>Stuck? Message me.</h2><p>Bad day, tricky week, or you just don&rsquo;t know what to do next. Don&rsquo;t sit on it. Fire it over and I&rsquo;ll get back to you.</p></div></div>
   <div class="fx-me-foot"><a class="fx-pill" href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/></svg>Message Mark</a></div>
 </section>
+<section class="zc-card glow" id="promise-card" style="display:none" aria-label="Your promise">
+  <div class="ck">Your promise <span id="pc-date"></span></div>
+  <div class="pc-h">I, <span id="pc-name"></span>, am all in.</div>
+  <ol class="pc-list">
+    <li>I&rsquo;m doing this for me. My health, my fitness, my confidence.</li>
+    <li>I&rsquo;ll do the work, even on the days I don&rsquo;t fancy it.</li>
+    <li>I&rsquo;ll be honest in my check ins, even when the week&rsquo;s gone sideways.</li>
+    <li>I&rsquo;ll follow the plan and trust the process.</li>
+    <li>And when it gets hard, I won&rsquo;t go quiet. I&rsquo;ll message Mark.</li>
+  </ol>
+  <img class="pc-sig" id="pc-sig" alt="Your signature" style="display:none">
+  <p class="pc-foot">You signed this. When it gets tough, this is what we come back to.</p>
+</section>
+<script>
+(function(){
+  var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+  if(!t)return;
+  fetch(API+'/entries?tool='+encodeURIComponent('Onboarding Promise')+'&limit=1',{headers:{'Authorization':'Bearer '+t}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    var e=d&&d.entries&&d.entries[0];if(!e||!e.data)return;
+    document.getElementById('pc-name').textContent=e.data.name||'';
+    document.getElementById('pc-date').textContent=e.data.signedAt?'Signed '+e.data.signedAt:'';
+    if(e.data.sig&&/^data:image\/png;base64,/.test(e.data.sig)){var im=document.getElementById('pc-sig');im.src=e.data.sig;im.style.display='block';}
+    document.getElementById('promise-card').style.display='block';
+  }).catch(function(){});
+})();
+</script>
 <div class="rows">
 <a class="row" href="hq-standard.html"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></span><span><span class="rt" style="display:block">The Zenith Standard</span><span class="rs" style="display:block">What I expect from you, and what you get from me.</span></span><span class="chev">&rsaquo;</span></a>
 <a class="row" href="hq-welcome.html"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8"/></svg></span><span><span class="rt" style="display:block">How to use HQ</span><span class="rs" style="display:block">My welcome and a 2 minute tour.</span></span><span class="chev">&rsaquo;</span></a>

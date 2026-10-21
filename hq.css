@@ -300,3 +300,12 @@ a.fx-td:hover{border-color:#2E383D}
   .side .side-msg b{display:block;font-size:14.5px}
   .side .side-msg small{display:block;font-weight:500;font-size:12.5px;color:var(--mut);margin-top:1px}
 }
+
+/* ===== v43: your promise (Coaching) ===== */
+#promise-card{margin-bottom:14px}
+.pc-h{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:var(--ink);font-size:22px;line-height:1.1;margin:4px 0 10px}
+.pc-h span{color:var(--green)}
+.pc-list{margin:0;padding-left:20px;font-size:14.5px;line-height:1.5;color:var(--body)}
+.pc-list li{margin:5px 0}
+.pc-sig{display:block;max-width:240px;width:60%;margin:14px 0 4px;border-bottom:1px solid var(--line)}
+.pc-foot{margin:10px 0 0;font-size:13.5px;color:var(--mut)}

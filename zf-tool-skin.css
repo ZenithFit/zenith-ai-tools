@@ -1,0 +1,47 @@
+/* Zenith HQ v43: brings the older tools (Goal Builder, Rate Your Day, Weekend Game Plan, Sunday Prep) into the HQ look */
+:root{--zs-slab:'Roboto Slab',Rockwell,Georgia,serif;--zs-sans:'Inter Tight','DM Sans',system-ui,-apple-system,sans-serif}
+html,body{font-family:var(--zs-sans)!important}
+body{background:radial-gradient(640px 380px at 100% -60px,rgba(63,212,148,.20),rgba(63,212,148,0) 70%) no-repeat,#F4F6F5!important;-webkit-font-smoothing:antialiased}
+input,textarea,select,button{font-family:var(--zs-sans)!important}
+
+/* ---- Rate Your Day, Weekend Game Plan, Sunday Prep ---- */
+:root{--bg:#F4F6F5;--line:#E3E8E6;--head:#111111;--body:#4A4F4D}
+header .brand{font-weight:500!important;text-transform:none!important;letter-spacing:0!important;font-size:15px!important;color:#00A86B!important}
+header h1{font-family:var(--zs-slab)!important;font-weight:800!important;text-transform:uppercase;letter-spacing:0!important;font-size:36px!important;line-height:1.04!important;color:#111111!important}
+header p{color:#4A4F4D}
+label.small,.field>label{letter-spacing:.04em}
+input[type=text],textarea{border-color:#E3E8E6!important;background:#FFFFFF!important}
+input[type=text]:focus,textarea:focus{border-color:#00A86B!important;outline:none;box-shadow:0 0 0 3px rgba(0,168,107,.12)}
+.chip.on,.pills button.on{background:#00A86B!important;border-color:#00A86B!important;color:#FFFFFF!important}
+.submit{box-shadow:0 8px 22px rgba(0,168,107,.25)}
+.submit:hover{background:#008755!important}
+.result{background:radial-gradient(380px 240px at 105% -20%,rgba(63,212,148,.24),rgba(63,212,148,0) 62%),linear-gradient(160deg,#151A1D 0%,#0C0F11 70%)!important;border:1px solid #1F262A;box-shadow:0 18px 40px rgba(12,15,17,.24)}
+.result h2{color:#3FD494!important;text-transform:none!important;letter-spacing:0!important;font-size:15px!important;font-weight:500!important}
+.promise-txt{font-family:var(--zs-slab)!important;font-weight:800!important;text-transform:uppercase}
+
+/* ---- Goal Builder: dark to light ---- */
+body.zs-gb{--bg:#F4F6F5;--card:#FFFFFF;--line:#E3E8E6;--ink:#111111;--body:#4A4F4D;--mut:#7A827E;color:#4A4F4D}
+.zs-gb .top{background:#000000!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-bottom:0!important}
+.zs-gb .top .brand{color:#FFFFFF!important;font-family:var(--zs-slab)!important;font-weight:800!important;letter-spacing:.08em}
+.zs-gb .back-pill{background:#FFFFFF!important;border:1px solid #E3E8E6!important;color:#111111!important}
+.zs-gb .kick{color:#00A86B!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;font-size:15px!important}
+.zs-gb h1{font-family:var(--zs-slab)!important;font-weight:800!important;color:#111111!important;letter-spacing:0!important;font-size:34px!important;line-height:1.04!important}
+.zs-gb .sub,.zs-gb .f .hint{color:#4A4F4D!important}
+.zs-gb .f label{color:#111111!important}
+.zs-gb .f textarea,.zs-gb .f input{background:#FFFFFF!important;border:1.5px solid #E3E8E6!important;color:#111111!important}
+.zs-gb .f textarea:focus,.zs-gb .f input:focus{border-color:#00A86B!important;box-shadow:0 0 0 3px rgba(0,168,107,.12)}
+.zs-gb .mode button{background:#FFFFFF!important;border-color:#E3E8E6!important;color:#4A4F4D!important}
+.zs-gb .mode button.on{background:#00A86B!important;border-color:#00A86B!important;color:#FFFFFF!important}
+.zs-gb .btn{box-shadow:0 8px 22px rgba(0,168,107,.25)}
+.zs-gb .bub{background:#FFFFFF!important;border:1px solid #E3E8E6!important;color:#4A4F4D!important}
+.zs-gb .bub b{color:#111111!important}
+.zs-gb .reply{background:linear-gradient(135deg,#DDF5EA 0%,#FFFFFF 62%)!important;border:1px solid #BFE6D2!important;box-shadow:0 10px 26px rgba(0,168,107,.10)}
+.zs-gb .glbl{color:#00A86B!important}
+.zs-gb .goalhead{font-family:var(--zs-slab)!important;font-weight:800!important;color:#111111!important;letter-spacing:0!important}
+.zs-gb .sect,.zs-gb .pgn p{color:#4A4F4D!important}
+.zs-gb .sect b{color:#111111!important}
+.zs-gb .again button{background:#FFFFFF!important;border:1px solid #E3E8E6!important;color:#111111!important}
+.zs-gb footer,.zs-gb footer a{color:#7A827E!important}
+/* inside onboarding: no top bar or back button, the page around it has those */
+.zs-framed .top,.zs-framed .back-pill{display:none!important}
+.zs-framed body,body.zs-framed{background:transparent!important}

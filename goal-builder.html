@@ -58,8 +58,11 @@ footer{margin-top:40px;text-align:center;color:var(--mut);font-size:12px;padding
 .evsub{margin-top:10px;text-align:center;font-size:12.5px;color:var(--body);opacity:.85}
 .evsub a{color:#3FD494}
 </style>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="zf-tool-skin.css?v=1">
 </head>
-<body>
+<body class="zs-gb">
+<script>if(window.self!==window.top){document.body.classList.add("zs-framed");}</script>
 <div class="top"><a class="brand" href="hq.html"><img src="zf-logo.png" alt="">ZENITH <span style="color:var(--greenD)">&nbsp;HQ</span></a></div>
 
 <div class="wrap">
@@ -313,6 +316,8 @@ function finish(text,a){
   if(auth==='yes'&&authToken){
     fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Goal Builder',data:{mode:a.mode,goal:g.head||'',why:digAnswer||a.six,cost:a.cost,answers:formText(a)}})}).catch(()=>{});
   }
+  // Inside onboarding: tell the page the goal's done so it moves on by itself.
+  try{if(window.parent!==window)window.parent.postMessage('zf-goal-set',location.origin);}catch(e){}
 }
 
 el('goBtn').onclick=async()=>{
