@@ -58,7 +58,7 @@ function zenithLogout(silent){
 // Videos for the welcome card and the How to use HQ page. Paste the Vimeo or YouTube links in here when they're filmed.
 window.ZF_VIDEOS={
   welcome:'https://vimeo.com/1238369519/914e6c1645',
-  tour:''
+  tour:'https://vimeo.com/1238378368/667db5ecf8'
 };
 
 // Health data consent gate (GDPR): nobody gets into HQ without it.

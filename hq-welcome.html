@@ -7,10 +7,10 @@
 <title>Welcome | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=52">
+<link rel="stylesheet" href="hq.css?v=53">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
-<script>window.ZF_VIDEOS={welcome:'https://vimeo.com/1238369519/914e6c1645',tour:''};</script>
+<script>window.ZF_VIDEOS={welcome:'https://vimeo.com/1238369519/914e6c1645',tour:'https://vimeo.com/1238378368/667db5ecf8'};</script>
 
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -26,15 +26,20 @@
 <a class="back-pill" href="hq-coaching.html"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
 <div class="kicker">Start here</div>
 <h1 class="page">Welcome to <em>HQ.</em></h1>
-<p class="page-sub">A quick hello from me before you dive in.</p>
+<p class="page-sub">A quick hello from me, then the full tour of HQ whenever you<p class="page-sub">A quick hello from me before you dive in.</p>rsquo;re ready.</p>
 <div id="wv"></div>
 <script>
 (function(){
   var V=window.ZF_VIDEOS||{},box=document.getElementById('wv'),html='';
   function frame(url){var u=String(url||'');var y=u.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);var v=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/|\?h=)?([0-9a-f]+)?/);
     if(y)return 'https://www.youtube.com/embed/'+y[1];if(v)return 'https://player.vimeo.com/video/'+v[1]+'?'+(v[2]?'h='+v[2]+'&':'')+'title=0&byline=0&portrait=0&dnt=1&playsinline=0';return '';}
-  [['welcome','Welcome to Zenith HQ','A quick hello from me. Tap play and it opens full screen. Turn your phone sideways for the biggest picture.'],['tour','How to use HQ','Home, Watch, Tools, Guides and Coaching. Where everything lives.']].forEach(function(x){
+  [['welcome','Welcome to Zenith HQ','A quick hello from me. Tap play and it opens full screen. Turn your phone sideways for the biggest picture.'],['tour','How to use HQ','Every tab, every tool.']].forEach(function(x){
     var src=frame(V[x[0]]);if(!src)return;
+    if(x[0]==='tour'){
+      html+='<div class="tour-card"><button type="button" class="tour-open" id="tourOpen" aria-haspopup="dialog"><span class="tour-th" style="background-image:url(https://i.vimeocdn.com/video/2215510072-9583203fa605c270bda3caad98dd6f4ec278d3e31ba5ff5099438b26c11b7012-d?f=webp)"><span class="tour-play" aria-hidden="true"></span></span><span class="tour-txt"><span class="tour-k">The HQ tour, 7 mins</span><span class="tour-t">How to use HQ</span><span class="tour-s">Every tab, every tool, and how to get the most out of it. Opens nice and big, with a close button at the top.</span><span class="tour-go">Watch the tour</span></span></button></div>';
+      window.__tourSrc=src.replace('playsinline=0','playsinline=1');
+      return;
+    }
     html+='<div class="vid-card vid-big">'+(src?'<div class="vid-frame"><iframe src="'+src+'" title="'+x[1]+'" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div>':'<div class="vid-frame" style="display:flex;align-items:center;justify-content:center;color:#9AA3A0;font-size:14px;font-weight:600">Video landing soon</div>')+'<div class="vid-title">'+x[1]+'</div><div class="vid-sub">'+x[2]+'</div></div>';
   });
   box.innerHTML=html;
@@ -43,6 +48,24 @@
     var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
     if(t)fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'HQ Welcome Watched',data:{when:Date.now()}})}).catch(function(){});
   }
+})();
+</script>
+
+<div class="tour-lb" id="tourLb" role="dialog" aria-modal="true" aria-label="The HQ tour" style="display:none">
+  <div class="tour-lb-bar"><span>The HQ tour</span><button type="button" class="tour-close" id="tourClose"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3 3 13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>Close</button></div>
+  <div class="tour-lb-vid"><iframe id="tourFrame" title="The HQ tour" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  <p class="tour-lb-tip">Tap anywhere outside the video, or Close, to come back.</p>
+</div>
+<script>
+(function(){
+  var b=document.getElementById('tourOpen'),lb=document.getElementById('tourLb'),fr=document.getElementById('tourFrame');
+  if(!b||!lb)return;
+  function open(){fr.src=window.__tourSrc+'&autoplay=1';lb.style.display='flex';document.body.style.overflow='hidden';setTimeout(function(){document.getElementById('tourClose').focus();},200);}
+  function close(){lb.style.display='none';fr.src='about:blank';document.body.style.overflow='';b.focus();}
+  b.addEventListener('click',open);
+  document.getElementById('tourClose').addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb.style.display==='flex')close();});
 })();
 </script>
 </main>
