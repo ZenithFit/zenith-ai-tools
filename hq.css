@@ -385,3 +385,14 @@ a.fx-td:hover{border-color:#2E383D}
 .ms-link b{display:block;font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#fff;font-size:16px;line-height:1.15}
 .ms-link small{display:block;color:#BFC6C3;font-size:13.5px;margin-top:4px;line-height:1.4}
 .ms-link .chev{margin-left:auto;color:#3FD494;font-size:24px}
+
+/* ===== v49: worksheets and second buttons ===== */
+.fx-pill.ghost-ai{background:transparent;color:#FFFFFF;border:1.5px solid #3FD494;margin-left:8px}
+.fx-pill.ghost-ai:hover{background:rgba(63,212,148,.12)}
+.fx-me-foot{display:flex;flex-wrap:wrap;gap:8px 0}
+.ws-link{display:inline-flex;align-items:center;gap:8px;margin-top:10px;font-size:14px;font-weight:700;color:#00875A;background:rgba(0,168,107,.1);border:1px solid rgba(0,168,107,.25);border-radius:999px;padding:9px 15px;text-decoration:none}
+.ws-link:hover{background:rgba(0,168,107,.16)}
+.ws-link:focus-visible{outline:3px solid #3FD494;outline-offset:2px}
+.fx-me-foot{gap:10px}
+.fx-me-foot .fx-pill{margin-top:0}
+.fx-me-foot .ghost-ai{margin-left:0}

@@ -7,7 +7,7 @@
 <title>Home | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=48">
+<link rel="stylesheet" href="hq.css?v=49">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
@@ -29,7 +29,7 @@
   <div class="fx-where">
     <div class="fx-prog" id="fx-prog" style="display:none"></div>
     <div class="fx-today">
-      <a class="fx-td" id="fx-rate" href="review.html"><small>Today</small><strong>Rate your day</strong></a>
+      <a class="fx-td" id="fx-rate" href="review.html"><small>Rate your day</small><strong>Tonight</strong></a>
       <div class="fx-td"><small>Check in</small><strong id="fx-ci"></strong></div>
     </div>
   </div>
@@ -48,7 +48,12 @@
 <div class="zc-card" id="pr-card" style="display:none;background:#0C0F11;border-color:#0C0F11"><div class="ck" style="color:#3FD494">Your weekend promise</div><div id="pr-text" style="font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#FFFFFF;font-size:18px;line-height:1.2"></div><div style="font-size:13px;color:#9AA3A0;margin-top:8px">You said it. Keep it.</div></div>
 
 <div class="zc-card"><div class="ck">This week&rsquo;s session <a href="hq-sessions.html">All sessions</a></div>
-<a class="ses" href="hq-sessions.html#mc47"><span class="ses-th" style="background-image:url(https://img.youtube.com/vi/NlFrbKw52GM/mqdefault.jpg)"></span><span><span class="ses-t" style="display:block">Creating Your Vision</span><span class="ses-s" style="display:block">Where you&rsquo;re actually going, and why it matters more than any plan.</span></span></a></div>
+<a class="ses" href="hq-sessions.html#mc47"><span class="ses-th" style="background-image:url(https://img.youtube.com/vi/NlFrbKw52GM/mqdefault.jpg)"></span><span><span class="ses-t" style="display:block">Creating Your Vision</span><span class="ses-s" style="display:block">Where you&rsquo;re actually going, and why it matters more than any plan.</span></span></a>
+<a class="ws-link" id="home-sheet" href="#" target="_blank" rel="noopener" style="display:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Download this week&rsquo;s worksheet</a>
+<script>
+// This week's Sunday Session worksheet. Put the PDF's file name here when there is one, e.g. 'Worksheet-Creating-Your-Vision.pdf'. Blank hides the link.
+(function(){var SHEET='';var a=document.getElementById('home-sheet');if(SHEET&&a){a.href=SHEET;a.style.display='inline-flex';}})();
+</script></div>
 
 </div>
 <div class="home-search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><input id="hq-search" type="search" autocomplete="off" enterkeyhint="search" placeholder="Search anything... creatine, holidays, scales"></div>
@@ -184,19 +189,19 @@
     var nxt=nextRD();
     function setBox(label,cls,link){fr.className='fx-td'+(cls?' '+cls:'');fr.querySelector('small').textContent=label[0];fr.querySelector('strong').textContent=label[1];if(link){fr.setAttribute('href','review.html');}else{fr.removeAttribute('href');}}
     if(st.mode==='done'||st.mode==='doneLate'){
-      if(st.mode==='done')setBox(['Today','Rated. Nice one'],'done',false);else setBox(['Next rating',nxt],'',false);
+      if(st.mode==='done')setBox(['Rate your day','Done. Nice one'],'done',false);else setBox(['Rate your day','Next one '+nxt],'',false);
       line.innerHTML='<b>'+(streak>1?streak+' in a row.':'Rated. Nice one.')+'</b><span>Next one '+nxt+'.</span>';
       btn.className='pill rated';btn.title='Rate again';
       btn.innerHTML='<svg width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>Rated';
     }else if(st.mode==='due'){
-      setBox(['Today','Rate your day'],'',true);btn.textContent='Rate today';
+      setBox(['Rate your day','Tonight. Tap to do it'],'',true);btn.textContent='Rate today';
       line.innerHTML=!any?'<b>Your streak starts tonight.</b><span>Takes 30 seconds. Do it before bed.</span>':(streak>0?'<b>'+streak+' in a row.</b><span>Keep it going tonight.</span>':'<b>Tonight&rsquo;s a rating night.</b><span>Takes 30 seconds. Do it before bed.</span>');
     }else if(st.mode==='late'){
-      setBox(['Missed last night?','Rate it now'],'',true);
+      setBox(['Rate your day','Missed it? You can still do it now'],'',true);
       line.innerHTML='<b>Last night&rsquo;s not rated.</b><span>Do it this morning and it still counts.</span>';
       btn.textContent='Rate last night';
     }else{
-      setBox(['Next rating',nxt],'',false);
+      setBox(['Rate your day','Next one '+nxt],'',false);
       line.innerHTML=streak>0?'<b>'+streak+' in a row.</b><span>Next one '+nxt+'.</span>':'<b>Next rating night: '+nxt+'.</b><span>Tuesday, Thursday and Saturday. Same as the group.</span>';
       btn.style.display='none';
     }

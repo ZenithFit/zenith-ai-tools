@@ -7,7 +7,7 @@
 <title>Watch | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=48">
+<link rel="stylesheet" href="hq.css?v=49">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
@@ -131,5 +131,24 @@ function mcVimeo(el,id){el.innerHTML='<iframe src="https://player.vimeo.com/vide
 </main>
 </div>
 <nav class="bottom"><a href="hq.html"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="hq-sessions.html" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg>Watch</a><a href="hq-tools.html"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Tools</a><a href="hq-guides.html"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg>Guides</a><a href="hq-coaching.html"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Coaching</a></nav>
+<script>
+/* Sunday Session worksheets. Add data-sheet="File-Name.pdf" to a session card and a download button appears under it. */
+(function(){
+  var cards=document.querySelectorAll('.mc-card[data-sheet]');
+  [].forEach.call(cards,function(c){
+    var f=c.getAttribute('data-sheet');if(!f)return;
+    var box=c.querySelector('div[style*="padding:13px 16px"] > div');if(!box)return;
+    var a=document.createElement('a');a.className='ws-link';a.href=f;a.target='_blank';a.rel='noopener';
+    a.innerHTML='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Download the worksheet';
+    box.appendChild(a);
+  });
+  var first=document.querySelector('#mc-list .mc-card'),body=document.querySelector('#fx-week .fx-body');
+  if(first&&body&&first.getAttribute('data-sheet')){
+    var b=document.createElement('a');b.className='fx-pill ghost-ai';b.href=first.getAttribute('data-sheet');b.target='_blank';b.rel='noopener';
+    b.innerHTML='<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>Worksheet';
+    body.appendChild(b);
+  }
+})();
+</script>
 </body>
 </html>
