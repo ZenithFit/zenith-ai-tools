@@ -287,6 +287,13 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 .ob-consent input:focus-visible{outline:3px solid #3FD494;outline-offset:2px}
 .ob-consent{background:#fff;border:1px solid #E3E8E6;border-radius:18px;padding:14px 16px}
 @media (prefers-reduced-motion:reduce){.ob-step .ob-btn::before,.ob-step .ob-btn::after{transition:none}}
+
+/* ===== v51: welcome video as big as the phone allows ===== */
+.vid-card.vid-big{padding:6px!important;margin:0 -10px 14px!important;border-radius:22px!important}
+.vid-card.vid-big .vid-frame{border-radius:16px;aspect-ratio:16/9;box-shadow:0 12px 30px rgba(12,15,17,.22)}
+.vid-card.vid-big .vid-big-txt{padding:10px 12px 8px}
+.vid-card.vid-big .vid-title{margin-top:0}
+@media (min-width:700px){.vid-card.vid-big{margin:0 0 14px!important}}
 </style>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -331,10 +338,12 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   <p class="page-sub">We’re going to get your first jobs set, get your goal down, and show you exactly what happens next. At the end you’ll drop me a message, then sit back and let me build your programme.</p>
 
   <div class="section-lbl">First up, have a watch of this</div>
-  <div class="vid-card">
-    <div class="vid-frame" id="welcomeVid"><!-- SWAP: Mark's welcome video embed --></div>
-    <div class="vid-title">Welcome to Zenith Fit</div>
-    <div class="vid-sub">A quick hello from me and what the next 48 hours look like.</div>
+  <div class="vid-card vid-big">
+    <div class="vid-frame" id="welcomeVid"><iframe src="https://player.vimeo.com/video/1238367890?h=113077b792&amp;title=0&amp;byline=0&amp;portrait=0&amp;dnt=1&amp;playsinline=0" title="Welcome to Zenith Fit" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <div class="vid-big-txt">
+      <div class="vid-title">Welcome to Zenith Fit</div>
+      <div class="vid-sub">A quick hello from me and what the next 48 hours look like. Tap play and it opens full screen. Turn your phone sideways for the biggest picture.</div>
+    </div>
   </div>
 
   <div class="section-lbl">Got the app and done your forms?</div>
