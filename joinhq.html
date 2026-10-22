@@ -1,15 +1,262 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="robots" content="noindex">
-<title>Set up Zenith HQ</title>
-<style>html,body{margin:0;height:100%;background:#0C0F11;color:#BFC6C3;font:16px system-ui,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center}a{color:#3FD494}</style>
-<script>
-  // Existing clients: always the short 3 step HQ setup. The v= bit stops phones using an old saved copy.
-  location.replace('onboarding.html?c=zenith26hq&m=1&v=53');
-</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create your Zenith HQ account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #1B2126;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: #242B30;
+    border: 1.5px solid #333C41;
+    border-radius: 24px;
+    padding: 44px 36px 36px;
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  }
+  .brand {
+    margin-bottom: 36px;
+  }
+  .brand .kicker {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #3FD494;
+    margin-bottom: 12px;
+  }
+  .brand h1 {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 34px;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+  }
+  .brand h1 span { color: #3FD494; }
+  .brand p {
+    color: #BFC6C3;
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #BFC6C3;
+    margin: 22px 0 8px;
+  }
+  input {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    border: 1.5px solid #4C555B;
+    background: #20272B;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-family: 'DM Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.15s ease;
+  }
+  input:focus { border-color: #3FD494; background: #20272B; }
+  button {
+    width: 100%;
+    margin-top: 30px;
+    padding: 17px;
+    border: none;
+    border-radius: 999px;
+    background: #00A86B;
+    color: #FFFFFF;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+  button:hover { background: #008755; }
+  button:disabled { opacity: 0.6; cursor: wait; }
+  .error {
+    display: none;
+    margin-top: 18px;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: rgba(255, 107, 107, 0.12);
+    border: 1px solid rgba(255, 107, 107, 0.35);
+    color: #FF9B93;
+    font-size: 14px;
+    text-align: center;
+  }
+  .help {
+    margin-top: 26px;
+    text-align: center;
+    color: #BFC6C3;
+    opacity: 0.8;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .baseline {
+    width: 100%;
+    max-width: 420px;
+    height: 3px;
+    background: #3FD494;
+    border-radius: 999px;
+    margin-top: 28px;
+    opacity: 0.9;
+  }
+
+  /* ===== HQ light theme (Oct 2026) ===== */
+  body{font-family:'Inter Tight','DM Sans',sans-serif;background:radial-gradient(900px 420px at 100% -120px,rgba(63,212,148,.26),rgba(63,212,148,0) 62%) no-repeat,#F4F6F5!important;color:#111111!important}
+  .card{background:#FFFFFF!important;border:1px solid #E3E7E5!important;box-shadow:0 14px 40px rgba(17,17,17,.07)!important}
+  .brand .kicker{color:#7A7F7D!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;font-size:14px!important}
+  .brand h1{font-family:'Roboto Slab',Georgia,serif!important;font-weight:800!important;color:#111111!important}
+  .brand h1 span{color:#00A86B!important}
+  .brand p,.help,.hint{color:#4A4F4D!important}
+  label{color:#4A4F4D!important}
+  input{background:#FFFFFF!important;border:1px solid #E3E7E5!important;color:#111111!important}
+  input:focus{border-color:#00A86B!important;box-shadow:0 0 0 3px rgba(0,168,107,.12)!important}
+  input::placeholder{color:#9AA19E!important}
+  button{background:#00A86B!important;color:#FFFFFF!important}
+  button:hover{background:#008755!important}
+  button:disabled{background:#BFC6C3!important}
+  .help a{color:#00A86B!important}
+  .baseline{background:#00A86B!important}
+  .bad{background:#FFFFFF!important;border-color:#E3E7E5!important;color:#4A4F4D!important}.bad b{color:#111111!important}
+  .zc{background:#FFFFFF!important;border-color:#E3E7E5!important}.zc span{color:#4A4F4D!important}.zc a{color:#00A86B!important}
+  .zc input{background:#FFFFFF!important;border:2px solid #B9BFBC!important;width:22px!important;padding:0!important}
+  .zc input:checked{background:#00A86B!important;border-color:#00A86B!important}
+</style>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Zenith HQ">
+
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== v50: login with Mark's photo behind it ===== */
+body.zl{margin:0;min-height:100vh;min-height:100dvh;background:#0C0F11!important;font-family:'Inter Tight',system-ui,sans-serif!important;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:40vh 16px max(22px,env(safe-area-inset-bottom));box-sizing:border-box;overflow-x:hidden}
+.zl-bg{position:fixed;inset:0;z-index:0;background:#0C0F11 url(login-bg.jpg) 70% -3vh/118% auto no-repeat}
+.zl-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,15,17,0) 0%,rgba(12,15,17,.05) 40%,rgba(12,15,17,.45) 68%,#0C0F11 92%),radial-gradient(420px 300px at 90% 100%,rgba(63,212,148,.16),rgba(63,212,148,0) 70%)}
+body.zl .baseline{display:none!important}
+body.zl .card{position:relative;z-index:1;width:100%;max-width:420px;margin:0 0 6px!important;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)),rgba(14,18,20,.34)!important;-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.16)!important;border-radius:26px!important;padding:26px 22px 22px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 60px rgba(0,0,0,.4)!important;color:#D6DCD9}
+body.zl .kicker{color:#3FD494!important;font-family:'Inter Tight',sans-serif!important;font-weight:500!important;font-size:14px!important;letter-spacing:0!important;text-transform:none!important}
+body.zl h1{font-family:'Roboto Slab',Georgia,serif!important;font-weight:800!important;text-transform:uppercase;color:#FFFFFF!important;font-size:34px!important;line-height:1.02!important;letter-spacing:0!important;margin:6px 0 8px!important}
+body.zl h1 span{color:#3FD494!important}
+body.zl .brand p{color:#DDE3E0!important;font-size:15px!important;margin:0 0 18px!important}
+body.zl label{color:#FFFFFF!important;font-size:13.5px!important;font-weight:600!important;letter-spacing:0!important;text-transform:none!important}
+body.zl input{background:rgba(12,15,17,.35)!important;border:1.5px solid rgba(255,255,255,.18)!important;color:#FFFFFF!important;border-radius:14px!important;font-size:16px!important;padding:14px 16px!important}
+body.zl input:focus{border-color:#3FD494!important;background:rgba(255,255,255,.09)!important;outline:none;box-shadow:0 0 0 3px rgba(63,212,148,.18)!important}
+body.zl button[type=submit]{font-family:'Inter Tight',system-ui,sans-serif!important;background:linear-gradient(180deg,#4BE0A0 0%,#2FC584 100%)!important;color:#0C0F11!important;border:0!important;border-radius:999px!important;font-weight:700!important;font-size:17px!important;min-height:56px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 24px rgba(0,168,107,.3)!important;transition:transform .15s,filter .15s}
+body.zl button[type=submit]:hover{filter:brightness(1.05)}
+body.zl button[type=submit]:active{transform:scale(.98)}
+body.zl button[type=submit]:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+body.zl .help{color:#AEB6B2!important;font-size:13.5px!important}
+body.zl .error{background:rgba(217,83,79,.14)!important;color:#FFB4B0!important;border:1px solid rgba(217,83,79,.35)!important}
+@media (min-width:900px){
+  body.zl{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(420px,.9fr);align-items:center;justify-items:center;padding:0}
+  body.zl h1{font-size:44px!important}
+  .zl-bg{right:auto;width:55%;background-size:cover!important;background-position:center 15%!important}
+  .zl-bg::after{background:linear-gradient(90deg,rgba(12,15,17,0) 55%,#0C0F11 100%),linear-gradient(180deg,rgba(12,15,17,0) 70%,rgba(12,15,17,.6) 100%)!important}
+  .zl-bg::after{background:linear-gradient(90deg,rgba(12,15,17,0) 55%,#0C0F11 100%),linear-gradient(180deg,rgba(12,15,17,0) 70%,rgba(12,15,17,.6) 100%)}
+  body.zl .card{grid-column:2;margin:0!important;background:rgba(21,26,29,.6)!important}
+  body.zl h1{font-size:44px!important}
+}
+</style>
+<style>
+body.zl .card form{margin:0}
+body.zl .consent{display:flex;gap:10px;align-items:flex-start;margin:16px 0 4px;color:#DDE3E0!important;font-size:13px!important;font-weight:400!important;line-height:1.45}
+body.zl .consent input{width:20px!important;height:20px;flex:none;margin:2px 0 0;padding:0!important;accent-color:#3FD494}
+body.zl .consent a{color:#3FD494}
+body.zl .pw-wrap{position:relative}
+body.zl .pw-wrap button{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none!important;border:0!important;box-shadow:none!important;color:#3FD494!important;font-size:14px!important;min-height:0!important;width:auto!important;padding:8px!important;margin:0!important}
+body.zl .error{display:none}
+</style>
 </head>
-<body><p>Taking you to HQ setup&hellip;<br><a href="onboarding.html?c=zenith26hq&amp;m=1&amp;v=53">Tap here if nothing happens</a></p></body>
+<body class="zl">
+  <div class="zl-bg" aria-hidden="true"></div>
+  <div class="card">
+    <div class="brand">
+      <div class="kicker">Zenith HQ</div>
+      <h1>Create your<br>HQ <span>account.</span></h1>
+      <p>Takes 1 minute. Then you&rsquo;re in.</p>
+    </div>
+    <form id="joinForm" novalidate>
+      <label for="fname">Full name</label>
+      <input id="fname" type="text" autocomplete="name" autocapitalize="words" placeholder="e.g. Sarah Taylor" required>
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" placeholder="This will be your login" required>
+      <label for="password">Choose a password</label>
+      <div class="pw-wrap"><input id="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" required><button type="button" id="pwShow">Show</button></div>
+      <label class="consent"><input type="checkbox" id="consent"><span>I agree to Zenith Fit storing and using the health and wellbeing information I share so Mark can coach me. See the <a href="https://www.zenithfit.co.uk/privacy" target="_blank" rel="noopener">privacy notice</a>.</span></label>
+      <button id="joinBtn" type="submit">Create my account</button>
+    </form>
+    <div class="error" id="errorBox" role="alert"></div>
+    <p class="help">Already got an HQ login? <a href="login.html" style="color:#3FD494">Log in here</a>.</p>
+  </div>
+<script>
+  const WORKER = 'https://zenith-fit.mark-5a5.workers.dev';
+  const CODE = 'zenith26hq';
+  // Already logged in on this phone? Straight into HQ.
+  (async function () {
+    const t = localStorage.getItem('zenith_token');
+    if (!t) return;
+    try { const r = await fetch(WORKER + '/auth/me', { headers: { 'Authorization': 'Bearer ' + t } }); if (r.ok) location.replace('hq.html'); } catch (e) {}
+  })();
+  document.getElementById('pwShow').addEventListener('click', function () {
+    const p = document.getElementById('password'), sh = p.type === 'password';
+    p.type = sh ? 'text' : 'password'; this.textContent = sh ? 'Hide' : 'Show';
+  });
+  function fail(msg) { const e = document.getElementById('errorBox'); e.innerHTML = msg; e.style.display = 'block'; }
+  document.getElementById('joinForm').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    document.getElementById('errorBox').style.display = 'none';
+    const name = document.getElementById('fname').value.trim().replace(/\s+/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+    const email = document.getElementById('email').value.trim().toLowerCase();
+    const pw = document.getElementById('password').value;
+    if (name.split(' ').length < 2) return fail('Pop your full name in, first and last.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return fail('That email doesn&rsquo;t look right. Check it and try again.');
+    if (pw.length < 8) return fail('Your password needs to be at least 8 characters.');
+    if (!document.getElementById('consent').checked) return fail('Tick the box to agree, then we&rsquo;re off.');
+    const btn = document.getElementById('joinBtn'); btn.disabled = true; btn.textContent = 'Setting you up...';
+    try {
+      const r = await fetch(WORKER + '/auth/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: CODE, name, email, password: pw, consent: true, source: 'onboarding' }) });
+      const j = await r.json().catch(() => ({}));
+      if (j.code === 'email_exists') { btn.disabled = false; btn.textContent = 'Create my account'; return fail('You&rsquo;ve already got an HQ login with that email. <a href="login.html" style="color:#FFB4B0">Log in here</a>.'); }
+      if (!r.ok || !j.token) { btn.disabled = false; btn.textContent = 'Create my account'; return fail(j.error || 'Something went wrong there. Try again in a sec.'); }
+      localStorage.setItem('zenith_token', j.token);
+      localStorage.setItem('zenith_name', j.name || name);
+      localStorage.setItem('zenith_programme', j.programme || '');
+      localStorage.setItem('zf_consent', 'v1 Oct 2026');
+      try { await fetch(WORKER + '/entries', { method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + j.token },
+        body: JSON.stringify({ tool: 'Onboarding', data: { event: 'Joined HQ', step: 3, extra: 'Existing client' } }) }); } catch (e) {}
+      location.replace('hq.html');
+    } catch (e) {
+      btn.disabled = false; btn.textContent = 'Create my account';
+      fail('Couldn&rsquo;t reach HQ just now. Check your signal and try again.');
+    }
+  });
+</script>
+</body>
 </html>
