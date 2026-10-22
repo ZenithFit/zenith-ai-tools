@@ -57,7 +57,7 @@ function zenithLogout(silent){
 
 // Videos for the welcome card and the How to use HQ page. Paste the Vimeo or YouTube links in here when they're filmed.
 window.ZF_VIDEOS={
-  welcome:'',
+  welcome:'https://vimeo.com/1238369519/914e6c1645',
   tour:''
 };
 

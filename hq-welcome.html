@@ -7,9 +7,11 @@
 <title>Welcome | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=50">
+<link rel="stylesheet" href="hq.css?v=52">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
+<script>window.ZF_VIDEOS={welcome:'https://vimeo.com/1238369519/914e6c1645',tour:''};</script>
+
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -24,16 +26,16 @@
 <a class="back-pill" href="hq-coaching.html"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
 <div class="kicker">Start here</div>
 <h1 class="page">Welcome to <em>HQ.</em></h1>
-<p class="page-sub">A quick hello from me, then a 2 minute tour so you know where everything lives.</p>
+<p class="page-sub">A quick hello from me before you dive in.</p>
 <div id="wv"></div>
 <script>
 (function(){
   var V=window.ZF_VIDEOS||{},box=document.getElementById('wv'),html='';
   function frame(url){var u=String(url||'');var y=u.match(/(?:youtu\.be\/|v=|embed\/)([A-Za-z0-9_-]{11})/);var v=u.match(/vimeo\.com\/(?:video\/)?(\d+)(?:\/|\?h=)?([0-9a-f]+)?/);
-    if(y)return 'https://www.youtube.com/embed/'+y[1];if(v)return 'https://player.vimeo.com/video/'+v[1]+(v[2]?'?h='+v[2]:'');return '';}
-  [['welcome','Welcome from Mark','Who I am, what HQ is for, and how we&rsquo;re going to do this.'],['tour','How to use HQ','Home, Watch, Tools, Guides and Coaching. Where everything lives.']].forEach(function(x){
-    var src=frame(V[x[0]]);
-    html+='<div class="vid-card">'+(src?'<div class="vid-frame"><iframe src="'+src+'" title="'+x[1]+'" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div>':'<div class="vid-frame" style="display:flex;align-items:center;justify-content:center;color:#9AA3A0;font-size:14px;font-weight:600">Video landing soon</div>')+'<div class="vid-title">'+x[1]+'</div><div class="vid-sub">'+x[2]+'</div></div>';
+    if(y)return 'https://www.youtube.com/embed/'+y[1];if(v)return 'https://player.vimeo.com/video/'+v[1]+'?'+(v[2]?'h='+v[2]+'&':'')+'title=0&byline=0&portrait=0&dnt=1&playsinline=0';return '';}
+  [['welcome','Welcome to Zenith HQ','A quick hello from me. Tap play and it opens full screen. Turn your phone sideways for the biggest picture.'],['tour','How to use HQ','Home, Watch, Tools, Guides and Coaching. Where everything lives.']].forEach(function(x){
+    var src=frame(V[x[0]]);if(!src)return;
+    html+='<div class="vid-card vid-big">'+(src?'<div class="vid-frame"><iframe src="'+src+'" title="'+x[1]+'" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" allowfullscreen loading="lazy"></iframe></div>':'<div class="vid-frame" style="display:flex;align-items:center;justify-content:center;color:#9AA3A0;font-size:14px;font-weight:600">Video landing soon</div>')+'<div class="vid-title">'+x[1]+'</div><div class="vid-sub">'+x[2]+'</div></div>';
   });
   box.innerHTML=html;
   if(V.welcome){

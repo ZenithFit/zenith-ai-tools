@@ -7,9 +7,11 @@
 <title>Home | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=50">
+<link rel="stylesheet" href="hq.css?v=52">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
+<script>window.ZF_VIDEOS={welcome:'https://vimeo.com/1238369519/914e6c1645',tour:''};</script>
+
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -36,7 +38,7 @@
 </section>
 
 <div class="zc-card glow" id="welcome-card" style="display:none"><div class="ck">Start here <span>2 mins</span></div>
-<a class="wel" href="hq-welcome.html"><span class="wel-th"><span class="wel-play"></span></span><span><span class="wel-t" style="display:block">Mark&rsquo;s welcome, and how to use HQ</span><span class="wel-s" style="display:block">Watch once. This card tidies itself away after.</span></span></a></div>
+<a class="wel" href="hq-welcome.html"><span class="wel-th"><span class="wel-play"></span></span><span><span class="wel-t" style="display:block">A quick welcome to HQ from me</span><span class="wel-s" style="display:block">Watch once. This card tidies itself away after.</span></span></a></div>
 
 <div class="home-grid">
 <div class="zc-card glow" id="goal-card" style="display:none"></div>
@@ -270,5 +272,48 @@
 </main>
 </div>
 <nav class="bottom"><a href="hq.html" class="on"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="hq-sessions.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg>Watch</a><a href="hq-tools.html"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Tools</a><a href="hq-guides.html"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg>Guides</a><a href="hq-coaching.html"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Coaching</a></nav>
+
+<div class="wel-ov" id="welOv" role="dialog" aria-modal="true" aria-labelledby="welOvH" style="display:none">
+  <div class="wel-ov-in">
+    <p class="wel-ov-k">Welcome to Zenith HQ</p>
+    <h2 class="wel-ov-h" id="welOvH">Hey <span id="welOvName">there</span>, start here.</h2>
+    <div class="wel-ov-vid"><iframe id="welOvFrame" title="Welcome to Zenith HQ" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+    <p class="wel-ov-p">A quick hello from me before you dive in. Tap play and it opens full screen.</p>
+    <button type="button" class="wel-ov-go" id="welOvGo">I&rsquo;ve watched it, take me in</button>
+    <button type="button" class="wel-ov-later" id="welOvLater">Watch it later</button>
+  </div>
+</div>
+<script>
+(function(){
+  var V=window.ZF_VIDEOS||{},u=String(V.welcome||''),m=u.match(/vimeo\.com\/(\d+)\/?([0-9a-f]+)?/);
+  if(!m)return;
+  var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+  if(!t)return;
+  var seen=false,later=false;try{seen=localStorage.getItem('zf_welcome_seen')==='1';later=sessionStorage.getItem('zf_welcome_later')==='1';}catch(e){}
+  if(seen||later)return;
+  var ov=document.getElementById('welOv');
+  function open(){
+    document.getElementById('welOvFrame').src='https://player.vimeo.com/video/'+m[1]+'?'+(m[2]?'h='+m[2]+'&':'')+'title=0&byline=0&portrait=0&dnt=1&playsinline=0';
+    var n='';try{n=(localStorage.getItem('zenith_name')||'').split(' ')[0];}catch(e){}
+    if(n)document.getElementById('welOvName').textContent=n;
+    ov.style.display='flex';document.body.style.overflow='hidden';
+    setTimeout(function(){document.getElementById('welOvGo').focus();},300);
+  }
+  function close(){ov.style.display='none';document.body.style.overflow='';document.getElementById('welOvFrame').src='about:blank';}
+  // Check the account too, so someone who watched on another phone isn't shown it again
+  fetch(API+'/entries?tool='+encodeURIComponent('HQ Welcome Watched')+'&limit=1',{headers:{'Authorization':'Bearer '+t}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(d&&d.entries&&d.entries.length){try{localStorage.setItem('zf_welcome_seen','1');}catch(e){}return;}
+    open();
+  }).catch(open);
+  document.getElementById('welOvGo').addEventListener('click',function(){
+    try{localStorage.setItem('zf_welcome_seen','1');}catch(e){}
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'HQ Welcome Watched',data:{when:Date.now()}})}).catch(function(){});
+    var c=document.getElementById('welcome-card');if(c)c.style.display='none';
+    close();
+  });
+  document.getElementById('welOvLater').addEventListener('click',function(){try{sessionStorage.setItem('zf_welcome_later','1');}catch(e){}close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&ov.style.display==='flex')document.getElementById('welOvLater').click();});
+})();
+</script>
 </body>
 </html>
