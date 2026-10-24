@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body { height: 100%; }
@@ -42,7 +42,7 @@
     margin-bottom: 12px;
   }
   .brand h1 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Archivo', sans-serif;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 34px;
@@ -129,7 +129,7 @@
   body{font-family:'Inter Tight','DM Sans',sans-serif;background:radial-gradient(900px 420px at 100% -120px,rgba(63,212,148,.26),rgba(63,212,148,0) 62%) no-repeat,#F4F6F5!important;color:#111111!important}
   .card{background:#FFFFFF!important;border:1px solid #E3E7E5!important;box-shadow:0 14px 40px rgba(17,17,17,.07)!important}
   .brand .kicker{color:#7A7F7D!important;font-weight:500!important;letter-spacing:0!important;text-transform:none!important;font-size:14px!important}
-  .brand h1{font-family:'Roboto Slab',Georgia,serif!important;font-weight:800!important;color:#111111!important}
+  .brand h1{font-family:'Archivo',Georgia,serif!important;font-weight:800!important;color:#111111!important}
   .brand h1 span{color:#00A86B!important}
   .brand p,.help,.hint{color:#4A4F4D!important}
   label{color:#4A4F4D!important}
@@ -152,7 +152,7 @@
 <meta name="apple-mobile-web-app-title" content="Zenith HQ">
 
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ===== v50: login with Mark's photo behind it ===== */
 body.zl{margin:0;min-height:100vh;min-height:100dvh;background:#0C0F11!important;font-family:'Inter Tight',system-ui,sans-serif!important;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:40vh 16px max(22px,env(safe-area-inset-bottom));box-sizing:border-box;overflow-x:hidden}
@@ -161,7 +161,7 @@ body.zl{margin:0;min-height:100vh;min-height:100dvh;background:#0C0F11!important
 body.zl .baseline{display:none!important}
 body.zl .card{position:relative;z-index:1;width:100%;max-width:420px;margin:0 0 6px!important;background:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,.04)),rgba(14,18,20,.34)!important;-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.16)!important;border-radius:26px!important;padding:26px 22px 22px!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 24px 60px rgba(0,0,0,.4)!important;color:#D6DCD9}
 body.zl .kicker{color:#3FD494!important;font-family:'Inter Tight',sans-serif!important;font-weight:500!important;font-size:14px!important;letter-spacing:0!important;text-transform:none!important}
-body.zl h1{font-family:'Roboto Slab',Georgia,serif!important;font-weight:800!important;text-transform:uppercase;color:#FFFFFF!important;font-size:34px!important;line-height:1.02!important;letter-spacing:0!important;margin:6px 0 8px!important}
+body.zl h1{font-family:'Archivo',Georgia,serif!important;font-weight:800!important;text-transform:uppercase;color:#FFFFFF!important;font-size:34px!important;line-height:1.02!important;letter-spacing:0!important;margin:6px 0 8px!important}
 body.zl h1 span{color:#3FD494!important}
 body.zl .brand p{color:#DDE3E0!important;font-size:15px!important;margin:0 0 18px!important}
 body.zl label{color:#FFFFFF!important;font-size:13.5px!important;font-weight:600!important;letter-spacing:0!important;text-transform:none!important}
@@ -182,6 +182,11 @@ body.zl .error{background:rgba(217,83,79,.14)!important;color:#FFB4B0!important;
   body.zl .card{grid-column:2;margin:0!important;background:rgba(21,26,29,.6)!important}
   body.zl h1{font-size:44px!important}
 }
+
+/* v2 (24 Oct 2026): website match */
+body.zl h1 span,.brand h1 span{color:#FFFFFF!important}
+#joinBtn,#loginBtn,#goBtn{background:#3FD494!important;color:#0C0F11!important;box-shadow:0 0 0 6px rgba(63,212,148,.14),0 12px 32px rgba(63,212,148,.35)!important}
+#goBtn:disabled{box-shadow:none!important}
 </style>
 </head>
 <body class="zl">

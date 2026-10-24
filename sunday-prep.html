@@ -98,18 +98,19 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
 @media (max-width:360px){.scale{grid-template-columns:repeat(5,1fr)}}
 @media (prefers-reduced-motion:reduce){.day,.scale button,.submit{transition:none}.result.on .tick{animation:none;transform:none;opacity:1}.result.on .tick path{animation:none;stroke-dashoffset:0}}
 </style>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="zf-tool-skin.css?v=1">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="zf-tool-skin.css?v=2">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
-
+<div class="zs-bar"><div class="zs-bar-in"><img src="zf-logo.png" alt="Zenith Fit"><a class="zs-back" href="hq.html" onclick="if(history.length>1){history.back();return false;}"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a></div></div>
+<script>if(window.self!==window.top){document.body.classList.add("zs-framed");}</script>
 <header>
   <div class="wrap">
-    <a href="hq.html" onclick="if(history.length>1){history.back();return false;}" style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.75);border:1.5px solid rgba(17,17,17,.08);color:#111111;font-weight:700;font-size:13px;padding:9px 16px 9px 12px;border-radius:999px;margin-bottom:16px;text-decoration:none"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</a>
+    
     <div class="brand">Zenith Fit</div>
     <h1>Sunday Prep.</h1>
     <p>Plan the week while your head's clear. 5 minutes now and Monday can't catch you out.</p>
@@ -127,7 +128,7 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
 
     <div class="field" id="name-field">
       <label class="small" for="name">Full name</label>
-      <input type="text" id="name" placeholder="First and last name, e.g. Sarah Taylor" autocomplete="name">
+      <input type="text" id="name" placeholder="First and last name, e.g. Joe Bloggs" autocomplete="name">
       <div class="hint warn" id="name-hint" hidden>First and last name please, so Mark knows which one of you it is.</div>
     </div>
 

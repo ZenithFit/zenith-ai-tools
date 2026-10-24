@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#000000">
 <title>Watch | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=50">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css?v=54">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
 
@@ -76,7 +76,7 @@ function mcProgress(){
   var n=document.querySelectorAll('.mc-done.on').length,total=document.querySelectorAll('.mc-done').length;
   var el=document.getElementById('mc-progress');
   if(n===0){el.innerHTML='Tick a session off when you&rsquo;ve watched it.';return;}
-  if(n>=total){el.innerHTML='<b style="color:#00A86B">All '+total+' watched.</b> Absolute machine.';return;}
+  if(n>=total){el.innerHTML='<b style="color:inherit">All '+total+' watched.</b> Absolute machine.';return;}
   el.innerHTML='<b>You&rsquo;ve watched '+n+' of '+total+'.</b>';
 }
 function mcWatched(btn){

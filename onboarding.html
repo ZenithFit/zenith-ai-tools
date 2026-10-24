@@ -7,8 +7,8 @@
 <title>Your Onboarding | Zenith Fit</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@700;800&family=Inter+Tight:wght@400;500;700&family=Archivo:wght@600;700;800;900&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="hq.css?v=50">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;700&family=Archivo:wght@600;700;800;900&family=Oswald:wght@500;600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hq.css?v=54">
 <style>
 /* Onboarding only. Everything else comes from hq.css so it always matches HQ */
 body{padding-bottom:0}
@@ -63,7 +63,7 @@ body{padding-bottom:0}
 
 /* do one now, like the promise card */
 .ob-now{border-top:3px solid var(--green)}
-.ob-boom{display:none;margin-top:14px;font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.5px;color:#3FD494}
+.ob-boom{display:none;margin-top:14px;font-family:'Archivo',sans-serif;font-weight:600;font-size:22px;text-transform:uppercase;letter-spacing:.5px;color:#3FD494}
 .ob-boom.show{display:block;animation:obIn .35s ease}
 .ob-mini{display:inline-flex;align-items:center;background:#00A86B;color:#fff;font-weight:700;font-size:14px;padding:11px 20px;border:0;border-radius:999px;margin-top:6px;box-shadow:0 4px 14px rgba(0,168,107,.25)}
 .ob-mini[disabled]{opacity:.35;box-shadow:none}
@@ -86,7 +86,7 @@ body{padding-bottom:0}
 
 /* promise */
 .ob-promise{position:relative;border-top:3px solid var(--green);padding:24px 22px 22px}
-.ob-promise .h{font-family:'Oswald','Archivo',sans-serif;font-weight:600;font-size:28px;line-height:1.08;letter-spacing:.5px;text-transform:uppercase;color:#fff;margin-top:4px;padding-right:70px}
+.ob-promise .h{font-family:'Archivo',sans-serif;font-weight:600;font-size:28px;line-height:1.08;letter-spacing:.5px;text-transform:uppercase;color:#fff;margin-top:4px;padding-right:70px}
 .ob-promise .h span{color:#3FD494}
 .ob-promise ol{list-style:none;counter-reset:p;margin-top:14px}
 .ob-promise li{counter-increment:p;display:flex;gap:12px;padding:10px 0;border-top:1px solid #333C41;font-size:15px;line-height:1.45;color:#fff}
@@ -105,7 +105,7 @@ canvas#sig{display:block;width:100%;height:140px;margin-top:8px;background:#1B21
 .ob-hint{text-align:center;font-size:13px;color:var(--mut);margin-top:8px}
 
 /* ===== Marchon direction, Zenith colours ===== */
-:root{--slab:'Roboto Slab','Rockwell',Georgia,serif;--grot:'Inter Tight','DM Sans',system-ui,sans-serif;--bg:#0C0F11;--card:#15191C;--line:#262C30}
+:root{--slab:'Archivo','Rockwell',Georgia,serif;--grot:'Inter Tight','DM Sans',system-ui,sans-serif;--bg:#0C0F11;--card:#15191C;--line:#262C30}
 body{font-family:var(--grot);background:radial-gradient(900px 480px at 50% -160px,rgba(0,168,107,.14),rgba(0,168,107,0) 65%) no-repeat,#0C0F11;letter-spacing:-.005em}
 .topline{display:none}
 .topbar{background:#000!important;border-bottom:1px solid #15191C}
@@ -251,7 +251,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 .ob-dark .ob-tl span{color:#BFC6C3}
 .ob-dark .ob-tl li::after{background:#2A3236}
 .ob-final{padding:24px 22px}
-.ob-final-h{font-family:var(--slab,'Roboto Slab',Georgia,serif);font-weight:800;text-transform:uppercase;color:#FFFFFF;font-size:26px;line-height:1.08;margin-bottom:10px}
+.ob-final-h{font-family:var(--slab,'Archivo',Georgia,serif);font-weight:800;text-transform:uppercase;color:#FFFFFF;font-size:26px;line-height:1.08;margin-bottom:10px}
 .ob-final-h .first-name{color:#3FD494!important}
 .ob-final p{color:#BFC6C3;font-size:15px;line-height:1.5;margin:8px 0}
 .ob-final .ob-hint{color:#8A938F;text-align:left}
@@ -294,6 +294,12 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 .vid-card.vid-big .vid-big-txt{padding:10px 12px 8px}
 .vid-card.vid-big .vid-title{margin-top:0}
 @media (min-width:700px){.vid-card.vid-big{margin:0 0 14px!important}}
+
+/* v2 (24 Oct 2026): website match. White Archivo headlines, green only on things you tap, glow on the main button */
+h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spacing:-.02em!important;line-height:.98!important}
+.kicker{color:#BFC6C3!important}
+.ob-btn,#toApp{box-shadow:0 0 0 6px rgba(63,212,148,.14),0 12px 32px rgba(63,212,148,.35)!important}
+.ob-btn:disabled{box-shadow:none!important}
 </style>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -315,7 +321,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
   </div>
   <p class="page-sub" style="margin-top:6px">First things first, pop your name and email in. Takes about 10 minutes, start to finish, and your progress saves as you go.</p>
   <div class="card" style="margin-top:20px">
-    <label class="ob-field" style="margin-top:0"><span>Full name</span><input id="fname" type="text" autocomplete="name" autocapitalize="words" placeholder="e.g. Sarah Taylor"></label>
+    <label class="ob-field" style="margin-top:0"><span>Full name</span><input id="fname" type="text" autocomplete="name" autocapitalize="words" placeholder="e.g. Joe Bloggs"></label>
     <label class="ob-field"><span>Email</span><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="The one you used for the app"></label>
     <p class="cl-sub" style="margin-top:12px">Use the same email you used for the app. Keeps everything nice and straightforward.</p>
   </div>
@@ -380,7 +386,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 <rect x="1" y="1" width="118" height="234" rx="20" fill="#0C0F11" stroke="#2E353A" stroke-width="2"/>
 <rect x="6" y="6" width="108" height="224" rx="16" fill="#15191C"/>
 <rect x="44" y="10" width="32" height="7" rx="3.5" fill="#0C0F11"/>
-<text x="14" y="34" font-family="Inter Tight, DM Sans, sans-serif" font-size="8" font-weight="700" fill="#fff">Hey Sarah</text>
+<text x="14" y="34" font-family="Inter Tight, DM Sans, sans-serif" font-size="8" font-weight="700" fill="#fff">Hey Joe</text>
 <text x="14" y="44" font-family="Inter Tight, DM Sans, sans-serif" font-size="5.5" fill="#8A938F">Today’s plan</text>
 <rect x="14" y="52" width="92" height="34" rx="7" fill="#20262A"/><rect x="20" y="59" width="40" height="4" rx="2" fill="#3A4146"/><rect x="20" y="67" width="60" height="4" rx="2" fill="#2C3337"/><rect x="20" y="75" width="30" height="4" rx="2" fill="#2C3337"/>
 <rect x="14" y="92" width="44" height="40" rx="7" fill="#20262A"/><rect x="62" y="92" width="44" height="40" rx="7" fill="#20262A"/>
@@ -511,7 +517,7 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
     <svg class="ob-seal" viewBox="0 0 100 100" aria-hidden="true">
       <defs><path id="sc" d="M50 50m-36 0a36 36 0 1 1 72 0a36 36 0 1 1 -72 0"/></defs>
       <circle cx="50" cy="50" r="47" fill="#1B2126" stroke="#3FD494" stroke-width="2"/>
-      <text font-family="Oswald, Arial Narrow, sans-serif" font-size="10.5" letter-spacing="3.2" fill="#3FD494" font-weight="600"><textPath href="#sc">ZENITH FIT • ALL IN • ZENITH FIT • ALL IN •</textPath></text>
+      <text font-family="Archivo, Arial, sans-serif" font-size="10.5" letter-spacing="3.2" fill="#3FD494" font-weight="600"><textPath href="#sc">ZENITH FIT • ALL IN • ZENITH FIT • ALL IN •</textPath></text>
       <circle cx="50" cy="50" r="18" fill="#00A86B"/>
       <path d="M41 50.5l6 6 12-12" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
