@@ -1,10 +1,10 @@
-/* Zenith HQ, light theme (Oct 2026). Archivo capital headlines to match the website, Inter Tight body, black top bar, green glow. */
+/* Zenith HQ, light theme (Oct 2026). Roboto Slab headlines, Inter Tight body, black top bar, green glow. */
 :root{
   --bg:#F4F6F5;--card:#FFFFFF;--soft:#F1F4F2;--line:#E3E7E5;
   --ink:#111111;--body:#4A4F4D;--mut:#7A7F7D;
   --green:#00A86B;--green-h:#008755;--green-lt:#3FD494;
   --glow:linear-gradient(135deg,#DDF5EA 0%,#FFFFFF 62%);--glow-line:#BFE6D2;
-  --slab:'Archivo','Helvetica Neue',Arial,sans-serif;
+  --slab:'Roboto Slab','Rockwell',Georgia,serif;
   --sans:'Inter Tight','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   color-scheme:light;
   box-sizing:border-box;
@@ -435,26 +435,10 @@ a.fx-td:hover{border-color:#2E383D}
 .tour-lb-vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .tour-lb-tip{margin:0;color:#8A938F;font-size:13px;text-align:center}
 
-
-/* ---------- v2 (24 Oct 2026): website match ----------
-   Archivo runs wider than Roboto Slab in capitals, so headlines get tighter tracking.
-   Green buttons move to the site's bright green with dark text and a soft glow. */
-h1.page,.hi,.card h3,.vid-title,.goal-txt,.ses-t,.std-name,.std-close,.q-txt,.fx-prog b,.fx-body h2,.fx-me h2,.pc-h,.a2hs-top h3,.ms-h2,.ms-phones figcaption,.ms-link b,.wel-ov-h,.tour-t{letter-spacing:-.015em}
-h1.page,.hi{letter-spacing:-.02em;line-height:.98}
-.pill{background:#3FD494;color:#0C0F11;font-weight:600;box-shadow:0 0 0 5px rgba(63,212,148,.13),0 10px 26px rgba(63,212,148,.30);transition:transform .2s ease,box-shadow .2s ease}
-.pill:hover{background:#5BE0A6;transform:translateY(-1px)}
-.pill.ghost{box-shadow:none}
-.pill.ghost:hover{border-color:#111111;transform:none}
-.pill.rated{transform:none}
-.fx-pill{box-shadow:0 0 0 5px rgba(63,212,148,.14),0 10px 28px rgba(63,212,148,.32);transition:transform .2s ease}
-.fx-pill:hover{transform:translateY(-1px)}
-.fx-pill.ghost-ai{box-shadow:none}
-@media (prefers-reduced-motion:reduce){.pill,.fx-pill{transition:none}.pill:hover,.fx-pill:hover{transform:none}}
-.wel-ov-k{color:#BFC6C3}
-/* green off headlines and labels, same rule as the website: green is for things you tap */
-h1.page em,.hi em,.hi span[data-first-name],.pc-h span,.std-close span{color:inherit}
-.section-lbl,.ck{color:var(--mut)}
-.q-lbl,.fx-from,.fx-body .fx-from,.ms-lbl{color:#BFC6C3}
-.std-num{color:var(--ink)}
-.std-punch{color:var(--ink)}
-@media(min-width:900px){.side nav::before{color:#BFC6C3}}
+/* ===== v54: Zenith Standard card on Home until they tap I'm in ===== */
+.std-cta{display:flex;flex-direction:column;gap:4px;text-decoration:none;margin:14px 0;padding:20px 20px 18px;border-radius:22px;background:#FFFFFF;border:2px solid #111111;box-shadow:0 0 0 4px rgba(63,212,148,.18),0 14px 32px rgba(12,15,17,.08)}
+.std-cta-k{font-size:13px;font-weight:600;color:#00A86B}
+.std-cta-t{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#111111;font-size:22px;line-height:1.1}
+.std-cta-s{font-size:14px;line-height:1.5;color:#4A4F4D}
+.std-cta-go{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:10px;background:#3FD494;color:#0C0F11;font-weight:700;font-size:14.5px;padding:10px 18px;border-radius:999px;box-shadow:0 6px 16px rgba(0,168,107,.25)}
+.std-cta:focus-visible{outline:3px solid #3FD494;outline-offset:3px}

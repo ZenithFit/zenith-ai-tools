@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#000000">
 <title>Home | Zenith HQ</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="hq.css?v=54">
 <script src="zf-consent.js?v=2"></script>
 <script src="hq.js?v=41"></script>
@@ -37,6 +37,21 @@
   </div>
 </section>
 
+<a class="std-cta" id="std-card" href="hq-standard.html" style="display:none"><span class="std-cta-k">Start here</span><span class="std-cta-t">The Zenith Standard</span><span class="std-cta-s">If you haven&rsquo;t read it yet, read it now. What I expect from you, what you get from me. 3 minutes, then tap I&rsquo;m in.</span><span class="std-cta-go">Read the Standard <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
+<script>
+(function(){
+  var c=document.getElementById('std-card'),done='';
+  try{done=localStorage.getItem('zf_standard_in')||'';}catch(e){}
+  if(done)return;
+  var t='';try{t=localStorage.getItem('zenith_token')||'';}catch(e){}
+  if(!t)return;
+  c.style.display='flex';
+  // Committed on another phone? Hide it.
+  fetch(API+'/entries?tool='+encodeURIComponent('Zenith Standard')+'&limit=1',{headers:{'Authorization':'Bearer '+t}}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(d&&d.entries&&d.entries.length){var e=d.entries[0].data||{};try{localStorage.setItem('zf_standard_in',e.date||'1');}catch(x){}c.style.display='none';}
+  }).catch(function(){});
+})();
+</script>
 <div class="zc-card glow" id="welcome-card" style="display:none"><div class="ck">Start here <span>2 mins</span></div>
 <a class="wel" href="hq-welcome.html"><span class="wel-th"><span class="wel-play"></span></span><span><span class="wel-t" style="display:block">A quick welcome to HQ from me</span><span class="wel-s" style="display:block">Watch once. This card tidies itself away after.</span></span></a></div>
 
