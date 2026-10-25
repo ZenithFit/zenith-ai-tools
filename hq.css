@@ -442,3 +442,22 @@ a.fx-td:hover{border-color:#2E383D}
 .std-cta-s{font-size:14px;line-height:1.5;color:#4A4F4D}
 .std-cta-go{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;margin-top:10px;background:#3FD494;color:#0C0F11;font-weight:700;font-size:14.5px;padding:10px 18px;border-radius:999px;box-shadow:0 6px 16px rgba(0,168,107,.25)}
 .std-cta:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+
+/* ===== v55: Your account (change password) on Coaching ===== */
+.acct-h{font-family:var(--slab);font-weight:800;text-transform:uppercase;font-size:18px;color:#111;margin:28px 0 10px}
+.acct{background:#fff;border:1px solid #E3E8E6;border-radius:20px;padding:6px 16px 14px}
+.acct-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid #EEF1F0;font-size:14.5px}
+.acct-l{color:#6B716F}.acct-v{color:#111;font-weight:600;overflow-wrap:anywhere;text-align:right}
+.acct-open{display:flex;width:100%;justify-content:space-between;align-items:center;background:none;border:0;padding:14px 0;font:600 15.5px var(--sans);color:#111;cursor:pointer;text-align:left}
+.acct-open .chev{transition:transform .2s;color:#8A8F8D;font-size:22px}.acct-open.on .chev{transform:rotate(90deg)}
+.acct-form{padding:2px 0 6px}
+.acct-form label{display:block;font-size:13.5px;font-weight:600;color:#111;margin:10px 0 6px}
+.acct-form input{width:100%;box-sizing:border-box;font:16px var(--sans);padding:13px 14px;border:1.5px solid #DCE2DF;border-radius:14px;background:#F7F9F8;color:#111}
+.acct-form input:focus{outline:none;border-color:#3FD494;box-shadow:0 0 0 3px rgba(63,212,148,.18);background:#fff}
+.acct-pw{position:relative}.acct-pw input{padding-right:64px}
+.acct-pw button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:none;border:0;color:#00A86B;font:600 14px var(--sans);padding:8px;cursor:pointer}
+.acct-msg{margin:10px 0 0;font-size:13.5px;min-height:1px}.acct-msg.bad{color:#C0392B}.acct-msg.good{color:#00875A;font-weight:600}
+.acct-save{margin-top:12px;width:100%;min-height:50px;border:0;border-radius:999px;background:#3FD494;color:#0C0F11;font:700 15.5px var(--sans);cursor:pointer;box-shadow:0 8px 20px rgba(0,168,107,.22)}
+.acct-save:disabled{opacity:.6}
+.acct-open:focus-visible,.acct-save:focus-visible,.acct-pw button:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+.acct-note{margin:12px 0 0;font-size:13px;color:#6B716F;line-height:1.5}
