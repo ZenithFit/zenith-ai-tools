@@ -34,6 +34,11 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
 .det-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .det-out{width:100%;box-sizing:border-box;min-height:120px;font:13px/1.45 inherit;padding:10px;border:1.5px solid #DCE2DF;border-radius:10px;background:#fff;color:#111;white-space:pre-wrap}
 .det-note{font-size:12.5px;color:#6B716F}
+.det-goal{margin-top:16px;padding-top:14px;border-top:1px solid #E3E8E5}
+.det-goal .g-head{margin:0 0 8px;font-size:16px;font-weight:700;color:#111111;line-height:1.35}
+.det-goal .g-line{margin:0 0 8px;font-size:14px;line-height:1.5;color:#2A2F2D}
+.g-ans summary{cursor:pointer;font-size:13px;font-weight:600;color:#111111;margin-top:4px}
+.g-ans pre{white-space:pre-wrap;font:13px/1.5 inherit;background:#fff;border:1px solid #E3E8E5;border-radius:10px;padding:10px 12px;margin:8px 0 0}
 .det-ok{font-size:13px;font-weight:700;color:#00875A}
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -504,6 +509,18 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
     }
     out.style.display = '';
   }
+  function goalHtml(goals) {
+    const g = (goals || []).filter(x => x.goal || x.answers)[0];
+    if (!g) return '<div class="det-goal"><h4>Their goal</h4><p class="det-note">No goal saved to their HQ account yet. If they set one before they had an account, it\u2019s in the Google Sheet under Goal Builder.</p></div>';
+    const older = (goals || []).filter(x => x !== g && x.goal).length;
+    return '<div class="det-goal"><h4>Their goal</h4>' +
+      '<p class="g-head">' + esc(g.goal || 'Goal saved, no headline') + '</p>' +
+      (g.why ? '<p class="g-line"><b>Their why.</b> ' + esc(g.why) + '</p>' : '') +
+      (g.cost ? '<p class="g-line"><b>What staying the same is costing them.</b> ' + esc(g.cost) + '</p>' : '') +
+      '<p class="det-note">' + (g.mode === 'realign' ? 'Realigned' : 'Set') + ' ' + fmtDate(g.at) + (older ? '. They\u2019ve set ' + older + ' before this one.' : '.') + '</p>' +
+      (g.answers ? '<details class="g-ans"><summary>Show their full answers</summary><pre>' + esc(g.answers) + '</pre></details>' : '') +
+    '</div>';
+  }
   async function toggleDetail(tr, c) {
     const nx = tr.nextElementSibling;
     if (nx && nx.classList.contains('det')) { nx.remove(); tr.classList.remove('open'); tr.querySelector('td.nm').setAttribute('aria-expanded', 'false'); return; }
@@ -536,7 +553,7 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
           '<div class="det-ok" aria-live="polite"></div>' +
           '<textarea class="det-out" readonly style="display:none" aria-label="Copied text"></textarea>' +
         '</div>' +
-      '</div>';
+      '</div>' + goalHtml(d.goals);
     const sel = det.querySelector('select'), out = det.querySelector('.det-out'), ok = det.querySelector('.det-ok');
     let cache = {};
     const getLink = async () => {
