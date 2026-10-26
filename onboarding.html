@@ -375,9 +375,9 @@ html.ob-wait .ob-step{visibility:hidden}
   <p class="page-sub">Your programme’s on its way. But we’re not waiting around for it. From today, these are your 3 jobs. Every day.</p>
 
   <div class="section-lbl">Tick each one to say you’re on it</div>
-  <button class="cl-row" data-tick="steps"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-body"><span class="cl-title" style="display:block">8,000 steps a day</span><span class="cl-sub" style="display:block">That’s the minimum. Already doing more? Keep doing it.</span></span></button>
+  <button class="cl-row" data-tick="steps"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-body"><span class="cl-title" style="display:block">As many steps as you can, every day</span><span class="cl-sub" style="display:block">Doesn’t matter how many you’re doing right now. I’ll set your target when I build your programme. Easy wins: park further away at the supermarket, take the stairs instead of the lift, and get out for a short walk after each meal.</span></span></button>
   <button class="cl-row" data-tick="photos"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-body"><span class="cl-title" style="display:block">Photograph every meal</span><span class="cl-sub" style="display:block">Everything goes in the food journal. Meals, snacks, drinks. Photo before you eat it.</span></span></button>
-  <button class="cl-row" data-tick="water"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-body"><span class="cl-title" style="display:block">2 litres of water a day</span><span class="cl-sub" style="display:block">That’s about 8 glasses. Treat this one as a promise to yourself.</span></span></button>
+  <button class="cl-row" data-tick="water"><span class="cl-tick"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><span class="cl-body"><span class="cl-title" style="display:block">6 to 8 glasses of water a day</span><span class="cl-sub" style="display:block">Treat this one as a promise to yourself.</span></span></button>
 
   <div class="section-lbl">How to log it</div>
   <div class="card ob-log">
@@ -473,7 +473,7 @@ html.ob-wait .ob-step{visibility:hidden}
 
 <!-- 5 -->
 <section class="ob-step" data-step="5">
-  <button class="ob-back" data-back><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</button>
+  <button class="ob-back" data-back id="back6"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</button>
   <div class="kicker">What happens next</div>
   <h1 class="page">Brilliant, that’s your goal set</h1>
   <p class="page-sub">I’ll be reading it while I build your programme.</p>
@@ -498,21 +498,10 @@ html.ob-wait .ob-step{visibility:hidden}
     <div class="card"><h3>Want to train before it lands?</h3><p>There are follow along sessions in the workout section of the app called Pre programme workouts. Totally optional.</p></div>
   </div>
 
-  <div class="section-lbl">Get comfortable with the app</div>
-  <p class="ob-p" style="margin:0 0 12px">Have a watch of these while you wait. Start with the first 3, they’re the ones you’ll use every single day. You don’t need to watch them all right now. Tick them off as you go.</p>
-  <div class="ap-bar"><span class="ap-fill" id="vbar"></span></div>
-  <p class="vid-progress" id="vcount"></p>
-  <div id="vlist"></div>
+  <div hidden aria-hidden="true"><span id="vbar"></span><p id="vcount"></p><div id="vlist"></div></div>
 
-  <button class="ob-btn" data-next>Continue to your promise</button>
-</section>
-
-<!-- 6 -->
-<section class="ob-step" data-step="6">
-  <button class="ob-back" data-back id="back6"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</button>
-  <div class="kicker">Your promise</div>
-  <h1 class="page">Last bit</h1>
-  <p class="page-sub">You’ve signed up for coaching. Now I want you to commit to it. Read this. If you mean it, sign it.</p>
+  <div class="section-lbl">Your promise</div>
+  <p class="ob-p" style="margin:0 0 4px">You&rsquo;ve signed up for coaching. Now I want you to commit to it. Read this. If you mean it, sign it.</p>
 
   <div class="card ob-promise" id="promise" style="margin-top:22px">
     <svg class="ob-seal" viewBox="0 0 100 100" aria-hidden="true">
@@ -546,18 +535,14 @@ html.ob-wait .ob-step{visibility:hidden}
       <p class="ob-dark-lbl">You&rsquo;re in</p>
       <div class="ob-final-h">That&rsquo;s it, <span class="first-name">mate</span>. You&rsquo;re in.</div>
       <p>Keep hold of this. When it gets tough, and at some point it will, this is what we come back to.</p>
-      <p>2 last things.</p>
-      <a class="ob-btn" id="waBtn" target="_blank" rel="noopener">1. Message Mark &ldquo;I&rsquo;m in&rdquo;</a>
-      <p class="ob-hint" id="waNote"></p>
       <div id="pwBox">
-        <p style="margin-top:18px"><b style="color:#fff">2. Set a password for Zenith HQ.</b> Your email&rsquo;s your login, so this is all you need to get back in.</p>
+        <p style="margin-top:6px"><b style="color:#fff">Last thing. Set a password for Zenith HQ.</b> Your email&rsquo;s your login, so this is all you need to get back in.</p>
+        <p class="ob-hint" style="margin-top:-4px">Use the same one as your Everfit app if you like, so there&rsquo;s only one to remember.</p>
         <span class="ob-pw"><input id="pword" type="password" autocomplete="new-password" placeholder="At least 8 characters" aria-label="Choose a password"><button type="button" id="pwShow" aria-label="Show password">Show</button></span>
         <p class="ob-err" id="errPw" role="alert"></p>
-        <button class="ob-btn" id="pwSave" type="button">Save my password</button>
       </div>
-      <p class="ob-hint" id="pwDone" style="display:none">Password saved. Your login is <b id="pwEmail" style="color:#fff"></b></p>
-      <a class="ob-btn ob-hq" id="hqBtn" href="hq.html"><span id="hqNum">3.</span>&nbsp;Enter Zenith HQ</a>
-      <p class="ob-hint">Your goal&rsquo;s already in there waiting for you. Save HQ to your home screen so it&rsquo;s one tap away.</p>
+      <a class="ob-btn ob-hq" id="hqBtn" href="hq.html">Enter Zenith HQ</a>
+      <p class="ob-hint">This is where you get all of your extra stuff whilst you&rsquo;re on the programme. Your goal&rsquo;s already in there waiting for you.</p>
     </div>
     <div class="note" style="margin:22px 0 40px;text-align:center"><b>Then sit back. Your programme&rsquo;s on its way.</b></div>
   </div>
@@ -596,8 +581,9 @@ html.ob-wait .ob-step{visibility:hidden}
   /* ===== STATE ===== */
   var S = {step:1,name:'',email:'',ticks:{},now:'',nowDone:false,goal:false,vids:{},signed:false,sig:'',signedAt:''};
   // Signup code arrives on the link (hq.zenithfit.co.uk/start?c=...). Remembered on this phone.
-  var CODE = '';
-  try{ CODE = new URLSearchParams(location.search).get('c') || localStorage.getItem('zf_ob_code') || ''; if(CODE) localStorage.setItem('zf_ob_code', CODE); }catch(e){}
+  // The sign up code is built in, so nobody ever has to type one. A ?c= on the link still works if it's there.
+  var CODE = 'zenith26hq';
+  try{ CODE = new URLSearchParams(location.search).get('c') || CODE; }catch(e){}
   // Programme comes from the Stripe thank you link (?p=accelerator). Nobody's asked. No link, Mark sets it in admin.
   var PROG = '';
   try{
@@ -628,7 +614,7 @@ html.ob-wait .ob-step{visibility:hidden}
     var msg = 'Onboarding: ' + event + (extra ? ' | ' + extra : '');
     var payload = {tool:'Onboarding', name:S.name, email:S.email, event:event, message:msg,
       field1_label:'Name', field1_value:S.name||'', field2_label:'Email', field2_value:S.email||'',
-      field3_label:'Event', field3_value:event, field4_label:'Step', field4_value:'Step ' + S.step + ' of 6'};
+      field3_label:'Event', field3_value:event, field4_label:'Step', field4_value:'Step ' + S.step + ' of 5'};
     try{ fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(function(){}); }catch(e){}
     var t = token();
     pushNow();
@@ -645,13 +631,14 @@ html.ob-wait .ob-step{visibility:hidden}
 
   /* ===== NAV ===== */
   function show(n){
+    if(n > 5) n = 5;
     S.step = n; save();
     $$('.ob-step').forEach(function(s){ s.classList.toggle('show', +s.dataset.step === n); });
-    $('#ob-fill').style.width = (n/6*100) + '%'; $('#ob-bar').style.display = n===1 ? 'none' : '';
-    $('#count').textContent = 'Step ' + n + ' of 6';
+    $('#ob-fill').style.width = (n/5*100) + '%'; $('#ob-bar').style.display = n===1 ? 'none' : '';
+    $('#count').textContent = 'Step ' + n + ' of 5';
     if(PREVIEW) $$('.pv-bar [data-pv]').forEach(function(b){ b.style.background = (b.dataset.pv == n) ? '#3FD494' : ''; b.style.color = (b.dataset.pv == n) ? '#0C0F11' : ''; });
     if(n===4) loadGB();
-    if(n===6) setTimeout(sizeCanvas, 30);
+    if(n===5) setTimeout(sizeCanvas, 30);
     window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
   }
   $$('[data-next]').forEach(function(b){ b.addEventListener('click', function(){ show(S.step+1); }); });
@@ -667,7 +654,6 @@ html.ob-wait .ob-step{visibility:hidden}
     if(LOGGED) $('#inName').textContent = 'Logged in as ' + name + '. Carry on.';
   }
   acctMode('');
-  if(!CODE) $('#codeRow').style.display = '';
   if(token()){
     fetch(API + '/auth/me',{headers:{'Authorization':'Bearer '+token()}}).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
       if(d && d.name){ HASPW = d.has_password !== false; acctMode(d.name); renderPw(); if(!S.name){ S.name=d.name; $('#fname').value=d.name; fillNames(); } if(d.email && !S.email){ S.email=d.email; $('#email').value=d.email; save(); } }
@@ -844,8 +830,6 @@ html.ob-wait .ob-step{visibility:hidden}
     $('#signDock').style.display = on ? 'none' : '';
     $('#after').classList.toggle('show', on);
     $('#back6').style.display = on ? 'none' : '';
-    $('#waBtn').href = waLink();
-    $('#waNote').textContent = MARK_WHATSAPP_NUMBER ? '' : 'Just send me: I’m in. Promise signed 💪';
   }
 
   $('#signBtn').addEventListener('click', function(){
@@ -863,38 +847,39 @@ html.ob-wait .ob-step{visibility:hidden}
     }
     setTimeout(function(){ $('#after').scrollIntoView({behavior:'smooth', block:'start'}); }, 250);
   });
-  $('#waBtn').addEventListener('click', function(e){ if(PREVIEW){ e.preventDefault(); pvNote('In the real thing this opens WhatsApp to you.'); return; } log('Messaged Mark'); });
-  $('#hqBtn').addEventListener('click', function(e){ if(PREVIEW){ e.preventDefault(); pvNote('In the real thing this takes them into HQ.'); return; } log('Entered HQ'); });
 
-  /* ===== Password for HQ, at the very end ===== */
+  /* ===== Password, then straight into HQ ===== */
   function renderPw(){
     var need = LOGGED && !HASPW;
     $('#pwBox').style.display = need ? '' : 'none';
-    $('#hqNum').textContent = need ? '3.' : '2.';
   }
+  function goHQ(){ log('Entered HQ'); setTimeout(function(){ location.href = 'hq.html'; }, 350); }
   $('#pwShow').addEventListener('click', function(){ var p=$('#pword'); var sh=p.type==='password'; p.type=sh?'text':'password'; this.textContent=sh?'Hide':'Show'; });
-  $('#pwSave').addEventListener('click', function(){
-    var b = this, pw = $('#pword').value, er = $('#errPw');
-    if(pw.length < 8){ er.textContent = 'At least 8 characters, please.'; return; }
-    if(PREVIEW){ er.textContent=''; HASPW = true; renderPw(); $('#pwEmail').textContent = S.email; $('#pwDone').style.display = ''; return; }
-    b.disabled = true; b.textContent = 'Saving...';
+  $('#hqBtn').addEventListener('click', function(e){
+    e.preventDefault();
+    var b = this, er = $('#errPw');
+    if(!(LOGGED && !HASPW)){
+      if(PREVIEW){ pvNote('In the real thing this takes them into HQ.'); return; }
+      goHQ(); return;
+    }
+    var pw = $('#pword').value;
+    if(pw.length < 8){ er.textContent = 'Pop a password in first, at least 8 characters.'; $('#pword').focus(); return; }
+    if(PREVIEW){ er.textContent=''; HASPW = true; renderPw(); pvNote('Password saved. In the real thing this takes them into HQ.'); return; }
+    b.classList.add('busy'); b.textContent = 'Saving...';
     fetch(API + '/auth/password',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({password:pw})})
     .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); }).then(function(res){
-      b.disabled = false; b.textContent = 'Save my password';
+      b.classList.remove('busy'); b.textContent = 'Enter Zenith HQ';
       if(!res.ok){ er.textContent = (res.j && res.j.error) || 'That didn’t save. Try again.'; return; }
-      er.textContent=''; HASPW = true; renderPw();
-      $('#pwEmail').textContent = S.email; $('#pwDone').style.display = '';
-      log('Password set');
-    }).catch(function(){ b.disabled = false; b.textContent = 'Save my password'; er.textContent = 'Couldn’t reach HQ. Check your signal and try again.'; });
+      er.textContent=''; HASPW = true; log('Password set'); goHQ();
+    }).catch(function(){ b.classList.remove('busy'); b.textContent = 'Enter Zenith HQ'; er.textContent = 'Couldn’t reach HQ. Check your signal and try again.'; });
   });
-  
 
   /* ===== PREVIEW BAR ===== */
   function pvNote(t){ var n = $('#pvMsg'); if(n){ n.textContent = t; clearTimeout(pvNote.t); pvNote.t = setTimeout(function(){ n.textContent = 'Preview. Nothing is saved or sent.'; }, 3500); } }
   if(PREVIEW){
     var bar = document.createElement('div'); bar.className = 'pv-bar'; bar.setAttribute('role','navigation'); bar.setAttribute('aria-label','Preview steps');
     bar.innerHTML = '<span class="pv-msg" id="pvMsg">Preview. Nothing is saved or sent.</span><span class="pv-steps">' +
-      [1,2,3,4,5,6].map(function(n){ return '<button type="button" data-pv="'+n+'">'+n+'</button>'; }).join('') +
+      [1,2,3,4,5].map(function(n){ return '<button type="button" data-pv="'+n+'">'+n+'</button>'; }).join('') +
       '<button type="button" data-pv="done" title="Everything ticked, promise signed">Done</button><button type="button" data-pv="reset">Reset</button></span>';
     var firstStep = document.querySelector('.ob-step'); firstStep.parentNode.insertBefore(bar, firstStep);
     bar.addEventListener('click', function(e){
@@ -905,7 +890,7 @@ html.ob-wait .ob-step{visibility:hidden}
         S.ticks = {app:true,forms:true,steps:true,photos:true,water:true}; S.now = S.now || ($('.ob-radio') && $('.ob-radio').dataset.opt) || ''; S.nowDone = true; S.goal = true;
         VIDEOS.forEach(function(x){ S.vids[x[0]] = true; });
         S.signed = true; S.signedAt = today(); S.sig = '';
-        renderAll(); show(6); return;
+        renderAll(); show(5); return;
       }
       renderAll(); show(+v);
     });
@@ -919,12 +904,12 @@ html.ob-wait .ob-step{visibility:hidden}
 
   /* ===== BOOT ===== */
   function renderAll(){ $('#fname').value = S.name||''; $('#email').value = S.email||''; fillNames(); renderPw(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned(); }
-  function openAt(){ show(S.name ? Math.min(Math.max(S.step||2,2),6) : 1); }
+  function openAt(){ show(S.name ? Math.min(Math.max(S.step||2,2),5) : 1); }
   var DEFAULTS = {step:1,name:'',email:'',ticks:{},now:'',nowDone:false,goal:false,vids:{},signed:false,sig:'',signedAt:''};
   function applyState(st, stepOverride){
     S = Object.assign({}, DEFAULTS, st || {});
     S.ticks = S.ticks || {}; S.vids = S.vids || {};
-    if(stepOverride) S.step = Math.min(6, Math.max(1, +stepOverride));
+    if(stepOverride) S.step = Math.min(5, Math.max(1, +stepOverride));
     try{ localStorage.setItem(KEY, JSON.stringify(S)); if(S.name) localStorage.setItem(NAMEKEY, S.name); }catch(e){}
     renderAll();
     if(stepOverride === 1) show(1); else openAt();
