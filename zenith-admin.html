@@ -514,7 +514,10 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
     try { d = await api('/admin/onboarding?id=' + c.id); } catch (e) { det.firstChild.innerHTML = '<div class="det-note">' + esc(e.message) + '</div>'; return; }
     const stages = stageInfo(c, d);
     const started = stages[0].done || (d.state && d.state.started);
-    const at = (d.state && d.state.step) || d.step || c.onboarding_step || 1;
+    // Started before saved progress existed? Work their step out from their events instead.
+    const evStep = (d.events || []).reduce((m, e) => Math.max(m, +e.step || 0), 0);
+    const goalDone = (d.events || []).some(e => e.event === 'Goal set' || e.event === '3 jobs set');
+    const at = (d.state && d.state.step) || d.step || c.onboarding_step || Math.max(evStep, goalDone ? 4 : 0) || 1;
     const opts = '<option value="">Where they left off (' + esc(STEP_NAMES[at] || 'Step ' + at) + ')</option>' + STEP_NAMES.slice(1).map((n, i) => '<option value="' + (i + 1) + '">' + esc(n) + '</option>').join('');
     det.firstChild.innerHTML =
       '<div class="det-grid">' +
