@@ -296,8 +296,13 @@ canvas#sig{background:#F4F6F5;border-color:#C9D1CD}
 @media (min-width:700px){.vid-card.vid-big{margin:0 0 14px!important}}
 
 /* v2 (24 Oct 2026): website match. White Archivo headlines, green only on things you tap, glow on the main button */
-h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spacing:-.02em!important;line-height:.98!important}
-.kicker{color:#BFC6C3!important}
+/* Brand rule: #111111 headlines on light sections, white only on dark ones */
+h1.page,.hi,.ob-promise .h{color:#111111!important;letter-spacing:-.02em!important;line-height:.98!important}
+.ob-hero h1.page{color:#FFFFFF!important}
+h1.page .first-name,.hi .first-name,.ob-promise .h span{color:#111111!important}
+.ob-hero h1.page .first-name{color:#FFFFFF!important}
+.kicker{color:#6B716F!important}
+.ob-hero .kicker{color:#BFC6C3!important}
 .ob-btn,#toApp{box-shadow:0 0 0 6px rgba(63,212,148,.14),0 12px 32px rgba(63,212,148,.35)!important}
 .ob-btn:disabled{box-shadow:none!important}
 html.ob-wait .ob-step{visibility:hidden}
@@ -320,7 +325,7 @@ html.ob-wait .ob-step{visibility:hidden}
     <div class="kicker">Your onboarding starts here</div>
     <h1 class="page">Right, let’s get you started</h1>
   </div>
-  <p class="page-sub" style="margin-top:6px">First things first, pop your name and email in. Takes about 10 minutes, start to finish, and your progress saves as you go.</p>
+  <p class="page-sub" style="margin-top:6px">First things first, pop your name and email in. Takes about 8 minutes, start to finish, and your progress saves as you go.</p>
   <div class="card" style="margin-top:20px">
     <label class="ob-field" style="margin-top:0"><span>Full name</span><input id="fname" type="text" autocomplete="name" autocapitalize="words" placeholder="e.g. Joe Bloggs"></label>
     <label class="ob-field"><span>Email</span><input id="email" type="email" autocomplete="email" inputmode="email" placeholder="The one you used for the app"></label>
@@ -342,7 +347,7 @@ html.ob-wait .ob-step{visibility:hidden}
   <button class="ob-back" data-back><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2 4 8l6 6"/></svg>Back</button>
   <div class="kicker">Welcome to Zenith Fit</div>
   <h1 class="page">Hey <span class="first-name">there</span>, welcome to the programme</h1>
-  <p class="page-sub">We’re going to get your first jobs set, get your goal down, and show you exactly what happens next. At the end you’ll drop me a message, then sit back and let me build your programme.</p>
+  <p class="page-sub">We’re going to get your first jobs set, get your goal down, and show you exactly what happens next. At the end you’re straight into Zenith HQ, then sit back and let me build your programme.</p>
 
   <div class="section-lbl">First up, have a watch of this</div>
   <div class="vid-card vid-big">
