@@ -1,10 +1,10 @@
-/* Zenith HQ, light theme (Oct 2026). Roboto Slab headlines, Inter Tight body, black top bar, green glow. */
+/* Zenith HQ, light theme (Oct 2026). Archivo 800 headlines, Inter Tight body, black top bar, green glow. */
 :root{
   --bg:#F4F6F5;--card:#FFFFFF;--soft:#F1F4F2;--line:#E3E7E5;
   --ink:#111111;--body:#4A4F4D;--mut:#7A7F7D;
   --green:#00A86B;--green-h:#008755;--green-lt:#3FD494;
   --glow:linear-gradient(135deg,#DDF5EA 0%,#FFFFFF 62%);--glow-line:#BFE6D2;
-  --slab:'Roboto Slab','Rockwell',Georgia,serif;
+  --slab:'Archivo','Arial Black',system-ui,sans-serif;
   --sans:'Inter Tight','DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
   color-scheme:light;
   box-sizing:border-box;
