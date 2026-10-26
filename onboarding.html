@@ -576,7 +576,9 @@ html.ob-wait .ob-step{visibility:hidden}
   // Your WhatsApp group invite link. Paste it in and the "Join the group" step appears. Blank = I add them in my reply.
   var GROUP_LINK = ''; // group link lives in the welcome page, emails and Everfit, not here, so nobody gets taken away mid onboarding
   var TOKEN_KEY = 'zenith_token';
-  var KEY = 'zf_onboarding';
+  // Preview mode for Mark: ?preview=1. Click through every step, nothing saved to the account or the Sheet.
+  var PREVIEW = /[?&]preview=1(&|$)/.test(location.search);
+  var KEY = PREVIEW ? 'zf_onboarding_preview' : 'zf_onboarding';
   var NAMEKEY = 'zf_review_name'; // shared with Goal Builder and Rate Your Day so nobody types their name twice
 
   var VIDEOS = [
@@ -603,7 +605,7 @@ html.ob-wait .ob-step{visibility:hidden}
     PROG = {accelerator:'Accelerator',momentum:'Momentum',transformation:'Transformation'}[pq] || '';
     if(PROG) localStorage.setItem('zf_ob_prog', pq);
   }catch(e){}
-  function token(){ try{ return localStorage.getItem(TOKEN_KEY)||''; }catch(e){ return ''; } }
+  function token(){ if(PREVIEW) return ''; try{ return localStorage.getItem(TOKEN_KEY)||''; }catch(e){ return ''; } }
   try{ var saved = JSON.parse(localStorage.getItem(KEY)||'null'); if(saved) S = Object.assign(S, saved); }catch(e){}
   // v9: progress lives on their account too, so it follows them to any phone or browser
   var pushT = null;
@@ -622,6 +624,7 @@ html.ob-wait .ob-step{visibility:hidden}
 
   function first(){ return (S.name||'').split(' ')[0] || 'there'; }
   function log(event, extra){
+    if(PREVIEW) return;
     var msg = 'Onboarding: ' + event + (extra ? ' | ' + extra : '');
     var payload = {tool:'Onboarding', name:S.name, email:S.email, event:event, message:msg,
       field1_label:'Name', field1_value:S.name||'', field2_label:'Email', field2_value:S.email||'',
@@ -646,6 +649,7 @@ html.ob-wait .ob-step{visibility:hidden}
     $$('.ob-step').forEach(function(s){ s.classList.toggle('show', +s.dataset.step === n); });
     $('#ob-fill').style.width = (n/6*100) + '%'; $('#ob-bar').style.display = n===1 ? 'none' : '';
     $('#count').textContent = 'Step ' + n + ' of 6';
+    if(PREVIEW) $$('.pv-bar [data-pv]').forEach(function(b){ b.style.background = (b.dataset.pv == n) ? '#3FD494' : ''; b.style.color = (b.dataset.pv == n) ? '#0C0F11' : ''; });
     if(n===4) loadGB();
     if(n===6) setTimeout(sizeCanvas, 30);
     window.scrollTo({top:0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth'});
@@ -681,7 +685,7 @@ html.ob-wait .ob-step{visibility:hidden}
     try{ localStorage.setItem(NAMEKEY, S.name); }catch(x){}
     fillNames();
     function next(){ err.textContent=''; if(isNew){ S.started=true; save(); log('Started', PROG || 'Programme not set'); } show(2); }
-    if(LOGGED){ next(); return; }
+    if(LOGGED || PREVIEW){ if(PREVIEW){ LOGGED = true; HASPW = false; renderPw(); } next(); return; }
     var code = CODE || $('#acode').value.trim();
     if(!code){ err.textContent = 'Pop your access code in. It’s in your welcome email.'; $('#acode').focus(); return; }
     if(!$('#consent').checked){ err.textContent = 'Tick the box to agree, then we’re off.'; return; }
@@ -859,8 +863,8 @@ html.ob-wait .ob-step{visibility:hidden}
     }
     setTimeout(function(){ $('#after').scrollIntoView({behavior:'smooth', block:'start'}); }, 250);
   });
-  $('#waBtn').addEventListener('click', function(){ log('Messaged Mark'); });
-  $('#hqBtn').addEventListener('click', function(){ log('Entered HQ'); });
+  $('#waBtn').addEventListener('click', function(e){ if(PREVIEW){ e.preventDefault(); pvNote('In the real thing this opens WhatsApp to you.'); return; } log('Messaged Mark'); });
+  $('#hqBtn').addEventListener('click', function(e){ if(PREVIEW){ e.preventDefault(); pvNote('In the real thing this takes them into HQ.'); return; } log('Entered HQ'); });
 
   /* ===== Password for HQ, at the very end ===== */
   function renderPw(){
@@ -872,6 +876,7 @@ html.ob-wait .ob-step{visibility:hidden}
   $('#pwSave').addEventListener('click', function(){
     var b = this, pw = $('#pword').value, er = $('#errPw');
     if(pw.length < 8){ er.textContent = 'At least 8 characters, please.'; return; }
+    if(PREVIEW){ er.textContent=''; HASPW = true; renderPw(); $('#pwEmail').textContent = S.email; $('#pwDone').style.display = ''; return; }
     b.disabled = true; b.textContent = 'Saving...';
     fetch(API + '/auth/password',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token()},body:JSON.stringify({password:pw})})
     .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); }).then(function(res){
@@ -883,6 +888,34 @@ html.ob-wait .ob-step{visibility:hidden}
     }).catch(function(){ b.disabled = false; b.textContent = 'Save my password'; er.textContent = 'Couldn’t reach HQ. Check your signal and try again.'; });
   });
   
+
+  /* ===== PREVIEW BAR ===== */
+  function pvNote(t){ var n = $('#pvMsg'); if(n){ n.textContent = t; clearTimeout(pvNote.t); pvNote.t = setTimeout(function(){ n.textContent = 'Preview. Nothing is saved or sent.'; }, 3500); } }
+  if(PREVIEW){
+    var bar = document.createElement('div'); bar.className = 'pv-bar'; bar.setAttribute('role','navigation'); bar.setAttribute('aria-label','Preview steps');
+    bar.innerHTML = '<span class="pv-msg" id="pvMsg">Preview. Nothing is saved or sent.</span><span class="pv-steps">' +
+      [1,2,3,4,5,6].map(function(n){ return '<button type="button" data-pv="'+n+'">'+n+'</button>'; }).join('') +
+      '<button type="button" data-pv="done" title="Everything ticked, promise signed">Done</button><button type="button" data-pv="reset">Reset</button></span>';
+    var firstStep = document.querySelector('.ob-step'); firstStep.parentNode.insertBefore(bar, firstStep);
+    bar.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return; var v = b.dataset.pv;
+      if(v === 'reset'){ try{ localStorage.removeItem(KEY); }catch(x){} location.reload(); return; }
+      if(!S.name){ S.name = 'Joe Bloggs'; S.email = 'joe.bloggs@example.com'; S.started = true; LOGGED = true; HASPW = false; }
+      if(v === 'done'){
+        S.ticks = {app:true,forms:true,steps:true,photos:true,water:true}; S.now = S.now || ($('.ob-radio') && $('.ob-radio').dataset.opt) || ''; S.nowDone = true; S.goal = true;
+        VIDEOS.forEach(function(x){ S.vids[x[0]] = true; });
+        S.signed = true; S.signedAt = today(); S.sig = '';
+        renderAll(); show(6); return;
+      }
+      renderAll(); show(+v);
+    });
+    var st = document.createElement('style');
+    st.textContent = '.pv-bar{display:flex;flex-direction:column;gap:8px;margin:14px 0 6px;background:#0C0F11;color:#BFC6C3;border:1px solid #262C30;border-radius:16px;padding:10px 12px;font:600 12.5px var(--grot,system-ui)}'+
+      '.pv-msg{color:#3FD494}.pv-steps{display:flex;gap:4px;flex-wrap:wrap}'+
+      '.pv-bar button{flex:none;min-width:30px;height:32px;border-radius:9px;border:1px solid #262C30;background:#15191C;color:#fff;font:700 13px var(--grot,system-ui);cursor:pointer;padding:0 7px}'+
+      '.pv-bar button:focus-visible{outline:2px solid #3FD494;outline-offset:2px}';
+    document.head.appendChild(st);
+  }
 
   /* ===== BOOT ===== */
   function renderAll(){ $('#fname').value = S.name||''; $('#email').value = S.email||''; fillNames(); renderPw(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned(); }
@@ -899,7 +932,8 @@ html.ob-wait .ob-step{visibility:hidden}
   renderAll(); openAt();
 
   var R = ''; try{ R = new URLSearchParams(location.search).get('r') || ''; }catch(e){}
-  if(R){
+  if(PREVIEW){ /* nothing from the server */ }
+  else if(R){
     // Resume link from Mark: log them in and open at their step
     document.documentElement.classList.add('ob-wait');
     var stopWait = setTimeout(function(){ document.documentElement.classList.remove('ob-wait'); }, 6000);
