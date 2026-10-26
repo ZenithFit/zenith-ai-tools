@@ -407,7 +407,7 @@ function buildPrompt(have, avoid){
 "Someone has told you what food they have available. Give them 3 or 4 realistic protein options for that meal.",
 "",
 "RULES. Follow every one of these:",
-"1. British English. UK foods and UK supermarket products only. UK terms: yoghurt, mince, tinned, courgette, aubergine, porridge.",
+"1. UK foods and UK supermarket products only. UK terms: yoghurt, mince, tinned, courgette, aubergine, porridge.",
 "2. Never mention calories, calorie targets, deficits, weight, weight loss, body fat or portion restriction.",
 "3. Never tell them to eat less of anything or to cut anything out.",
 "4. Never label food good, bad, clean, dirty, naughty, guilty, a treat or a cheat. No moralising about food at all.",
@@ -415,7 +415,7 @@ function buildPrompt(have, avoid){
 "6. Only use food they have said they have, plus basic staples nearly every kitchen has such as salt, pepper, oil, herbs. Do not send them shopping.",
 "7. Respect anything they have said they do not eat. No exceptions, no substitutions they did not ask for.",
 "8. Protein figures are rough approximations. Round to the nearest 5g.",
-"9. Do not use dashes of any kind anywhere in your output.",
+"9. No emojis, no preamble.",
 "10. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
 "",
 "Return ONLY valid JSON. No markdown, no backticks, no text before or after it. Exactly this shape:",
@@ -471,7 +471,8 @@ goBtn.addEventListener('click', async function(){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model: MODEL,
-        system: VOICE,
+        system: '',
+        zf_voice: 'v2',
         max_tokens: 1000,
         messages:[{ role:'user', content: buildPrompt(have, avoid) }]
       })

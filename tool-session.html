@@ -465,7 +465,7 @@ function buildPrompt(hurt){
 "11. Include one movement that pushes, one that pulls if their kit allows it, and one that works the legs.",
 "",
 "WRITING RULES:",
-"12. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"12. No emojis, no preamble.",
 "13. Never mention calories, calorie targets, deficits, weight loss, body fat, burning anything off or food of any kind.",
 "14. Never frame training as making up for something eaten or drunk.",
 "15. Do not use dashes of any kind anywhere in your output.",
@@ -525,7 +525,8 @@ goBtn.addEventListener('click', async function(){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model: MODEL,
-        system: VOICE,
+        system: '',
+        zf_voice: 'v2',
         max_tokens: 1000,
         messages:[{ role:'user', content: buildPrompt(hurt) }]
       })

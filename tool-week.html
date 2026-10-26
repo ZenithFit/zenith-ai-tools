@@ -383,7 +383,7 @@ function buildPrompt(week){
 "Someone has described their week. Give them specific slots with a day and a time for each one.",
 "",
 "RULES. Follow every one of these:",
-"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"1. No emojis, no preamble.",
 "2. Every slot must have a real day and a real clock time. Never say 'sometime in the morning' or 'whenever suits'. Vague is useless here.",
 "3. Work around what they have told you. Never schedule anything on top of something they have said is taken.",
 "4. Never tell them to get up earlier, go to bed later, sleep less, skip a meal or drop family time to make room. Find the gap they already have.",
@@ -446,7 +446,8 @@ goBtn.addEventListener('click', async function(){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model: MODEL,
-        system: VOICE,
+        system: '',
+        zf_voice: 'v2',
         max_tokens: 1000,
         messages:[{ role:'user', content: buildPrompt(week) }]
       })

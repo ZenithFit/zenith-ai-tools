@@ -372,7 +372,7 @@ function buildPrompt(s, context, flagged){
 "Someone has given you their 9 numbers. Find the single clearest pattern in them and give them one thing to try tomorrow.",
 "",
 "RULES. Follow every one of these:",
-"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"1. No emojis, no preamble.",
 "2. Pick ONE pattern. The clearest one. Do not list everything you can see.",
 "3. Never diagnose anything, physical or mental. Never name a condition. Never mention medication or supplements.",
 "4. Never mention calories, calorie targets, deficits, weight, weight loss, body fat or portion restriction.",
@@ -424,7 +424,8 @@ goBtn.addEventListener('click', async function(){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model: MODEL,
-        system: VOICE,
+        system: '',
+        zf_voice: 'v2',
         max_tokens: 1000,
         messages:[{ role:'user', content: buildPrompt(scores, context, flagged) }]
       })

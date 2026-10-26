@@ -420,7 +420,7 @@ function buildPrompt(plans){
 "The 4 weekend non-negotiables are already shown to them on the page. Do not repeat them back. They are 8,000 to 10,000 steps a day, 2 protein led meals minimum, 2 litres of water, and make memories not excuses. Build round those without listing them.",
 "",
 "RULES. Follow every one of these:",
-"1. British English. Short direct sentences. Warm, no fluff, no emojis, no preamble.",
+"1. No emojis, no preamble.",
 "2. Never tell them to cancel, skip or cut short anything they have planned. The plan works around their weekend, it never replaces it.",
 "3. Never mention calories, calorie targets, deficits, weight, weight loss, body fat, portion restriction or macros.",
 "4. Never tell them to eat less, save up, bank anything, earn anything or make up for anything later.",
@@ -481,7 +481,8 @@ goBtn.addEventListener('click', async function(){
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         model: MODEL,
-        system: VOICE,
+        system: '',
+        zf_voice: 'v2',
         max_tokens: 1000,
         messages:[{ role:'user', content: buildPrompt(plans) }]
       })

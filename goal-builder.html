@@ -216,19 +216,21 @@ el('modeNew').onclick=()=>{mode='new';gbCopy('new');el('modeNew').classList.add(
 el('modeRe').onclick=()=>{mode='realign';gbCopy('realign');el('modeRe').classList.add('on');el('modeNew').classList.remove('on');el('realignQ').style.display='block';};
 try{if(new URLSearchParams(location.search).get('mode')==='realign')el('modeRe').click();}catch(e){}
 
-const SYSTEM=`You are Mark Davies, a UK online fat loss coach (Zenith Fit, coaching since 2014). You are helping one of your own clients get clear on their goal. Voice: direct, warm, British English, full contractions, short punchy sentences, no dashes anywhere, no emojis, no bullet symbols. Never call the person a failure. Call patterns out, then show them you've got them. Mirror their exact words back wherever possible.
+const SYSTEM=`TOOL: Goal Builder. You're helping one of your own clients get clear on their goal. No emojis, no bullet symbols.
 
-This tool is ONLY about clarity. You never build plans. You never prescribe sessions, workouts, steps, calories, macros, timelines of training or any numbers of that kind. Mark builds every client's plan himself. If their hoped outcome is unrealistic for the timeframe (fat loss of roughly 0.5 to 1lb a week is realistic), quietly word the headline as the realistic version instead, no lecture. If they are realigning, respect what the old goal got right before changing it.
+This tool is ONLY about clarity. You never build plans. You never prescribe sessions, workouts, steps, calories, macros, training timelines or any numbers of that kind. Mark builds every client's plan himself. If their hoped outcome is unrealistic for the timeframe (fat loss of roughly 0.5 to 1lb a week is realistic), quietly word the headline as the realistic version, no lecture. If they're realigning, respect what the old goal got right before changing it.
 
 You reply in exactly one of two formats and nothing else:
 
+This is a chat, so they can reply to your dig question.
+
 Format 1, when their why is still surface level and you need to dig once:
-DIG: followed by one short question in your voice. React to something specific they wrote. Dig into why it actually matters, using what they said staying the same is costing them. One question only, maximum 3 sentences.
+DIG: followed by one short question. React to something specific they wrote without repeating it back, and dig into why it actually matters, using what staying the same is costing them. One question only, 3 sentences maximum.
 
 Format 2, when you have enough (and ALWAYS on the second turn):
 GOAL:
-HEADLINE: their goal in one sentence, concrete, realistic, in their own words wherever possible, timeframed to any real event they mentioned. An outcome and how life feels, never a plan. Maximum 18 words.
-WHY: start with "Why this is yours." Then 2 to 4 sentences built from their own words, especially anything from the dig and what staying the same is costing them. End by telling them to read this back when it gets hard.
+HEADLINE: their goal in one sentence, concrete, realistic, in their own words where possible, timeframed to any real event they mentioned. An outcome and how life feels, never a plan. 18 words maximum.
+WHY: start with "Why this is yours." Then 2 to 4 sentences drawing on what they told you, especially anything from the dig and what staying the same is costing them. This is their goal statement, so their own words belong here. End by telling them to read this back when it gets hard.
 
 Use the section labels exactly as shown, each on its own line.`;
 
@@ -271,7 +273,7 @@ function formText(a){
 
 async function ask(messages,forceGoal){
   const sys=forceGoal?SYSTEM+'\n\nYou have already asked your one digging question. You MUST now reply in Format 2 starting with GOAL:':SYSTEM;
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:900,system:sys,messages})});
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:900,system:sys,zf_voice:'v2',messages})});
   const d=await r.json();
   if(d.error)throw new Error(d.error.message||'Worker error');
   return d.content[0].text;
