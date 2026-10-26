@@ -9,6 +9,33 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
+/* v9: onboarding detail, stalled filter, resume and chase */
+.obf{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.obf-b{border:1.5px solid #DCE2DF;background:#fff;border-radius:999px;padding:8px 14px;font:600 13.5px inherit;cursor:pointer;color:#111}
+.obf-b.on{background:#111;color:#fff;border-color:#111}
+.obf-b span{display:inline-block;min-width:20px;padding:1px 6px;margin-left:4px;border-radius:999px;background:#FFE7C2;color:#8A5A00;font-size:12px}
+.obf-b.on span{background:#3FD494;color:#0C0F11}
+.obf-hint{font-size:12.5px;color:#8A8F8D}
+td.nm{cursor:pointer}td.nm:hover{color:#00875A}
+.nm .caret{display:inline-block;margin-left:6px;color:#8A8F8D;transition:transform .15s}tr.open .nm .caret{transform:rotate(90deg)}
+.stall{display:inline-block;margin-top:4px;font-size:11.5px;font-weight:700;color:#8A5A00;background:#FFF4DC;border-radius:999px;padding:2px 8px}
+tr.det td{background:#F7F9F8;padding:16px 18px}
+.det-grid{display:grid;grid-template-columns:minmax(260px,1fr) minmax(280px,1fr);gap:22px}
+@media (max-width:860px){.det-grid{grid-template-columns:1fr}}
+.stg{list-style:none;margin:0;padding:0}
+.stg li{display:flex;gap:10px;align-items:baseline;padding:6px 0;border-bottom:1px solid #E8ECEA;font-size:13.5px}
+.stg .tk{flex:none;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;background:#E8ECEA;color:#8A8F8D;transform:translateY(4px)}
+.stg li.y .tk{background:#3FD494;color:#0C0F11}
+.stg .sn{flex:1;color:#111;font-weight:600}.stg li:not(.y) .sn{color:#6B716F;font-weight:500}
+.stg .st{color:#8A8F8D;font-size:12.5px;white-space:nowrap}
+.det h4{margin:0 0 8px;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#6B716F}
+.det-act{display:flex;flex-direction:column;gap:10px}
+.det-act select{font:14px inherit;padding:9px 10px;border:1.5px solid #DCE2DF;border-radius:10px;background:#fff}
+.det-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.det-out{width:100%;box-sizing:border-box;min-height:120px;font:13px/1.45 inherit;padding:10px;border:1.5px solid #DCE2DF;border-radius:10px;background:#fff;color:#111;white-space:pre-wrap}
+.det-note{font-size:12.5px;color:#6B716F}
+.det-ok{font-size:13px;font-weight:700;color:#00875A}
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'DM Sans', sans-serif;
@@ -205,6 +232,11 @@
 
     <h2>Clients.</h2>
     <div class="panel">
+      <div class="obf" role="group" aria-label="Show">
+        <button type="button" class="obf-b on" data-f="all">Everyone</button>
+        <button type="button" class="obf-b" data-f="stalled">Onboarding stalled <span id="stalledN">0</span></button>
+        <span class="obf-hint">Tap a name to see every onboarding stage, get their resume link and copy a chase.</span>
+      </div>
       <div class="tablewrap">
         <table>
           <thead>
@@ -285,8 +317,10 @@
       for (const c of clients) {
         const tr = document.createElement('tr');
         if (!c.active) tr.className = 'inactive';
+        const st = isStalled(c);
+        tr.dataset.stalled = st ? '1' : '0';
         tr.innerHTML =
-          '<td style="font-weight:700">' + esc(c.name) + (c.email ? '<div style="font-weight:400;font-size:12px;color:#8A8F8D;margin-top:2px">' + esc(c.email) + '</div>' : '') + '</td>' +
+          '<td class="nm" style="font-weight:700" tabindex="0" role="button" aria-expanded="false">' + esc(c.name) + '<span class="caret" aria-hidden="true">&rsaquo;</span>' + (c.email ? '<div style="font-weight:400;font-size:12px;color:#8A8F8D;margin-top:2px">' + esc(c.email) + '</div>' : '') + (st ? '<div class="stall">Stalled ' + st + '</div>' : '') + '</td>' +
           '<td>' + esc(c.username) + '</td>' +
           '<td>' + progCell(c) + '</td>' +
           '<td>' + onboardCell(c) + '</td>' +
@@ -304,7 +338,14 @@
               : '') +
           '</td>';
         rows.appendChild(tr);
+        const nm = tr.querySelector('td.nm');
+        const open = () => toggleDetail(tr, c);
+        nm.addEventListener('click', open);
+        nm.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
       }
+      const n = clients.filter(c => isStalled(c)).length;
+      document.getElementById('stalledN').textContent = n;
+      applyFilter();
     } catch (e) {
       show('listMsg', e.message, false);
     }
@@ -375,6 +416,137 @@
     } catch (e) {
       show('weekMsgMsg', e.message, false);
     }
+  }
+
+  // ===== v9: onboarding stages, stalled filter, resume link, chase =====
+  function sqlDate(d) { return d ? new Date(String(d).replace(' ', 'T') + 'Z') : null; }
+  function isFinished(c) {
+    if (c.onboarding_done > 0) return true;
+    let d = {}; try { d = JSON.parse(c.onboarding_last || '{}'); } catch (e) {}
+    return d.event === 'Joined HQ' || String(d.extra || '').indexOf('Existing client') === 0;
+  }
+  // Not finished, has started, and nothing for 24 hours or more. Returns "2 days" style text, or ''.
+  function isStalled(c) {
+    if (!c.active || isFinished(c)) return '';
+    const a = sqlDate(c.onboarding_event_at), b = sqlDate(c.onboarding_state_at);
+    const last = a && b ? (a > b ? a : b) : (a || b);
+    if (!last) return '';
+    const hrs = (Date.now() - last.getTime()) / 36e5;
+    if (hrs < 24) return '';
+    const days = Math.floor(hrs / 24);
+    return days === 1 ? '1 day' : days + ' days';
+  }
+  let FILTER = 'all';
+  function applyFilter() {
+    document.querySelectorAll('#clientRows > tr').forEach(tr => {
+      if (tr.classList.contains('det')) { tr.style.display = FILTER === 'stalled' && tr.previousElementSibling && tr.previousElementSibling.dataset.stalled !== '1' ? 'none' : ''; return; }
+      if (!tr.dataset.stalled) return;
+      tr.style.display = FILTER === 'stalled' && tr.dataset.stalled !== '1' ? 'none' : '';
+    });
+  }
+  document.querySelectorAll('.obf-b').forEach(b => b.addEventListener('click', () => {
+    FILTER = b.dataset.f;
+    document.querySelectorAll('.obf-b').forEach(x => x.classList.toggle('on', x === b));
+    applyFilter();
+  }));
+
+  const STAGES = [
+    ['Started', 'Started'], ['In the app', 'In the app'], ['Forms done', 'Forms done'], ['3 jobs set', '3 jobs set'],
+    ['Did one now', 'Did one now'], ['Goal set', 'Goal set'], ['videos', 'App videos'], ['Promise signed', 'Promise signed'],
+    ['Password set', 'Password set'], ['Messaged Mark', 'Messaged Mark'], ['Entered HQ', 'Entered HQ']
+  ];
+  const LEFT_WORDS = { 'In the app': 'getting into the app', 'Forms done': 'your forms', '3 jobs set': 'your first 3 jobs', 'Goal set': 'your goal', 'videos': 'the app videos', 'Promise signed': 'your promise', 'Password set': 'your password' };
+  const STEP_NAMES = ['', 'Step 1: name and email', 'Step 2: app and forms', 'Step 3: first 3 jobs', 'Step 4: goal', 'Step 5: app videos', 'Step 6: promise and password'];
+
+  function stageInfo(c, d) {
+    const ev = d.events || [], st = d.state || {};
+    const firstAt = name => { const e = ev.find(x => x.event === name); return e ? e.at : null; };
+    const vids = new Set(ev.filter(x => x.event === 'App video watched').map(x => x.extra));
+    let vn = Math.max(vids.size, Object.keys(st.vids || {}).filter(k => st.vids[k]).length);
+    const lastVid = ev.filter(x => x.event === 'App video watched').map(x => x.at).pop() || null;
+    return STAGES.map(([key, label]) => {
+      if (key === 'videos') return { key, label: 'App videos (' + Math.min(vn, 9) + ' of 9)', done: vn >= 9, part: vn > 0 && vn < 9, at: lastVid };
+      let at = firstAt(key), done = !!at;
+      if (key === 'In the app' && !done && st.ticks && st.ticks.app) done = true;
+      if (key === 'Forms done' && !done && st.ticks && st.ticks.forms) done = true;
+      if (key === 'Goal set' && !done && st.goal) done = true;
+      if (key === 'Promise signed' && !done && st.signed) done = true;
+      if (key === 'Password set' && !done && c.has_password) return { key, label, done: true, at: null, note: 'Has a password' };
+      return { key, label, done, at };
+    });
+  }
+  function firstName(c) { return String(c.name || '').trim().split(' ')[0] || 'there'; }
+  function whatsLeft(stages) {
+    let clean = stages.filter(s => !s.done && LEFT_WORDS[s.key]).map(s => LEFT_WORDS[s.key]);
+    if (clean.indexOf('getting into the app') > -1 && clean.indexOf('your forms') > -1) clean = clean.filter(x => x !== 'your forms').map(x => x === 'getting into the app' ? 'getting into the app and doing your forms' : x);
+    if (!clean.length) return 'a couple of quick bits';
+    return clean.length === 1 ? clean[0] : clean.slice(0, -1).join(', ') + ' and ' + clean[clean.length - 1];
+  }
+  function chaseText(kind, c, stages, link) {
+    const f = firstName(c);
+    if (kind === 'none') return 'Hey ' + f + ', just checking you got my link to get set up.\n\nIt\u2019s nice and straightforward, about 10 minutes and you\u2019re done. Tap this and it takes you straight in:\n' + link + '\n\nAny problems, give me a shout.\n\nMark';
+    return 'Hey ' + f + ', you\u2019re nearly there with your onboarding.\n\nAll that\u2019s left is ' + whatsLeft(stages) + '. Tap this and it opens right where you left off, no logging in needed:\n' + link + '\n\nGet it done today if you can, then I can crack on with your programme.\n\nMark';
+  }
+  async function copyText(getText, out, okEl) {
+    // Safari needs the copy to start inside the tap, so hand it a promise
+    try {
+      if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
+        const p = getText().then(t => { out.value = t; return new Blob([t], { type: 'text/plain' }); });
+        await navigator.clipboard.write([new ClipboardItem({ 'text/plain': p })]);
+      } else {
+        const t = await getText(); out.value = t; await navigator.clipboard.writeText(t);
+      }
+      okEl.textContent = 'Copied. Paste it into WhatsApp.';
+    } catch (e) {
+      if (!out.value) { try { out.value = await getText(); } catch (x) { okEl.textContent = x.message || 'Couldn\u2019t make the link.'; okEl.style.color = '#B3402F'; return; } }
+      out.focus(); out.select(); okEl.textContent = 'Copy it from the box below.';
+    }
+    out.style.display = '';
+  }
+  async function toggleDetail(tr, c) {
+    const nx = tr.nextElementSibling;
+    if (nx && nx.classList.contains('det')) { nx.remove(); tr.classList.remove('open'); tr.querySelector('td.nm').setAttribute('aria-expanded', 'false'); return; }
+    tr.classList.add('open'); tr.querySelector('td.nm').setAttribute('aria-expanded', 'true');
+    const det = document.createElement('tr'); det.className = 'det';
+    det.innerHTML = '<td colspan="9"><div class="det-note">Loading onboarding\u2026</div></td>';
+    tr.after(det);
+    let d;
+    try { d = await api('/admin/onboarding?id=' + c.id); } catch (e) { det.firstChild.innerHTML = '<div class="det-note">' + esc(e.message) + '</div>'; return; }
+    const stages = stageInfo(c, d);
+    const started = stages[0].done || (d.state && d.state.started);
+    const at = (d.state && d.state.step) || d.step || c.onboarding_step || 1;
+    const opts = '<option value="">Where they left off (' + esc(STEP_NAMES[at] || 'Step ' + at) + ')</option>' + STEP_NAMES.slice(1).map((n, i) => '<option value="' + (i + 1) + '">' + esc(n) + '</option>').join('');
+    det.firstChild.innerHTML =
+      '<div class="det-grid">' +
+        '<div><h4>Onboarding stages</h4><ul class="stg">' + stages.map(s =>
+          '<li class="' + (s.done ? 'y' : '') + '"><span class="tk">' + (s.done ? '\u2713' : (s.part ? '\u2026' : '')) + '</span><span class="sn">' + esc(s.label) + '</span><span class="st">' + (s.at ? fmtDate(s.at) : (s.note ? esc(s.note) : (s.done ? 'Done' : ''))) + '</span></li>').join('') + '</ul>' +
+          '<p class="det-note" style="margin-top:8px">Last activity: ' + fmtDate(d.updated_at || c.onboarding_event_at) + '. Saved at ' + esc(STEP_NAMES[at] || 'Step ' + at) + '.</p></div>' +
+        '<div class="det-act"><h4>Get them back in</h4>' +
+          '<label class="det-note" style="text-transform:none;letter-spacing:0;font-weight:500" for="rs' + c.id + '">Resume link opens their onboarding, already logged in. Lasts 7 days.</label>' +
+          '<select id="rs' + c.id + '">' + opts + '</select>' +
+          '<div class="det-row">' +
+            '<button class="btn small" data-a="link">Copy resume link</button>' +
+            '<button class="btn small' + (started ? ' ghost' : '') + '" data-a="none">Copy chase: not started</button>' +
+            '<button class="btn small' + (started ? '' : ' ghost') + '" data-a="part">Copy chase: stuck partway</button>' +
+          '</div>' +
+          '<div class="det-ok" aria-live="polite"></div>' +
+          '<textarea class="det-out" readonly style="display:none" aria-label="Copied text"></textarea>' +
+        '</div>' +
+      '</div>';
+    const sel = det.querySelector('select'), out = det.querySelector('.det-out'), ok = det.querySelector('.det-ok');
+    let cache = {};
+    const getLink = async () => {
+      const k = sel.value || 'saved';
+      if (cache[k]) return cache[k];
+      const r = await api('/admin/resume', 'POST', { id: c.id, step: sel.value ? +sel.value : null });
+      cache[k] = r.url; return r.url;
+    };
+    det.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+      ok.textContent = ''; ok.style.color = ''; out.value = '';
+      const a = b.dataset.a;
+      copyText(a === 'link' ? getLink : () => getLink().then(l => chaseText(a, c, stages, l)), out, ok);
+    }));
+    applyFilter();
   }
 
   function esc(s) {

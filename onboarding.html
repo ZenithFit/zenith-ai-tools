@@ -300,6 +300,7 @@ h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spaci
 .kicker{color:#BFC6C3!important}
 .ob-btn,#toApp{box-shadow:0 0 0 6px rgba(63,212,148,.14),0 12px 32px rgba(63,212,148,.35)!important}
 .ob-btn:disabled{box-shadow:none!important}
+html.ob-wait .ob-step{visibility:hidden}
 </style>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -604,14 +605,30 @@ h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spaci
   }catch(e){}
   function token(){ try{ return localStorage.getItem(TOKEN_KEY)||''; }catch(e){ return ''; } }
   try{ var saved = JSON.parse(localStorage.getItem(KEY)||'null'); if(saved) S = Object.assign(S, saved); }catch(e){}
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+  // v9: progress lives on their account too, so it follows them to any phone or browser
+  var pushT = null;
+  function pushNow(){
+    clearTimeout(pushT); pushT = null;
+    var t = token(); if(!t) return;
+    try{ fetch(API + '/onboarding/state',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({state:S})}).catch(function(){}); }catch(e){}
+  }
+  function save(){
+    S.updatedAt = Date.now();
+    try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+    clearTimeout(pushT); pushT = setTimeout(pushNow, 600);
+  }
+  window.addEventListener('pagehide', function(){ if(pushT) pushNow(); });
+  document.addEventListener('visibilitychange', function(){ if(document.visibilityState === 'hidden' && pushT) pushNow(); });
 
   function first(){ return (S.name||'').split(' ')[0] || 'there'; }
   function log(event, extra){
     var msg = 'Onboarding: ' + event + (extra ? ' | ' + extra : '');
-    var payload = {tool:'Onboarding', name:S.name, email:S.email, event:event, message:msg};
+    var payload = {tool:'Onboarding', name:S.name, email:S.email, event:event, message:msg,
+      field1_label:'Name', field1_value:S.name||'', field2_label:'Email', field2_value:S.email||'',
+      field3_label:'Event', field3_value:event, field4_label:'Step', field4_value:'Step ' + S.step + ' of 6'};
     try{ fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(function(){}); }catch(e){}
     var t = token();
+    pushNow();
     if(t){ try{ fetch(API + '/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'Onboarding',data:{event:event,step:S.step,extra:extra||''}})}).catch(function(){}); }catch(e){} }
   }
 
@@ -674,7 +691,7 @@ h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spaci
     fetch(API + '/auth/signup',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)})
     .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, status:r.status, j:j}; }); }).then(function(res){
       btn.disabled = false; btn.textContent = 'Let’s go';
-      if(res.j && res.j.code === 'email_exists'){ err.innerHTML = 'You’ve already got an HQ login with that email. <a href="login.html?next=onboarding.html">Log in and carry on</a>.'; return; }
+      if(res.j && res.j.code === 'email_exists'){ err.innerHTML = 'You’ve already started with that email. <a href="login.html?next=onboarding.html">Log in</a> and you’ll carry on right where you left off. Not set a password yet? <a href="' + MARK_WA_FALLBACK + '" target="_blank" rel="noopener">Message me</a> and I’ll send you a link straight back in.'; return; }
       if(!res.ok || !res.j.token){ err.textContent = (res.j && res.j.error) || 'Something went wrong there. Try again in a sec.'; return; }
       try{
         localStorage.setItem(TOKEN_KEY, res.j.token);
@@ -868,8 +885,47 @@ h1.page,.hi,.ob-promise .h,.ob-hero h1.page{color:#FFFFFF!important;letter-spaci
   
 
   /* ===== BOOT ===== */
-  fillNames(); renderPw(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned();
-  show(S.name ? Math.min(Math.max(S.step,2),6) : 1);
+  function renderAll(){ $('#fname').value = S.name||''; $('#email').value = S.email||''; fillNames(); renderPw(); renderTicks(); renderNow(); renderGoal(); renderVids(); renderSigned(); }
+  function openAt(){ show(S.name ? Math.min(Math.max(S.step||2,2),6) : 1); }
+  var DEFAULTS = {step:1,name:'',email:'',ticks:{},now:'',nowDone:false,goal:false,vids:{},signed:false,sig:'',signedAt:''};
+  function applyState(st, stepOverride){
+    S = Object.assign({}, DEFAULTS, st || {});
+    S.ticks = S.ticks || {}; S.vids = S.vids || {};
+    if(stepOverride) S.step = Math.min(6, Math.max(1, +stepOverride));
+    try{ localStorage.setItem(KEY, JSON.stringify(S)); if(S.name) localStorage.setItem(NAMEKEY, S.name); }catch(e){}
+    renderAll();
+    if(stepOverride === 1) show(1); else openAt();
+  }
+  renderAll(); openAt();
+
+  var R = ''; try{ R = new URLSearchParams(location.search).get('r') || ''; }catch(e){}
+  if(R){
+    // Resume link from Mark: log them in and open at their step
+    document.documentElement.classList.add('ob-wait');
+    var stopWait = setTimeout(function(){ document.documentElement.classList.remove('ob-wait'); }, 6000);
+    fetch(API + '/auth/resume',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({r:R})})
+    .then(function(r){ return r.json().then(function(j){ return {ok:r.ok,j:j}; }); }).then(function(res){
+      clearTimeout(stopWait); document.documentElement.classList.remove('ob-wait');
+      try{ var u = new URL(location.href); u.searchParams.delete('r'); history.replaceState(null,'',u.pathname + (u.search||'')); }catch(e){}
+      if(!res.ok || !res.j.token){ show(1); $('#err1').textContent = (res.j && res.j.error) || 'That link didn’t work. Message me and I’ll send a new one.'; return; }
+      try{ localStorage.setItem(TOKEN_KEY, res.j.token); localStorage.setItem('zenith_name', res.j.name||''); localStorage.setItem('zenith_programme', res.j.programme||''); }catch(e){}
+      var st = res.j.state || {};
+      if(!st.name) st.name = res.j.name || ''; if(!st.email) st.email = res.j.email || '';
+      st.started = true;
+      HASPW = res.j.has_password !== false; acctMode(st.name);
+      applyState(st, res.j.step);
+      pushNow();
+    }).catch(function(){ clearTimeout(stopWait); document.documentElement.classList.remove('ob-wait'); $('#err1').textContent = 'Couldn’t reach HQ just now. Check your signal and tap the link again.'; });
+  } else if(token()){
+    // Logged in: pick up wherever they got to, on any device
+    fetch(API + '/onboarding/state',{headers:{'Authorization':'Bearer '+token()}}).then(function(r){ return r.ok ? r.json() : null; }).then(function(d){
+      if(!d) return;
+      var srv = d.state, srvAt = srv && srv.updatedAt ? +srv.updatedAt : 0, here = +(S.updatedAt||0);
+      // Server wins unless this browser is genuinely further along
+      if(srv && (!S.started || !S.name || srvAt > here || (+srv.step||1) > (+S.step||1))) applyState(srv);
+      else if(S.name) pushNow();
+    }).catch(function(){});
+  }
 })();
 </script>
 </body>
