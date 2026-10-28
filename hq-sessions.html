@@ -52,6 +52,54 @@
   box.setAttribute('data-done','1');box.style.display='block';
 })();
 </script>
+<div class="section-lbl" id="bonus">Bonus training</div>
+<div class="bt-card" id="bt-mindless-snacking">
+  <div class="bt-vid" onclick="mcPlay(this,'9ystsCM_S7Y')" role="button" tabindex="0" aria-label="Play Mindless Snacking"><img src="https://img.youtube.com/vi/9ystsCM_S7Y/hqdefault.jpg" alt="" loading="lazy"><div class="bt-play"><div><svg width="18" height="18" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M8 5v14l11-7z"/></svg></div></div></div>
+  <div class="bt-body">
+    <div style="flex:1 1 auto;min-width:0">
+      <h3 class="bt-t">Mindless Snacking</h3>
+      <p class="bt-s">If you find yourself snacking without really thinking about it, this one&rsquo;s for you.</p>
+      <div class="bt-pills"><a class="bt-pill" href="https://open.spotify.com/episode/6f0G6UBtHLJuuB14nxddMO" target="_blank" rel="noopener">Spotify</a><a class="bt-pill" href="https://podcasts.apple.com/gb/podcast/zenith-fit-hq-podcast/id1774539843?i=1000798509086" target="_blank" rel="noopener">Apple Podcasts</a></div>
+    </div>
+    <button class="bt-done" data-vid="9ystsCM_S7Y" data-title="Mindless Snacking" onclick="btWatched(this)" aria-label="Mark Mindless Snacking as watched"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8.5 6 12l7.5-8"/></svg></button>
+  </div>
+</div>
+<style>
+.bt-card{background:#FFFFFF;border:1.5px solid #E3E7E5;border-radius:16px;overflow:hidden;margin-bottom:12px}
+.bt-vid{position:relative;aspect-ratio:16/9;background:#F4F6F5;cursor:pointer}
+.bt-vid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.bt-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.bt-play>div{width:52px;height:52px;border-radius:999px;background:rgba(12,15,17,.78);display:flex;align-items:center;justify-content:center}
+.bt-vid:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+.bt-body{padding:13px 16px 14px;display:flex;align-items:flex-start;gap:12px}
+.bt-t{font-family:var(--slab,Archivo,Arial,sans-serif);font-weight:800;text-transform:uppercase;font-size:17px;letter-spacing:-.01em;color:#111111;line-height:1.2;margin:0}
+.bt-s{font-size:13.5px;color:#4A4F4D;line-height:1.5;margin:4px 0 0}
+.bt-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.bt-pill{display:inline-flex;align-items:center;justify-content:center;background:#FFFFFF;color:#111111;border:1.5px solid #D7DCD9;border-radius:999px;padding:8px 15px;font-weight:600;font-size:13.5px;text-decoration:none}
+.bt-pill:hover{border-color:#111111}
+.bt-pill:focus-visible,.bt-done:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+.bt-done{flex:0 0 auto;width:34px;height:34px;border-radius:999px;border:2px solid #E3E7E5;background:#FFFFFF;display:flex;align-items:center;justify-content:center;cursor:pointer;padding:0;margin-top:2px}
+.bt-done svg{opacity:0;transition:opacity .15s}
+.bt-done.on{background:#00A86B;border-color:#00A86B}
+.bt-done.on svg{opacity:1}
+</style>
+<script>
+function btWatched(btn){
+  if(btn.classList.contains('on'))return;
+  btn.classList.add('on');
+  var t=zTok();
+  if(t){fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({tool:'Bonus Training Watched',data:{video:btn.dataset.vid,title:btn.dataset.title,date:new Date().toISOString().slice(0,10)}})}).catch(function(){});}
+  var nm='';try{nm=localStorage.getItem('zenith_name')||'';}catch(e){}
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:'Bonus Training Watched',message:'',field1_label:'Name',field1_value:nm,field2_label:'Training',field2_value:btn.dataset.title})}).catch(function(){});
+}
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('.bt-vid').forEach(function(v){v.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();v.click();}});});
+  var t=zTok();if(!t)return;
+  fetch(API+'/entries?tool='+encodeURIComponent('Bonus Training Watched')+'&limit=100',{headers:{'Authorization':'Bearer '+t}}).then(function(r){return r.json();}).then(function(d){
+    if(d&&Array.isArray(d.entries))d.entries.forEach(function(e){var b=e.data&&document.querySelector('.bt-done[data-vid="'+e.data.video+'"]');if(b)b.classList.add('on');});
+  }).catch(function(){});
+});
+</script>
 <div class="section-lbl" id="podcast">The podcast</div>
 <div class="rows" style="margin-bottom:6px">
 <a class="row" href="https://podcasts.apple.com/gb/podcast/zenith-hq/id1774539843" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span><span class="rt" style="display:block">Listen on Apple Podcasts</span><span class="rs" style="display:block">Short episodes, clients only. Stick it on, get your steps in.</span></span><span class="chev">&rsaquo;</span></a>
