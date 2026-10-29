@@ -192,6 +192,26 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
 #jfPanel .jf-tks{display:flex;flex-wrap:wrap;gap:14px}
 #jfPanel .jf-tk{font-size:14px;color:#111111;display:flex;align-items:center;gap:6px;cursor:pointer}
 #jfPanel .jf-tk input{width:18px;height:18px;accent-color:#3FD494}
+#gqPanel .gq-row{border-top:1px solid #E3E8E5;padding:14px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:center}
+#gqPanel .gq-row:first-child{border-top:0;padding-top:4px}
+#gqPanel .gq-who b{font-size:16px;color:#111111}
+#gqPanel .gq-tag{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;margin-left:8px;vertical-align:2px;background:#E6EBE9;color:#3E4442}
+#gqPanel .gq-tag.acc{background:#FFE7C2;color:#7A4A00}
+#gqPanel .gq-tag.tra{background:#0C0F11;color:#3FD494}
+#gqPanel .gq-meta{font-size:13.5px;color:#5E6462;margin-top:2px}
+#gqPanel .gq-days{font:800 22px/1 'Archivo',Arial,sans-serif;text-align:right;color:#111111}
+#gqPanel .gq-days small{display:block;font:500 12px inherit;color:#5E6462}
+#gqPanel .gq-acts{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+#gqPanel .gq-pl{border:1.5px solid #D5DCD9;background:#fff;border-radius:999px;padding:8px 14px;font:600 14px inherit;color:#111111;cursor:pointer}
+#gqPanel .gq-sent{font-size:12.5px;font-weight:700;color:#00875A;background:#E3F7EE;border-radius:999px;padding:6px 12px}
+#gqPanel .gq-open{grid-column:1/-1;background:#F7F9F8;border:1px solid #E3E8E5;border-radius:14px;padding:14px}
+#gqPanel .gq-open textarea{width:100%;box-sizing:border-box;min-height:130px;border:1.5px solid #D5DCD9;border-radius:12px;padding:12px;font:15px/1.5 inherit;color:#111111;resize:vertical;margin:0}
+#gqPanel .gq-b{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center}
+#gqPanel .gq-glow{display:inline-flex;align-items:center;gap:12px;background:#3FD494;color:#0C0F11;text-decoration:none;border:0;border-radius:999px;padding:6px 6px 6px 18px;font:700 15px inherit;cursor:pointer;box-shadow:0 0 22px -4px rgba(63,212,148,.65)}
+#gqPanel .gq-glow i{width:32px;height:32px;border-radius:50%;background:#0C0F11;display:grid;place-items:center}
+#gqPanel .gq-glow i::after{content:"";width:8px;height:8px;border-top:2.5px solid #3FD494;border-right:2.5px solid #3FD494;transform:rotate(45deg) translate(-1px,1px)}
+#gqPanel .gq-note{font-size:12.5px;color:#5E6462}
+#gqPanel button:focus-visible,#gqPanel a:focus-visible{outline:3px solid #3FD494;outline-offset:2px}
 </style>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -215,6 +235,12 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
 
   <!-- MAIN -->
   <div id="mainArea" class="hidden">
+
+    <h2>Gone quiet.</h2>
+    <div class="panel" id="gqPanel">
+      <p class="hint" style="margin:0 0 12px">Nothing in HQ for 7 days or more, longest first, Accelerator at the top. New HQ signups with nothing since show after 3 days. This only sees HQ, so check Everfit before you message. They could be training every day and just not opening HQ.</p>
+      <div id="gqList"><p class="hint" style="margin:0">Loading...</p></div>
+    </div>
 
     <h2>This week&rsquo;s message.</h2>
     <div class="panel">
@@ -321,6 +347,97 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
     return date.toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   }
 
+  // v17: Gone quiet. Anyone with nothing in HQ for 7 days (3 for brand new signups), plus a ready written message.
+  const GQ_DONE = { 'Daily Review': 'rated your day', 'Weekend Game Plan': 'did your Weekend Game Plan', 'Sunday Session Watched': 'watched a Sunday Session', 'Bonus Training Watched': 'watched a Sunday Session', 'Goal Builder': 'were in the Goal Builder' };
+  const GQ_META = { 'Daily Review': 'rated their day', 'Weekend Game Plan': 'did the Weekend Game Plan', 'Sunday Session Watched': 'watched a Sunday Session', 'Bonus Training Watched': 'watched bonus training', 'Goal Builder': 'used the Goal Builder', 'Method Watched': 'watched a Method video', 'App Videos Watched': 'watched an app video', 'HQ Welcome Watched': 'watched the HQ welcome', 'HQ Search': 'searched HQ', 'Zenith Standard': 'signed the Standard', 'Onboarding': 'onboarding' };
+  let GQ = [];
+  function gqDay(d) { return d ? d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : ''; }
+  function gqMsg(c) {
+    const first = String(c.name || '').split(' ')[0] || 'there';
+    if (c.gqNew) return 'Hey ' + first + ', saw you got yourself set up in HQ, love that. Have you had a proper look round yet? Start with this week\u2019s Sunday Session, it\u2019s right there on your Home.\n\nMark';
+    const x = c.gqOpened ? 'were in HQ' : (GQ_DONE[c.gqTool] || 'were in HQ');
+    const v = [
+      'Hey ' + first + ', been a little while since you ' + x + ', so I\u2019m checking in. People think you should only lean on me when everything\u2019s going well. It\u2019s in fact quite the opposite. Which day\u2019s been the hardest one this week?\n\nMark',
+      'Hey ' + first + ', it\u2019s gone a bit quiet since you ' + x + '. Please, there\u2019s no need to feel bad about it, these weeks happen to everyone. What\u2019s the one thing we can get done tomorrow to get you moving again?\n\nMark',
+      'Hey ' + first + ', just checking in on you. It\u2019s been a little while since you ' + x + ', and these are the exact moments to use me as much as possible. What\u2019s been getting in the way?\n\nMark'
+    ];
+    let h = 0; for (const ch of String(c.name || '')) h = (h * 31 + ch.charCodeAt(0)) % 997;
+    return v[(h + Math.floor(Date.now() / 6048e5)) % 3];
+  }
+  function renderQuiet(clients) {
+    const box = document.getElementById('gqList'); if (!box) return;
+    if (clients.length && !('last_seen' in clients[0])) {
+      box.innerHTML = '<p class="hint" style="margin:0">Paste the new Worker into Cloudflare first, then refresh this page. This list needs it.</p>'; return;
+    }
+    const now = Date.now();
+    GQ = clients.filter(c => c.active).map(c => {
+      const times = [c.last_seen, c.last_entry_at, c.last_login, c.created_at].map(sqlDate).filter(Boolean);
+      const last = times.length ? new Date(Math.max(...times.map(t => t.getTime()))) : null;
+      const tool = c.last_tool || '';
+      const seen = sqlDate(c.last_seen), ent = sqlDate(c.last_entry_at), made = sqlDate(c.created_at);
+      const usedSince = seen && made && seen.getTime() - made.getTime() > 864e5;
+      const isNew = (!tool || tool === 'Onboarding' || tool === 'Health Consent') && !usedSince;
+      const days = last ? Math.floor((now - last.getTime()) / 864e5) : 0;
+      const quiet = sqlDate(c.quiet_at);
+      let what;
+      if (isNew) what = 'Joined HQ ' + gqDay(made) + ', nothing since';
+      else if (seen && (!ent || seen > ent)) what = 'Last thing: opened HQ, ' + gqDay(seen);
+      else what = 'Last thing: ' + (GQ_META[tool] || 'used HQ') + ', ' + gqDay(ent || last);
+      let wk = '';
+      if (c.prog_set === 1 && c.programme === 'Accelerator' && c.start_date) {
+        const d = Math.floor((now - new Date(c.start_date + 'T00:00:00').getTime()) / 864e5);
+        if (d >= 0 && d < 49) wk = ', week ' + Math.min(6, Math.floor(d / 7) + 1);
+      }
+      return Object.assign({}, c, { gqDays: days, gqLast: last, gqTool: tool, gqNew: isNew, gqWhat: what, gqOpened: !!(seen && (!ent || seen > ent)), gqWk: wk,
+        gqMessaged: quiet && last && quiet > last ? quiet : null });
+    }).filter(c => c.gqLast && c.gqDays >= (c.gqNew ? 3 : 7));
+    GQ.sort((a, b) => {
+      const pa = a.prog_set === 1 && a.programme === 'Accelerator' ? 0 : 1, pb = b.prog_set === 1 && b.programme === 'Accelerator' ? 0 : 1;
+      return pa - pb || b.gqDays - a.gqDays;
+    });
+    if (!GQ.length) { box.innerHTML = '<p class="hint" style="margin:0">Nobody\u2019s gone quiet. Everyone\u2019s been in HQ this week.</p>'; return; }
+    box.innerHTML = GQ.map((c, i) => {
+      const prog = c.prog_set === 1 ? c.programme : '';
+      const cls = prog === 'Accelerator' ? ' acc' : (prog === 'Transformation' ? ' tra' : '');
+      return '<div class="gq-row" data-i="' + i + '"><div class="gq-who"><b>' + esc(c.name) + '</b>' +
+        (prog ? '<span class="gq-tag' + cls + '">' + esc(prog + c.gqWk) + '</span>' : '') +
+        '<div class="gq-meta">' + esc(c.gqWhat) + '</div></div>' +
+        '<div class="gq-days">' + c.gqDays + '<small>' + (c.gqDays === 1 ? 'day' : 'days') + '</small></div>' +
+        '<div class="gq-acts">' + (c.gqMessaged ? '<span class="gq-sent">Messaged ' + esc(gqDay(c.gqMessaged).split(' ')[0]) + '</span>' : '') +
+        '<button type="button" class="gq-pl" data-gq="open">' + (c.gqMessaged ? 'Message again' : 'Message them') + '</button></div></div>';
+    }).join('');
+    box.querySelectorAll('[data-gq="open"]').forEach(b => b.addEventListener('click', () => gqOpen(b.closest('.gq-row'))));
+  }
+  function gqOpen(row) {
+    const c = GQ[+row.dataset.i]; if (!c) return;
+    if (row.querySelector('.gq-open')) return;
+    const first = esc(String(c.name || '').split(' ')[0]);
+    const el = document.createElement('div'); el.className = 'gq-open';
+    el.innerHTML = '<textarea aria-label="Message to ' + esc(c.name) + '"></textarea>' +
+      '<div class="gq-b"><button type="button" class="gq-glow" data-gq="wa">Open WhatsApp<i aria-hidden="true"></i></button>' +
+      '<button type="button" class="gq-pl" data-gq="copy">Copy</button>' +
+      '<span class="gq-note">Tweak it if you want. WhatsApp opens with it written in, pick ' + first + '\u2019s chat and send.</span></div>';
+    el.querySelector('textarea').value = gqMsg(c);
+    row.querySelector('.gq-acts').replaceWith(el);
+    const text = () => el.querySelector('textarea').value;
+    el.querySelector('[data-gq="wa"]').addEventListener('click', () => {
+      window.open('https://wa.me/?text=' + encodeURIComponent(text()), '_blank', 'noopener');
+      gqMark(c, el);
+    });
+    el.querySelector('[data-gq="copy"]').addEventListener('click', async e => {
+      try { await navigator.clipboard.writeText(text()); e.target.textContent = 'Copied'; } catch (x) { el.querySelector('textarea').select(); e.target.textContent = 'Select and copy'; }
+      gqMark(c, el);
+    });
+    el.querySelector('textarea').focus();
+  }
+  async function gqMark(c, el) {
+    if (el.dataset.marked) return; el.dataset.marked = '1';
+    try {
+      await api('/admin/flags', 'POST', { id: c.id, key: 'quiet', on: true });
+      const n = el.querySelector('.gq-note'); if (n) n.textContent = 'Marked as messaged. They drop off the list once they\u2019re back in HQ.';
+    } catch (e) { const n = el.querySelector('.gq-note'); if (n) n.textContent = 'Couldn\u2019t mark them as messaged: ' + e.message; }
+  }
+
   function renderJust(clients) {
     const box = document.getElementById('jfList'); if (!box) return;
     const cut = Date.now() - 14 * 864e5;
@@ -343,6 +460,7 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
     try {
       const clients = await api('/admin/clients');
       renderJust(clients);
+      renderQuiet(clients);
       const rows = document.getElementById('clientRows');
       rows.innerHTML = '';
       if (!clients.length) {

@@ -37,6 +37,32 @@
   </div>
 </section>
 
+<section class="tx-call" id="tx-call" style="display:none" aria-label="Your monthly review">
+  <p class="tx-k">Zenith Transformation</p>
+  <h2 class="tx-h">Your monthly review</h2>
+  <p class="tx-p">45 minutes, just me and you. We look at the month ahead before it happens. Pick a time that works.</p>
+  <a class="tx-btn" href="https://tidycal.com/zenithfit/transformationcatchup" target="_blank" rel="noopener">Book your call<i aria-hidden="true"></i></a>
+</section>
+<style>
+.tx-call{position:relative;overflow:hidden;margin:14px 0;background:#0C0F11;border-radius:20px;padding:20px 18px;color:#FFFFFF;box-shadow:0 0 0 1px rgba(63,212,148,.18),0 10px 40px -12px rgba(63,212,148,.45)}
+.tx-call::before{content:"";position:absolute;right:-70px;top:-70px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(63,212,148,.26),transparent 70%);pointer-events:none}
+.tx-k{position:relative;margin:0;font-size:13px;color:#9BA3A0}
+.tx-h{position:relative;margin:6px 0 8px;font:800 26px/1.02 'Archivo',Arial,sans-serif;text-transform:uppercase;letter-spacing:-.01em;color:#FFFFFF}
+.tx-p{position:relative;margin:0 0 16px;max-width:46ch;color:#C9CFCC;font-size:15.5px;line-height:1.45}
+.tx-btn{position:relative;display:inline-flex;align-items:center;gap:12px;background:#3FD494;color:#0C0F11;text-decoration:none;border-radius:999px;padding:6px 6px 6px 20px;font:700 15.5px 'Inter Tight',system-ui,sans-serif;box-shadow:0 0 26px -4px rgba(63,212,148,.7)}
+.tx-btn i{width:34px;height:34px;border-radius:50%;background:#0C0F11;display:grid;place-items:center}
+.tx-btn i::after{content:"";width:9px;height:9px;border-top:2.5px solid #3FD494;border-right:2.5px solid #3FD494;transform:rotate(45deg) translate(-1px,1px)}
+.tx-btn:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
+</style>
+<script>
+// Transformation clients only. Reads the programme Mark sets in admin.
+(function(){
+  function show(me){var c=document.getElementById('tx-call');if(c)c.style.display=(me&&me.hq_programme==='Transformation')?'':'none';}
+  show(window.ZENITH&&window.ZENITH.me);
+  document.addEventListener('zf-me',function(e){show(e.detail);});
+})();
+</script>
+
 <a class="std-cta" id="std-card" href="hq-standard.html" style="display:none"><span class="std-cta-k">Start here</span><span class="std-cta-t">The Zenith Standard</span><span class="std-cta-s">If you haven&rsquo;t read it yet, read it now. What I expect from you, what you get from me. 3 minutes, then tap I&rsquo;m in.</span><span class="std-cta-go">Read the Standard <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span></a>
 <script>
 (function(){

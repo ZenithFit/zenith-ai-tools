@@ -1352,7 +1352,6 @@ One short paragraph in first person on the habit that fixes this for good, usual
 Never tell them to cut calories, skip meals, or eat less of anything to make room. Never moralise about their food. If their target looks unrealistic for their diet type, say so plainly and give a sensible working range. If what they described is very little food overall, don't praise it, flag that eating more is what fixes this, and tell them to message Mark directly.`;
 
 const RSYS=`TOOL: Recipe Generator. Write a recipe for a Zenith Fit client. Mark coaches busy people aged 35 to 60: protein at every meal, high volume foods, no extremes. UK ingredients only, from UK supermarkets like Tesco, Sainsbury's, Asda, Aldi, Lidl and Morrisons. Grams and kcal. Never use words like "delicious", "nutritious" or "wholesome". Make it sound like food a real person wants to eat. If the protein's high, say so plainly. If it takes under 15 minutes, say so. Follow the format you're given in the request exactly.`;
-const PSYS=`You are writing meal plans for Zenith Fit UK in the voice of Mark Davies. Direct, practical, zero waffle. British English. Kcal. Grams. UK supermarkets. UK foods only: porridge, jacket potato, baked beans, chicken thighs, chicken breast, beef mince, Greek yoghurt, Weetabix, rice cakes, cottage pie, beans on toast, eggs, salmon, tuna, sweet potato, rice, oats. UK brands where relevant: Grenade, Fulfil, MyProtein, Bulk, PhD. No dashes in text. High protein every single meal. Every day must be realistic for someone working full time with a family. Nothing that takes longer than 30 minutes unless it is a weekend meal. Show kcal and protein per meal like this: (420 kcal / 38g protein). Show the daily total at the bottom of each day. Mark's rules that must be reflected: never skip protein, eat protein and veg before carbs, more carbs on training days, less on rest days, 80/20 balance built in so the plan does not feel like punishment. Never use generic AI phrases. Sound like a real coach who actually eats this food.`;
 const GSYS=`TOOL: Grocery List. Write a shopping list for a Zenith Fit client. UK supermarkets, specific quantities, category headings, nothing vague. Keep it tight, like a list from someone who actually does the big shop. Follow the format you're given in the request exactly.`;
 const FSYS=`TOOL: Food Checker. Give a Zenith Fit client a nutrition breakdown for a food. Kcal. Be specific and accurate. Protein matters most, whole foods beat processed foods, and eating smarter beats just eating less. Never moralise about food and never add guilt. If something's a poor choice for fat loss, say so plainly without preaching. If it's a solid choice, or genuinely fine, say that too. Follow the format you're given in the request exactly.`;
 const WSYS=`TOOL: Weekend Game Plan (tools hub). A client has told you their weekend plans, their goal, how strict they want to be and anything else worth knowing. Write them a plan for the weekend in first person as Mark.
@@ -1480,17 +1479,93 @@ async function genRecipe(){
   }catch(e){document.getElementById('r-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
+// v2 Meal Planner (29 Oct 2026). The AI writes the meals, the page does the maths.
+// Every total the client sees is added up here, and any day off target goes back once to be fixed.
+const PSYS2=`TOOL: 5 Day Meal Planner. You're writing a Monday to Friday meal plan for a Zenith Fit client from their calorie and protein targets.
+
+FOOD RULES
+UK foods and UK supermarkets only: porridge, Weetabix, Greek yoghurt, skyr, cottage cheese, eggs, chicken thighs, chicken breast, beef mince, salmon, tuna, prawns, jacket potato, sweet potato, rice, pasta, wraps, baked beans, rice cakes, fruit, frozen veg. Grams for everything.
+Protein in every single meal. Protein and veg first, carbs built around them.
+Realistic for someone working full time with a family. Weekday dinners take 30 minutes or less. Leftovers and batch cooking are fine and encouraged, repeating a lunch across 2 or 3 days is normal life.
+80/20 built in. Something they'd actually look forward to most days, so it never feels like punishment.
+Whole food first. No supplements. A protein bar or yoghurt as a snack is fine.
+
+NUMBERS
+Use UK label values for the grams you list, so kcal and protein are realistic for the portion.
+Each day's 4 meals must add up to the calorie target, within 50 kcal either side, and reach the protein target. Add every day up before you answer and change the grams until it does.
+
+FORMAT
+Return ONLY valid JSON. No markdown, no code fences, no text before or after it. Exactly this shape:
+{"days":[{"day":"Monday","meals":[{"slot":"Breakfast","name":"short meal name","what":"what's in it with grams, one line","kcal":420,"protein":38}]}],"tips":["tip","tip","tip"]}
+5 days, Monday to Friday. 4 meals per day in this order: Breakfast, Lunch, Dinner, Snack. kcal and protein are whole numbers.
+tips: 3 practical tips for making this week actually happen, each 1 or 2 short lines in Mark's voice. Things like getting the batch cook done Sunday, pre logging tomorrow's food the night before, what to do when a day goes sideways.`;
+
+function mpParse(text){
+  const t=String(text||'').replace(/```json|```/g,'').trim();
+  const a=t.indexOf('{'),b=t.lastIndexOf('}');
+  if(a<0||b<0)throw new Error('The plan came back in the wrong shape. Give it another go.');
+  return JSON.parse(t.slice(a,b+1));
+}
+async function mpAsk(system,user,maxTokens){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:maxTokens,system:system,zf_voice:'v2',messages:[{role:'user',content:user}]})});
+  const d=await r.json();if(d.error)throw new Error(d.error.message);
+  return mpParse((d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n'));
+}
+function mpNum(v){const n=Math.round(Number(v));return isFinite(n)&&n>0?n:0;}
+function mpTotals(day){
+  return (day.meals||[]).reduce((t,m)=>{t.kcal+=mpNum(m.kcal);t.protein+=mpNum(m.protein);return t;},{kcal:0,protein:0});
+}
+function mpOff(day,kcal,prot){
+  const t=mpTotals(day),tol=Math.max(60,Math.round(kcal*0.04));
+  return Math.abs(t.kcal-kcal)>tol||(prot>0&&t.protein<prot-5);
+}
+function mpText(plan){
+  const f=n=>n.toLocaleString('en-GB');
+  let out='';
+  (plan.days||[]).forEach(d=>{
+    const t=mpTotals(d);
+    out+='**'+String(d.day||'').toUpperCase()+'**\n';
+    (d.meals||[]).forEach(m=>{
+      out+=(m.slot||'')+': '+(m.name||'')+' ('+f(mpNum(m.kcal))+' kcal, '+mpNum(m.protein)+'g protein)\n';
+      if(m.what)out+=m.what+'\n';
+    });
+    out+='Day total: '+f(t.kcal)+' kcal, '+t.protein+'g protein\n\n';
+  });
+  const tips=(plan.tips||[]).filter(Boolean);
+  if(tips.length){out+='**TO MAKE THIS WEEK HAPPEN**\n';tips.forEach(x=>{out+=x+'\n\n';});}
+  return out.trim();
+}
 async function genPlan(){
-  const kcal=document.getElementById('p-kcal').value;if(!kcal){alert('Enter a calorie target first.');return;}
-  document.getElementById('p-result').classList.remove('on');document.getElementById('p-load').classList.add('on');
+  const kcal=mpNum(document.getElementById('p-kcal').value);if(!kcal){alert('Enter a calorie target first.');return;}
+  const prot=mpNum(document.getElementById('p-prot').value);
+  const load=document.getElementById('p-load'),lab=load.querySelector('span');
+  document.getElementById('p-result').classList.remove('on');lab.textContent='Building your meal plan...';load.classList.add('on');
+  const v=id=>document.getElementById(id).value;
+  const target='Calories: '+kcal+' kcal a day. Protein: '+(prot?prot+'g a day':'as high as is realistic, at least 25g every meal')+'.';
   try{
-    const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:2500,system:PSYS+VOICE,messages:[{role:'user',content:`5-day weekday meal plan (Monday to Friday). Calories: ${kcal} kcal. Protein: ${document.getElementById('p-prot').value||'maximise'}g. Goal: ${document.getElementById('p-goal').value}. Diet: ${document.getElementById('p-diet').value}. Cooking: ${document.getElementById('p-time').value}. Budget: ${document.getElementById('p-budget').value}. Avoid: ${document.getElementById('p-avoid').value||'none'}. Foods to prioritise and work in deliberately across the week: ${document.getElementById('p-include').value||'none'}. Show breakfast, lunch, dinner, snack per day with kcal and protein in brackets. Daily total at bottom. Weekends are flexible so no weekend plan needed. End with 3 PRACTICAL TIPS.`}]})});
-    const d=await r.json();if(d.error)throw new Error(d.error.message);
-    const reply=d.content[0].text;lastP=reply;
-    logToSheets('Meal Planner',{field1_label:'Calories',field1_value:kcal,field2_label:'Goal',field2_value:document.getElementById('p-goal').value,field3_label:'Avoid',field3_value:document.getElementById('p-avoid').value});
-    document.getElementById('p-load').classList.remove('on');
+    const plan=await mpAsk(PSYS2,`5 day weekday meal plan, Monday to Friday. ${target} Goal: ${v('p-goal')}. Diet: ${v('p-diet')}. Cooking: ${v('p-time')}. Budget: ${v('p-budget')}. Avoid: ${v('p-avoid')||'none'}. Foods to prioritise and work in deliberately across the week: ${v('p-include')||'none'}.`,5000);
+    if(!Array.isArray(plan.days)||!plan.days.length)throw new Error('The plan came back empty. Give it another go.');
+    // Check the maths. Anything off target goes back once to be fixed.
+    const off=plan.days.filter(d=>mpOff(d,kcal,prot));
+    if(off.length){
+      lab.textContent='Checking every day adds up...';
+      const lines=off.map(d=>{const t=mpTotals(d);return d.day+' actually adds up to '+t.kcal+' kcal and '+t.protein+'g protein.';}).join('\n');
+      try{
+        const fix=await mpAsk(PSYS2,`These days from a meal plan don't hit the targets. ${target}\n\n${lines}\n\nChange the grams on these days so each one lands within 50 kcal of ${kcal} kcal${prot?' and reaches at least '+prot+'g protein':''}. Keep the same meals where you can. Update kcal and protein on every meal to match its new grams. Return ONLY JSON in the shape {"days":[...]} with just these days, no tips.\n\n${JSON.stringify({days:off})}`,3500);
+        (fix.days||[]).forEach(nd=>{
+          const i=plan.days.findIndex(d=>String(d.day).toLowerCase()===String(nd.day||'').toLowerCase());
+          if(i>-1&&Array.isArray(nd.meals)&&nd.meals.length){
+            const before=Math.abs(mpTotals(plan.days[i]).kcal-kcal),after=Math.abs(mpTotals(nd).kcal-kcal);
+            if(after<=before)plan.days[i]=nd;
+          }
+        });
+      }catch(e){/* keep the first version, the totals shown are still true */}
+    }
+    const reply=mpText(plan);lastP=reply.replace(/\*\*/g,'');
+    logToSheets('Meal Planner',{field1_label:'Calories',field1_value:String(kcal),field2_label:'Goal',field2_value:v('p-goal'),field3_label:'Avoid',field3_value:v('p-avoid')});
+    load.classList.remove('on');
     document.getElementById('p-out').innerHTML=formatText(reply);document.getElementById('p-result').classList.add('on');
-  }catch(e){document.getElementById('p-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+  }catch(e){load.classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
 async function genGrocery(){
