@@ -216,6 +216,7 @@ h1{font-family:'Archivo','Arial Black',sans-serif;font-weight:800;text-transform
 <script>
 const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
 const TOOL='Before You Go';
+const FORMSPREE_URL='https://formspree.io/f/xzeevyyk';
 const NAMEKEY='zf_review_name';  // shared with Rate Your Day, Weekend Game Plan, Sunday Prep
 const LOGNAMEKEY='zenith_name';  // HQ login name, used to prefill only
 
@@ -291,7 +292,7 @@ function send(){
   ].join(' | ');
 
   const btn=$('send');btn.disabled=true;
-  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({
+  const toSheet=fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({
     tool:TOOL,
     message:msg,
     field1_label:'Name',field1_value:name,
@@ -299,7 +300,24 @@ function send(){
     field3_label:'Reason',field3_value:reason+(reason==='Something else'&&other?': '+other:''),
     field4_label:'Testimonial OK',field4_value:shareOk?('Yes, '+how.toLowerCase()):'No',
     field5_label:'Check in OK',field5_value:checkinOk?'Yes':'No'
-  })}).catch(()=>{}).finally(()=>{
+  })}).catch(()=>{});
+
+  // Email to Mark via Formspree, alongside the Sheet
+  const toEmail=fetch(FORMSPREE_URL,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({
+    _subject:'Before You Go: '+name,
+    'Name':name,
+    'With Mark':getLen()||'(not said)',
+    'Reason':reason+(reason==='Something else'&&other?': '+other:''),
+    'Biggest win':$('win').value.trim()||'(blank)',
+    'Habit they are keeping':$('habit').value.trim()||'(blank)',
+    'What would have made them stay':$('stay').value.trim()||'(blank)',
+    'Testimonial':testimonial||'(blank)',
+    'Testimonial OK':shareOk?('Yes, '+how.toLowerCase()):'No',
+    'Check in OK':checkinOk?'Yes':'No',
+    'Submitted':when
+  })}).catch(()=>{});
+
+  Promise.allSettled([toSheet,toEmail]).then(()=>{
     $('thanks-h').textContent='Thank you, '+firstName(name);
     $('formview').style.display='none';
     $('thanks').classList.add('on');
