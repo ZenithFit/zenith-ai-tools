@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Before You Go | Zenith Fit</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<style>
+:root{--green:#3FD494;--link:#00875A;--light:#F4F6F5;--white:#FFFFFF;--black:#0C0F11;--card:#15191C;--head:#111111;--body:#4A4F4D;--muted:#5C6260;--line:#D5DAD8;--dline:#2A3034;--sec:#BFC6C3}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;background:var(--light);color:var(--body);line-height:1.5;-webkit-font-smoothing:antialiased;padding-bottom:env(safe-area-inset-bottom,0px)}
+button,input,textarea{font-family:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--link);outline-offset:2px}
+a{color:var(--link)}
+
+.bar{background:#000;position:sticky;top:0;z-index:20;padding-top:env(safe-area-inset-top,0px)}
+.bar-in{max-width:560px;margin:0 auto;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:center}
+.bar img{height:34px;width:34px;border-radius:9px;display:block}
+
+.wrap{max-width:560px;margin:0 auto;padding:0 16px}
+.intro{padding:36px 8px 28px}
+.intro .sub{font-size:14px;font-weight:600;margin-bottom:12px}
+h1{font-family:'Archivo','Arial Black',sans-serif;font-weight:800;text-transform:uppercase;font-size:44px;line-height:.95;letter-spacing:-.01em;color:var(--head);margin-bottom:16px}
+.intro p{font-size:17px}
+.intro p+p{margin-top:10px}
+
+.stack{display:flex;flex-direction:column;gap:16px}
+.box{background:var(--white);border-radius:20px;padding:24px 20px;display:flex;flex-direction:column;gap:10px}
+.q{font-size:16px;font-weight:700;color:var(--head)}
+.hint{font-size:14px;color:var(--muted);margin-top:-4px}
+.box input[type=text],.box textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font-size:16px;color:var(--head);background:#fff}
+.box input[type=text]{height:52px}
+.box textarea{min-height:100px;resize:vertical}
+.err-line{font-size:14px;font-weight:600;color:#B42318;display:none}
+.err-line.on{display:block}
+.box.bad input[type=text]{border-color:#B42318}
+
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.pill{min-height:44px;padding:0 18px;border-radius:999px;border:1.5px solid var(--line);background:#fff;font-size:15px;font-weight:600;color:var(--head)}
+.rows{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.row{min-height:50px;padding:12px 18px;border-radius:14px;border:1.5px solid var(--line);background:#fff;text-align:left;font-size:15px;font-weight:600;color:var(--head)}
+.pill[aria-pressed=true],.row[aria-pressed=true]{background:var(--black);border-color:var(--green);color:#fff}
+#other-wrap{display:none;margin-top:4px}
+#other-wrap.on{display:block}
+
+.perm{background:var(--black);border-radius:24px;padding:28px 20px;display:flex;flex-direction:column;gap:18px;box-shadow:0 0 60px rgba(63,212,148,.18)}
+.perm h2{font-family:'Archivo','Arial Black',sans-serif;font-weight:800;text-transform:uppercase;font-size:28px;line-height:1;color:#fff}
+.perm>p{font-size:15px;color:var(--sec)}
+.perm>p a{color:var(--green)}
+.pcard{background:var(--card);border-radius:18px;padding:20px 16px;display:flex;flex-direction:column;gap:12px}
+.pcard .q{color:#fff}
+.pcard textarea{width:100%;min-height:100px;border:1.5px solid #fff;border-radius:14px;padding:14px 16px;font-size:16px;color:var(--head);background:#fff;resize:vertical}
+.tick{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.tick input{width:24px;height:24px;margin:0;flex-shrink:0;accent-color:var(--green)}
+.tick span{font-size:15px;line-height:1.45;color:#E3E8E6}
+.how{display:flex;flex-direction:column;gap:10px;padding-top:4px;transition:opacity .2s}
+.how.off{opacity:.4}
+.how .lbl{font-size:14px;font-weight:600;color:var(--sec)}
+.how .pill{background:var(--black);border-color:var(--dline);color:#fff}
+.how .pill[aria-pressed=true]{border-color:var(--green)}
+.how .pill:disabled{cursor:not-allowed}
+
+.privacy{padding:8px 8px 0;display:flex;flex-direction:column;gap:10px}
+.privacy .t{font-size:15px;font-weight:700;color:var(--head)}
+.privacy p{font-size:14px;line-height:1.55}
+
+.send-wrap{padding:16px 0 56px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.glow{min-height:60px;padding:8px 8px 8px 28px;border-radius:999px;border:none;background:var(--green);display:inline-flex;align-items:center;gap:18px;box-shadow:0 0 36px rgba(63,212,148,.45);font-size:17px;font-weight:700;color:var(--black)}
+.glow .c{width:44px;height:44px;border-radius:999px;background:var(--black);display:flex;align-items:center;justify-content:center}
+.glow:disabled{opacity:.6;cursor:default}
+
+#thanks{display:none;padding:32px 0 56px}
+#thanks.on{display:block}
+.done{background:var(--black);border-radius:24px;padding:40px 24px;display:flex;flex-direction:column;gap:18px;box-shadow:0 0 60px rgba(63,212,148,.22)}
+.done h1{color:#fff;font-size:40px;margin:0}
+.done p{font-size:17px;color:var(--sec)}
+.door{margin-top:16px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in"><img src="zf-logo.png" alt="Zenith Fit"></div></div>
+
+<main class="wrap">
+
+<div id="formview">
+  <div class="intro">
+    <div class="sub">2 minutes, that's all</div>
+    <h1>Before you go</h1>
+    <p>First things first, thank you. Honestly.</p>
+    <p>Fill this in and I'll use it to build your plan to take away with you, so you've got everything you need to keep going on your own.</p>
+  </div>
+
+  <form id="form" class="stack" onsubmit="return false" novalidate>
+
+    <div class="box" id="name-box">
+      <label class="q" for="name">Your full name</label>
+      <input id="name" type="text" autocomplete="name" placeholder="Joe Bloggs">
+      <div class="err-line" id="name-err">Pop your first and last name in so I know it's you.</div>
+    </div>
+
+    <div class="box">
+      <div class="q" id="len-q">How long have you been with me?</div>
+      <div class="pills" role="group" aria-labelledby="len-q" id="len">
+        <button type="button" class="pill" aria-pressed="false" data-v="Under 3 months">Under 3 months</button>
+        <button type="button" class="pill" aria-pressed="false" data-v="3 to 6 months">3 to 6 months</button>
+        <button type="button" class="pill" aria-pressed="false" data-v="6 to 12 months">6 to 12 months</button>
+        <button type="button" class="pill" aria-pressed="false" data-v="Over a year">Over a year</button>
+      </div>
+    </div>
+
+    <div class="box" id="reason-box">
+      <div class="q" id="reason-q">What's the main reason you're leaving?</div>
+      <div class="hint">Pick the one that's closest.</div>
+      <div class="rows" role="group" aria-labelledby="reason-q" id="reason">
+        <button type="button" class="row" aria-pressed="false" data-v="Money">Money</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Time">Time</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Hit my goal">I've hit my goal</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Life's changed">Life's changed</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Not getting the results I wanted">Not getting the results I wanted</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Want to go it alone">I want to go it alone</button>
+        <button type="button" class="row" aria-pressed="false" data-v="Something else">Something else</button>
+      </div>
+      <div id="other-wrap">
+        <label class="q" for="other" style="display:block;font-size:15px;margin-bottom:8px">Tell me a bit more</label>
+        <input id="other" type="text">
+      </div>
+      <div class="err-line" id="reason-err">Pick the one that's closest, even if it's not perfect.</div>
+    </div>
+
+    <div class="box">
+      <label class="q" for="win">What's your biggest win since joining?</label>
+      <div class="hint">Big or small, all of it counts.</div>
+      <textarea id="win"></textarea>
+    </div>
+
+    <div class="box">
+      <label class="q" for="habit">What's the one habit you're definitely keeping?</label>
+      <textarea id="habit"></textarea>
+    </div>
+
+    <div class="box">
+      <label class="q" for="stay">What would have made you stay?</label>
+      <div class="hint">Be as honest as you like. This is the one that helps me most.</div>
+      <textarea id="stay"></textarea>
+    </div>
+
+    <div class="perm">
+      <h2>2 quick permissions</h2>
+      <p>Both are completely optional. Leave them blank and that's absolutely fine.</p>
+
+      <div class="pcard">
+        <label class="q" for="testimonial">Fancy sharing a few words about your time with me?</label>
+        <textarea id="testimonial"></textarea>
+        <label class="tick">
+          <input type="checkbox" id="share-ok">
+          <span>I'm happy for Zenith Fit to share what I've written above.</span>
+        </label>
+        <div class="how off" id="how">
+          <div class="lbl" id="how-q">How would you like it shared?</div>
+          <div class="pills" role="group" aria-labelledby="how-q" id="howpills">
+            <button type="button" class="pill" aria-pressed="false" data-v="With first name" disabled>With my first name</button>
+            <button type="button" class="pill" aria-pressed="false" data-v="Anonymously" disabled>Anonymously</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="pcard">
+        <label class="tick">
+          <input type="checkbox" id="checkin-ok">
+          <span>I'm happy for Mark to check in with me by email or message over the next few months.</span>
+        </label>
+      </div>
+
+      <p>Change your mind on either at any point and just email <a href="mailto:mark@zenithfit.co.uk">mark@zenithfit.co.uk</a>.</p>
+    </div>
+
+    <div class="privacy">
+      <div class="t">How I look after your answers</div>
+      <p>Your answers come to me and nobody else. They're used to build your plan and to make Zenith Fit better, kept for 12 months after you leave, then deleted.</p>
+      <p>Want a copy, or want them deleted sooner? Email <a href="mailto:mark@zenithfit.co.uk">mark@zenithfit.co.uk</a>. Full details are in my <a href="https://www.zenithfit.co.uk/privacy" target="_blank" rel="noopener">Privacy Notice</a>.</p>
+    </div>
+
+    <div class="send-wrap">
+      <div class="err-line" id="form-err" role="alert">A couple of bits are missing above. Fill those in and you're done.</div>
+      <button type="button" class="glow" id="send">
+        <span>Send it to Mark</span>
+        <span class="c"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<div id="thanks" aria-live="polite">
+  <div class="done">
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="#3FD494" stroke-width="2.5"/><path d="M15 24.5l6 6 12-13" stroke="#3FD494" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <h1 id="thanks-h">Thank you</h1>
+    <p>That's all done. I'll go through this myself and get your plan from here over to you in the next few days.</p>
+    <p>Really proud of what you've built. Keep building.</p>
+  </div>
+  <div class="box door">
+    <div class="q">The door's always open</div>
+    <p style="font-size:15px">Whenever you want to come back, give me a shout and we'll pick up right where you left off.</p>
+  </div>
+</div>
+
+</main>
+
+<script>
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const TOOL='Before You Go';
+const NAMEKEY='zf_review_name';  // shared with Rate Your Day, Weekend Game Plan, Sunday Prep
+const LOGNAMEKEY='zenith_name';  // HQ login name, used to prefill only
+
+const $=id=>document.getElementById(id);
+function cleanName(raw){return (raw||'').trim().replace(/\s+/g,' ');}
+function nameOk(raw){return cleanName(raw).split(' ').filter(p=>p.length>=2).length>=2;}
+function firstName(raw){return cleanName(raw).split(' ')[0];}
+
+// single select groups
+function single(groupId,onPick){
+  const btns=[...$(groupId).querySelectorAll('button')];
+  btns.forEach(b=>b.addEventListener('click',()=>{
+    if(b.disabled)return;
+    const was=b.getAttribute('aria-pressed')==='true';
+    btns.forEach(x=>x.setAttribute('aria-pressed','false'));
+    if(!was)b.setAttribute('aria-pressed','true');
+    if(onPick)onPick(was?'':b.dataset.v);
+  }));
+  return ()=>{const on=btns.find(x=>x.getAttribute('aria-pressed')==='true');return on?on.dataset.v:'';};
+}
+const getLen=single('len');
+const getReason=single('reason',v=>{
+  $('other-wrap').classList.toggle('on',v==='Something else');
+  if(v)$('reason-err').classList.remove('on');
+});
+const getHow=single('howpills');
+
+// share mode only unlocks once they've ticked consent
+$('share-ok').addEventListener('change',e=>{
+  const on=e.target.checked;
+  $('how').classList.toggle('off',!on);
+  $('howpills').querySelectorAll('button').forEach(b=>{
+    b.disabled=!on;
+    if(!on)b.setAttribute('aria-pressed','false');
+  });
+  // default to first name once ticked, they can switch
+  if(on&&!getHow())$('howpills').querySelector('button').click();
+});
+
+$('name').addEventListener('input',()=>{if(nameOk($('name').value)){$('name-box').classList.remove('bad');$('name-err').classList.remove('on');}});
+
+// prefill name
+try{const n=localStorage.getItem(NAMEKEY)||localStorage.getItem(LOGNAMEKEY);if(n)$('name').value=n;}catch(e){}
+
+function send(){
+  let bad=false;
+  const name=cleanName($('name').value);
+  if(!nameOk(name)){bad=true;$('name-box').classList.add('bad');$('name-err').classList.add('on');}
+  const reason=getReason();
+  if(!reason){bad=true;$('reason-err').classList.add('on');}
+  if(bad){
+    $('form-err').classList.add('on');
+    (nameOk(name)?$('reason-box'):$('name-box')).scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+  $('form-err').classList.remove('on');
+
+  const other=$('other').value.trim();
+  const shareOk=$('share-ok').checked;
+  const how=shareOk?(getHow()||'With first name'):'';
+  const testimonial=$('testimonial').value.trim();
+  const checkinOk=$('checkin-ok').checked;
+  const when=new Date().toISOString();
+
+  try{localStorage.setItem(NAMEKEY,name);}catch(e){}
+
+  const msg=[
+    'Biggest win: '+($('win').value.trim()||'(blank)'),
+    'Keeping: '+($('habit').value.trim()||'(blank)'),
+    'Would have stayed: '+($('stay').value.trim()||'(blank)'),
+    'Testimonial: '+(testimonial||'(blank)'),
+    'Consents recorded '+when+' (Before You Go v1)'
+  ].join(' | ');
+
+  const btn=$('send');btn.disabled=true;
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({
+    tool:TOOL,
+    message:msg,
+    field1_label:'Name',field1_value:name,
+    field2_label:'With Mark',field2_value:getLen()||'(not said)',
+    field3_label:'Reason',field3_value:reason+(reason==='Something else'&&other?': '+other:''),
+    field4_label:'Testimonial OK',field4_value:shareOk?('Yes, '+how.toLowerCase()):'No',
+    field5_label:'Check in OK',field5_value:checkinOk?'Yes':'No'
+  })}).catch(()=>{}).finally(()=>{
+    $('thanks-h').textContent='Thank you, '+firstName(name);
+    $('formview').style.display='none';
+    $('thanks').classList.add('on');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+$('send').addEventListener('click',send);
+</script>
+</body>
+</html>
