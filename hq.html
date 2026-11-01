@@ -20,7 +20,7 @@
 <meta name="apple-mobile-web-app-title" content="Zenith HQ">
 </head>
 <body>
-<header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'">ZENITH FIT</a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
+<header class="tb"><div class="tb-in"><a class="tb-logo" href="hq.html"><img src="zf-logo.png" alt="" width="28" height="28" onerror="this.style.display='none'"><img class="wm" src="zf-wordmark.png" alt="Zenith Fit"></a><button class="tb-out" onclick="zenithLogout()">Log out</button></div></header>
 <div class="shell">
 <aside class="side"><nav><a href="hq.html" class="on"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</a><a href="hq-sessions.html"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3z"/></svg>Watch</a><a href="hq-tools.html"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Tools</a><a href="hq-guides.html"><svg viewBox="0 0 24 24"><path d="M4 19V5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M8 7h7"/></svg>Guides</a><a href="hq-coaching.html"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg>Coaching</a></nav><a class="side-msg" href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener"><span class="av" aria-hidden="true"></span><span><b>Message Mark</b><small>Stuck? Fire it over.</small></span></a></aside>
 <main class="content">
@@ -98,7 +98,7 @@
     </ul>
   </div>
 </div>
-<p id="day-line" style="display:none;margin:12px 2px 0;font-size:15px;color:#4A4F4D"></p>
+<p id="day-line" style="display:none;margin:12px 2px 0;font-size:15px;color:#B9C0BD"></p>
 <div class="zc-card" id="wk6" style="display:none;margin:14px 0;background:#0C0F11;border-color:#0C0F11"></div>
 <style>
 .obj-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#15191C;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:14px;margin-top:8px;color:#FFFFFF;font:600 16px 'Inter Tight',system-ui,sans-serif;cursor:pointer}
@@ -108,7 +108,7 @@
 .obj-row:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
 .obn-list{margin:0;padding-left:18px}
 .obn-list li{font-size:15.5px;line-height:1.5;margin:6px 0}
-.obn-list b{color:#111111}
+.obn-list b{color:#FFFFFF}
 .wk6-card{position:relative;overflow:hidden;background:#15191C;border-radius:18px;padding:18px;margin:10px 0 14px;color:#FFFFFF}
 .wk6-card .n{font-family:var(--slab,Archivo,Arial,sans-serif);font-weight:800;text-transform:uppercase;font-size:22px;margin:4px 0 10px}
 .wk6-card .l{font-size:13px;color:#9BA3A0}
@@ -154,7 +154,7 @@
   function dayBits(me){
     var start=me&&me.start_date; if(!start)return;
     var d=Math.floor((Date.now()-new Date(start+'T00:00:00').getTime())/864e5)+1;
-    if(d>=1&&d<=365){var l=$('#day-line');l.innerHTML='<b style="color:#111111">Day '+d+'</b> of your first 12 months.';l.style.display='';}
+    if(d>=1&&d<=365){var l=$('#day-line');l.innerHTML='<b style="color:#FFFFFF">Day '+d+'</b> of your first 12 months.';l.style.display='';}
     if(d>=36&&d<=49){
       fetch(API+'/entries?tool='+encodeURIComponent('Onboarding Promise')+'&limit=1',{headers:H}).then(function(r){return r.ok?r.json():null;}).then(function(x){
         var p=x&&x.entries&&x.entries[0]&&x.entries[0].data; if(!p)return;
