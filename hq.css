@@ -486,7 +486,7 @@ body{background:radial-gradient(900px 480px at 100% -160px,rgba(63,212,148,.16),
 .pill.rated{background:rgba(63,212,148,.14);color:#3FD494}
 .tb{background:#000;border-bottom:1px solid rgba(255,255,255,.06)}
 .tb-logo{gap:11px}
-.tb-logo .wm{height:17px;width:auto;display:block}
+.tb-logo .wm{height:19px;width:auto;display:block;border-radius:0;object-fit:contain}
 .bottom{background:#0A0D0E!important;border-top:1px solid rgba(255,255,255,.07)!important}
 .bottom a{color:#6E7673}
 .bottom a.on{color:#FFFFFF}
