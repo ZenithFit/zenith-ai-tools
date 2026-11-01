@@ -235,7 +235,9 @@
   document.getElementById('fx-ci').textContent=toFri===0?'Today':(toFri===1?'Tomorrow':'Friday, '+toFri+' days');
   function hero(me){
     me=me||{};
-    document.getElementById('fx-quote').textContent=(me.message&&me.message.trim())?me.message.trim():fallback;
+    var msg=(me.message&&me.message.trim())?me.message.trim():fallback;
+    var lines=msg.split(/\n+/).map(function(x){return x.trim();}).filter(Boolean);
+    document.getElementById('fx-quote').innerHTML=lines.map(function(x,n){return '<span class="'+(n?'fx-line':'fx-hook')+'">'+esc(x)+'</span>';}).join('');
     var box=document.getElementById('fx-prog'),p=me.hq_programme||'';
     if(!p){box.style.display='none';return;}
     var html='';

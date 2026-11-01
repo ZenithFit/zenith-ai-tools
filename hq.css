@@ -461,3 +461,15 @@ a.fx-td:hover{border-color:#2E383D}
 .acct-save:disabled{opacity:.6}
 .acct-open:focus-visible,.acct-save:focus-visible,.acct-pw button:focus-visible{outline:3px solid #3FD494;outline-offset:3px}
 .acct-note{margin:12px 0 0;font-size:13px;color:#6B716F;line-height:1.5}
+
+/* Weekly message card, Nov 2026: darker photo, hook line, spaced lines */
+#fx-home .fx-photo{background-image:url(weekly-card.jpg);background-position:center 12%;height:300px}
+#fx-home .fx-photo::after{background:linear-gradient(180deg,rgba(12,15,17,0) 35%,rgba(12,15,17,.7) 70%,#0C0F11 100%)}
+#fx-home .fx-msg{margin-top:-70px}
+#fx-home .fx-from{margin-bottom:12px}
+#fx-home .fx-quote{white-space:normal;font-size:inherit;margin-top:0}
+.fx-hook{display:block;font-size:19px;line-height:1.4;font-weight:500;color:#FFFFFF;letter-spacing:-.005em}
+.fx-line{display:block;font-size:15.5px;line-height:1.6;font-weight:400;color:#C9CFCC;margin-top:11px}
+#fx-home .fx-sign{margin-top:16px}
+@media (min-width:700px){#fx-home .fx-photo{height:340px}.fx-hook{font-size:22px}.fx-line{font-size:17px}}
+@media (min-width:1000px){#fx-home.fx-split .fx-photo{height:auto}#fx-home.fx-split .fx-msg{margin-top:0}#fx-home .fx-quote{max-width:34ch}.fx-hook{font-size:25px}.fx-line{font-size:18px}}
