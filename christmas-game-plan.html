@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Christmas Game Plan · Zenith HQ</title>
+<meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#07090A;--card1:#15191C;--card2:#0F1214;--line:rgba(255,255,255,.07);--ink:#FFFFFF;--body:#B9C0BD;--mut:#848C89;--green:#3FD494;--red:#F0646E;--red-d:#D83A48;
+  --slab:'Archivo','Arial Black',system-ui,sans-serif;--sans:'Inter Tight',system-ui,-apple-system,'Segoe UI',sans-serif;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);-webkit-text-size-adjust:100%}
+html,body{margin:0}
+body{background:var(--bg);color:var(--body);font-family:var(--sans);font-size:15.5px;line-height:1.55;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:#000}
+a{color:inherit}button{font-family:inherit}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:8px}
+.tb{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:#000;border-bottom:1px solid rgba(255,255,255,.06)}
+.tb-in{max-width:760px;margin:0 auto;height:60px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.tb-logo{display:inline-flex;align-items:center;gap:11px;text-decoration:none}
+.tb-logo .ic{width:28px;height:28px;border-radius:7px;display:block}
+.wmw{position:relative;display:block;padding-right:6px}
+.tb-logo .wm{height:19px;width:auto;display:block}
+.hat{position:absolute;right:-8px;top:-13px;width:25px;height:20px;transform:rotate(16deg);pointer-events:none}
+.tb-back{display:inline-flex;align-items:center;gap:6px;text-decoration:none;background:transparent;border:1px solid #2A3034;color:#BFC6C3;font-size:12.5px;font-weight:600;border-radius:999px;padding:6px 13px}
+.tb-back:hover{border-color:var(--green);color:#fff}
+.hero{position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(520px 360px at 0% 0%,rgba(196,40,56,.32),rgba(196,40,56,0) 70%),radial-gradient(480px 340px at 100% 0%,rgba(63,212,148,.12),rgba(63,212,148,0) 70%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:50px;background:linear-gradient(180deg,rgba(7,9,10,0),var(--bg))}
+.flakes{position:absolute;inset:0;pointer-events:none}
+.flakes svg{position:absolute;animation:drift ease-in-out infinite alternate;filter:drop-shadow(0 0 4px rgba(255,255,255,.35))}
+@keyframes drift{from{transform:translateY(0) rotate(0)}to{transform:translateY(14px) rotate(45deg)}}
+@media (prefers-reduced-motion:reduce){.flakes svg{animation:none}}
+.hero-in{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:26px 18px 10px}
+.k{color:var(--red);font-size:11.5px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;margin:0 0 8px;display:flex;align-items:center;gap:7px}
+h1{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(30px,8.4vw,46px);line-height:.98;letter-spacing:-.01em;margin:0 0 12px;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+h1 em{font-style:normal;color:var(--red)}
+.lead{font-size:16px;line-height:1.55;margin:0 0 18px;max-width:560px;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.lead b{color:#fff;font-weight:600}
+.cd{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:0 0 8px;max-width:520px}
+.cd div{background:rgba(15,18,20,.9);border:1px solid rgba(216,58,72,.35);border-radius:14px;padding:11px 4px 9px;text-align:center}
+.cd b{display:block;font-family:var(--slab);font-weight:800;color:#fff;font-size:24px;line-height:1.05}
+.cd span{font-size:11.5px;color:var(--mut)}
+main{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:6px 18px 60px}
+.card{position:relative;overflow:hidden;background:linear-gradient(160deg,var(--card1),var(--card2));border:1px solid var(--line);border-radius:18px;padding:17px;margin:0 0 12px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.card.red{border-color:rgba(216,58,72,.45);background:linear-gradient(160deg,#28101A,var(--card2))}
+.card.red::before{content:"";position:absolute;width:320px;height:320px;right:-160px;top:-190px;border-radius:50%;background:radial-gradient(50% 50% at 50% 50%,rgba(216,58,72,.30),rgba(216,58,72,0) 70%)}
+.card>*{position:relative}
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;color:inherit;font:inherit}
+button.card{display:flex}
+.opt .ot{display:flex;align-items:center;gap:8px;font-weight:700;color:#fff;font-size:17px}
+.opt .os{font-size:14px;color:var(--body);margin-top:2px}
+.opt .ch{margin-left:auto;color:#5A6063;font-size:20px;flex:none}
+h2{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#fff;font-size:clamp(22px,6vw,30px);line-height:1.04;margin:4px 0 8px}
+h2 em{font-style:normal;color:var(--red)}
+.sub{margin:0 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.chip{border:1.5px solid #2A3033;background:rgba(15,18,20,.9);color:#D2D8D5;border-radius:999px;padding:10px 15px;font-size:14.5px;font-weight:500;cursor:pointer}
+.chip.on{background:rgba(63,212,148,.14);border-color:var(--green);color:#fff}
+.evs{display:flex;flex-direction:column;gap:9px;margin:0 0 14px}
+.ev{display:flex;align-items:center;gap:10px;background:rgba(15,18,20,.9);border:1px solid var(--line);border-radius:14px;padding:9px 10px 9px 14px}
+.ev .en{flex:1;color:#fff;font-weight:600;font-size:14.5px}
+.ev input{background:#0B0E10;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:10px;padding:8px 9px;font:15px var(--sans);color-scheme:dark;min-width:0;width:150px}
+.ev button{background:none;border:0;color:var(--mut);font-size:18px;cursor:pointer;padding:2px 4px}
+.add{background:none;border:1px dashed #3A4144;color:#C9CFCC;border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600;cursor:pointer;margin:-4px 0 14px}
+textarea,input.txt{width:100%;background:#0B0E10;border:1px solid rgba(255,255,255,.14);color:#fff;border-radius:14px;padding:13px 14px;font:16px var(--sans);resize:vertical}
+textarea{min-height:96px}
+textarea:focus,input.txt:focus,.ev input:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(63,212,148,.18)}
+.hint{font-size:13px;color:var(--mut);margin:7px 2px 0}
+.lbl{font-weight:700;color:#fff;font-size:15px;margin:0 0 9px}
+.go{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;background:var(--green);color:#0C0F11;border:0;border-radius:999px;padding:12px 12px 12px 20px;font:700 16px var(--sans);cursor:pointer;box-shadow:0 0 0 6px rgba(63,212,148,.12),0 12px 28px rgba(63,212,148,.28);min-width:220px}
+.go i{width:30px;height:30px;border-radius:50%;background:#0C0F11;color:var(--green);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:15px}
+.go:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+.ghost{display:inline-flex;align-items:center;gap:7px;background:transparent;border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:999px;padding:10px 16px;font:600 14.5px var(--sans);cursor:pointer;text-decoration:none}
+.ghost:hover{border-color:var(--green)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+.steps{font-size:12px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase;margin:0 0 4px}
+.bar{height:3px;background:#1E2427;border-radius:3px;margin:0 0 18px;overflow:hidden}.bar i{display:block;height:3px;background:var(--red);transition:width .3s}
+.err{display:none;color:#FFB4B9;background:rgba(216,58,72,.12);border:1px solid rgba(216,58,72,.35);border-radius:12px;padding:10px 13px;margin:12px 0 0;font-size:14px}.err.on{display:block}
+.load{display:flex;align-items:center;gap:12px;color:#fff;font-weight:600}
+.load .sp{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(63,212,148,.25);border-top-color:var(--green);animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.win{font-weight:700;color:#fff;font-size:clamp(19px,5.2vw,23px);line-height:1.3;margin:2px 0 6px}
+.sec h3{font-family:var(--slab);font-weight:800;text-transform:uppercase;color:#fff;font-size:16.5px;line-height:1.15;margin:0 0 9px;display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.sec h3 span{font-family:var(--sans);font-weight:600;text-transform:none;color:var(--red);font-size:13.5px}
+.sec ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.sec li{position:relative;padding-left:18px}
+.sec li::before{content:"";position:absolute;left:0;top:.62em;width:7px;height:7px;border-radius:50%;background:var(--green)}
+.sec li b{color:#fff;font-weight:600}
+.sec p{margin:0 0 6px}
+.promise{border-color:rgba(63,212,148,.3)}
+.promise .pt{color:#fff;font-weight:600;font-size:17px;line-height:1.4}
+.links{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.saved-meta{font-size:13px;color:var(--mut)}
+.hide{display:none!important}
+.foot{text-align:center;font-size:13px;color:var(--mut);margin:22px 0 0}
+.foot a{color:#C9CFCC}
+</style>
+</head>
+<body>
+<header class="tb"><div class="tb-in">
+  <a class="tb-logo" href="hq.html" aria-label="Zenith HQ home"><img class="ic" src="zf-logo.png" alt="" width="28" height="28"><span class="wmw"><img class="wm" src="zf-wordmark.png" alt="Zenith Fit"><svg class="hat" viewBox="0 0 60 48" aria-hidden="true"><path d="M8 36 C16 14, 32 4, 48 8 C42 14, 40 24, 42 34 Z" fill="#C8283A"/><circle cx="51" cy="8" r="5.5" fill="#F4F4F4"/><rect x="4" y="32" width="44" height="10" rx="5" fill="#F4F4F4"/></svg></span></a>
+  <a class="tb-back" href="hq-tools.html" id="backbtn">&larr; Back</a>
+</div></header>
+
+<section class="hero" aria-label="Christmas Game Plan">
+  <div class="flakes" id="flakes" aria-hidden="true"></div>
+  <div class="hero-in">
+    <div class="k"><svg width="12" height="12" viewBox="0 0 24 24" fill="#F0646E" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.6 4.9L18 21.5 12 17.6 6 21.5l1.6-7.3L2 9.3l7.4-.4z"/></svg>Christmas Game Plan</div>
+    <h1>Enjoy Christmas.<br><em>Own January.</em></h1>
+    <p class="lead" id="lead">Christmas isn&rsquo;t one night, it&rsquo;s 6 weeks of them. Let&rsquo;s plan it so you <b>enjoy every bit</b> and still feel great in January.</p>
+    <div class="cd"><div><b id="cd-days">0</b><span>days to Christmas</span></div><div><b id="cd-ev">0</b><span>events planned</span></div><div><b id="cd-pl">0</b><span id="cd-pl-l">plans made</span></div></div>
+  </div>
+</section>
+
+<main>
+  <!-- HOME -->
+  <div id="v-home">
+    <button class="card red opt" type="button" onclick="startPlan()"><span><span class="ot"><svg width="13" height="13" viewBox="0 0 24 24" fill="#F0646E" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.6 4.9L18 21.5 12 17.6 6 21.5l1.6-7.3L2 9.3l7.4-.4z"/></svg><span id="plan-t">Plan my December</span></span><span class="os" id="plan-s">2 minutes. Your whole season, sorted.</span></span><span class="ch">&rsaquo;</span></button>
+    <button class="card opt" type="button" onclick="show('tonight')"><span><span class="ot">Tonight</span><span class="os">Got a do tonight? 60 second plan.</span></span><span class="ch">&rsaquo;</span></button>
+    <button class="card opt" type="button" id="saved-btn" onclick="openSaved()"><span><span class="ot">My saved plan</span><span class="os" id="saved-s">Not made yet</span></span><span class="ch">&rsaquo;</span></button>
+    <p class="foot">Stuck on something? <a href="index.html?tool=bot">Ask Mark AI</a> or <a href="https://wa.me/message/DHJN6EF5HJXPA1" target="_blank" rel="noopener">message me</a>.</p>
+  </div>
+
+  <!-- PLAN FLOW -->
+  <div id="v-plan" class="hide">
+    <div class="steps" id="st-lbl">Step 1 of 4</div><div class="bar"><i id="st-bar" style="width:25%"></i></div>
+
+    <div id="s1">
+      <h2>What&rsquo;s <em>coming up?</em></h2>
+      <p class="sub">Tap what&rsquo;s on this Christmas, then pop the date on each one. Rough is fine.</p>
+      <div class="chips" id="evchips"></div>
+      <div class="evs" id="evlist"></div>
+      <button class="add hide" type="button" id="addnight" onclick="addEvent('Night out')">+ Add another night out</button>
+      <div class="row"><button class="go" type="button" id="n1" onclick="step(2)" disabled>Next<i>&rarr;</i></button></div>
+    </div>
+
+    <div id="s2" class="hide">
+      <h2>What usually <em>goes wrong?</em></h2>
+      <p class="sub">Be honest. This is exactly what we plan around.</p>
+      <div class="chips" id="wrongchips"></div>
+      <div class="row"><button class="go" type="button" onclick="step(3)">Next<i>&rarr;</i></button><button class="ghost" type="button" onclick="step(1)">Back</button></div>
+    </div>
+
+    <div id="s3" class="hide">
+      <h2>How many days can you <em>realistically train?</em></h2>
+      <p class="sub">A week in December, not a perfect week. Pick the one you&rsquo;ll actually hit.</p>
+      <div class="chips" id="trainchips"></div>
+      <div class="row"><button class="go" type="button" id="n3" onclick="step(4)" disabled>Next<i>&rarr;</i></button><button class="ghost" type="button" onclick="step(2)">Back</button></div>
+    </div>
+
+    <div id="s4" class="hide">
+      <h2>What&rsquo;s your <em>December win?</em></h2>
+      <div class="chips" id="winchips"></div>
+      <p class="hint" id="win-hint" style="margin:-4px 2px 18px"></p>
+      <div class="lbl">Anything else I should know? <span style="color:var(--mut);font-weight:500">(optional)</span></div>
+      <textarea id="extra" placeholder="e.g. hosting 12 on Christmas Day, kids off school, working nights over Christmas"></textarea>
+      <p class="hint">Tap the microphone on your keyboard if it&rsquo;s easier to talk it.</p>
+      <div class="row"><button class="go" type="button" onclick="buildPlan()">Build my Christmas plan<i>&rarr;</i></button><button class="ghost" type="button" onclick="step(3)">Back</button></div>
+    </div>
+    <div class="err" id="plan-err"></div>
+  </div>
+
+  <!-- TONIGHT -->
+  <div id="v-tonight" class="hide">
+    <h2>What&rsquo;s on <em>tonight?</em></h2>
+    <p class="sub">Tell me what you&rsquo;re walking into. Where, what time, what&rsquo;s there, who you&rsquo;re with.</p>
+    <textarea id="tn" placeholder="e.g. work do at 7, open bar till 10, buffet, I&rsquo;ve hardly eaten today"></textarea>
+    <div class="row"><button class="go" type="button" id="tn-go" onclick="buildTonight()" disabled>Give me my plan<i>&rarr;</i></button><button class="ghost" type="button" onclick="show('home')">Back</button></div>
+    <div class="err" id="tn-err"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="v-result" class="hide">
+    <div id="res"></div>
+    <div class="row" id="res-actions"><button class="ghost" type="button" onclick="copyRes()" id="copybtn">Copy it</button><button class="ghost" type="button" onclick="show('home')">Back to Christmas</button></div>
+  </div>
+</main>
+
+<script>
+const API='https://zenith-fit.mark-5a5.workers.dev';
+const SHEETS_URL='https://script.google.com/macros/s/AKfycbxt7ov_pKLeyjg8p-VnFXE4ewsAH7U8HKm8RVnXU3WBbJuaUU3zssefBmlUjProH1HO/exec';
+const TOOL='Christmas Game Plan';
+const SAVEKEY='zf_xmas_plan';
+const XMAS=new Date(2026,11,25);
+let token='',fullName='';
+try{token=localStorage.getItem('zenith_token')||'';fullName=(localStorage.getItem('zenith_name')||'').trim();}catch(e){}
+const first=(fullName.split(' ')[0]||'').replace(/^./,c=>c.toUpperCase());
+if(first)document.getElementById('lead').innerHTML='Hey '+esc(first)+'. Christmas isn&rsquo;t one night, it&rsquo;s 6 weeks of them. Let&rsquo;s plan it so you <b>enjoy every bit</b> and still feel great in January.';
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function nice(iso){if(!iso)return '';const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});}
+function niceLong(iso){if(!iso)return 'date not set';const d=new Date(iso+'T12:00:00');return d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long'});}
+
+/* ---------- snowflakes ---------- */
+(function(){const f='<path d="M12 1v22M2.5 6.5l19 11M21.5 6.5l-19 11M12 1l-2.5 2.5M12 1l2.5 2.5M12 23l-2.5-2.5M12 23l2.5-2.5M2.5 6.5l3.4.9M2.5 6.5l.9 3.4M21.5 17.5l-3.4-.9M21.5 17.5l-.9-3.4M21.5 6.5l-3.4.9M21.5 6.5l-.9 3.4M2.5 17.5l3.4-.9M2.5 17.5l.9-3.4" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" fill="none"/>';
+const P=[[4,10,26,.55],[20,58,17,.45],[36,4,19,.5],[56,34,32,.35],[74,6,24,.6],[88,46,19,.5],[10,84,15,.4],[46,72,21,.35],[80,80,27,.4],[64,20,13,.55],[28,34,13,.45],[94,18,15,.55],[14,42,11,.5],[52,52,12,.45],[70,62,14,.4],[40,92,13,.35],[86,30,11,.5],[2,64,19,.4],[60,88,16,.4],[32,70,10,.45]];
+document.getElementById('flakes').innerHTML=P.map((p,i)=>'<svg viewBox="0 0 24 24" width="'+p[2]+'" height="'+p[2]+'" style="left:'+p[0]+'%;top:'+p[1]+'%;opacity:'+p[3]+';animation-duration:'+(5+i%4)+'s;animation-delay:-'+i+'s">'+f+'</svg>').join('');})();
+
+/* ---------- saved plan + countdown ---------- */
+let saved=null;
+try{saved=JSON.parse(localStorage.getItem(SAVEKEY)||'null');}catch(e){}
+function countdown(){
+  const now=new Date();now.setHours(0,0,0,0);
+  const days=Math.max(0,Math.round((XMAS-now)/864e5));
+  document.getElementById('cd-days').textContent=days;
+  document.getElementById('cd-ev').textContent=saved&&saved.events?saved.events.length:0;
+  const n=saved&&saved.count?saved.count:(saved?1:0);
+  document.getElementById('cd-pl').textContent=n;
+  document.getElementById('cd-pl-l').textContent=n===1?'plan made':'plans made';
+  if(saved){
+    document.getElementById('saved-s').textContent='Made '+new Date(saved.at).toLocaleDateString('en-GB',{day:'numeric',month:'long'})+'. Tap to open it.';
+    document.getElementById('plan-t').textContent='Update my December plan';
+    document.getElementById('plan-s').textContent='Something new come up? Redo it in 2 minutes.';
+  }
+}
+countdown();
+if(token&&!saved){
+  fetch(API+'/entries?tool='+encodeURIComponent(TOOL)+'&limit=1',{headers:{'Authorization':'Bearer '+token}}).then(r=>r.json()).then(d=>{
+    const e=d&&Array.isArray(d.entries)&&d.entries[0];
+    if(e&&e.data&&e.data.plan){saved={at:e.data.at||e.created_at||Date.now(),plan:e.data.plan,events:e.data.events||[],count:1};try{localStorage.setItem(SAVEKEY,JSON.stringify(saved));}catch(x){}countdown();}
+  }).catch(()=>{});
+}
+
+/* ---------- views ---------- */
+function show(v){['home','plan','tonight','result'].forEach(x=>document.getElementById('v-'+x).classList.toggle('hide',x!==v));window.scrollTo({top:v==='home'?0:document.querySelector('main').offsetTop-70,behavior:'smooth'});}
+
+/* ---------- plan flow ---------- */
+const EVTYPES=['Work do','Night out','Family meal','Christmas Eve','Christmas Day','Boxing Day','New Year\u2019s Eve','Time off work'];
+const WRONG=['The drink','Buffets and picking','Chocolates and treats in the house','No routine on days off','\u201cI\u2019ll start again in January\u201d','Big portions at family meals','Hungover days','Losing my steps when I\u2019m off work'];
+const TRAIN=['1','2','3','4'];
+const WINS={'Finish the same or a little lighter':'The best result for most people. You enjoy Christmas properly and walk into January already in control.','Keep losing':'Doable, with a tighter plan around the big days. Still no misery, still no skipped Christmas dinner.'};
+let events=[],wrong=[],train='',win='Finish the same or a little lighter';
+function chipRow(id,list,isOn,onTap){const el=document.getElementById(id);el.innerHTML='';list.forEach(t=>{const b=document.createElement('button');b.type='button';b.className='chip'+(isOn(t)?' on':'');b.textContent=t;b.onclick=()=>{onTap(t);b.classList.toggle('on',isOn(t));};el.appendChild(b);});}
+function startPlan(){
+  events=(saved&&saved.events?saved.events.map(e=>({t:e.t,d:e.d})):[]);wrong=saved&&saved.wrong?saved.wrong.slice():[];train=saved&&saved.train||'';win=saved&&saved.win||win;
+  document.getElementById('extra').value=saved&&saved.extra||'';
+  chipRow('evchips',EVTYPES,t=>events.some(e=>e.t===t),t=>{if(events.some(e=>e.t===t)){events=events.filter(e=>e.t!==t);}else addEvent(t,true);drawEvents();});
+  chipRow('wrongchips',WRONG,t=>wrong.includes(t),t=>{wrong=wrong.includes(t)?wrong.filter(x=>x!==t):wrong.concat(t);});
+  drawTrain();
+  drawWins();drawEvents();document.getElementById('n3').disabled=!train;step(1);show('plan');
+}
+function drawTrain(){chipRow('trainchips',TRAIN.map(x=>x+(x==='1'?' day':' days')),t=>train===t,t=>{train=t;drawTrain();document.getElementById('n3').disabled=false;});}
+function drawWins(){chipRow('winchips',Object.keys(WINS),t=>win===t,t=>{win=t;drawWins();});document.getElementById('win-hint').textContent=WINS[win];}
+const DEF={'Christmas Eve':'2026-12-24','Christmas Day':'2026-12-25','Boxing Day':'2026-12-26','New Year\u2019s Eve':'2026-12-31'};
+function addEvent(t,fromChip){events.push({t:t,d:DEF[t]||''});if(!fromChip)drawEvents();}
+function drawEvents(){
+  const el=document.getElementById('evlist');el.innerHTML='';
+  events.forEach((e,i)=>{const r=document.createElement('div');r.className='ev';
+    r.innerHTML='<span class="en">'+esc(e.t)+'</span><input type="date" min="2026-11-01" max="2027-01-03" value="'+(e.d||'')+'" aria-label="Date for '+esc(e.t)+'"><button type="button" aria-label="Remove">&times;</button>';
+    r.querySelector('input').onchange=ev=>{e.d=ev.target.value;};
+    r.querySelector('button').onclick=()=>{events.splice(i,1);drawEvents();chipRow('evchips',EVTYPES,t=>events.some(x=>x.t===t),t=>{if(events.some(x=>x.t===t)){events=events.filter(x=>x.t!==t);}else addEvent(t,true);drawEvents();});};
+    el.appendChild(r);});
+  document.getElementById('addnight').classList.toggle('hide',!events.some(e=>e.t==='Night out'));
+  document.getElementById('n1').disabled=events.length===0;
+}
+function step(n){for(let i=1;i<=4;i++)document.getElementById('s'+i).classList.toggle('hide',i!==n);document.getElementById('st-lbl').textContent='Step '+n+' of 4';document.getElementById('st-bar').style.width=(n*25)+'%';document.getElementById('plan-err').classList.remove('on');window.scrollTo({top:document.querySelector('main').offsetTop-70,behavior:'smooth'});}
+
+/* ---------- AI ---------- */
+const SYS_PLAN=`You are writing a client's Christmas Game Plan inside Zenith HQ, as Mark Davies, their coach. They are a paying client, mostly women aged 35 to 60, busy, many going through the menopause. They are not beginners. They know what to do; December is where they usually lose it.
+
+Your job: a plan for their December that is specific to THEIR events, THEIR dates and THEIR weak spots. Nothing generic. If it could be pasted into anyone else's plan, rewrite it.
+
+Mark's December philosophy, which every line must follow:
+1. The win for most people is finishing December the same weight or a little lighter while enjoying it. That is a genuine result, not a consolation.
+2. Christmas is not one day, it is 5 or 6 weeks of events. The damage comes from the days in between turning into extra Christmas days, not from the events themselves.
+3. Never miss twice. The day after an event is a completely normal day: normal breakfast with protein, steps, back on plan. No "I've ruined it now".
+4. Never skip or shrink meals to save calories for an event. Eat a proper protein meal before you go out. Never suggest extra or punishment training to make up for food or drink.
+5. Decide before, not in the moment: drinks number chosen before the first one, a water between each drink, spirits with a diet or slimline mixer are the easier choice.
+6. Buffets: one plate, protein first, then step away from the table. Picking costs more than the plate.
+7. Treats in the house: out of sight, portioned onto a plate, never eaten from the tub. Enjoy them, just on purpose.
+8. Days off work: keep the wake time roughly the same and get the steps done early, before the day disappears.
+9. "I'll start in January" is the most expensive sentence of the year. December counts. The person who walks into January in control has the best January.
+10. Pre log the day of a big event the night before, so the rest of the day fits round it.
+11. Christmas Day: enjoy dinner properly, it's one day. Protein breakfast, a walk, one proper plate and the pudding, then stop the all-afternoon grazing.
+12. Something beats nothing: on a busy week a 20 minute session counts.
+
+FORMAT. Follow it exactly, plain text, no markdown symbols other than these markers:
+WIN: one sentence, their December win in their terms, under 18 words.
+## Every week
+- 3 or 4 lines: their minimum standard, sized to the training days they gave. Include steps and pre logging.
+Then, for EACH event they listed, in date order:
+## <Event name> | <day and date exactly as given>
+- Before: one specific line
+- During: one specific line, tied to their weak spots where it fits
+- Morning after: one specific line
+If they listed Christmas Day, its section must be headed "## Christmas Day | <date>" and can have up to 4 lines instead of the Before/During/Morning after pattern.
+## The days in between
+- 2 or 3 lines on keeping the normal days normal, aimed at their weak spots
+## Your reset rule
+- one line, never miss twice, in their words
+PROMISE: one first person sentence under 16 words, the one thing they're committing to this December.
+
+Rules: Under 420 words in total. Use their first name once, in the WIN line or the first section, never twice. Mention specific foods and drinks a British person actually has at Christmas (mince pies, Quality Street, Baileys, pigs in blankets, prosecco, a buffet at the work do). Never mention a calorie target, weight or number you haven't been given. Never use dashes of any kind. If the training days are 1 or 2, make the sessions short and say they count. If their win is "Keep losing", be a little tighter on the between days, never on Christmas Day itself. If they mention something in "anything else", it must change the plan visibly.`;
+
+const SYS_TONIGHT=`You are Mark Davies, a fat loss coach, giving a client a plan for an event TONIGHT, inside Zenith HQ. They're probably reading this on their phone an hour or two before they go. Mostly women 35 to 60, busy, not beginners.
+
+Read exactly what they've told you and make every line about THEIR night: the venue, the food, the drinks, the time, how much they've eaten today. Nothing generic.
+
+Principles: never tell them to skip a meal or save calories; if they've hardly eaten today, the first job is a proper meal with protein before they go. Drinks number decided now, before the first one, water between each one, spirits with a diet mixer are the easier choice. Buffet: one plate, protein first, step away from the table. Enjoy it properly; this is a planned night, not a slip. Tomorrow is a normal day: protein breakfast, a walk, back on plan. Never miss twice. Never suggest extra training to make up for it.
+
+FORMAT, exactly, plain text:
+## Before you go
+- 1 or 2 lines
+## At the <use their actual event, e.g. work do, the pub, the restaurant>
+- 2 or 3 lines
+## Tomorrow
+- 1 or 2 lines
+PROMISE: one first person sentence under 14 words for tonight.
+Under 150 words. No dashes of any kind. Use their first name once at most. Calm, warm, direct, a bit of humour is fine.`;
+
+async function ask(system,msg,max){
+  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-opus-4-6',max_tokens:max,system,zf_voice:'v2',messages:[{role:'user',content:msg}]})});
+  const d=await r.json();if(d.error)throw new Error(d.error.message||'error');
+  return (d.content||[]).map(c=>c.text||'').join('').trim();
+}
+function render(text,kind){
+  const lines=text.replace(/\r/g,'').split('\n').map(l=>l.trim()).filter(Boolean);
+  let win='',promise='',secs=[],cur=null;
+  lines.forEach(l=>{
+    if(/^WIN:/i.test(l)){win=l.replace(/^WIN:\s*/i,'');return;}
+    if(/^PROMISE:/i.test(l)){promise=l.replace(/^PROMISE:\s*/i,'');return;}
+    if(/^#{1,3}\s*/.test(l)){const h=l.replace(/^#{1,3}\s*/,'');const p=h.split('|');cur={h:p[0].trim(),d:(p[1]||'').trim(),items:[]};secs.push(cur);return;}
+    const it=l.replace(/^[-*\u2022]\s*/,'');if(!cur){cur={h:'',d:'',items:[]};secs.push(cur);}cur.items.push(it);
+  });
+  const fmt=s=>esc(s).replace(/^(Before|During|Morning after|Tomorrow):/,'<b>$1:</b>');
+  let h='';
+  h+='<div class="card red"><div class="k" style="margin-bottom:6px">'+(kind==='tonight'?'Your plan for tonight':'Your Christmas Game Plan')+'</div>'+(win?'<div class="win">'+esc(win)+'</div>':'')+(kind!=='tonight'&&saved?'<div class="saved-meta">Saved to your HQ. Come back to it all December.</div>':'')+'</div>';
+  secs.forEach((s,i)=>{if(!s.items.length&&!s.h)return;h+='<div class="card sec">'+(s.h?'<h3>'+esc(s.h)+(s.d?'<span>'+esc(s.d)+'</span>':'')+'</h3>':'')+'<ul>'+s.items.map(x=>'<li>'+fmt(x)+'</li>').join('')+'</ul></div>';});
+  if(promise)h+='<div class="card promise"><div class="k" style="color:var(--green)">Your promise</div><div class="pt">'+esc(promise)+'</div></div>';
+  const t=text.toLowerCase(),L=[];
+  if(/drink|prosecco|baileys|pub|bar|alcohol|wine|gin/.test(t))L.push(['Alcohol Guide','index.html?tool=alcohol']);
+  if(/restaurant|menu|order|eating out|meal out/.test(t))L.push(['Eating Out Guide','index.html?tool=eating']);
+  if(/weekend|saturday|sunday/.test(t))L.push(['Weekend Game Plan','weekend-game-plan.html']);
+  L.push(['Panic Button','index.html?tool=panic']);
+  h+='<div class="card"><div class="lbl">Use these when you need them</div><div class="links">'+L.map(x=>'<a class="ghost" href="'+x[1]+'">'+x[0]+' &rsaquo;</a>').join('')+'</div></div>';
+  return h;
+}
+function loading(msg){document.getElementById('res').innerHTML='<div class="card red"><div class="load"><span class="sp"></span>'+msg+'</div></div>';document.getElementById('res-actions').classList.add('hide');show('result');}
+let lastText='';
+async function buildPlan(){
+  const err=document.getElementById('plan-err');err.classList.remove('on');
+  const evs=events.slice().sort((a,b)=>(a.d||'9999').localeCompare(b.d||'9999'));
+  const extra=document.getElementById('extra').value.trim();
+  const msg='First name: '+(first||'not given')+'\nToday: '+niceLong(todayKey())+'\nProgramme: Zenith Fit client\n\nEvents:\n'+evs.map(e=>'- '+e.t+' | '+(e.d?nice(e.d):'date not set')).join('\n')+'\n\nWhat usually goes wrong: '+(wrong.length?wrong.join('; '):'nothing tapped')+'\nTraining days a week they can realistically do in December: '+train+'\nTheir December win: '+win+'\nAnything else: '+(extra||'nothing');
+  loading('Building your Christmas plan. Give it 20 seconds.');
+  try{
+    const text=await ask(SYS_PLAN,msg,1400);lastText=text;
+    const prev=saved&&saved.count||0;
+    saved={at:Date.now(),plan:text,events:evs,wrong,train,win,extra,count:prev+1};
+    try{localStorage.setItem(SAVEKEY,JSON.stringify(saved));}catch(e){}
+    document.getElementById('res').innerHTML=render(text,'plan');document.getElementById('res-actions').classList.remove('hide');countdown();
+    if(token)fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({tool:TOOL,data:{at:saved.at,date:todayKey(),events:evs,wrong,train,win,extra,plan:text}})}).catch(()=>{});
+    fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:TOOL,message:'Plan: '+text,field1_label:'Name',field1_value:fullName||first||'not logged in',field2_label:'Events',field2_value:evs.map(e=>e.t+' '+(e.d?nice(e.d):'')).join(', '),field3_label:'Gets them',field3_value:(wrong.join(', ')||'none')+' | Train: '+train+' | Win: '+win})}).catch(()=>{});
+  }catch(e){show('plan');step(4);err.textContent='That didn\u2019t go through. Check your signal and tap Build my Christmas plan again.';err.classList.add('on');}
+}
+document.getElementById('tn').addEventListener('input',e=>{document.getElementById('tn-go').disabled=e.target.value.trim().length<4;});
+async function buildTonight(){
+  const err=document.getElementById('tn-err');err.classList.remove('on');
+  const tn=document.getElementById('tn').value.trim();
+  const msg='First name: '+(first||'not given')+'\nToday: '+niceLong(todayKey())+'\nTonight: '+tn+(saved&&saved.wrong&&saved.wrong.length?'\nWhat usually goes wrong for them at Christmas: '+saved.wrong.join('; '):'');
+  loading('Sorting your plan for tonight.');
+  try{
+    const text=await ask(SYS_TONIGHT,msg,600);lastText=text;
+    document.getElementById('res').innerHTML=render(text,'tonight');document.getElementById('res-actions').classList.remove('hide');
+    if(token)fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({tool:TOOL+' Tonight',data:{date:todayKey(),tonight:tn,plan:text}})}).catch(()=>{});
+    fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify({tool:TOOL+' Tonight',message:'Plan: '+text,field1_label:'Name',field1_value:fullName||first||'not logged in',field2_label:'Tonight',field2_value:tn})}).catch(()=>{});
+  }catch(e){show('tonight');err.textContent='That didn\u2019t go through. Check your signal and try again.';err.classList.add('on');}
+}
+function openSaved(){if(!saved){startPlan();return;}lastText=saved.plan;document.getElementById('res').innerHTML=render(saved.plan,'plan');document.getElementById('res-actions').classList.remove('hide');show('result');}
+function copyRes(){const t=lastText.replace(/^#{1,3}\s*/gm,'').replace(/\|/g,',');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{const b=document.getElementById('copybtn');b.textContent='Copied';setTimeout(()=>b.textContent='Copy it',1600);}).catch(()=>{});}
+if(location.hash==='#tonight')show('tonight');
+</script>
+</body>
+</html>
