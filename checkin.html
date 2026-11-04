@@ -14,7 +14,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 html{-webkit-text-size-adjust:100%}
-body{font-family:'Inter Tight',system-ui,sans-serif;background:#E9EDEB;color:var(--ink);-webkit-font-smoothing:antialiased}
+body{font-family:'Inter Tight',system-ui,sans-serif;background:#F4F6F5;color:var(--ink);-webkit-font-smoothing:antialiased}
 button,input,textarea{font-family:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--g);outline-offset:2px}
@@ -37,9 +37,9 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{
 .count{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted);min-width:42px;text-align:right}
 
 /* body */
-.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column}
-.screen{flex:1;display:flex;flex-direction:column;gap:16px;padding:22px 22px 20px;animation:in .28s ease}
-@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;transition:opacity .22s ease}
+.main.out{opacity:0}
+.screen{flex:1;display:flex;flex-direction:column;gap:16px;padding:22px 22px 20px}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--muted)}
 h2{font-family:'Archivo',sans-serif;font-weight:600;font-size:25px;line-height:1.18;letter-spacing:.02em;color:var(--ink);text-transform:uppercase}
 .help{font-size:15.5px;line-height:1.55;color:var(--body)}
@@ -228,15 +228,19 @@ const $=id=>document.getElementById(id);
 const main=$('main');
 const app=document.querySelector('.app');
 
-// Keep the page sat exactly in the visible area when the keyboard opens (iPhone doesn't resize the page on its own)
+// While typing, keep the page sat exactly above the keyboard. The moment typing stops, snap back to full screen.
+function typing(){const a=document.activeElement;return !!(a&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&a.type!=='range')));}
+function reset(){app.style.height='';app.style.transform='';app.classList.remove('kb');if(window.scrollY)window.scrollTo(0,0);}
 function fit(){
-  const vv=window.visualViewport;if(!vv)return;
+  const vv=window.visualViewport;
+  if(!vv||!typing()||vv.height>window.innerHeight*0.85){reset();return;}
   app.style.height=vv.height+'px';
   app.style.transform='translateY('+vv.offsetTop+'px)';
-  app.classList.toggle('kb',vv.height<window.innerHeight*0.8);
-  const a=document.activeElement;
-  if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT')&&a.type!=='range'){setTimeout(()=>a.scrollIntoView({block:'nearest'}),50);}
+  app.classList.add('kb');
+  const a=document.activeElement;setTimeout(()=>a&&a.scrollIntoView&&a.scrollIntoView({block:'nearest'}),50);
 }
+document.addEventListener('focusout',()=>{[0,120,350,700].forEach(t=>setTimeout(()=>{if(!typing())reset();else fit();},t));});
+document.addEventListener('focusin',()=>{[60,300].forEach(t=>setTimeout(fit,t));});
 if(window.visualViewport){visualViewport.addEventListener('resize',fit);visualViewport.addEventListener('scroll',fit);}
 window.addEventListener('scroll',()=>{if(window.scrollY)window.scrollTo(0,0);});
 // Tap anywhere that isn't a box to put the keyboard away
@@ -245,13 +249,17 @@ function dropKeyboard(){const a=document.activeElement;if(a&&a.blur)a.blur();}
 
 function questions(){return order().filter(x=>x!=='welcome'&&x!=='who'&&x!=='done');}
 
+let moving=false;
 function go(dir){
+  if(moving)return;
   const o=order();
   let i=o.indexOf(screen);if(i<0)i=0;
   let n=Math.min(o.length-1,Math.max(0,i+dir));
   if(o[n]==='done'&&!submitted)return;
-  screen=o[n];render();
-  main.scrollTop=0;
+  if(o[n]===screen)return;
+  moving=true;
+  main.classList.add('out');
+  setTimeout(()=>{screen=o[n];render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{main.classList.remove('out');moving=false;}));},220);
 }
 
 function canNext(){
@@ -458,7 +466,8 @@ $('submit').onclick=async()=>{
     lastPromise:A.lastPromise||clean(A.promiseTyped),promiseKept:A.promise,sessions:A.sessions,steps:A.steps,foodDays:A.food,waist:A.waist,
     nutrition:A.nutrition,light:A.light,reason:A.reason.slice(),well:clean(A.well),hard:clean(A.hard),weekend:clean(A.weekend),need:clean(A.need),next:clean(A.next)};
   try{localStorage.setItem(LASTKEY,JSON.stringify({week:entry.week,next:entry.next}));}catch(e){}
-  screen='done';render();
+  main.classList.add('out');await new Promise(r=>setTimeout(r,220));
+  screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
 
   let text='',flag=false,failed=false;
   try{text=await ask();if(/^FLAG\b/.test(text)){flag=true;text=text.replace(/^FLAG\s*/,'').trim();}if(!text)throw new Error('empty');}
