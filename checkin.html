@@ -2,7 +2,7 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <title>Friday Check In | Zenith Fit</title>
 <link rel="icon" href="favicon-32.png">
@@ -12,13 +12,13 @@
 <style>
 :root{--g:#3FD494;--ink:#111111;--dark:#0C0F11;--card:#15191C;--bg:#F4F6F5;--line:#E1E6E3;--body:#4A524E;--muted:#5A625E}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+html,body{height:100%;overflow:hidden;overscroll-behavior:none}
 html{-webkit-text-size-adjust:100%}
 body{font-family:'Inter Tight',system-ui,sans-serif;background:#E9EDEB;color:var(--ink);-webkit-font-smoothing:antialiased}
 button,input,textarea{font-family:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--g);outline-offset:2px}
-.app{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative}
+.app{max-width:480px;margin:0 auto;height:100dvh;position:fixed;left:0;right:0;top:0;will-change:transform;display:flex;flex-direction:column;background:var(--bg);overflow:hidden;position:relative}
 @media(min-width:520px){.app{box-shadow:0 0 0 1px rgba(12,15,17,.06),0 30px 80px rgba(12,15,17,.12)}}
 
 /* top bar */
@@ -91,7 +91,7 @@ h2{font-family:'Archivo',sans-serif;font-weight:600;font-size:25px;line-height:1
 /* inputs */
 .field{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
 .field input,.field textarea{width:100%;border:1px solid #DDE3E0;border-radius:14px;background:#fff;padding:0 16px;height:54px;font-family:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:var(--ink)}
-textarea.big{min-height:180px;height:auto;resize:none;border-radius:18px;padding:18px;line-height:1.55;box-shadow:0 10px 30px rgba(12,15,17,.04)}
+textarea.big{min-height:180px;font-size:16px;height:auto;resize:none;border-radius:18px;padding:18px;line-height:1.55;box-shadow:0 10px 30px rgba(12,15,17,.04)}
 .field input::placeholder,textarea::placeholder{color:#9AA19E}
 .warn{font-size:13px;color:#B3261E;display:none}
 .warn.on{display:block}
@@ -134,6 +134,10 @@ input[type=range]::-moz-range-track{background:transparent}
 .after{padding:0 4px;font-size:14.5px;line-height:1.55;color:var(--body)}
 .err{font-size:14px;color:#B3261E;display:none;text-align:center}
 .err.on{display:block}
+.app.kb textarea.big{min-height:110px}
+.app.kb .help{font-size:14.5px}
+.app.kb .screen{padding-top:14px;gap:12px}
+.app.kb .bar{padding-bottom:10px}
 </style>
 </head>
 <body>
@@ -222,6 +226,22 @@ let submitted=false;
 
 const $=id=>document.getElementById(id);
 const main=$('main');
+const app=document.querySelector('.app');
+
+// Keep the page sat exactly in the visible area when the keyboard opens (iPhone doesn't resize the page on its own)
+function fit(){
+  const vv=window.visualViewport;if(!vv)return;
+  app.style.height=vv.height+'px';
+  app.style.transform='translateY('+vv.offsetTop+'px)';
+  app.classList.toggle('kb',vv.height<window.innerHeight*0.8);
+  const a=document.activeElement;
+  if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT')&&a.type!=='range'){setTimeout(()=>a.scrollIntoView({block:'nearest'}),50);}
+}
+if(window.visualViewport){visualViewport.addEventListener('resize',fit);visualViewport.addEventListener('scroll',fit);}
+window.addEventListener('scroll',()=>{if(window.scrollY)window.scrollTo(0,0);});
+// Tap anywhere that isn't a box to put the keyboard away
+main.addEventListener('pointerdown',e=>{const t=e.target;if(!t.closest('input,textarea,label')){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT'))a.blur();}});
+function dropKeyboard(){const a=document.activeElement;if(a&&a.blur)a.blur();}
 
 function questions(){return order().filter(x=>x!=='welcome'&&x!=='who'&&x!=='done');}
 
@@ -292,8 +312,8 @@ function render(){
   else if(screen==='who'){
     h='<div class="screen"><span class="eyebrow">FIRST THINGS FIRST</span><h2>Who\'s checking in?</h2>'+
       '<p class="help">Use the same email you use for the Zenith Fit app so I know it\'s you.</p>'+
-      '<label class="field">Full name<input type="text" id="f-name" autocomplete="name" placeholder="Joe Bloggs" value="'+esc(A.name)+'"></label>'+
-      '<label class="field">Email<input type="email" id="f-email" autocomplete="email" inputmode="email" placeholder="joe@example.com" value="'+esc(A.email)+'"></label>'+
+      '<label class="field">Full name<input type="text" id="f-name" autocomplete="name" enterkeyhint="next" placeholder="Joe Bloggs" value="'+esc(A.name)+'"></label>'+
+      '<label class="field">Email<input type="email" id="f-email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="joe@example.com" value="'+esc(A.email)+'"></label>'+
       '<div class="warn" id="who-warn">First and last name, and the email you use with Mark, please.</div>'+
       '<div class="note"><p>Set up your HQ account and this fills itself in next week, along with last week\'s promise.</p><a href="joinhq.html">SET UP MY HQ ACCOUNT</a></div></div>';
   }
@@ -303,7 +323,7 @@ function render(){
     if(screen==='promise'){
       h+=A.lastPromise
         ?'<div class="pcard"><span class="k">LAST WEEK YOU PROMISED YOURSELF</span><p>'+esc(A.lastPromise)+'</p></div>'
-        :'<label class="field">What did you promise yourself last week?<input type="text" id="f-promise" placeholder="The one thing you set yourself" value="'+esc(A.promiseTyped)+'"></label>';
+        :'<label class="field">What did you promise yourself last week?<input type="text" id="f-promise" enterkeyhint="done" placeholder="The one thing you set yourself" value="'+esc(A.promiseTyped)+'"></label>';
     }
     h+='<h2>'+esc(c.title)+'</h2>'+(c.help?'<p class="help">'+esc(c.help)+'</p>':'')+tiles(screen)+'</div>';
   }
@@ -357,7 +377,8 @@ function bind(){
   const fn=$('f-name'),fe=$('f-email');
   if(fn){fn.oninput=()=>{A.name=fn.value;syncBar();};fe.oninput=()=>{A.email=fe.value;syncBar();};
     const w=()=>$('who-warn').classList.toggle('on',(clean(A.name)&&!nameOk(A.name))||(clean(A.email)&&!emailOk(A.email)));fn.onblur=w;fe.onblur=w;}
-  const fp=$('f-promise');if(fp)fp.oninput=()=>{A.promiseTyped=fp.value;syncBar();};
+  const fp=$('f-promise');if(fp){fp.oninput=()=>{A.promiseTyped=fp.value;syncBar();};fp.onkeydown=e=>{if(e.key==='Enter')fp.blur();};}
+  if(fn){fn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();fe.focus();}};fe.onkeydown=e=>{if(e.key==='Enter')fe.blur();};}
   const ft=$('f-text');if(ft)ft.oninput=()=>{A[screen]=ft.value;syncBar();};
   const r=$('s-range');
   if(r){
@@ -373,13 +394,14 @@ function bind(){
   }
 }
 
-$('back').onclick=()=>go(-1);
+$('back').onclick=()=>{dropKeyboard();go(-1);};
 $('next').onclick=()=>{
+  dropKeyboard();
   if(!canNext()){if(screen==='who')$('who-warn').classList.add('on');return;}
   if(screen==='who'){A.name=clean(A.name);A.email=clean(A.email).toLowerCase();try{localStorage.setItem(WHOKEY,JSON.stringify({name:A.name,email:A.email}));}catch(e){}}
   go(1);
 };
-$('skip').onclick=()=>{A.need='';go(1);};
+$('skip').onclick=()=>{dropKeyboard();A.need='';go(1);};
 
 // ---------- Mark AI ----------
 const SYS=`TOOL: Friday Check In. A client has just submitted their weekly check in to Mark. Mark writes their full feedback himself over the weekend. Your job is NOT feedback on their week. It's a few quick pointers to get them through this weekend, Friday night to Sunday night, built mostly around their weekend plan and where they said it's likely to go sideways.
@@ -428,6 +450,7 @@ function logToSheets(fields,message){
 }
 
 $('submit').onclick=async()=>{
+  dropKeyboard();
   if(!canNext()||submitted)return;
   const btn=$('submit');btn.disabled=true;
   submitted=true;
