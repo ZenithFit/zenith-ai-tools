@@ -64,6 +64,10 @@ h2{font-family:'Archivo',sans-serif;font-weight:600;font-size:25px;line-height:1
 .hero h1{font-family:'Archivo',sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:.06em;color:#fff}
 .hero p{font-size:15px;line-height:1.55;color:rgba(255,255,255,.86);max-width:340px}
 .hero .small{font-size:12px;color:rgba(255,255,255,.62)}
+.donebox{width:100%;text-align:left;background:rgba(12,15,17,.72);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.donebox .k{font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#9AA39F}
+.donebox p{font-size:14.5px;line-height:1.5;color:#fff;max-width:none}
+.donebox ol{margin:0;padding-left:18px;color:#fff;font-size:14px;line-height:1.5}
 
 /* buttons */
 .glow{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 9px 0 28px;border:none;border-radius:999px;background:linear-gradient(180deg,#62E7AE 0%,#3FD494 55%,#2FC383 100%);color:var(--dark);font-weight:700;font-size:15px;letter-spacing:.1em;box-shadow:0 10px 28px rgba(63,212,148,.42),inset 0 1px 0 rgba(255,255,255,.5);transition:transform .12s,opacity .2s}
@@ -262,6 +266,7 @@ try{const l=JSON.parse(localStorage.getItem(LASTKEY)||'null');if(l&&l.next&&l.we
 const DRAFTKEY='zf_checkin_draft';
 let draft=null;
 try{const dr=JSON.parse(localStorage.getItem(DRAFTKEY)||'null');if(dr&&dr.week===weekKey()&&dr.screen&&dr.a)draft=dr;else localStorage.removeItem(DRAFTKEY);}catch(e){}
+let doneThis=TEST?null:(localHist.find(h=>h&&h.week===weekKey())||null);
 let pastWeeks=localHist.filter(h=>h&&h.week&&h.week!==weekKey()).sort((x,y)=>String(y.week).localeCompare(String(x.week)));
 
 const OPT={
@@ -388,6 +393,18 @@ function render(){
   if(screen==='welcome'){
     const open=isOpen()||TEST;
     const hi=auth!=='no'?'HEY '+esc(first(authName).toUpperCase()):(known?'HEY '+esc(first(A.name).toUpperCase()):'HEY THERE');
+    if(doneThis){
+      h='<div class="hero"><img src="checkin-hero.jpg" alt=""><div class="shade"></div><div class="in">'+
+        '<span class="hi">'+hi+'</span><h1>CHECKED IN</h1>'+
+        '<p>You\'ve done your check in for this week. Mark will be in touch with your full feedback. Your next one opens on Thursday.</p>'+
+        (doneThis.next?'<div class="donebox"><span class="k">YOUR PROMISE FOR NEXT WEEK</span><p>'+esc(doneThis.next)+'</p></div>':'')+
+        (doneThis.actions&&doneThis.actions.length?'<div class="donebox"><span class="k">YOUR ACTION PLAN</span><ol>'+doneThis.actions.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ol></div>':'')+
+        '<a class="glow" href="hq.html" style="margin-top:6px;text-decoration:none">BACK TO HQ'+ARROW+'</a>'+
+        '</div></div>';
+      main.innerHTML=h;bind();syncBar();
+      $('prog').classList.remove('on');$('bar').classList.remove('on');$('toBack').classList.remove('hide');
+      return;
+    }
     h='<div class="hero"><img src="checkin-hero.jpg" alt=""><div class="shade"></div><div class="in">'+
       '<span class="hi">'+hi+'</span><h1>CHECK IN</h1>'+
       (open
@@ -606,6 +623,7 @@ $('submit').onclick=async()=>{
     flag=!!plan.flag;
     text=plan.overview+(plan.actions.length?'\nActions: '+plan.actions.map((a,i)=>(i+1)+'. '+a).join(' '):'');
   }catch(e){failed=true;plan={overview:'Your check in\'s in safe. Your action plan couldn\'t load this time, so stick to the weekend plan you wrote and Mark will be in touch shortly.',actions:[]};text=plan.overview;}
+  try{const hh=JSON.parse(localStorage.getItem(HISTKEY)||'[]');const me=hh.find(h=>h.week===entry.week);if(me&&!failed){me.actions=plan.actions.slice(0,3);localStorage.setItem(HISTKEY,JSON.stringify(hh));}}catch(e){}
   const pl=$('planload');if(pl)pl.remove();
   const rc=$('result');if(rc){rc.classList.remove('wait');rc.classList.add('show');}
   const rp=$('reply');
@@ -643,6 +661,8 @@ async function initSession(){
     const all=(d.entries||[]).map(e=>e.data).filter(en=>en&&en.week);
     all.sort((x,y)=>String(y.submitted||y.week).localeCompare(String(x.submitted||x.week)));
     const seen={};pastWeeks=all.filter(en=>{if(en.week===wk||seen[en.week])return false;seen[en.week]=1;return true;});
+    const mine=all.find(en=>en.week===wk);
+    if(mine&&!TEST&&!submitted&&!doneThis){doneThis={week:wk,next:mine.next,actions:[]};}
     const prev=pastWeeks.find(en=>en.next);
     if(prev&&!A.lastPromise){A.lastPromise=prev.next;}
     if(screen==='welcome')render();
