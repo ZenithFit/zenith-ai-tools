@@ -55,11 +55,18 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 </style>
 <style>[id]{scroll-margin-top:72px}
 .js-loading .zx{opacity:0}
-.zx{transition:opacity .25s ease}</style>
+.zx{transition:opacity .25s ease}
+#zfLoad{position:fixed;inset:0;z-index:50;background:#0C0F11;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;opacity:0;pointer-events:none;transition:opacity .25s ease}
+#zfLoad.on{opacity:1}
+#zfLoad img{width:64px;height:64px;animation:zfp 1.4s ease-in-out infinite}
+#zfLoad p{color:#BFC6C3;font-family:Inter Tight,Arial,sans-serif;font-size:16px;font-weight:600;margin:0}
+@keyframes zfp{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}</style>
 <script src="config.js"></script>
 </head>
 <body>
+<div id="zfLoad" aria-live="polite"><img src="img/icon.png" alt=""><p>Getting your page ready</p></div>
 <div class="zx">
+
 <div class="zt" style="font-family: 'Inter Tight', 'Helvetica Neue', Arial, sans-serif; color: #FFFFFF; background: #0C0F11; font-size: 18px; line-height: 1.6">
 
 <!-- Top bar -->
@@ -278,7 +285,8 @@ var ZF=(function(){
       note:d.note||'',winsHeadline:has?n+", look how far you\u2019ve come":"Look how far you\u2019ve come",wins:wins,goal:d.goal||'',
       finalHeadline:has?n+", let\u2019s do this properly":"Let\u2019s do this properly"});
     var src=loomSrc(d.loom);
-    if(src){document.getElementById('loom').src=src;}else{document.getElementById('loomWrap').style.display='none';document.getElementById('noteGrid').style.gridTemplateColumns='minmax(0,1fr)';}
+    document.querySelectorAll('a[href="#note"]').forEach(function(a){a.style.display=src?'':'none';});
+    if(src){var lf=document.getElementById('loom');if(lf.getAttribute('src')!==src)lf.src=src;}else{document.getElementById('loomWrap').style.display='none';document.getElementById('noteGrid').style.gridTemplateColumns='minmax(0,1fr)';}
     if(!d.note){document.getElementById('noteText').style.display='none';}
     if(!d.note&&!src){document.getElementById('note').style.display='none';}
     if(!wins.length)document.getElementById('winsSection').style.display='none';
@@ -292,9 +300,22 @@ var ZF=(function(){
     document.querySelectorAll('a[href*="buy.stripe.com"]').forEach(function(a){a.addEventListener('click',function(){var body=JSON.stringify({action:'click',c:code,option:a.textContent.trim()});try{navigator.sendBeacon(API,new Blob([body],{type:'text/plain'}));}catch(e){fetch(API,{method:'POST',body:body,keepalive:true}).catch(function(){});}});});
   }
   var fromUrl={name:P.get('name'),note:P.get('note'),wins:[P.get('w1'),P.get('w2'),P.get('w3')],goal:P.get('goal'),loom:P.get('loom'),email:P.get('email')};
+  var CK='zf_inv_'+code;
+  function cached(){try{var x=localStorage.getItem(CK);return x?JSON.parse(x):null;}catch(e){return null;}}
+  function keep(d){try{localStorage.setItem(CK,JSON.stringify(d));}catch(e){}}
   if(code&&API){
-    var done=false;var t=setTimeout(function(){if(!done){done=true;render(fromUrl);}},6000);
-    fetch(API+'?action=get&c='+encodeURIComponent(code)).then(function(r){return r.json();}).then(function(d){if(done)return;done=true;clearTimeout(t);render(d&&d.ok?d:fromUrl);track();}).catch(function(){if(!done){done=true;clearTimeout(t);render(fromUrl);}});
+    var c=cached(),shown=false;
+    if(c){render(c);shown=true;}
+    var loader=document.getElementById('zfLoad');
+    var slow=setTimeout(function(){if(!shown&&loader)loader.classList.add('on');},400);
+    var give=setTimeout(function(){if(!shown){shown=true;if(loader)loader.classList.remove('on');render(fromUrl);}},25000);
+    function get(tries){
+      fetch(API+'?action=get&c='+encodeURIComponent(code),{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
+        clearTimeout(slow);clearTimeout(give);if(loader)loader.classList.remove('on');
+        if(d&&d.ok){keep(d);render(d);shown=true;track();}else if(!shown){shown=true;render(fromUrl);}
+      }).catch(function(){if(tries>0){setTimeout(function(){get(tries-1);},1500);}else{clearTimeout(slow);clearTimeout(give);if(loader)loader.classList.remove('on');if(!shown){shown=true;render(fromUrl);}}});
+    }
+    get(2);
   } else { render(fromUrl); }
 })();
 
