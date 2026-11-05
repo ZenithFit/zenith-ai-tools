@@ -111,16 +111,20 @@ textarea.big{min-height:180px;font-size:16px;height:auto;resize:none;border-radi
 .note a{align-self:flex-start;display:inline-flex;align-items:center;height:44px;padding:0 18px;border-radius:999px;border:1px solid rgba(255,255,255,.35);font-size:13px;font-weight:600;letter-spacing:.06em;color:#fff;text-decoration:none}
 
 /* slider */
-.scard{margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 22px 22px;display:flex;flex-direction:column;gap:22px;box-shadow:0 10px 30px rgba(12,15,17,.05)}
-.sval{display:flex;flex-direction:column;align-items:center;gap:6px}
+.scard{margin-top:6px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:20px;box-shadow:0 10px 30px rgba(12,15,17,.05)}
+.sval{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .sval .n{display:flex;align-items:baseline;gap:6px}
-.sval .num{font-family:'Archivo',sans-serif;font-weight:600;font-size:64px;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--ink)}
-.sval .num.idle{color:#C6CDCA}
-.sval .u{font-size:16px;font-weight:500;color:var(--muted)}
-.sval .w{font-size:12px;font-weight:600;letter-spacing:.18em;color:var(--muted);min-height:15px}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;outline:none;background:#DDE3E0}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:34px;height:34px;border-radius:999px;background:var(--g);border:5px solid #fff;box-shadow:0 0 0 1px rgba(12,15,17,.12),0 6px 18px rgba(63,212,148,.55);cursor:pointer}
-input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:999px;background:var(--g);border:5px solid #fff;box-shadow:0 0 0 1px rgba(12,15,17,.12),0 6px 18px rgba(63,212,148,.55);cursor:pointer}
+.sval .num{font-family:'Archivo',sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--ink)}
+.sval .num.idle{color:#C6CDCA;font-size:26px}
+.sval .u{font-size:15px;font-weight:500;color:var(--muted)}
+.sval .w{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;background:var(--dark);color:#fff;font-size:11px;font-weight:600;letter-spacing:.16em;transition:background .2s}
+.sval .w:empty{display:none}
+.ticks{display:flex;justify-content:space-between;padding:0 6px;margin-top:-8px}
+.ticks span{width:20px;text-align:center;font-size:12px;font-weight:600;color:#B4BBB8;font-variant-numeric:tabular-nums;transition:color .15s}
+.ticks span.on{color:var(--ink)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;outline:none;background:#E6EBE8;margin:8px 0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:32px;height:32px;border-radius:999px;background:#fff;border:3px solid var(--g);box-shadow:0 0 0 6px rgba(63,212,148,.18),0 6px 16px rgba(12,15,17,.18);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:26px;height:26px;border-radius:999px;background:#fff;border:3px solid var(--g);box-shadow:0 0 0 1px rgba(12,15,17,.12),0 6px 18px rgba(63,212,148,.55);cursor:pointer}
 input[type=range]::-moz-range-track{background:transparent}
 .ends{display:flex;justify-content:space-between;font-size:12.5px;font-weight:500;color:var(--muted)}
 
@@ -144,6 +148,22 @@ input[type=range]::-moz-range-track{background:transparent}
 .act i{font-style:normal;width:26px;height:26px;flex-shrink:0;border-radius:999px;background:var(--dark);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
 .act span{font-size:15px;line-height:1.5;color:var(--ink);padding-top:2px}
 .loading{display:flex;align-items:center;gap:10px;font-size:14.5px;color:var(--muted)}
+.lcard{position:relative;overflow:hidden;background:var(--dark);border-radius:24px;padding:34px 24px 28px;display:flex;flex-direction:column;align-items:center;gap:22px;box-shadow:0 20px 50px rgba(63,212,148,.22);transition:opacity .35s}
+.lcard:before{content:"";position:absolute;width:320px;height:320px;top:-150px;border-radius:999px;background:radial-gradient(circle,rgba(63,212,148,.35) 0%,rgba(63,212,148,0) 70%);pointer-events:none}
+.lring{position:relative;width:92px;height:92px;display:flex;align-items:center;justify-content:center}
+.lring:before{content:"";position:absolute;inset:0;border-radius:999px;border:3px solid rgba(255,255,255,.12);border-top-color:var(--g);animation:spin 1s linear infinite}
+.lring img{width:54px;height:54px;border-radius:14px;animation:lpulse 2s ease-in-out infinite}
+.lk{position:relative;font-size:11px;font-weight:600;letter-spacing:.2em;color:#9AA39F;text-align:center}
+.lmsg{position:relative;height:26px;width:100%;font-family:'Archivo',sans-serif;font-weight:600;font-size:20px;color:#fff}
+.lmsg span{position:absolute;left:0;right:0;text-align:center;opacity:0;animation:lcyc 7.5s infinite}
+.lmsg span:nth-child(2){animation-delay:2.5s}.lmsg span:nth-child(3){animation-delay:5s}
+.lnote{position:relative;font-size:13px;color:rgba(255,255,255,.6);text-align:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes lpulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(63,212,148,.45)}50%{transform:scale(1.06);box-shadow:0 0 0 18px rgba(63,212,148,0)}}
+@keyframes lcyc{0%,28%{opacity:1;transform:none}33%,100%{opacity:0;transform:translateY(-6px)}}
+.wcard.wait{display:none}
+.wcard.show{animation:rin .45s ease both}
+@keyframes rin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .loading i{width:8px;height:8px;border-radius:999px;background:var(--g);animation:blink 1s ease-in-out infinite}
 @keyframes blink{50%{opacity:.25}}
 .pcard2{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 20px;display:flex;flex-direction:column;gap:6px}
@@ -232,7 +252,7 @@ function stamp(){return new Date().toLocaleString('en-GB',{weekday:'short',day:'
 function late(){const d=new Date(),day=d.getDay();return (day===5&&d.getHours()>=15)||day===6||day===0;}
 
 // ---------- answers ----------
-const A={name:'',email:'',lastPromise:'',promiseTyped:'',promise:'',sessions:'',steps:null,food:'',waist:'',nutrition:null,light:'',reason:[],well:'',hard:'',weekend:'',need:'',next:''};
+const A={name:'',email:'',lastPromise:'',promiseTyped:'',promise:'',sessions:'',steps:null,food:'',waist:'',nutrition:null,light:'',reason:[],well:'',hard:'',weekend:'',need:'',other:'',next:''};
 let known=false;
 try{const w=JSON.parse(localStorage.getItem(WHOKEY)||'null');if(w&&w.name&&w.email){A.name=w.name;A.email=w.email;known=true;}}catch(e){}
 const HISTKEY='zf_checkin_hist';
@@ -256,6 +276,7 @@ const OPT={
   reason:{title:"What's the main reason?",help:'Tap as many as you need.',list:true,multi:true,cols:2,size:15,opts:['Time','Stress','Weekends','Hunger or cravings','Motivation','Injury or pain','Poor sleep','Something else']}
 };
 const TEXT={
+  other:{title:'Talk to me. What was it?',help:'Tell me what got in the way this week. A sentence or two is plenty.',ph:'It was mainly...'},
   well:{title:'What went well this week?',help:'Be as specific as possible. Tell me your positives, big or small.',ph:'Got all my sessions in...'},
   hard:{title:"What didn't go to plan?",help:'Again, be specific. Avoid things like "everything was hard" or "life got in the way".',ph:'Wednesday night, late meeting...',optional:true,skip:'NOTHING, IT WENT WELL'},
   weekend:{title:"What's your plan for the weekend?",help:"Think about what's actually on. Where are you going to be, who with, and where's it most likely to go sideways? Then tell me what you're going to do about it before it happens. 80/20 is absolutely fine. Just know your plan before Saturday hits.",ph:'Saturday I am...'},
@@ -267,8 +288,8 @@ const WORDS=['','OFF TRACK','OFF TRACK','TOUGH WEEK','MIXED','MIXED','GETTING TH
 function order(){
   const o=['welcome'];
   if(auth==='no'&&!known)o.push('who');
-  o.push('promise','sessions','steps','food','waist','nutrition','light');
-  if(A.light==='Amber'||A.light==='Red')o.push('reason');
+  o.push('promise','sessions','steps','food','nutrition','light');
+  if(A.light==='Amber'||A.light==='Red'){o.push('reason');if(A.reason.indexOf('Something else')>=0)o.push('other');}
   o.push('well','hard','weekend','need','next','done');
   return o;
 }
@@ -408,9 +429,10 @@ function render(){
     h='<div class="screen"><span class="eyebrow">'+eyebrow+'</span>'+
       '<h2>'+(st?'What were your average daily steps?':'How consistent was your nutrition?')+'</h2>'+
       '<p class="help">'+(st?'Check the weekly average on your phone or watch, then slide to roughly that.':'Slide it. Be honest, not harsh on yourself.')+'</p>'+
-      '<div class="scard"><div class="sval"><div class="n"><span class="num'+(v===null?' idle':'')+'" id="s-num">'+shown+'</span><span class="u" id="s-unit">'+(v===null?'':(st?'a day':'/ 10'))+'</span></div><span class="w" id="s-word">'+(st?(v===null?'':'AVERAGE STEPS'):(v===null?'':WORDS[v]))+'</span></div>'+
+      '<div class="scard"><div class="sval"><div class="n"><span class="num'+(v===null?' idle':'')+'" id="s-num">'+shown+'</span><span class="u" id="s-unit">'+(v===null?'':(st?'a day':'/ 10'))+'</span></div><span class="w" id="s-word">'+(st?(v===null?'':'AVERAGE'):(v===null?'':WORDS[v]))+'</span></div>'+
       '<input type="range" id="s-range" aria-label="'+(st?'Average daily steps':'Nutrition consistency out of 10')+'" min="'+(st?0:1)+'" max="'+(st?20000:10)+'" step="'+(st?250:1)+'" value="'+(v===null?(st?8000:5):v)+'">'+
-      '<div class="ends"><span>'+(st?'0':'Completely off track')+'</span><span>'+(st?'20,000+':'Nailed it')+'</span></div></div>'+
+      (st?'':'<div class="ticks" aria-hidden="true">'+[1,2,3,4,5,6,7,8,9,10].map(n=>'<span'+(v===n?' class="on"':'')+'>'+n+'</span>').join('')+'</div>')+
+      '<div class="ends"><span>'+(st?'0':'Off track')+'</span><span>'+(st?'20,000+':'Nailed it')+'</span></div></div>'+
       (st?'<button type="button" class="plain'+(A.steps==='Not tracked'?' picked':'')+'" id="notrack">I DON\'T TRACK MY STEPS</button>':'')+'</div>';
   }
   else if(TEXT[screen]){
@@ -424,7 +446,8 @@ function render(){
     h='<div class="screen" style="gap:14px;padding-top:20px">'+
       '<div class="dcard"><div class="ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Check in complete</h2><p>Thanks '+esc(fn)+'. Really appreciate you being honest with it.</p></div>'+
       streakCard()+
-      '<div class="wcard" id="result"><div class="who"><img src="zf-logo.png" alt=""><div><b>Your instant overview and action plan</b><span>Something to work on until Mark\'s feedback lands</span></div></div>'+
+      '<div class="lcard" id="planload" role="status" aria-live="polite"><div class="lring"><img src="zf-logo.png" alt=""></div><div class="lk">YOUR INSTANT OVERVIEW AND ACTION PLAN</div><div class="lmsg"><span>Reading your answers</span><span>Looking at your weekend</span><span>Writing your action plan</span></div><div class="lnote">About 10 seconds. Don\'t close the page.</div></div>'+
+      '<div class="wcard wait" id="result"><div class="who"><img src="zf-logo.png" alt=""><div><b>Your instant overview and action plan</b><span>Something to work on until Mark\'s feedback lands</span></div></div>'+
       '<div class="strip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4A524E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.5"/></svg>This isn\'t your full feedback. Mark will build on this when he replies.</div>'+
       '<div id="reply" class="loading"><i></i>Putting your action plan together</div></div>'+
       '<div class="pcard2"><span class="eyebrow">YOUR PROMISE FOR NEXT WEEK</span><p>'+esc(A.next)+'</p></div>'+
@@ -492,12 +515,13 @@ function bind(){
   const r=$('s-range');
   if(r){
     const st=screen==='steps';
-    const paint=()=>{const pct=(r.value-r.min)/(r.max-r.min)*100;r.style.background='linear-gradient(90deg,#0C0F11 0%,#0C0F11 '+pct+'%,#DDE3E0 '+pct+'%,#DDE3E0 100%)';};
+    const paint=()=>{const pct=(r.value-r.min)/(r.max-r.min)*100;r.style.background='linear-gradient(90deg,#2FC383 0%,#3FD494 '+pct+'%,#E6EBE8 '+pct+'%,#E6EBE8 100%)';r.style.boxShadow=pct>0?'0 4px 14px rgba(63,212,148,.25)':'none';};
     if(A[screen]!==null)paint();
     r.oninput=()=>{
       const v=Number(r.value);A[screen]=v;paint();
       const n=$('s-num');n.classList.remove('idle');n.textContent=st?v.toLocaleString('en-GB'):String(v);
-      $('s-unit').textContent=st?'a day':'/ 10';$('s-word').textContent=st?'AVERAGE STEPS':WORDS[v];
+      $('s-unit').textContent=st?'a day':'/ 10';$('s-word').textContent=st?'AVERAGE':WORDS[v];
+      main.querySelectorAll('.ticks span').forEach((t,i)=>t.classList.toggle('on',i+1===v));
       syncBar();
     };
   }
@@ -532,9 +556,9 @@ function buildMsg(){
   const lines=[
     'Name: '+(auth==='no'?first(A.name):first(authName)),
     'Last week\'s promise: '+(A.lastPromise||A.promiseTyped||'not given')+' | Kept: '+(A.promise==="Can't remember"?'they couldn\'t remember it':A.promise),
-    'Sessions: '+A.sessions,'Average steps: '+(typeof A.steps==='number'?A.steps:'they don\'t track steps'),'Days food logged: '+A.food,'Waist: '+A.waist,
+    'Sessions: '+A.sessions,'Average steps: '+(typeof A.steps==='number'?A.steps:'they don\'t track steps'),'Days food logged: '+A.food,
     'Nutrition consistency: '+A.nutrition+'/10','Traffic light: '+A.light+(A.reason.length?' ('+A.reason.join(', ')+')':''),
-    '','What went well: '+(A.well||'nothing written'),'What didn\'t go to plan: '+(A.hard||'nothing written'),
+    'Something else got in the way: '+(A.other||'not given'),'','What went well: '+(A.well||'nothing written'),'What didn\'t go to plan: '+(A.hard||'nothing written'),
     'Weekend plan: '+(A.weekend||'nothing written'),'Anything they need from Mark: '+(A.need||'nothing'),
     'Promise for next week: '+A.next
   ];
@@ -561,8 +585,8 @@ $('submit').onclick=async()=>{
   const btn=$('submit');btn.disabled=true;
   submitted=true;
   const entry={week:weekKey(),submitted:new Date().toISOString(),late:late(),
-    lastPromise:A.lastPromise||clean(A.promiseTyped),promiseKept:A.promise,sessions:A.sessions,steps:A.steps,foodDays:A.food,waist:A.waist,
-    nutrition:A.nutrition,light:A.light,reason:A.reason.slice(),well:clean(A.well),hard:clean(A.hard),weekend:clean(A.weekend),need:clean(A.need),next:clean(A.next)};
+    lastPromise:A.lastPromise||clean(A.promiseTyped),promiseKept:A.promise,sessions:A.sessions,steps:A.steps,foodDays:A.food,
+    nutrition:A.nutrition,light:A.light,reason:A.reason.slice(),well:clean(A.well),hard:clean(A.hard),weekend:clean(A.weekend),other:clean(A.other),need:clean(A.need),next:clean(A.next)};
   try{localStorage.setItem(LASTKEY,JSON.stringify({week:entry.week,next:entry.next}));}catch(e){}
   clearDraft();
   const R=runs();entry.streak=R.streak;entry.noRun=R.noRun;
@@ -582,6 +606,8 @@ $('submit').onclick=async()=>{
     flag=!!plan.flag;
     text=plan.overview+(plan.actions.length?'\nActions: '+plan.actions.map((a,i)=>(i+1)+'. '+a).join(' '):'');
   }catch(e){failed=true;plan={overview:'Your check in\'s in safe. Your action plan couldn\'t load this time, so stick to the weekend plan you wrote and Mark will be in touch shortly.',actions:[]};text=plan.overview;}
+  const pl=$('planload');if(pl)pl.remove();
+  const rc=$('result');if(rc){rc.classList.remove('wait');rc.classList.add('show');}
   const rp=$('reply');
   if(rp){rp.className='';rp.innerHTML='<p class="ovw">'+esc(plan.overview)+'</p>'+(plan.actions.length?'<div class="acts"><span class="k">YOUR ACTION PLAN</span>'+plan.actions.map((a,i)=>'<div class="act"><i>'+(i+1)+'</i><span>'+esc(a)+'</span></div>').join('')+'</div>':'');}
   entry.reply=failed?'':text.slice(0,800);entry.flag=flag;
@@ -593,10 +619,10 @@ $('submit').onclick=async()=>{
   logToSheets({
     field1_label:'Name',field1_value:who,
     field2_label:'Traffic light',field2_value:A.light+(A.reason.length?' ('+A.reason.join(', ')+')':'')+(flag?' | FLAG':'')+(R.noRun>=3?' | '+R.noRun+' NOs IN A ROW':''),
-    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+(typeof A.steps==='number'?A.steps.toLocaleString('en-GB'):'not tracked')+' | Food days '+A.food+' | Waist '+A.waist+' | Nutrition '+A.nutrition+'/10'
+    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+(typeof A.steps==='number'?A.steps.toLocaleString('en-GB'):'not tracked')+' | Food days '+A.food+' | Nutrition '+A.nutrition+'/10'
   },[
     'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
-    '','Last week\'s promise: '+entry.lastPromise,'Went well: '+(entry.well||'none'),'Didn\'t go to plan: '+(entry.hard||'none'),
+    '','Last week\'s promise: '+entry.lastPromise,(entry.other?'Something else: '+entry.other:'')+(entry.other?'\n':'')+'Went well: '+(entry.well||'none'),'Didn\'t go to plan: '+(entry.hard||'none'),
     'Weekend plan: '+(entry.weekend||'none'),'Needs from Mark: '+(entry.need||'nothing'),'Next week\'s promise: '+entry.next,
     '','Instant action plan'+(flag?' (FLAGGED, needs Mark)':'')+': '+(failed?'did not load':text)
   ].join('\n'));
