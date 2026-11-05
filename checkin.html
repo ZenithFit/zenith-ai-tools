@@ -134,6 +134,18 @@ input[type=range]::-moz-range-track{background:transparent}
 .after{padding:0 4px;font-size:14.5px;line-height:1.55;color:var(--body)}
 .err{font-size:14px;color:#B3261E;display:none;text-align:center}
 .err.on{display:block}
+.mic{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);padding:0 2px}
+.restart{background:none;border:none;font-size:13px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.75);text-decoration:underline;text-underline-offset:3px;padding:6px 10px;min-height:44px}
+.streak{position:relative;overflow:hidden;border-radius:20px;background:var(--dark);padding:20px;display:flex;flex-direction:column;gap:14px;box-shadow:0 14px 36px rgba(63,212,148,.18)}
+.streak:after{content:"";position:absolute;width:220px;height:220px;right:-110px;top:-120px;border-radius:999px;background:radial-gradient(circle,rgba(63,212,148,.3) 0%,rgba(63,212,148,0) 70%);pointer-events:none}
+.streak .row{position:relative;display:flex;align-items:center;gap:16px}
+.streak .big{font-family:'Archivo',sans-serif;font-weight:600;font-size:48px;line-height:1;color:#fff;min-width:44px;text-align:center}
+.streak b{display:block;font-size:11px;font-weight:600;letter-spacing:.2em;color:#9AA39F;margin-bottom:4px}
+.streak .msg{font-size:15px;line-height:1.45;color:#fff}
+.streak .dots{position:relative;display:flex;gap:8px;align-items:center}
+.streak .d{width:12px;height:12px;border-radius:999px;border:1.5px solid rgba(255,255,255,.35)}
+.streak .d.k{background:#fff;border-color:#fff}
+.streak .d.now{box-shadow:0 0 0 4px rgba(255,255,255,.16)}
 .app.kb textarea.big{min-height:110px}
 .app.kb .help{font-size:14.5px}
 .app.kb .screen{padding-top:14px;gap:12px}
@@ -184,7 +196,7 @@ function nameOk(s){return clean(s).split(' ').filter(p=>p.length>=2).length>=2;}
 function emailOk(s){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(clean(s));}
 function first(s){return clean(s).split(' ')[0]||'';}
 function isOpen(){const d=new Date().getDay();return d===5||d===6||d===0;}
-function weekKey(){const d=new Date();const back=(d.getDay()+2)%7;d.setDate(d.getDate()-back);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function weekKey(){const d=new Date();const day=d.getDay();const shift=day===5?0:day===6?-1:day===0?-2:5-day;d.setDate(d.getDate()+shift);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function stamp(){return new Date().toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});}
 function late(){const d=new Date();return d.getDay()!==5||d.getHours()>=15;}
 
@@ -192,6 +204,10 @@ function late(){const d=new Date();return d.getDay()!==5||d.getHours()>=15;}
 const A={name:'',email:'',lastPromise:'',promiseTyped:'',promise:'',sessions:'',steps:null,food:'',waist:'',nutrition:null,light:'',reason:[],well:'',hard:'',weekend:'',need:'',next:''};
 try{const w=JSON.parse(localStorage.getItem(WHOKEY)||'null');if(w){A.name=w.name||'';A.email=w.email||'';}}catch(e){}
 try{const l=JSON.parse(localStorage.getItem(LASTKEY)||'null');if(l&&l.next&&l.week!==weekKey())A.lastPromise=l.next;}catch(e){}
+const DRAFTKEY='zf_checkin_draft';
+let draft=null;
+try{const dr=JSON.parse(localStorage.getItem(DRAFTKEY)||'null');if(dr&&dr.week===weekKey()&&dr.screen&&dr.a)draft=dr;else localStorage.removeItem(DRAFTKEY);}catch(e){}
+let pastWeeks=[];
 
 const OPT={
   promise:{title:'Did you keep it?',help:'Be honest. If you nailed it, brilliant. If not, we work out why.',opts:['Yes','Partly','No'],cols:3,size:17},
@@ -272,7 +288,13 @@ function canNext(){
   if(TEXT[screen])return TEXT[screen].optional||clean(A[screen]).length>1;
   return true;
 }
+function saveDraft(){
+  if(submitted||screen==='welcome'||screen==='done')return;
+  try{localStorage.setItem(DRAFTKEY,JSON.stringify({week:weekKey(),screen:screen,a:A,at:Date.now()}));}catch(e){}
+}
+function clearDraft(){draft=null;try{localStorage.removeItem(DRAFTKEY);}catch(e){}}
 function syncBar(){
+  saveDraft();
   const last=screen==='next';
   $('next').classList.toggle('hide',last||screen==='done');
   $('submitWrap').classList.toggle('hide',!last);
@@ -311,8 +333,12 @@ function render(){
       '<span class="hi">'+hi+'</span><h1>CHECK IN</h1>'+
       (open
         ?'<p>This check in is about reflection, ownership, and setting clear direction for the week ahead.</p><p>Be honest and specific with your answers. The clearer your thinking here, the more effective the coaching will be.</p>'+
-         '<button type="button" class="glow pulse" id="start" style="margin-top:10px">START CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
-         '<span class="small">About 5 minutes. Mostly one tap. Due by 3pm Friday.</span>'
+         (draft
+           ?'<button type="button" class="glow pulse" id="resume" style="margin-top:10px">CONTINUE CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
+            '<span class="small">You\'re part way through. Your answers are saved.</span>'+
+            '<button type="button" class="restart" id="restart">Start again instead</button>'
+           :'<button type="button" class="glow pulse" id="start" style="margin-top:10px">START CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
+            '<span class="small">About 5 minutes. Mostly one tap. Due by 3pm Friday.</span>')
         :'<p>Your check in opens on Friday morning and stays open until Sunday night.</p><p>In the meantime, keep logging, keep moving, and keep the promise you made yourself.</p>'+
          '<a class="glow" href="hq.html" style="margin-top:10px;text-decoration:none">BACK TO HQ'+ARROW+'</a>')+
       '</div></div>';
@@ -349,12 +375,14 @@ function render(){
   else if(TEXT[screen]){
     const t=TEXT[screen];
     h='<div class="screen"><span class="eyebrow">'+eyebrow+'</span><h2>'+esc(t.title)+'</h2><p class="help">'+esc(t.help)+'</p>'+
-      '<textarea class="big" id="f-text" aria-label="'+esc(t.title)+'" placeholder="'+esc(t.ph)+'">'+esc(A[screen])+'</textarea></div>';
+      '<textarea class="big" id="f-text" aria-label="'+esc(t.title)+'" placeholder="'+esc(t.ph)+'">'+esc(A[screen])+'</textarea>'+
+      '<span class="mic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5A625E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg>Rather talk than type? Tap the mic on your keyboard and just say it.</span></div>';
   }
   else if(screen==='done'){
     const fn=auth==='no'?first(A.name):first(authName);
     h='<div class="screen" style="gap:14px;padding-top:20px">'+
       '<div class="dcard"><div class="ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Check in complete</h2><p>Thanks '+esc(fn)+'. Really appreciate you being honest with it.</p></div>'+
+      streakCard()+
       '<div class="wcard" id="result"><div class="who"><img src="zf-logo.png" alt=""><div><b>Mark AI</b><span>A few quick pointers for your weekend</span></div></div>'+
       '<div class="strip"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#4A524E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><circle cx="12" cy="12" r="9"/><path d="M12 8v5"/><path d="M12 16.5v.5"/></svg>Initial thoughts only. This isn\'t your full feedback.</div>'+
       '<div id="reply" class="loading"><i></i>Mark AI\'s having a look</div></div>'+
@@ -366,8 +394,30 @@ function render(){
   syncBar();
 }
 
+function runs(){
+  // history is newest first, one per week, this week excluded
+  const kept=A.promise==='Yes'||A.promise==='Partly';
+  let streak=0,noRun=0;
+  if(kept){streak=1;for(const h of pastWeeks){if(h.promiseKept==='Yes'||h.promiseKept==='Partly')streak++;else break;}}
+  if(A.promise==='No'){noRun=1;for(const h of pastWeeks){if(h.promiseKept==='No')noRun++;else break;}}
+  return {kept,streak,noRun};
+}
+function streakCard(){
+  if(auth!=='yes')return '';
+  const r=runs();if(!r.kept)return '';
+  const past=pastWeeks.slice(0,6).reverse().map(h=>'<span class="d'+(h.promiseKept==='Yes'||h.promiseKept==='Partly'?' k':'')+'"></span>').join('');
+  const msg=r.streak===1?"You did what you said you'd do. That's exactly how the trust in yourself gets rebuilt.":"That's "+r.streak+" weeks in a row you've done what you said you'd do. Keep building.";
+  return '<div class="streak"><div class="row"><span class="big">'+r.streak+'</span><div><b>'+(r.streak===1?'PROMISE KEPT':'PROMISES KEPT IN A ROW')+'</b><span class="msg">'+msg+'</span></div></div>'+
+    '<div class="dots" aria-hidden="true">'+past+'<span class="d k now"></span></div></div>';
+}
 function bind(){
   const s=$('start');if(s)s.onclick=()=>go(1);
+  const rs=$('resume');if(rs)rs.onclick=()=>{
+    Object.assign(A,draft.a);if(!Array.isArray(A.reason))A.reason=[];
+    const o=order();const to=o.indexOf(draft.screen)>0&&draft.screen!=='done'?draft.screen:o[1];
+    main.classList.add('out');setTimeout(()=>{screen=to;render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>main.classList.remove('out')));},220);
+  };
+  const rt=$('restart');if(rt)rt.onclick=()=>{clearDraft();render();};
   main.querySelectorAll('.tile').forEach(b=>b.onclick=()=>{
     const k=b.dataset.k,v=b.dataset.v;
     if(OPT[k].multi){
@@ -466,6 +516,8 @@ $('submit').onclick=async()=>{
     lastPromise:A.lastPromise||clean(A.promiseTyped),promiseKept:A.promise,sessions:A.sessions,steps:A.steps,foodDays:A.food,waist:A.waist,
     nutrition:A.nutrition,light:A.light,reason:A.reason.slice(),well:clean(A.well),hard:clean(A.hard),weekend:clean(A.weekend),need:clean(A.need),next:clean(A.next)};
   try{localStorage.setItem(LASTKEY,JSON.stringify({week:entry.week,next:entry.next}));}catch(e){}
+  clearDraft();
+  const R=runs();entry.streak=R.streak;entry.noRun=R.noRun;
   main.classList.add('out');await new Promise(r=>setTimeout(r,220));
   screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
 
@@ -481,10 +533,10 @@ $('submit').onclick=async()=>{
   const who=auth==='no'?A.name:clean(authName);
   logToSheets({
     field1_label:'Name',field1_value:who,
-    field2_label:'Traffic light',field2_value:A.light+(A.reason.length?' ('+A.reason.join(', ')+')':'')+(flag?' | FLAG':''),
+    field2_label:'Traffic light',field2_value:A.light+(A.reason.length?' ('+A.reason.join(', ')+')':'')+(flag?' | FLAG':'')+(R.noRun>=3?' | '+R.noRun+' NOs IN A ROW':''),
     field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+Number(A.steps).toLocaleString('en-GB')+' | Food days '+A.food+' | Waist '+A.waist+' | Nutrition '+A.nutrition+'/10'
   },[
-    'Week of '+entry.week+' | Submitted '+stamp()+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
+    'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
     '','Last week\'s promise: '+entry.lastPromise,'Went well: '+(entry.well||'none'),'Didn\'t go to plan: '+(entry.hard||'none'),
     'Weekend plan: '+(entry.weekend||'none'),'Needs from Mark: '+(entry.need||'nothing'),'Next week\'s promise: '+entry.next,
     '','Mark AI'+(flag?' (FLAGGED, needs Mark)':'')+': '+(failed?'did not load':text)
@@ -495,7 +547,7 @@ $('submit').onclick=async()=>{
 async function initSession(){
   if(auth==='no')return;
   try{
-    const r=await fetch(API+'/entries?tool='+encodeURIComponent(TOOL)+'&limit=2',{headers:{'Authorization':'Bearer '+authToken}});
+    const r=await fetch(API+'/entries?tool='+encodeURIComponent(TOOL)+'&limit=12',{headers:{'Authorization':'Bearer '+authToken}});
     if(r.status===401){
       try{localStorage.removeItem('zenith_token');localStorage.removeItem('zenith_name');localStorage.removeItem('zenith_programme');}catch(e){}
       auth='no';authToken='';if(screen==='welcome')render();return;
@@ -503,7 +555,10 @@ async function initSession(){
     if(!r.ok)return;
     const d=await r.json();auth='yes';if(d.name)authName=d.name;
     const wk=weekKey();
-    const prev=(d.entries||[]).map(e=>e.data).find(en=>en&&en.next&&en.week!==wk);
+    const all=(d.entries||[]).map(e=>e.data).filter(en=>en&&en.week);
+    all.sort((x,y)=>String(y.submitted||y.week).localeCompare(String(x.submitted||x.week)));
+    const seen={};pastWeeks=all.filter(en=>{if(en.week===wk||seen[en.week])return false;seen[en.week]=1;return true;});
+    const prev=pastWeeks.find(en=>en.next);
     if(prev&&!A.lastPromise){A.lastPromise=prev.next;}
     if(screen==='welcome')render();
   }catch(e){}
