@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Invites</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-title" content="Invites">
+<link rel="icon" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800;900&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="config.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#F4F6F5;color:#111111;font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-size:17px;line-height:1.5}
+h1,h2,h3{font-family:'Archivo',Impact,'Arial Narrow',sans-serif;font-weight:800;text-transform:uppercase;margin:0;letter-spacing:-0.01em}
+p{margin:0}
+.top{background:#000;position:sticky;top:0;z-index:10;border-bottom:1px solid rgba(255,255,255,.08)}
+.top .in{max-width:760px;margin:0 auto;padding:0 18px;min-height:60px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo img:first-child{height:32px;width:32px}.logo img:last-child{height:18px;width:auto}
+.top .tag{color:#BFC6C3;font-size:14px;font-weight:600}
+.wrap{max-width:760px;margin:0 auto;padding:28px 18px 80px}
+.card{background:#FFFFFF;border-radius:20px;padding:22px}
+.dark{background:#0C0F11;color:#FFFFFF;border-radius:20px;padding:24px;box-shadow:0 0 60px rgba(63,212,148,.14)}
+label{display:block;font-size:14px;font-weight:700;color:#111111;margin:16px 0 6px}
+label .opt{font-weight:500;color:#4A4F4D}
+input,textarea{width:100%;font:inherit;font-size:16px;color:#111111;background:#F4F6F5;border:1px solid #E1E5E3;border-radius:14px;padding:13px 14px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus{outline:none;border-color:#111111;background:#FFFFFF}
+.glow{display:inline-flex;align-items:center;justify-content:space-between;gap:14px;background:#3FD494;color:#0C0F11;font:inherit;font-weight:700;font-size:16px;border:0;cursor:pointer;padding:7px 7px 7px 22px;border-radius:999px;min-height:52px;box-shadow:0 0 0 1px rgba(63,212,148,.35),0 10px 34px rgba(63,212,148,.32);text-decoration:none}
+.glow.gold{background:#D8B56A;box-shadow:0 0 0 1px rgba(216,181,106,.35),0 10px 34px rgba(216,181,106,.3)}
+.glow .arr{width:38px;height:38px;border-radius:50%;background:#0C0F11;display:flex;align-items:center;justify-content:center}
+.glow.gold .arr svg{stroke:#D8B56A}
+.glow:disabled{opacity:.55;cursor:wait}
+.plain{display:inline-flex;align-items:center;justify-content:center;font:inherit;font-weight:600;font-size:15px;min-height:46px;padding:0 18px;border-radius:999px;border:1px solid rgba(17,17,17,.22);background:transparent;color:#111111;cursor:pointer;text-decoration:none}
+.dark .plain{color:#FFFFFF;border-color:rgba(255,255,255,.28)}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:#E6EAE8;padding:5px;border-radius:999px;margin-bottom:18px}
+.tabs button{font:inherit;font-weight:700;font-size:14px;border:0;background:transparent;color:#4A4F4D;border-radius:999px;min-height:42px;cursor:pointer}
+.tabs button.on{background:#0C0F11;color:#FFFFFF}
+.tabs button.on.gold{color:#D8B56A}
+.row{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.hint{color:#4A4F4D;font-size:15px;margin-top:6px}
+.err{color:#B3261E;font-size:15px;font-weight:600;margin-top:12px;min-height:1px}
+.link{font-size:15px;word-break:break-all;color:#BFC6C3;margin-top:10px;background:#15191C;border-radius:12px;padding:12px 14px}
+.list h2{font-size:24px}
+.item{background:#FFFFFF;border-radius:18px;padding:16px 18px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-top:10px}
+.item .nm{font-weight:700;font-size:17px}
+.item .meta{color:#4A4F4D;font-size:14px;margin-top:2px}
+.pill{font-size:12px;font-weight:700;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pill.m{background:#0C0F11;color:#FFFFFF}.pill.t{background:#0C0F11;color:#D8B56A}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:1px;background:#C9CFCC}
+.dot.seen{background:#111111}.dot.paid{background:#3FD494;box-shadow:0 0 0 3px rgba(63,212,148,.25)}
+.hidden{display:none !important}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#0C0F11;color:#FFFFFF;padding:12px 18px;border-radius:999px;font-weight:600;font-size:15px;opacity:0;transition:opacity .2s ease;pointer-events:none}
+.toast.on{opacity:1}
+</style>
+</head>
+<body>
+<header class="top"><div class="in"><div class="logo"><img src="img/icon.png" alt=""><img src="img/wordmark-white.png" alt="Zenith Fit"></div><span class="tag">Invites</span></div></header>
+
+<main class="wrap">
+
+<!-- Lock -->
+<section id="lock" class="dark">
+<h1 style="font-size:34px;line-height:1">Invites</h1>
+<p style="color:#BFC6C3;margin-top:10px">Your password, the one you set in the Invites sheet.</p>
+<label for="key" style="color:#FFFFFF">Password</label>
+<input id="key" type="password" autocomplete="current-password">
+<p class="err" id="lockErr"></p>
+<div class="row"><button class="glow" id="unlock">Unlock<span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></button></div>
+</section>
+
+<!-- App -->
+<section id="app" class="hidden">
+<div class="tabs" role="tablist">
+<button data-tab="acc">Accelerator</button>
+<button data-tab="momentum" class="on">Momentum</button>
+<button data-tab="transformation" class="gold">Transformation</button>
+</div>
+
+<!-- Accelerator -->
+<div id="paneAcc" class="card hidden">
+<h2 style="font-size:24px">Accelerator link</h2>
+<p class="hint">Same page for everyone. The name just drops in.</p>
+<label for="aName">First name <span class="opt">(optional)</span></label>
+<input id="aName" autocomplete="off">
+<label for="aEmail">Email <span class="opt">(optional, fills in Stripe checkout)</span></label>
+<input id="aEmail" type="email" autocomplete="off">
+<div class="row"><button class="glow" id="aMake">Create link<span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></button></div>
+</div>
+
+<!-- Momentum / Transformation -->
+<div id="paneP" class="card">
+<h2 style="font-size:24px" id="pTitle">Momentum invite</h2>
+<label for="paste">Paste from Claude <span class="opt">(fills every box below)</span></label>
+<textarea id="paste" placeholder="Name: Joe&#10;Note: ...&#10;Win 1: ...&#10;Win 2: ...&#10;Win 3: ...&#10;Goal: ..."></textarea>
+<div class="row" style="margin-top:10px"><button class="plain" id="fillBtn">Fill the boxes</button></div>
+<label for="pName">First name</label><input id="pName" autocomplete="off">
+<label for="pEmail">Email <span class="opt">(optional, fills in Stripe checkout)</span></label><input id="pEmail" type="email" autocomplete="off">
+<label for="pNote">Your note</label><textarea id="pNote"></textarea>
+<label for="pW1">Win 1</label><input id="pW1" autocomplete="off">
+<label for="pW2">Win 2</label><input id="pW2" autocomplete="off">
+<label for="pW3">Win 3</label><input id="pW3" autocomplete="off">
+<label for="pGoal">Their goal, in their words</label><input id="pGoal" autocomplete="off">
+<label for="pLoom">Loom link</label><input id="pLoom" placeholder="https://www.loom.com/share/..." autocomplete="off">
+<p class="err" id="pErr"></p>
+<div class="row"><button class="glow" id="pMake">Create invite<span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></button></div>
+</div>
+
+<!-- Result -->
+<div id="result" class="dark hidden" style="margin-top:16px">
+<p style="color:#3FD494;font-weight:700;font-size:15px" id="rLabel">Ready to send</p>
+<h3 style="font-size:24px;margin-top:6px" id="rName">Joe's invite</h3>
+<p class="link" id="rLink"></p>
+<div class="row">
+<button class="glow" id="rCopy">Copy link<span class="arr"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></span></button>
+<a class="plain" id="rWa" target="_blank" rel="noopener">Send on WhatsApp</a>
+<a class="plain" id="rPreview" target="_blank" rel="noopener">Preview</a>
+</div>
+<p style="color:#BFC6C3;font-size:14px;margin-top:12px">Preview doesn't count as a view.</p>
+</div>
+
+<!-- List -->
+<div class="list" style="margin-top:34px">
+<div style="display:flex;align-items:center;justify-content:space-between;gap:12px"><h2>Who's looked</h2><button class="plain" id="refresh">Refresh</button></div>
+<p class="hint"><span class="dot paid"></span>Tapped to pay <span class="dot seen" style="margin-left:12px"></span>Opened <span class="dot" style="margin-left:12px"></span>Not opened yet</p>
+<div id="items"></div>
+</div>
+</section>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+var API=(window.ZF_INVITES&&window.ZF_INVITES.api)||'';
+var KEYNAME='zf_invites_key',key='';
+var tab='momentum';
+function $(id){return document.getElementById(id);}
+function toast(t){var el=$('toast');el.textContent=t;el.classList.add('on');setTimeout(function(){el.classList.remove('on');},1800);}
+function getKey(){try{return localStorage.getItem(KEYNAME)||'';}catch(e){return '';}}
+function setKey(k){try{localStorage.setItem(KEYNAME,k);}catch(e){}}
+function post(body){return fetch(API,{method:'POST',body:JSON.stringify(body)}).then(function(r){return r.json();});}
+function first(n){n=String(n||'').trim().split(/\s+/)[0]||'';return n?n.charAt(0).toUpperCase()+n.slice(1):'';}
+function base(file){return new URL(file,location.href).toString();}
+
+function unlock(k){
+  $('lockErr').textContent='';
+  if(!API){$('lockErr').textContent='Not connected yet. The Apps Script link needs pasting into invite/config.js.';return;}
+  $('unlock').disabled=true;
+  post({action:'list',key:k}).then(function(d){
+    $('unlock').disabled=false;
+    if(!d.ok){$('lockErr').textContent='That password didn\u2019t work.';return;}
+    key=k;setKey(k);$('lock').classList.add('hidden');$('app').classList.remove('hidden');render(d.rows||[]);
+  }).catch(function(){$('unlock').disabled=false;$('lockErr').textContent='Couldn\u2019t reach the sheet. Check your signal and try again.';});
+}
+$('unlock').onclick=function(){unlock($('key').value.trim());};
+$('key').addEventListener('keydown',function(e){if(e.key==='Enter')unlock($('key').value.trim());});
+
+function setTab(t){
+  tab=t;
+  document.querySelectorAll('.tabs button').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-tab')===t);});
+  $('paneAcc').classList.toggle('hidden',t!=='acc');$('paneP').classList.toggle('hidden',t==='acc');
+  $('pTitle').textContent=(t==='transformation'?'Transformation':'Momentum')+' invite';
+  $('pMake').classList.toggle('gold',t==='transformation');
+  $('result').classList.add('hidden');
+}
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){setTab(b.getAttribute('data-tab'));};});
+
+$('fillBtn').onclick=function(){
+  var map={name:'pName',email:'pEmail',note:'pNote','win 1':'pW1','win1':'pW1','win 2':'pW2','win2':'pW2','win 3':'pW3','win3':'pW3',goal:'pGoal',loom:'pLoom'};
+  var vals={},cur=null;
+  $('paste').value.split(/\r?\n/).forEach(function(line){
+    var m=line.match(/^\s*\**\s*(name|email|note|win\s?[123]|goal|loom)\s*\**\s*:\s*(.*)$/i);
+    if(m){cur=m[1].toLowerCase().replace(/\s+/,' ');if(cur.indexOf('win')===0)cur='win '+cur.slice(-1);vals[cur]=m[2].trim();}
+    else if(cur){vals[cur]=(vals[cur]?vals[cur]+'\n':'')+line.trim();}
+  });
+  var n=0;Object.keys(vals).forEach(function(k){var id=map[k];if(id){$(id).value=vals[k].replace(/^\n+|\n+$/g,'').replace(/\n{3,}/g,'\n\n');n++;}});
+  toast(n?'Boxes filled':'Nothing to fill. Check the paste.');
+};
+
+function show(name,link,preview,label){
+  $('rName').textContent=name?name+'\u2019s invite':'Your link';
+  $('rLabel').textContent=label;
+  $('rLink').textContent=link;
+  var msg=(name?name+', ':'')+'I\u2019ve put something together for you. Have a look when you\u2019ve got 5 minutes.\n\n'+link;
+  $('rWa').href='https://wa.me/?text='+encodeURIComponent(msg);
+  $('rPreview').href=preview;
+  $('rCopy').onclick=function(){
+    (navigator.clipboard?navigator.clipboard.writeText(link):Promise.reject()).then(function(){toast('Link copied');}).catch(function(){
+      var r=document.createRange();r.selectNode($('rLink'));var s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');toast('Link copied');}catch(e){toast('Press and hold the link to copy');}});
+  };
+  $('result').classList.remove('hidden');$('result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+$('aMake').onclick=function(){
+  var n=first($('aName').value),e=$('aEmail').value.trim();
+  var u=new URL(base('accelerator.html'));if(n)u.searchParams.set('name',n);if(e)u.searchParams.set('email',e);
+  show(n,u.toString(),u.toString(),'Accelerator link');
+};
+
+$('pMake').onclick=function(){
+  $('pErr').textContent='';
+  var d={action:'create',key:key,programme:tab==='transformation'?'Transformation':'Momentum',name:first($('pName').value),email:$('pEmail').value.trim(),
+    note:$('pNote').value.trim(),win1:$('pW1').value.trim(),win2:$('pW2').value.trim(),win3:$('pW3').value.trim(),goal:$('pGoal').value.trim(),loom:$('pLoom').value.trim()};
+  if(!d.name){$('pErr').textContent='Their name needs filling in first.';return;}
+  $('pMake').disabled=true;
+  post(d).then(function(r){
+    $('pMake').disabled=false;
+    if(!r.ok){$('pErr').textContent=r.error==='key'?'Password\u2019s changed. Refresh and unlock again.':'Something went wrong saving it. Try again.';return;}
+    var link=base(tab+'.html')+'?c='+r.code;
+    show(d.name,link,link+'&p=1',d.programme+' invite created');
+    ['paste','pName','pEmail','pNote','pW1','pW2','pW3','pGoal','pLoom'].forEach(function(id){$(id).value='';});
+    load();
+  }).catch(function(){$('pMake').disabled=false;$('pErr').textContent='Couldn\u2019t reach the sheet. Check your signal and try again.';});
+};
+
+function ago(iso){if(!iso)return '';var s=(Date.now()-new Date(iso).getTime())/1000;if(s<90)return 'just now';var m=s/60;if(m<60)return Math.round(m)+' mins ago';var h=m/60;if(h<24)return Math.round(h)+(Math.round(h)===1?' hour ago':' hours ago');var d=Math.round(h/24);return d===1?'yesterday':d+' days ago';}
+function day(iso){if(!iso)return '';return new Date(iso).toLocaleDateString('en-GB',{day:'numeric',month:'short'});}
+function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function render(rows){
+  var box=$('items');
+  if(!rows.length){box.innerHTML='<div class="item"><p class="meta">Nothing sent yet. Your first one will show up here.</p></div>';return;}
+  box.innerHTML=rows.map(function(r){
+    var st=r.tapped?'<span class="dot paid"></span>Tapped '+esc(r.option||'to pay')+' '+ago(r.tappedAt):(r.opens?'<span class="dot seen"></span>Opened '+(r.opens===1?'once':r.opens+' times')+', last '+ago(r.last):'<span class="dot"></span>Not opened yet');
+    var t=r.programme==='Transformation';
+    var link=base((t?'transformation':'momentum')+'.html')+'?c='+encodeURIComponent(r.code);
+    return '<div class="item"><div><p class="nm">'+esc(r.name)+'</p><p class="meta">'+st+'</p><p class="meta">Sent '+day(r.created)+' &middot; <a href="'+link+'&p=1" target="_blank" rel="noopener" style="color:#111111">view</a></p></div><span class="pill '+(t?'t':'m')+'">'+(t?'Transformation':'Momentum')+'</span></div>';
+  }).join('');
+}
+function load(){post({action:'list',key:key}).then(function(d){if(d.ok)render(d.rows||[]);}).catch(function(){});}
+$('refresh').onclick=function(){load();toast('Updated');};
+
+var saved=getKey();if(saved){$('key').value=saved;unlock(saved);}
+setTab('momentum');
+})();
+</script>
+</body>
+</html>
