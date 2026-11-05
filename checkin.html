@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#000000">
 <title>Friday Check In | Zenith Fit</title>
+<meta name="description" content="Start your check in here. About 5 minutes, mostly one tap.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zenith Fit">
+<meta property="og:title" content="Friday Check In">
+<meta property="og:description" content="Start your check in here. About 5 minutes, mostly one tap.">
+<meta property="og:url" content="https://hq.zenithfit.co.uk/checkin.html">
+<meta property="og:image" content="https://hq.zenithfit.co.uk/checkin-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hq.zenithfit.co.uk/checkin-card.jpg">
 <link rel="icon" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -215,19 +226,23 @@ function clean(s){return (s||'').trim().replace(/\s+/g,' ');}
 function nameOk(s){return clean(s).split(' ').filter(p=>p.length>=2).length>=2;}
 function emailOk(s){return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(clean(s));}
 function first(s){return clean(s).split(' ')[0]||'';}
-function isOpen(){const d=new Date().getDay();return d===5||d===6||d===0;}
+function isOpen(){const d=new Date().getDay();return d===4||d===5||d===6||d===0;}
 function weekKey(){const d=new Date();const day=d.getDay();const shift=day===5?0:day===6?-1:day===0?-2:5-day;d.setDate(d.getDate()+shift);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
 function stamp(){return new Date().toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'});}
-function late(){const d=new Date();return d.getDay()!==5||d.getHours()>=15;}
+function late(){const d=new Date(),day=d.getDay();return (day===5&&d.getHours()>=15)||day===6||day===0;}
 
 // ---------- answers ----------
 const A={name:'',email:'',lastPromise:'',promiseTyped:'',promise:'',sessions:'',steps:null,food:'',waist:'',nutrition:null,light:'',reason:[],well:'',hard:'',weekend:'',need:'',next:''};
-try{const w=JSON.parse(localStorage.getItem(WHOKEY)||'null');if(w){A.name=w.name||'';A.email=w.email||'';}}catch(e){}
+let known=false;
+try{const w=JSON.parse(localStorage.getItem(WHOKEY)||'null');if(w&&w.name&&w.email){A.name=w.name;A.email=w.email;known=true;}}catch(e){}
+const HISTKEY='zf_checkin_hist';
+let localHist=[];
+try{localHist=JSON.parse(localStorage.getItem(HISTKEY)||'[]')||[];}catch(e){localHist=[];}
 try{const l=JSON.parse(localStorage.getItem(LASTKEY)||'null');if(l&&l.next&&l.week!==weekKey())A.lastPromise=l.next;}catch(e){}
 const DRAFTKEY='zf_checkin_draft';
 let draft=null;
 try{const dr=JSON.parse(localStorage.getItem(DRAFTKEY)||'null');if(dr&&dr.week===weekKey()&&dr.screen&&dr.a)draft=dr;else localStorage.removeItem(DRAFTKEY);}catch(e){}
-let pastWeeks=[];
+let pastWeeks=localHist.filter(h=>h&&h.week&&h.week!==weekKey()).sort((x,y)=>String(y.week).localeCompare(String(x.week)));
 
 const OPT={
   promise:{title:'Did you keep it?',help:'Be honest. If you nailed it, brilliant. If not, we work out why.',opts:['Yes','Partly','No'],cols:3,size:17},
@@ -251,7 +266,7 @@ const WORDS=['','OFF TRACK','OFF TRACK','TOUGH WEEK','MIXED','MIXED','GETTING TH
 
 function order(){
   const o=['welcome'];
-  if(auth==='no')o.push('who');
+  if(auth==='no'&&!known)o.push('who');
   o.push('promise','sessions','steps','food','waist','nutrition','light');
   if(A.light==='Amber'||A.light==='Red')o.push('reason');
   o.push('well','hard','weekend','need','next','done');
@@ -351,7 +366,7 @@ function render(){
 
   if(screen==='welcome'){
     const open=isOpen()||TEST;
-    const hi=auth==='no'?'HEY THERE':'HEY '+esc(first(authName).toUpperCase());
+    const hi=auth!=='no'?'HEY '+esc(first(authName).toUpperCase()):(known?'HEY '+esc(first(A.name).toUpperCase()):'HEY THERE');
     h='<div class="hero"><img src="checkin-hero.jpg" alt=""><div class="shade"></div><div class="in">'+
       '<span class="hi">'+hi+'</span><h1>CHECK IN</h1>'+
       (open
@@ -361,8 +376,9 @@ function render(){
             '<span class="small">You\'re part way through. Your answers are saved.</span>'+
             '<button type="button" class="restart" id="restart">Start again instead</button>'
            :'<button type="button" class="glow pulse" id="start" style="margin-top:10px">START CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
-            '<span class="small">About 5 minutes. Mostly one tap. Due by 3pm Friday.</span>')
-        :'<p>Your check in opens on Friday morning and stays open until Sunday night.</p><p>In the meantime, keep logging, keep moving, and keep the promise you made yourself.</p>'+
+            '<span class="small">About 5 minutes. Mostly one tap. Due by 3pm Friday.</span>'+
+            (auth==='no'&&known?'<button type="button" class="restart" id="notme">Not '+esc(first(A.name))+'? Tap here</button>':''))
+        :'<p>Your check in opens on Thursday morning and stays open until Sunday night.</p><p>In the meantime, keep logging, keep moving, and keep the promise you made yourself.</p>'+
          '<a class="glow" href="hq.html" style="margin-top:10px;text-decoration:none">BACK TO HQ'+ARROW+'</a>')+
       '</div></div>';
   }
@@ -372,7 +388,7 @@ function render(){
       '<label class="field">Full name<input type="text" id="f-name" autocomplete="name" enterkeyhint="next" placeholder="Joe Bloggs" value="'+esc(A.name)+'"></label>'+
       '<label class="field">Email<input type="email" id="f-email" autocomplete="email" inputmode="email" enterkeyhint="done" placeholder="joe@example.com" value="'+esc(A.email)+'"></label>'+
       '<div class="warn" id="who-warn">First and last name, and the email you use with Mark, please.</div>'+
-      '<div class="note"><p>Set up your HQ account and this fills itself in next week, along with last week\'s promise.</p><a href="joinhq.html">SET UP MY HQ ACCOUNT</a></div></div>';
+      '<div class="note"><p>You\'ll only need to do this once. Next week it remembers you, and last week\'s promise is filled in for you.</p></div></div>';
   }
   else if(OPT[screen]){
     const c=OPT[screen];
@@ -428,7 +444,6 @@ function runs(){
   return {kept,streak,noRun};
 }
 function streakCard(){
-  if(auth!=='yes')return '';
   const r=runs();if(!r.kept)return '';
   const past=pastWeeks.slice(0,6).reverse().map(h=>'<span class="d'+(h.promiseKept==='Yes'||h.promiseKept==='Partly'?' k':'')+'"></span>').join('');
   const msg=r.streak===1?"You did what you said you'd do. That's exactly how the trust in yourself gets rebuilt.":"That's "+r.streak+" weeks in a row you've done what you said you'd do. Keep building.";
@@ -442,8 +457,10 @@ function talkCard(){
     :'Tap the microphone at the bottom right of your keyboard and just say it. Your phone types it for you.';
   return '<div class="talk"><span class="ico" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M12 18v3"/></svg></span><div><b>Rather talk than type?</b><span>'+how+'</span></div></div>';
 }
+function loginLink(){return 'login.html?next='+encodeURIComponent('checkin.html'+(TEST?'?test=1':''));}
 function bind(){
   const s=$('start');if(s)s.onclick=()=>go(1);
+  const nm=$('notme');if(nm)nm.onclick=()=>{try{localStorage.removeItem(WHOKEY);localStorage.removeItem(HISTKEY);localStorage.removeItem(LASTKEY);}catch(e){}known=false;A.name='';A.email='';A.lastPromise='';pastWeeks=[];localHist=[];render();};
   const rs=$('resume');if(rs)rs.onclick=()=>{
     Object.assign(A,draft.a);if(!Array.isArray(A.reason))A.reason=[];
     const o=order();const to=o.indexOf(draft.screen)>0&&draft.screen!=='done'?draft.screen:o[1];
@@ -549,6 +566,8 @@ $('submit').onclick=async()=>{
   try{localStorage.setItem(LASTKEY,JSON.stringify({week:entry.week,next:entry.next}));}catch(e){}
   clearDraft();
   const R=runs();entry.streak=R.streak;entry.noRun=R.noRun;
+  try{const hh=localHist.filter(h=>h.week!==entry.week);hh.push({week:entry.week,promiseKept:A.promise,next:entry.next});localStorage.setItem(HISTKEY,JSON.stringify(hh.slice(-26)));}catch(e){}
+  if(auth==='no'){try{localStorage.setItem(WHOKEY,JSON.stringify({name:A.name,email:A.email}));}catch(e){}}
   main.classList.add('out');await new Promise(r=>setTimeout(r,220));
   screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
 
