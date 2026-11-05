@@ -48,7 +48,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,a:focus-visible{
 .count{font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--muted);min-width:42px;text-align:right}
 
 /* body */
-.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;transition:opacity .22s ease}
+.main{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;transition:opacity .3s ease}
 .main.out{opacity:0}
 .screen{flex:1;display:flex;flex-direction:column;gap:16px;padding:22px 22px 20px}
 .eyebrow{font-size:11px;font-weight:600;letter-spacing:.2em;color:var(--muted)}
@@ -331,7 +331,7 @@ function go(dir){
   if(o[n]===screen)return;
   moving=true;
   main.classList.add('out');
-  setTimeout(()=>{screen=o[n];render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{main.classList.remove('out');moving=false;}));},220);
+  setTimeout(()=>{screen=o[n];render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{main.classList.remove("out");moving=false;}));},300);
 }
 
 function canNext(){
@@ -502,13 +502,13 @@ function bind(){
     main.querySelectorAll('.tile').forEach(x=>{const on=x===b;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});
     syncBar();
     if(k==='promise'&&!A.lastPromise&&clean(A.promiseTyped).length<3){const f=$('f-promise');if(f)f.focus();return;}
-    setTimeout(()=>go(1),300);
+    setTimeout(()=>go(1),650);
   });
   const fn=$('f-name'),fe=$('f-email');
   if(fn){fn.oninput=()=>{A.name=fn.value;syncBar();};fe.oninput=()=>{A.email=fe.value;syncBar();};
     const w=()=>$('who-warn').classList.toggle('on',(clean(A.name)&&!nameOk(A.name))||(clean(A.email)&&!emailOk(A.email)));fn.onblur=w;fe.onblur=w;}
-  const ct=$('cant');if(ct)ct.onclick=()=>{dropKeyboard();A.promise="Can't remember";A.promiseTyped='';ct.classList.add('picked');main.querySelectorAll('.tile').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false');});syncBar();setTimeout(()=>go(1),300);};
-  const nt=$('notrack');if(nt)nt.onclick=()=>{A.steps='Not tracked';nt.classList.add('picked');syncBar();setTimeout(()=>go(1),300);};
+  const ct=$('cant');if(ct)ct.onclick=()=>{dropKeyboard();A.promise="Can't remember";A.promiseTyped='';ct.classList.add('picked');main.querySelectorAll('.tile').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-pressed','false');});syncBar();setTimeout(()=>go(1),650);};
+  const nt=$('notrack');if(nt)nt.onclick=()=>{A.steps='Not tracked';nt.classList.add('picked');syncBar();setTimeout(()=>go(1),650);};
   const fp=$('f-promise');if(fp){fp.oninput=()=>{A.promiseTyped=fp.value;syncBar();};fp.onkeydown=e=>{if(e.key==='Enter')fp.blur();};}
   if(fn){fn.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();fe.focus();}};fe.onkeydown=e=>{if(e.key==='Enter')fe.blur();};}
   const ft=$('f-text');if(ft)ft.oninput=()=>{A[screen]=ft.value;syncBar();};
