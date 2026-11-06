@@ -630,8 +630,12 @@ $('submit').onclick=async()=>{
   if(rp){rp.className='';rp.innerHTML='<p class="ovw">'+esc(plan.overview)+'</p>'+(plan.actions.length?'<div class="acts"><span class="k">YOUR ACTION PLAN</span>'+plan.actions.map((a,i)=>'<div class="act"><i>'+(i+1)+'</i><span>'+esc(a)+'</span></div>').join('')+'</div>':'');}
   entry.reply=failed?'':text.slice(0,800);entry.flag=flag;
 
+  // v18: every check in reaches the HQ database, logged in or not, so Mark can pull them all in one place.
+  const guestSave=(nm,em)=>fetch(API+'/entries/guest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool:TOOL,name:nm,email:em||'',data:entry})}).catch(()=>{});
   if(auth!=='no'&&authToken){
-    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:TOOL,data:entry})}).catch(()=>{});
+    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:TOOL,data:entry})}).then(r=>{if(r.status===401)guestSave(clean(authName),'');}).catch(()=>guestSave(clean(authName),''));
+  }else{
+    guestSave(A.name,A.email);
   }
   const who=auth==='no'?A.name:clean(authName);
   logToSheets({

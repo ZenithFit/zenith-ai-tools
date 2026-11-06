@@ -457,8 +457,12 @@ async function submit(){
     renderStrip();
 
     // Logged in: a copy goes to their Zenith account too. Quiet, best effort, Sheet stays the record.
+    // v18: every Rate Your Day reaches the HQ database, logged in or not, so Mark's morning report sees everyone.
+    const guestSave=()=>fetch(API+'/entries/guest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool:'Daily Review',name:fullName,data:entry})}).catch(()=>{});
     if(auth!=='no'&&authToken){
-      fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Daily Review',data:entry})}).catch(()=>{});
+      fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:'Daily Review',data:entry})}).then(r=>{if(r.status===401)guestSave();}).catch(guestSave);
+    }else{
+      guestSave();
     }
 
     logToSheets('Daily Review',{
