@@ -205,6 +205,9 @@ input[type=range]::-moz-range-track{background:transparent}
 .app.kb .help{font-size:14.5px}
 .app.kb .screen{padding-top:14px;gap:12px}
 .app.kb .bar{padding-bottom:10px}
+.app.kb #submitWrap>*:not(#submit):not(#err){display:none!important}
+.app.kb .screen .talk{display:none}
+.app.kb .screen h2{font-size:21px}
 </style>
 </head>
 <body>
@@ -323,6 +326,8 @@ window.addEventListener('scroll',()=>{if(window.scrollY)window.scrollTo(0,0);});
 // Tap anywhere that isn't a box to put the keyboard away
 main.addEventListener('pointerdown',e=>{const t=e.target;if(!t.closest('input,textarea,label')){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT'))a.blur();}});
 function dropKeyboard(){const a=document.activeElement;if(a&&a.blur)a.blur();}
+// Tapping anything in the bottom bar puts the keyboard away first, so the consent tick reappears
+document.getElementById('bar').addEventListener('pointerdown',()=>{if(typing())dropKeyboard();},true);
 
 function questions(){return order().filter(x=>x!=='welcome'&&x!=='who'&&x!=='done');}
 
