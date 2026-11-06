@@ -596,11 +596,10 @@ async function ask(){
   }finally{clearTimeout(t);}
 }
 
-function logToSheets(fields,message){
-  const payload={tool:TOOL,message:(window.ZFC?ZFC.stamp(message):message),...fields};
-  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)}).catch(()=>{});
+function logToSheets(fields,message,tool){
+  const payload={tool:tool||TOOL,message:(window.ZFC?ZFC.stamp(message):message),...fields};
+  fetch(SHEETS_URL,{method:'POST',mode:'no-cors',keepalive:true,body:JSON.stringify(payload)}).catch(()=>{});
 }
-
 $('submit').onclick=async()=>{
   dropKeyboard();
   if(!canNext()||submitted)return;
@@ -614,6 +613,24 @@ $('submit').onclick=async()=>{
   const R=runs();entry.streak=R.streak;entry.noRun=R.noRun;
   try{const hh=localHist.filter(h=>h.week!==entry.week);hh.push({week:entry.week,promiseKept:A.promise,next:entry.next});localStorage.setItem(HISTKEY,JSON.stringify(hh.slice(-26)));}catch(e){}
   if(auth==='no'){try{localStorage.setItem(WHOKEY,JSON.stringify({name:A.name,email:A.email}));}catch(e){}}
+  // Save the answers straight away, before the action plan, so nothing's lost if they close the page while it loads.
+  // v18: every check in reaches the HQ database, logged in or not, so Mark can pull them all in one place.
+  const guestSave=(nm,em)=>fetch(API+'/entries/guest',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify({tool:TOOL,name:nm,email:em||'',data:entry})}).catch(()=>{});
+  if(auth!=='no'&&authToken){
+    fetch(API+'/entries',{method:'POST',keepalive:true,headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:TOOL,data:entry})}).then(r=>{if(r.status===401)guestSave(clean(authName),'');}).catch(()=>guestSave(clean(authName),''));
+  }else{
+    guestSave(A.name,A.email);
+  }
+  const who=auth==='no'?A.name:clean(authName);
+  logToSheets({
+    field1_label:'Name',field1_value:who,
+    field2_label:'Traffic light',field2_value:A.light+(A.reason.length?' ('+A.reason.join(', ')+')':'')+(R.noRun>=3?' | '+R.noRun+' NOs IN A ROW':''),
+    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+(typeof A.steps==='number'?A.steps.toLocaleString('en-GB'):'not tracked')+' | Food days '+A.food+' | Nutrition '+A.nutrition+'/10'
+  },[
+    'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
+    '','Last week\'s promise: '+entry.lastPromise,(entry.other?'Something else: '+entry.other:'')+(entry.other?'\n':'')+'Went well: '+(entry.well||'none'),'Didn\'t go to plan: '+(entry.hard||'none'),
+    'Weekend plan: '+(entry.weekend||'none'),'Needs from Mark: '+(entry.need||'nothing'),'Next week\'s promise: '+entry.next
+  ].join('\n'));
   main.classList.add('out');await new Promise(r=>setTimeout(r,220));
   screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
 
@@ -634,26 +651,11 @@ $('submit').onclick=async()=>{
   const rp=$('reply');
   if(rp){rp.className='';rp.innerHTML='<p class="ovw">'+esc(plan.overview)+'</p>'+(plan.actions.length?'<div class="acts"><span class="k">YOUR ACTION PLAN</span>'+plan.actions.map((a,i)=>'<div class="act"><i>'+(i+1)+'</i><span>'+esc(a)+'</span></div>').join('')+'</div>':'');}
   entry.reply=failed?'':text.slice(0,800);entry.flag=flag;
-
-  // v18: every check in reaches the HQ database, logged in or not, so Mark can pull them all in one place.
-  const guestSave=(nm,em)=>fetch(API+'/entries/guest',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool:TOOL,name:nm,email:em||'',data:entry})}).catch(()=>{});
-  if(auth!=='no'&&authToken){
-    fetch(API+'/entries',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+authToken},body:JSON.stringify({tool:TOOL,data:entry})}).then(r=>{if(r.status===401)guestSave(clean(authName),'');}).catch(()=>guestSave(clean(authName),''));
-  }else{
-    guestSave(A.name,A.email);
-  }
-  const who=auth==='no'?A.name:clean(authName);
-  logToSheets({
-    field1_label:'Name',field1_value:who,
-    field2_label:'Traffic light',field2_value:A.light+(A.reason.length?' ('+A.reason.join(', ')+')':'')+(flag?' | FLAG':'')+(R.noRun>=3?' | '+R.noRun+' NOs IN A ROW':''),
-    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+(typeof A.steps==='number'?A.steps.toLocaleString('en-GB'):'not tracked')+' | Food days '+A.food+' | Nutrition '+A.nutrition+'/10'
-  },[
-    'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
-    '','Last week\'s promise: '+entry.lastPromise,(entry.other?'Something else: '+entry.other:'')+(entry.other?'\n':'')+'Went well: '+(entry.well||'none'),'Didn\'t go to plan: '+(entry.hard||'none'),
-    'Weekend plan: '+(entry.weekend||'none'),'Needs from Mark: '+(entry.need||'nothing'),'Next week\'s promise: '+entry.next,
-    '','Instant action plan'+(flag?' (FLAGGED, needs Mark)':'')+': '+(failed?'did not load':text)
-  ].join('\n'));
+  // The answers are already saved. This row adds the action plan they were given, so Mark sees it too.
+  logToSheets({field1_label:'Name',field1_value:(auth==='no'?A.name:clean(authName)),field2_label:'Flag',field2_value:(flag?'FLAG, needs Mark':''),field3_label:'Week',field3_value:entry.week},
+    'Instant action plan'+(flag?' (FLAGGED, needs Mark)':'')+': '+(failed?'did not load':text),'Friday Check In Plan');
 };
+
 
 // ---------- silent login check, the page works the same without it ----------
 async function initSession(){
