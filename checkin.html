@@ -106,6 +106,7 @@ h2{font-family:'Archivo',sans-serif;font-weight:600;font-size:25px;line-height:1
 /* inputs */
 .field{display:flex;flex-direction:column;gap:8px;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--ink)}
 .field input,.field textarea{width:100%;border:1px solid #DDE3E0;border-radius:14px;background:#fff;padding:0 16px;height:54px;font-family:inherit;font-size:16px;font-weight:400;letter-spacing:0;color:var(--ink)}
+textarea,input{direction:ltr;unicode-bidi:normal}
 textarea.big{min-height:180px;font-size:16px;height:auto;resize:none;border-radius:18px;padding:18px;line-height:1.55;box-shadow:0 10px 30px rgba(12,15,17,.04)}
 .field input::placeholder,textarea::placeholder{color:#9AA19E}
 .warn{font-size:13px;color:#B3261E;display:none}
@@ -310,19 +311,22 @@ const app=document.querySelector('.app');
 
 // While typing, keep the page sat exactly above the keyboard. The moment typing stops, snap back to full screen.
 function typing(){const a=document.activeElement;return !!(a&&(a.tagName==='TEXTAREA'||(a.tagName==='INPUT'&&a.type!=='range')));}
-function reset(){app.style.height='';app.style.transform='';app.classList.remove('kb');if(window.scrollY)window.scrollTo(0,0);}
+// iPhone only. Android resizes the page for the keyboard itself, and moving the page about while someone types can scramble their typing.
+const IOS=/iP(hone|ad|od)/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+function reset(){if(!IOS)return;if(app.style.height)app.style.height='';if(app.style.transform)app.style.transform='';if(app.classList.contains('kb'))app.classList.remove('kb');if(window.scrollY)window.scrollTo(0,0);}
 function fit(){
+  if(!IOS)return;
   const vv=window.visualViewport;
   if(!vv||!typing()||vv.height>window.innerHeight*0.85){reset();return;}
-  app.style.height=vv.height+'px';
-  app.style.transform='translateY('+vv.offsetTop+'px)';
-  app.classList.add('kb');
-  const a=document.activeElement;setTimeout(()=>a&&a.scrollIntoView&&a.scrollIntoView({block:'nearest'}),50);
+  const hh=vv.height+'px',tt='translateY('+vv.offsetTop+'px)',was=app.classList.contains('kb');
+  if(app.style.height!==hh)app.style.height=hh;
+  if(app.style.transform!==tt)app.style.transform=tt;
+  if(!was){app.classList.add('kb');const a=document.activeElement;setTimeout(()=>a&&a.scrollIntoView&&a.scrollIntoView({block:'nearest'}),50);}
 }
 document.addEventListener('focusout',()=>{[0,120,350,700].forEach(t=>setTimeout(()=>{if(!typing())reset();else fit();},t));});
 document.addEventListener('focusin',()=>{[60,300].forEach(t=>setTimeout(fit,t));});
 if(window.visualViewport){visualViewport.addEventListener('resize',fit);visualViewport.addEventListener('scroll',fit);}
-window.addEventListener('scroll',()=>{if(window.scrollY)window.scrollTo(0,0);});
+window.addEventListener('scroll',()=>{if(IOS&&window.scrollY)window.scrollTo(0,0);});
 // Tap anywhere that isn't a box to put the keyboard away
 main.addEventListener('pointerdown',e=>{const t=e.target;if(!t.closest('input,textarea,label')){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT'))a.blur();}});
 function dropKeyboard(){const a=document.activeElement;if(a&&a.blur)a.blur();}
@@ -359,13 +363,15 @@ function saveDraft(){
   try{localStorage.setItem(DRAFTKEY,JSON.stringify({week:weekKey(),screen:screen,a:A,at:Date.now()}));}catch(e){}
 }
 function clearDraft(){draft=null;try{localStorage.removeItem(DRAFTKEY);}catch(e){}}
+let draftT=null;
+document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(draftT);saveDraft();}});
 function syncBar(){
-  saveDraft();
+  clearTimeout(draftT);draftT=setTimeout(saveDraft,400);
   const last=screen==='next';
   $('next').classList.toggle('hide',last||screen==='done');
   $('submitWrap').classList.toggle('hide',!last);
   const sk=TEXT[screen]&&TEXT[screen].skip;
-  $('skip').classList.toggle('hide',!sk);if(sk)$('skip').textContent=sk;
+  $('skip').classList.toggle('hide',!sk);if(sk&&$('skip').textContent!==sk)$('skip').textContent=sk;
   $('home').classList.toggle('hide',screen!=='done');
   $('next').disabled=!canNext();
   $('submit').disabled=!canNext();
@@ -405,8 +411,10 @@ function render(){
         (doneThis.next?'<div class="donebox"><span class="k">YOUR PROMISE FOR NEXT WEEK</span><p>'+esc(doneThis.next)+'</p></div>':'')+
         (doneThis.actions&&doneThis.actions.length?'<div class="donebox"><span class="k">YOUR ACTION PLAN</span><ol>'+doneThis.actions.map(a=>'<li>'+esc(a)+'</li>').join('')+'</ol></div>':'')+
         '<a class="glow" href="hq.html" style="margin-top:6px;text-decoration:none">BACK TO HQ'+ARROW+'</a>'+
+        '<button type="button" id="redo" style="background:none;border:0;color:rgba(255,255,255,.75);font:500 14px Inter Tight,sans-serif;text-decoration:underline;margin-top:14px;padding:8px;cursor:pointer">Something gone wrong? Do it again</button>'+
         '</div></div>';
       main.innerHTML=h;bind();syncBar();
+      $('redo').onclick=()=>{doneThis=null;clearDraft();render();};
       $('prog').classList.remove('on');$('bar').classList.remove('on');$('toBack').classList.remove('hide');
       return;
     }
