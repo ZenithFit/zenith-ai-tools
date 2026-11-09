@@ -99,6 +99,13 @@ textarea:focus,input.txt:focus,.ev input:focus{outline:none;border-color:var(--g
 .hide{display:none!important}
 .foot{text-align:center;font-size:13px;color:var(--mut);margin:22px 0 0}
 .foot a{color:#C9CFCC}
+.hiw{display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;color:inherit;font:inherit}
+.hiw .pl{flex:none;width:44px;height:44px;border-radius:50%;background:rgba(240,100,110,.14);border:1px solid rgba(240,100,110,.35);display:grid;place-items:center}
+.hiw .pl svg{margin-left:3px}
+.vmod{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,.86);display:flex;align-items:center;justify-content:center;padding:20px}
+.vmod .vbox{position:relative;width:min(380px,100%);max-height:86vh;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000}
+.vmod iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vmod .vx{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.6);color:#fff;font-size:22px;line-height:1;cursor:pointer}
 </style>
 </head>
 <body>
@@ -120,6 +127,7 @@ textarea:focus,input.txt:focus,.ev input:focus{outline:none;border-color:var(--g
 <main>
   <!-- HOME -->
   <div id="v-home">
+    <button class="card opt hiw" type="button" onclick="openHow()"><span class="pl"><svg width="16" height="16" viewBox="0 0 24 24" fill="#F0646E" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span><span><span class="ot">Watch how it works</span><span class="os">A minute with me before you start.</span></span><span class="ch">&rsaquo;</span></button>
     <button class="card red opt" type="button" onclick="startPlan()"><span><span class="ot"><svg width="13" height="13" viewBox="0 0 24 24" fill="#F0646E" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.6 4.9L18 21.5 12 17.6 6 21.5l1.6-7.3L2 9.3l7.4-.4z"/></svg><span id="plan-t">Plan my December</span></span><span class="os" id="plan-s">2 minutes. Your whole season, sorted.</span></span><span class="ch">&rsaquo;</span></button>
     <button class="card opt" type="button" onclick="show('tonight')"><span><span class="ot">Tonight</span><span class="os">Got a do tonight? 60 second plan.</span></span><span class="ch">&rsaquo;</span></button>
     <button class="card opt" type="button" id="saved-btn" onclick="openSaved()"><span><span class="ot">My saved plan</span><span class="os" id="saved-s">Not made yet</span></span><span class="ch">&rsaquo;</span></button>
@@ -393,6 +401,12 @@ async function buildTonight(){
 function openSaved(){if(!saved){startPlan();return;}lastText=saved.plan;document.getElementById('res').innerHTML=render(saved.plan,'plan');document.getElementById('res-actions').classList.remove('hide');show('result');}
 function copyRes(){const t=lastText.replace(/^#{1,3}\s*/gm,'').replace(/\|/g,',');(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{const b=document.getElementById('copybtn');b.textContent='Copied';setTimeout(()=>b.textContent='Copy it',1600);}).catch(()=>{});}
 if(location.hash==='#tonight')show('tonight');
+</script>
+<div class="vmod hide" id="vmod" role="dialog" aria-modal="true" aria-label="How the Christmas Game Plan works" onclick="if(event.target===this)closeHow()"><button class="vx" type="button" aria-label="Close video" onclick="closeHow()">&times;</button><div class="vbox" id="vbox"></div></div>
+<script>
+function openHow(){var b=document.getElementById('vbox');b.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/8ySUFD1vXNM?autoplay=1&playsinline=1&rel=0&modestbranding=1" title="How the Christmas Game Plan works" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';document.getElementById('vmod').classList.remove('hide');document.body.style.overflow='hidden';}
+function closeHow(){document.getElementById('vbox').innerHTML='';document.getElementById('vmod').classList.add('hide');document.body.style.overflow='';}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeHow();});
 </script>
 </body>
 </html>
