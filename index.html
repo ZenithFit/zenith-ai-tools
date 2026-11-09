@@ -797,6 +797,21 @@ html body .bub{color:#111111!important;background:#F1F4F2!important;border-color
 html body .msg.u .bub{background:#E3F5EC!important;border:1px solid #BFE6D2!important;color:#111111!important}
 html body .tip-bar-text,html body .support-note,html body .support-note strong{color:#2A2F2D!important}
 html body .btn-targets-edit,html body .chat-copy-btn{background:#FFFFFF!important;color:#111111!important;border:1px solid #D5DBD8!important}
+
+/* ===== Apple style (Nov 2026): squircle corners, tactile taps, gentle reveal ===== */
+:root{--r-card:22px;--r-btn:14px}
+@supports (corner-shape:squircle){:root{--r-card:30px;--r-btn:20px}}
+.zc-card,.card,.rows,.vid-card,.pdf,.std-card,.note,.acct,.zt-tile,.zt-rows,.zt-feat,.tool-card,.result,.chat-wrap,.ms-link,.tour-open,.xmas-card,.opt,.strip,.hello,.zc,.side nav,.home-search input,.wk6-card,.tx-call,.vid-card iframe,.vid-thumb,.th,.hero-card{border-radius:var(--r-card)!important;corner-shape:squircle}
+.pill,.fx-pill,.zt-pill,.tx-btn,.tour-go,.ws-link,.bt-pill,.pdf .save,.submit,.btn,.btn-amber,.btn-send,.btn-sm,.xp,.filters button,.back-pill,.tb-out,.tb-back{border-radius:var(--r-btn)!important;corner-shape:squircle}
+/* tactile press */
+:is(a,button,label):is(.zc-card,.card,.zt-tile,.zt-row,.row,.pdf,.opt,.tool-card,.ms-link,.tour-open,.xmas-card,.chip,.day,.rest),.pill,.fx-pill,.zt-pill,.tx-btn,.tour-go,.ws-link,.bt-pill,.pdf .save,.submit,.btn,.btn-amber,.btn-send,.btn-sm,.filters button,.scale button,.row button,.pills button{transition:transform .32s cubic-bezier(.2,.9,.3,1.25),background .2s,border-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+:is(a,button,label):is(.zc-card,.card,.zt-tile,.pdf,.opt,.tool-card,.ms-link,.tour-open,.xmas-card):active{transform:scale(.975)}
+:is(a):is(.zt-row,.row):active{transform:scale(.985)}
+.pill:active,.fx-pill:active,.zt-pill:active,.tx-btn:active,.tour-go:active,.ws-link:active,.bt-pill:active,.pdf .save:active,.submit:not(:disabled):active,.btn:active,.btn-amber:active,.btn-send:active,.btn-sm:active,.filters button:active,.chip:active,.day:active,.rest:active,.scale button:active,.row button:active,.pills button:active{transform:scale(.95)}
+/* gentle one-time reveal (added by hq-motion.js, only below the fold) */
+.zf-rv{opacity:0;transform:translateY(16px)}
+.zf-rv.zf-in{opacity:1;transform:none;transition:opacity .55s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion:reduce){.zf-rv{opacity:1!important;transform:none!important}*{transition-duration:0s!important}}
 </style>
 </head>
 <body data-view="home">

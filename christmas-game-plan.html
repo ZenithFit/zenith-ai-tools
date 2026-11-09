@@ -106,6 +106,21 @@ textarea:focus,input.txt:focus,.ev input:focus{outline:none;border-color:var(--g
 .vmod .vbox{position:relative;width:min(380px,100%);max-height:86vh;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#000}
 .vmod iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vmod .vx{position:absolute;top:calc(env(safe-area-inset-top,0px) + 14px);right:14px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.6);color:#fff;font-size:22px;line-height:1;cursor:pointer}
+
+/* ===== Apple style (Nov 2026): squircle corners, tactile taps, gentle reveal ===== */
+:root{--r-card:22px;--r-btn:14px}
+@supports (corner-shape:squircle){:root{--r-card:30px;--r-btn:20px}}
+.zc-card,.card,.rows,.vid-card,.pdf,.std-card,.note,.acct,.zt-tile,.zt-rows,.zt-feat,.tool-card,.result,.chat-wrap,.ms-link,.tour-open,.xmas-card,.opt,.strip,.hello,.zc,.side nav,.home-search input,.wk6-card,.tx-call,.vid-card iframe,.vid-thumb,.th,.hero-card{border-radius:var(--r-card)!important;corner-shape:squircle}
+.pill,.fx-pill,.zt-pill,.tx-btn,.tour-go,.ws-link,.bt-pill,.pdf .save,.submit,.btn,.btn-amber,.btn-send,.btn-sm,.xp,.filters button,.back-pill,.tb-out,.tb-back{border-radius:var(--r-btn)!important;corner-shape:squircle}
+/* tactile press */
+:is(a,button,label):is(.zc-card,.card,.zt-tile,.zt-row,.row,.pdf,.opt,.tool-card,.ms-link,.tour-open,.xmas-card,.chip,.day,.rest),.pill,.fx-pill,.zt-pill,.tx-btn,.tour-go,.ws-link,.bt-pill,.pdf .save,.submit,.btn,.btn-amber,.btn-send,.btn-sm,.filters button,.scale button,.row button,.pills button{transition:transform .32s cubic-bezier(.2,.9,.3,1.25),background .2s,border-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+:is(a,button,label):is(.zc-card,.card,.zt-tile,.pdf,.opt,.tool-card,.ms-link,.tour-open,.xmas-card):active{transform:scale(.975)}
+:is(a):is(.zt-row,.row):active{transform:scale(.985)}
+.pill:active,.fx-pill:active,.zt-pill:active,.tx-btn:active,.tour-go:active,.ws-link:active,.bt-pill:active,.pdf .save:active,.submit:not(:disabled):active,.btn:active,.btn-amber:active,.btn-send:active,.btn-sm:active,.filters button:active,.chip:active,.day:active,.rest:active,.scale button:active,.row button:active,.pills button:active{transform:scale(.95)}
+/* gentle one-time reveal (added by hq-motion.js, only below the fold) */
+.zf-rv{opacity:0;transform:translateY(16px)}
+.zf-rv.zf-in{opacity:1;transform:none;transition:opacity .55s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+@media (prefers-reduced-motion:reduce){.zf-rv{opacity:1!important;transform:none!important}*{transition-duration:0s!important}}
 </style>
 </head>
 <body>
