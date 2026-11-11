@@ -365,7 +365,16 @@ window.addEventListener('scroll',()=>{if(IOS&&window.scrollY)window.scrollTo(0,0
 main.addEventListener('pointerdown',e=>{const t=e.target;if(!t.closest('input,textarea,label')){const a=document.activeElement;if(a&&(a.tagName==='TEXTAREA'||a.tagName==='INPUT'))a.blur();}});
 function dropKeyboard(){const a=document.activeElement;if(a&&a.blur)a.blur();}
 // Tapping anything in the bottom bar puts the keyboard away first, so the consent tick reappears
-document.getElementById('bar').addEventListener('pointerdown',()=>{if(typing())dropKeyboard();},true);
+let autoTap=0;
+document.getElementById('bar').addEventListener('pointerdown',e=>{
+  if(!typing())return;
+  // v2: NEXT works on the first tap with the keyboard up. We put the keyboard away and press the button for them,
+  // because the page moves as the keyboard closes and the phone would otherwise lose the tap.
+  const b=e.target.closest&&e.target.closest('#next,#skip');
+  dropKeyboard();
+  if(b&&!b.disabled){autoTap=Date.now();setTimeout(()=>b.click(),80);}
+},true);
+document.getElementById('bar').addEventListener('click',e=>{if(e.isTrusted&&Date.now()-autoTap<900){e.stopPropagation();e.preventDefault();}},true);
 
 function questions(){return order().filter(x=>x!=='welcome'&&x!=='who'&&x!=='done');}
 
@@ -442,8 +451,8 @@ function row(k,opts,cols){
   return '<div class="r8" style="grid-template-columns:repeat('+cols+',minmax(0,1fr))">'+opts.map(v=>{const on=isOn(k,v);return '<button type="button" class="rb'+(on?' on':'')+'" data-k="'+k+'" data-v="'+esc(v)+'" aria-pressed="'+on+'">'+esc(v)+'</button>';}).join('')+'</div>';
 }
 function head(title,help){return '<span class="eyebrow">'+SECTION[screen]+'</span><h2>'+esc(title)+'</h2>'+(help?'<p class="help">'+esc(help)+'</p>':'');}
-function area(k,ph,small){return '<textarea class="big'+(small?' sm':'')+'" data-t="'+k+'" aria-label="'+esc(ph)+'" placeholder="'+esc(ph)+'">'+esc(A[k])+'</textarea>';}
-function line(k,label,ph){return '<label class="field">'+esc(label)+'<input type="text" data-t="'+k+'" enterkeyhint="done" placeholder="'+esc(ph)+'" value="'+esc(A[k])+'"></label>';}
+function area(k,ph,small){return '<textarea class="big'+(small?' sm':'')+'" data-t="'+k+'" autocomplete="off" name="zf-'+k+'" aria-label="'+esc(ph)+'" placeholder="'+esc(ph)+'">'+esc(A[k])+'</textarea>';}
+function line(k,label,ph){return '<label class="field">'+esc(label)+'<input type="text" data-t="'+k+'" autocomplete="off" name="zf-'+k+'" enterkeyhint="done" placeholder="'+esc(ph)+'" value="'+esc(A[k])+'"></label>';}
 
 function render(){
   const qs=questions();const qi=qs.indexOf(screen);
