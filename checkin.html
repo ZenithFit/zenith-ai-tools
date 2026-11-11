@@ -241,6 +241,8 @@ textarea.big.sm{min-height:110px}
 .lbig span{color:#3FD494;font-variant-numeric:tabular-nums}
 .lcard .lmsg{font-family:'Inter Tight',sans-serif;font-weight:500;font-size:15px;color:rgba(255,255,255,.75);height:22px}
 .waitnote{font-size:13px;line-height:1.45;color:var(--muted);text-align:center}
+.bar{transition:opacity .22s ease}
+.app.swap .main,.app.swap .bar{opacity:0!important;transition:opacity .1s ease}
 </style>
 </head>
 <body>
@@ -370,11 +372,15 @@ document.getElementById('bar').addEventListener('pointerdown',e=>{
   if(!typing())return;
   // v2: NEXT works on the first tap with the keyboard up. We put the keyboard away and press the button for them,
   // because the page moves as the keyboard closes and the phone would otherwise lose the tap.
+  // v3: fade the screen out first, then drop the keyboard while nothing's showing, then bring the next screen in.
+  // That way nobody sees the page jump about as the keyboard closes.
   const b=e.target.closest&&e.target.closest('#next,#skip');
-  dropKeyboard();
-  if(b&&!b.disabled){autoTap=Date.now();setTimeout(()=>b.click(),80);}
+  app.classList.add('swap');
+  setTimeout(dropKeyboard,110);
+  if(b&&!b.disabled){autoTap=Date.now();setTimeout(()=>b.click(),430);}
+  else setTimeout(()=>app.classList.remove('swap'),480);
 },true);
-document.getElementById('bar').addEventListener('click',e=>{if(e.isTrusted&&Date.now()-autoTap<900){e.stopPropagation();e.preventDefault();}},true);
+document.getElementById('bar').addEventListener('click',e=>{if(e.isTrusted&&Date.now()-autoTap<1300){e.stopPropagation();e.preventDefault();}},true);
 
 function questions(){return order().filter(x=>x!=='welcome'&&x!=='who'&&x!=='done');}
 
@@ -388,7 +394,8 @@ function go(dir){
   if(o[n]===screen)return;
   moving=true;
   main.classList.add('out');
-  setTimeout(()=>{screen=o[n];render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{main.classList.remove("out");moving=false;}));},300);
+  const hidden=app.classList.contains('swap');
+  setTimeout(()=>{screen=o[n];render();main.scrollTop=0;requestAnimationFrame(()=>requestAnimationFrame(()=>{main.classList.remove("out");app.classList.remove('swap');moving=false;}));},hidden?30:300);
 }
 
 function canNext(){
@@ -655,7 +662,7 @@ function bind(){
 $('back').onclick=()=>{dropKeyboard();go(-1);};
 $('next').onclick=()=>{
   dropKeyboard();
-  if(!canNext()){if(screen==='who')$('who-warn').classList.add('on');return;}
+  if(!canNext()){app.classList.remove('swap');if(screen==='who')$('who-warn').classList.add('on');return;}
   if(screen==='who'){A.name=clean(A.name);A.email=clean(A.email).toLowerCase();try{localStorage.setItem(WHOKEY,JSON.stringify({name:A.name,email:A.email}));}catch(e){}loadStart();}
   go(1);
 };
