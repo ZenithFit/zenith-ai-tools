@@ -243,6 +243,10 @@ textarea.big.sm{min-height:110px}
 .waitnote{font-size:13px;line-height:1.45;color:var(--muted);text-align:center}
 .bar{transition:opacity .22s ease}
 .app.swap .main,.app.swap .bar{opacity:0!important;transition:opacity .1s ease}
+.lfact{position:relative;width:100%;border-top:1px solid rgba(255,255,255,.14);padding-top:18px;display:flex;flex-direction:column;gap:8px;text-align:center}
+.lfact .k{font-size:10.5px;font-weight:600;letter-spacing:.2em;color:#3FD494}
+.lfact p{font-size:16.5px;line-height:1.5;color:#fff;font-weight:500}
+.lcard{gap:16px}
 </style>
 </head>
 <body>
@@ -311,7 +315,7 @@ try{const l=JSON.parse(localStorage.getItem(LASTKEY)||'null');if(l&&l.next&&l.we
 if(TEST){
   const none=params.get('test')==='2';
   A.lastPromise=none?'':'Pre log my food every night';
-  A.lastQuestion=none?'':"What's the first thing that slipped, before the food?";
+  A.lastQuestion=none?'':"When last weekend went off track, what was the first thing that slipped, before the food?";
   A.planned=3;A.stepTarget=8000;
 }
 const DRAFTKEY='zf_checkin_draft2';
@@ -572,6 +576,7 @@ function render(){
   }
   else if(screen==='lastq'){
     h='<div class="screen"><span class="eyebrow">'+SECTION.lastq+'</span><h2>Last week I asked you a question</h2>'+
+      '<p class="help">It was in your feedback last Friday. There\'s no right answer. Tell me what you think now you\'ve had a week with it.</p>'+
       '<div class="pcard"><span class="k">FROM LAST WEEK\'S FEEDBACK</span><p>'+esc(A.lastQuestion)+'</p></div>'+area('lastq','Having thought about it...',true)+'</div>';
   }
   else if(screen==='ahead'){
@@ -591,7 +596,7 @@ function render(){
     const fn=auth==='no'?first(A.name):first(authName);
     h='<div class="screen" style="gap:14px;padding-top:20px">'+
       '<div class="dcard"><div class="ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Check in complete</h2><p id="dmsg">Thanks '+esc(fn)+'. Just hang around for 20 seconds and you\'ll get your instant feedback.</p></div>'+
-      '<div class="lcard" id="planload" role="status" aria-live="polite"><div class="lring"><img src="zf-logo.png" alt=""></div><div class="lk">YOUR INSTANT FEEDBACK</div><div class="lbig">Hang around for <span id="lsec">20</span> seconds</div><div class="lmsg"><span>Reading your answers</span><span>Looking back at your last few weeks</span><span>Writing your feedback</span></div><div class="lnote">Stay on this page. It\'s on its way.</div></div>'+
+      '<div class="lcard" id="planload" role="status" aria-live="polite"><div class="lring"><img src="zf-logo.png" alt=""></div><div class="lk">YOUR INSTANT FEEDBACK</div><div class="lbig">Hang around for <span id="lsec">20</span> seconds</div><div class="lnote">Stay on this page. It\'s on its way.</div><div class="lfact"><span class="k">WHILE YOU WAIT</span><p>'+esc(waitLine())+'</p></div></div>'+
             streakCard()+
       '<div class="wcard wait" id="result"><div><div class="ttl">Your instant feedback</div><p class="sub" style="margin-top:4px">I go through every check in myself. If anything\'s urgent, you\'ll hear back from me ASAP.</p></div>'+
       '<div id="reply" class="loading"><i></i>Writing your feedback</div></div>'+
@@ -601,6 +606,10 @@ function render(){
   bind();
   syncBar();
 }
+
+// ---------- something to read while the feedback is written. One line per wait, never the same one twice running. ----------
+const WAITLINES=["One bad meal doesn't ruin the week. It's 1 meal out of about 21. The next one puts you straight back on plan.", "The scales going up overnight doesn't mean body fat. It's far more likely to be water, salt and food still in your system.", "You can eat carbs after 6pm. Your body doesn't own a clock. What you eat across the whole week is what counts.", "You don't need to feel motivated to start. Motivation turns up after you've started.", "A 20 minute session still counts. Something beats nothing, every single time.", "Lifting weights won't make you bulky. It makes you stronger, and it keeps hold of your muscle while the fat comes off.", "You can't burn off a bad day with extra cardio. Get back to your normal plan at the next meal.", "No food is off limits. 80% of the time we eat for the goal, 20% of the time we eat for life.", "Sit ups won't shift fat from your stomach. You can't choose where it comes off. Keep doing the basics and it comes off everywhere.", "Being sore the next day doesn't tell you it was a good session. Turning up again does.", "Your steps count as much as your sessions. A walk every day does more than most people think.", "A slow week is still a week in the right direction. Fat loss never moves in a straight line.", "This works on consistent, average weeks. Perfect weeks were never part of the plan.", "Poor sleep makes you hungrier the next day. Getting to bed on time is part of the plan.", "Missing 1 session changes nothing. Missing the next one is where it starts. Never miss twice.", "Fat loss still works through the menopause. Strength training, protein, steps and sleep matter more than ever.", "Plan your food the night before and tomorrow gets a lot easier. Most bad days were never planned.", "The weekend is 2 days out of 7. That's nearly a third of your week, so it gets a plan too.", "You don't need to earn your food with exercise. Food is fuel, and training is for getting stronger.", "The scales are one measure. Your clothes, your photos, your energy and your strength count too."];
+function waitLine(){let last=-1;try{last=parseInt(localStorage.getItem('zf_checkin_waitline'),10);}catch(e){}let i=Math.floor(Math.random()*WAITLINES.length);if(i===last)i=(i+1)%WAITLINES.length;try{localStorage.setItem('zf_checkin_waitline',String(i));}catch(e){}return WAITLINES[i];}
 
 function runs(){
   // history is newest first, one per week, this week excluded
