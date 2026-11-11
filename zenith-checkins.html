@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Check Ins | Zenith Admin</title>
+<link rel="icon" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--g:#3FD494;--ink:#111111;--dark:#0C0F11;--bg:#F4F6F5;--line:#E1E6E3;--body:#4A524E;--muted:#5A625E}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter Tight',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;padding-bottom:60px}
+button,input,select,textarea{font-family:inherit}
+button{cursor:pointer}
+.top{background:#000;height:60px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.brand img{width:32px;height:32px;border-radius:8px}
+.brand span{font-family:'Archivo',sans-serif;font-weight:600;font-size:13px;letter-spacing:.2em;color:#fff}
+.top a.r{font-size:11px;font-weight:600;letter-spacing:.18em;color:#9AA39F;text-decoration:none;height:36px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);display:inline-flex;align-items:center}
+.wrap{max-width:760px;margin:0 auto;padding:22px 16px}
+h1{font-family:'Archivo',sans-serif;font-weight:800;font-size:26px;letter-spacing:.02em;text-transform:uppercase}
+h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:18px;letter-spacing:.03em;text-transform:uppercase;margin:26px 0 10px}
+.muted{font-size:13.5px;color:var(--muted);line-height:1.5}
+.hidden{display:none!important}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:16px}
+.unlock{display:flex;gap:8px;margin-top:12px}
+.unlock input{flex:1;height:48px;border:1px solid var(--line);border-radius:14px;padding:0 14px;font-size:16px}
+.pill{height:48px;padding:0 20px;border-radius:999px;border:none;background:var(--g);color:var(--dark);font-weight:700;font-size:13px;letter-spacing:.08em}
+.pill.plain{background:#fff;border:1px solid #D3DAD6;color:var(--ink);height:40px;padding:0 14px}
+.tabs{display:flex;gap:8px;margin:16px 0 6px}
+.tab{height:40px;padding:0 16px;border-radius:999px;border:1px solid #D3DAD6;background:#fff;font-weight:600;font-size:13px}
+.tab.on{background:var(--dark);color:#fff;border-color:var(--dark)}
+.weekbar{display:flex;align-items:center;gap:8px;margin:10px 0}
+.weekbar b{flex:1;text-align:center;font-size:14.5px}
+.counts{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.count{font-size:12.5px;font-weight:600;padding:6px 10px;border-radius:999px;background:#fff;border:1px solid var(--line)}
+.row{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
+.row.flag{border-color:var(--g);box-shadow:0 0 0 3px rgba(63,212,148,.15)}
+.row .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dot{width:11px;height:11px;border-radius:99px;flex-shrink:0}
+.row .nm{font-weight:700;font-size:15px}
+.row .tr{font-size:12.5px;font-weight:600;color:var(--muted)}
+.tag{font-size:11px;font-weight:700;letter-spacing:.04em;padding:3px 8px;border-radius:999px;background:var(--dark);color:#fff}
+.tag.soft{background:#EEF2F0;color:var(--ink)}
+.sum{font-size:14px;line-height:1.5;color:var(--ink);margin-top:6px}
+.ask{font-size:14px;line-height:1.5;margin-top:6px;padding:8px 10px;border-radius:10px;background:#EEF9F3}
+.more{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px}
+.row.open .more{display:block}
+.more h4{font-size:11px;letter-spacing:.16em;color:var(--muted);margin:10px 0 6px}
+.reply{font-size:14.5px;line-height:1.6;white-space:pre-line}
+.kv{font-size:13.5px;line-height:1.55;color:var(--body)}
+.kv b{color:var(--ink)}
+.missing{font-size:13.5px;line-height:1.7;color:var(--body)}
+.prof{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.prof .nm{font-weight:700;font-size:15px;display:flex;justify-content:space-between;gap:8px}
+.prof .nm span{font-size:12px;font-weight:600;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr 1.3fr;gap:8px;margin-top:8px}
+.pgrid label,.prof label.full{font-size:11.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+.pgrid input,.pgrid select,.prof textarea{height:42px;border:1px solid var(--line);border-radius:10px;padding:0 10px;font-size:15px;background:#fff;color:var(--ink);width:100%}
+.prof textarea{height:auto;min-height:44px;padding:10px;margin-top:0;resize:vertical;line-height:1.4}
+.prof label.full{margin-top:8px}
+.saved{color:#0B7A4E!important}
+.search{width:100%;height:46px;border:1px solid var(--line);border-radius:14px;padding:0 14px;font-size:16px;margin-bottom:10px}
+.msg{font-size:13.5px;color:#B3261E;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="brand" href="zenith-admin.html"><img src="zf-logo.png" alt=""><span>ZENITH FIT</span></a>
+  <a class="r" href="zenith-admin.html">ADMIN</a>
+</div>
+<div class="wrap">
+  <h1>Friday check ins</h1>
+  <p class="muted">Your private list. One line each, anything that needs you sits at the top.</p>
+
+  <div id="unlockPanel" class="card" style="margin-top:16px">
+    <b>Admin key</b>
+    <div class="unlock"><input type="password" id="adminKey" placeholder="Your admin key" autocomplete="current-password"><button class="pill" id="unlockBtn">UNLOCK</button></div>
+    <div class="msg hidden" id="unlockMsg">Wrong key. Try again.</div>
+  </div>
+
+  <div id="mainArea" class="hidden">
+    <div class="tabs"><button class="tab on" data-tab="list">CHECK INS</button><button class="tab" data-tab="profiles">CLIENT PROFILES</button></div>
+
+    <div id="tab-list">
+      <div class="weekbar"><button class="pill plain" id="prevWk">EARLIER</button><b id="wkLabel"></b><button class="pill plain" id="nextWk">LATER</button></div>
+      <div class="counts" id="counts"></div>
+      <div id="rows"></div>
+      <h2>Still to come</h2>
+      <p class="missing" id="missing"></p>
+    </div>
+
+    <div id="tab-profiles" class="hidden">
+      <p class="muted" style="margin:8px 0 12px">Set these once per client. The check in uses them to show "3 planned", to tier the week properly, and to write feedback the way you'd coach that person. Each box saves as you leave it.</p>
+      <input class="search" id="search" placeholder="Search a client">
+      <div id="profiles"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WORKER='https://zenith-fit.mark-5a5.workers.dev';
+const $=id=>document.getElementById(id);
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function key(){return sessionStorage.getItem('zenith_admin_key')||'';}
+async function api(path,method,body){
+  const res=await fetch(WORKER+path,{method:method||'GET',headers:{'Content-Type':'application/json','X-Admin-Key':key()},body:body?JSON.stringify(body):undefined});
+  const data=await res.json();
+  if(!res.ok)throw new Error(data.error||'Request failed');
+  return data;
+}
+function fmt(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+// the Friday the check in belongs to: Thursday to Sunday count as this Friday, Monday to Wednesday look at last Friday
+function thisFriday(){const d=new Date();const day=d.getDay();const shift=day===5?0:day===6?-1:day===0?-2:day===4?1:-(day+2);d.setDate(d.getDate()+shift);return d;}
+let wk=thisFriday();
+const TIER={hold:{c:'#111111',l:'Held'},red:{c:'#E5484D',l:'Red'},amber:{c:'#F2B33D',l:'Amber'},green:{c:'#3FD494',l:'Green'},none:{c:'#C6CDCA',l:'No feedback'}};
+const FLAG={hold:'NEEDS YOU',asked:'ASKED YOU',not_where:'NOT WHERE THEY WANT TO BE',three_no:'3 NOs IN A ROW',low_confidence:'LOW CONFIDENCE',late:'LATE'};
+const URGENT=['hold','asked','not_where','three_no'];
+
+async function unlock(){
+  sessionStorage.setItem('zenith_admin_key',$('adminKey').value);
+  try{await loadWeek();$('unlockPanel').classList.add('hidden');$('mainArea').classList.remove('hidden');}
+  catch(e){sessionStorage.removeItem('zenith_admin_key');$('unlockMsg').classList.remove('hidden');}
+}
+$('unlockBtn').onclick=unlock;
+$('adminKey').addEventListener('keydown',e=>{if(e.key==='Enter')unlock();});
+
+function rank(r){
+  const f=(r.reply&&r.reply.flags)||[];const t=(r.reply&&r.reply.tier)||'none';
+  if(f.indexOf('hold')>=0)return 0;if(f.indexOf('asked')>=0)return 1;if(f.indexOf('not_where')>=0||f.indexOf('three_no')>=0)return 2;
+  return t==='red'?3:t==='amber'?4:t==='none'?5:6;
+}
+function kv(k,v){return v===''||v==null||(Array.isArray(v)&&!v.length)?'':'<b>'+esc(k)+':</b> '+esc(Array.isArray(v)?v.join(', '):v)+'<br>';}
+async function loadWeek(){
+  const week=fmt(wk);
+  $('wkLabel').textContent='Friday '+wk.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+  const d=await api('/admin/checkins?week='+week);
+  const rows=(d.rows||[]).slice().sort((a,b)=>rank(a)-rank(b)||String(a.name).localeCompare(String(b.name)));
+  const real=rows.filter(r=>!(r.entry&&r.entry.test)&&!(r.reply&&r.reply.test));
+  const n=t=>real.filter(r=>((r.reply&&r.reply.tier)||'none')===t).length;
+  const need=real.filter(r=>((r.reply&&r.reply.flags)||[]).some(f=>URGENT.indexOf(f)>=0)).length;
+  $('counts').innerHTML=['<span class="count">'+real.length+' in</span>','<span class="count">'+(d.missing||[]).length+' to come</span>','<span class="count">'+need+' need you</span>',
+    '<span class="count">'+n('green')+' green</span>','<span class="count">'+n('amber')+' amber</span>','<span class="count">'+n('red')+' red</span>'].join('');
+  $('rows').innerHTML=rows.length?rows.map(r=>{
+    const e=r.entry||{},rp=r.reply||{};const t=TIER[rp.tier]||TIER.none;const flags=rp.flags||[];
+    const urgent=flags.some(f=>URGENT.indexOf(f)>=0);const test=e.test||rp.test;
+    return '<div class="row'+(urgent?' flag':'')+'">'+
+      '<div class="hd"><span class="dot" style="background:'+t.c+'"></span><span class="nm">'+esc(r.name)+'</span><span class="tr">'+t.l+(e.light?', rated themselves '+esc(e.light):'')+'</span>'+
+      (test?'<span class="tag soft">TEST</span>':'')+(!r.matched?'<span class="tag soft">NO HQ ACCOUNT MATCH</span>':'')+
+      flags.map(f=>'<span class="tag'+(URGENT.indexOf(f)>=0?'':' soft')+'">'+(FLAG[f]||esc(f))+'</span>').join('')+'</div>'+
+      '<div class="sum">'+esc(rp.summary||(r.reply?'':(e.v===2?'Answers are in. The feedback didn\'t get written, so this one needs reading.':'Sent on the old check in, so there\'s no summary. Tap to read the answers.')))+'</div>'+
+      (rp.need?'<div class="ask"><b>Asked you:</b> '+esc(rp.need)+'</div>':'')+
+      '<div class="more">'+
+        (rp.reply?'<h4>THE FEEDBACK THEY GOT</h4><div class="reply">'+esc(rp.reply)+'</div>':'')+
+        (rp.promise?'<h4>PROMISE FOR NEXT WEEK'+(rp.promise_changed?' (RESET)':'')+'</h4><div class="kv">'+esc(rp.promise)+'</div>':'')+
+        '<h4>THEIR ANSWERS</h4><div class="kv">'+
+        kv('Proud of',e.proud||e.well)+kv('Last promise',e.lastPromise)+kv('Kept',e.promiseKept)+kv('Got in the way',(e.blockers||[]).concat(e.blockerText?[e.blockerText]:[]))+
+        kv('Sessions',e.sessions)+kv('Steps',e.steps)+kv('Days logged',e.foodDays)+kv('Last weekend',e.lastWeekend)+kv('Weekend detail',(e.railsWhy||[]).concat(e.weekendText?[e.weekendText]:[]))+
+        kv('Sleep',e.sleep)+kv('Energy',e.energy)+kv('Stress',e.stress)+kv('Things are going',e.going)+
+        kv('One moment',e.moment||e.hard)+kv('Would do instead',e.instead)+kv('Last week\'s question',e.lastQuestion)+kv('Their answer',e.lastqAnswer)+
+        kv('On this weekend',e.weekendOn||e.weekend)+kv('Most likely to knock them off',e.trip)+
+        kv('Their promise',e.next)+kv('When',e.when)+kv('Confidence',e.sure==null?'':e.sure+' out of 10')+kv('Sent',r.at)+
+        '</div></div></div>';
+  }).join(''):'<p class="muted">Nothing in yet for this week.</p>';
+  document.querySelectorAll('#rows .row').forEach(el=>el.onclick=()=>el.classList.toggle('open'));
+  $('missing').textContent=(d.missing||[]).join(', ')||'Everyone\'s in.';
+}
+$('prevWk').onclick=()=>{wk.setDate(wk.getDate()-7);loadWeek();};
+$('nextWk').onclick=()=>{wk.setDate(wk.getDate()+7);loadWeek();};
+
+// ---------- client profiles ----------
+let profilesLoaded=false;
+async function loadProfiles(){
+  const list=await api('/admin/profiles');
+  $('profiles').innerHTML=list.map(c=>
+    '<div class="prof" data-id="'+c.id+'" data-name="'+esc(String(c.name).toLowerCase())+'">'+
+    '<div class="nm">'+esc(c.name)+'<span class="st">'+(c.updated_at?'Set':'Not set yet')+'</span></div>'+
+    '<div class="pgrid">'+
+    '<label>Sessions a week<input type="number" inputmode="numeric" min="0" max="14" data-f="sessions" value="'+(c.sessions||'')+'"></label>'+
+    '<label>Step target<input type="number" inputmode="numeric" min="0" step="500" data-f="steps" value="'+(c.steps||'')+'"></label>'+
+    '<label>Nutrition<select data-f="nutrition"><option value="">Not set</option><option'+(c.nutrition==='Tracker'?' selected':'')+'>Tracker</option><option'+(c.nutrition==='Smart Plate'?' selected':'')+'>Smart Plate</option></select></label>'+
+    '</div><label class="full">How to coach them, in one line<textarea data-f="note" maxlength="500" placeholder="Short and sharp. Keep her off the scales. Likes to be pushed.">'+esc(c.note||'')+'</textarea></label></div>').join('');
+  document.querySelectorAll('#profiles .prof').forEach(el=>{
+    el.querySelectorAll('[data-f]').forEach(f=>f.onchange=async()=>{
+      const g=n=>el.querySelector('[data-f="'+n+'"]').value;const st=el.querySelector('.st');
+      st.textContent='Saving';st.classList.remove('saved');
+      try{await api('/admin/profile','POST',{id:+el.dataset.id,sessions:g('sessions'),steps:g('steps'),nutrition:g('nutrition'),note:g('note')});st.textContent='Saved';st.classList.add('saved');}
+      catch(e){st.textContent='Not saved, try again';}
+    });
+  });
+  profilesLoaded=true;
+}
+$('search').oninput=()=>{const q=$('search').value.trim().toLowerCase();document.querySelectorAll('#profiles .prof').forEach(el=>el.classList.toggle('hidden',q&&el.dataset.name.indexOf(q)<0));};
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===t));
+  $('tab-list').classList.toggle('hidden',t.dataset.tab!=='list');
+  $('tab-profiles').classList.toggle('hidden',t.dataset.tab!=='profiles');
+  if(t.dataset.tab==='profiles'&&!profilesLoaded)loadProfiles().catch(()=>{});
+});
+if(key())unlock.call(null,($('adminKey').value=key()));
+</script>
+</body>
+</html>
