@@ -35,6 +35,9 @@
         var have=localStorage.getItem(KEY);
         if(!have){localStorage.setItem(KEY,v);return;}
         if(have!==v){
+          // Never reload over something they're typing or a page they're halfway through
+          var busy=[].some.call(document.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),textarea'),function(e){return e.offsetParent!==null&&e.value&&e.value.trim()&&e.value!==e.defaultValue&&!e.readOnly;})||document.querySelectorAll('.msg.u').length>0||!!document.querySelector('.scale button.on,.row button.on,.day.on');
+          if(busy)return;
           localStorage.setItem(KEY,v);
           var u=new URL(location.href);u.searchParams.set('v',v);
           location.replace(u.toString());

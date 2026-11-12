@@ -3,7 +3,7 @@
   "short_name": "Zenith HQ",
   "start_url": "/hq.html",
   "scope": "/",
-  "display": "browser",
+  "display": "standalone",
   "background_color": "#0C0F11",
   "theme_color": "#000000",
   "icons": [
