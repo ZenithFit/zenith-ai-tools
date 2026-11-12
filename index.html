@@ -812,7 +812,6 @@ html body .btn-targets-edit,html body .chat-copy-btn{background:#FFFFFF!importan
 .zf-rv{opacity:0;transform:translateY(16px)}
 .zf-rv.zf-in{opacity:1;transform:none;transition:opacity .55s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
 @media (prefers-reduced-motion:reduce){.zf-rv{opacity:1!important;transform:none!important}*{transition-duration:0s!important}}
-html body #m-mode .chip.on{background:#111111!important;color:#FFFFFF!important;border-color:#111111!important}
 </style>
 </head>
 <body data-view="home">
@@ -840,10 +839,11 @@ html body #m-mode .chip.on{background:#111111!important;color:#FFFFFF!important;
   <div class="sb-section">
     <div class="sb-section-label">Nutrition</div>
     <div class="sb-item" onclick="goPage('protein',this)"><span class="sb-item-ico">🥩</span> Protein Fixer</div>
-    <div class="sb-item" onclick="goPage('meal',this)"><span class="sb-item-ico">🍳</span> Create a Meal</div>
+    <div class="sb-item" onclick="goPage('recipe',this)"><span class="sb-item-ico">🍳</span> Recipe Generator</div>
     <div class="sb-item" onclick="goPage('plan',this)"><span class="sb-item-ico">📋</span> 5-Day Meal Planner</div>
     <div class="sb-item" onclick="goPage('grocery',this)"><span class="sb-item-ico">🛒</span> Grocery List</div>
     <div class="sb-item" onclick="goPage('food',this)"><span class="sb-item-ico">🔍</span> Food Checker</div>
+    <div class="sb-item" onclick="goPage('fridge',this)"><span class="sb-item-ico">🧊</span> What's In My Fridge?</div>
     <div class="sb-item" onclick="goPage('eating',this)"><span class="sb-item-ico">🍽️</span> Eating Out Guide</div>
     <div class="sb-item" onclick="goPage('supp',this)"><span class="sb-item-ico">💊</span> Supplement Checker</div>
   </div>
@@ -891,13 +891,14 @@ html body #m-mode .chip.on{background:#111111!important;color:#FFFFFF!important;
       </div>
       <div class="zt-grid">
         <div class="zt-tile sos" onclick="goPage('panic')" role="button" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></span><h4>Panic Button</h4><p>Before the cupboard wins. 2 minutes with me.</p></div>
-        <div class="zt-tile" onclick="goPage('meal')" role="button" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 11h16M5 11a7 7 0 0 0 14 0M9 4c0 2 2 2 2 4M14 4c0 2 2 2 2 4"/></svg></span><h4>Create a Meal</h4><p>Tell me what you've got. I'll make it a meal.</p></div>
+        <div class="zt-tile" onclick="goPage('recipe')" role="button" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 11h16M5 11a7 7 0 0 0 14 0M9 4c0 2 2 2 2 4M14 4c0 2 2 2 2 4"/></svg></span><h4>Recipe Generator</h4><p>Food that tastes good and hits your numbers.</p></div>
+        <div class="zt-tile" onclick="goPage('fridge')" role="button" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 10h14M9 6v1M9 13v3"/></svg></span><h4>What's In My Fridge</h4><p>A proper meal from whatever you've got right now.</p></div>
         <a class="zt-tile" href="weekend-game-plan.html"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><h4>Weekend Game Plan</h4><p>Enjoy the weekend without undoing the week.</p></a>
-        <div class="zt-tile" onclick="goPage('food')" role="button" tabindex="0"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m20 20-4.2-4.2"/></svg></span><h4>Food Checker</h4><p>Calories and protein in anything.</p></div>
       </div>
       <div class="zt-lbl">Food</div>
       <div class="zt-rows">
         <div class="zt-row" onclick="goPage('plan')"><span><span class="t">5 Day Meal Planner</span><span class="s">Monday to Friday, built to your targets</span></span><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
+        <div class="zt-row" onclick="goPage('food')"><span><span class="t">Food Checker</span><span class="s">Calories and protein in anything</span></span><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
         <div class="zt-row" onclick="goPage('protein')"><span><span class="t">Protein Fixer</span><span class="s">Find where your protein's going missing</span></span><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
         <div class="zt-row" onclick="goPage('eating')"><span><span class="t">Eating Out Guide</span><span class="s">The smart order, wherever you are</span></span><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
         <div class="zt-row" onclick="goPage('grocery')"><span><span class="t">Grocery List</span><span class="s">Your shop, written for you</span></span><svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg></div>
@@ -1087,35 +1088,31 @@ html body #m-mode .chip.on{background:#111111!important;color:#FFFFFF!important;
       </div>
     </div>
 
-    <!-- CREATE A MEAL (replaces Recipe Generator and What's In My Fridge, Nov 2026) -->
-    <div class="page" id="page-meal">
+    <!-- RECIPE -->
+    <div class="page" id="page-recipe">
       <div class="page-hdr">
-        <span class="page-hdr-eyebrow">Food</span>
-        <div class="page-title">Create a Meal</div>
-        <div class="page-desc">Tell me what you've got in and I'll make a proper meal out of it. Nothing in mind? Leave it blank and I'll give you an idea.</div>
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">Recipe Generator</div>
+        <div class="page-desc">Your targets, your preferences, real UK ingredients. Food that actually tastes good and hits your numbers.</div>
       </div>
       <div class="card">
-        <div class="f1"><div class="fg"><label class="fl">What have you got in?</label><textarea class="fi" id="m-foods" rows="3" placeholder="e.g. chicken, peppers, rice, Greek yoghurt... or leave it blank" style="resize:vertical;min-height:84px"></textarea></div></div>
+        <span class="card-label">Your Details</span>
         <div class="f2">
-          <div class="fg"><label class="fl">Which meal?</label><select class="fs" id="m-type"><option>Breakfast</option><option>Lunch</option><option selected>Dinner</option><option>Snack</option></select></div>
-          <div class="fg"><label class="fl">How long have you got?</label><select class="fs" id="m-time"><option>10 minutes</option><option selected>20 minutes</option><option>30 minutes</option><option>45 minutes</option></select></div>
+          <div class="fg"><label class="fl">Calories per meal (kcal)</label><input class="fi" id="r-kcal" type="number" placeholder="e.g. 500"></div>
+          <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="r-prot" type="number" placeholder="e.g. 40"></div>
         </div>
-        <div class="f1"><div class="fg"><label class="fl">Anything to avoid?</label><input class="fi" id="m-avoid" placeholder="e.g. no dairy, not too spicy..."></div></div>
-        <div class="f1"><div class="fg"><label class="fl">How do you track your food?</label>
-          <div class="chips" id="m-mode" style="margin-top:2px"><div class="chip" data-v="track" onclick="mealMode('track')">I track calories</div><div class="chip" data-v="plate" onclick="mealMode('plate')">Smart Plate or photos</div></div>
-          <div id="m-tline" style="font-size:13px;color:#6B716F;margin-top:10px;line-height:1.5"></div>
-          <div class="f2" id="m-tfields" style="display:none;margin-top:10px">
-            <div class="fg"><label class="fl">Calories for this meal</label><input class="fi" id="m-kcal" type="number" inputmode="numeric" placeholder="e.g. 500"></div>
-            <div class="fg"><label class="fl">Protein for this meal (g)</label><input class="fi" id="m-prot" type="number" inputmode="numeric" placeholder="e.g. 35"></div>
-          </div>
-        </div></div>
-        <button class="btn btn-amber" onclick="genMeal()">Create my meal</button>
+        <div class="f2">
+          <div class="fg"><label class="fl">Meal type</label><select class="fs" id="r-type"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
+          <div class="fg"><label class="fl">Max prep time</label><select class="fs" id="r-time"><option>Under 15 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Preferences or intolerances</label><input class="fi" id="r-pref" placeholder="e.g. no dairy, vegetarian, gluten free..."></div></div>
+        <button class="btn btn-amber" onclick="genRecipe()">Generate Recipe</button>
       </div>
-      <div class="loading" id="m-load"><div class="spin"></div><span>Putting your meal together...</span></div>
-      <div class="result" id="m-result">
-        <div class="result-head"><span class="result-head-label">Your Meal</span></div>
-        <div class="result-body" id="m-out"></div>
-        <div class="result-actions"><button class="btn-sm" onclick="genMeal(true)">↻ Give me another</button><button class="btn-sm" onclick="dlMeal()">⬇ Save</button><button class="btn-sm" onclick="copyResult('m-out')">⎘ Copy</button></div>
+      <div class="loading" id="r-load"><div class="spin"></div><span>Building your recipe...</span></div>
+      <div class="result" id="r-result">
+        <div class="result-head"><span class="result-head-label">Your Recipe</span></div>
+        <div class="result-body" id="r-out"></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlRecipe()">⬇ Save</button><button class="btn-sm" onclick="copyResult('r-out')">⎘ Copy</button></div>
       </div>
     </div>
 
@@ -1203,6 +1200,35 @@ html body #m-mode .chip.on{background:#111111!important;color:#FFFFFF!important;
       </div>
       <div class="loading" id="fc-load"><div class="spin"></div><span>Checking your food...</span></div>
       <div class="result" id="fc-result"><div class="result-head"><span class="result-head-label">Nutrition Info</span></div><div class="result-body" id="fc-out"></div></div>
+    </div>
+
+    <!-- FRIDGE -->
+    <div class="page" id="page-fridge">
+      <div class="page-hdr">
+        <span class="page-hdr-eyebrow">Nutrition Tools</span>
+        <div class="page-title">What's In My Fridge?</div>
+        <div class="page-desc">List what you have, how long you've got, and your targets. Get a proper recipe using exactly what's there.</div>
+      </div>
+      <div class="card">
+        <span class="card-label">What have you got?</span>
+        <div class="f1"><div class="fg"><label class="fl">What's in your fridge or cupboards?</label><textarea class="fi" id="fr-ingredients" rows="4" placeholder="e.g. chicken breast, eggs, spinach, Greek yoghurt, rice..." style="resize:vertical;min-height:90px;"></textarea></div></div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Time available</label><select class="fs" id="fr-time"><option>Under 10 mins</option><option>Under 15 mins</option><option>Under 20 mins</option><option>Under 30 mins</option><option>Up to 45 mins</option></select></div>
+          <div class="fg"><label class="fl">Meal type</label><select class="fs" id="fr-meal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option><option>Post-workout</option></select></div>
+        </div>
+        <div class="f2">
+          <div class="fg"><label class="fl">Calorie target (kcal)</label><input class="fi" id="fr-kcal" type="number" placeholder="e.g. 500"></div>
+          <div class="fg"><label class="fl">Protein target (g)</label><input class="fi" id="fr-prot" type="number" placeholder="e.g. 40"></div>
+        </div>
+        <div class="f1"><div class="fg"><label class="fl">Anything to avoid?</label><input class="fi" id="fr-avoid" placeholder="e.g. no dairy, not too spicy..."></div></div>
+        <button class="btn btn-amber" onclick="genFridge()">Generate My Recipe</button>
+      </div>
+      <div class="loading" id="fr-load"><div class="spin"></div><span>Building your recipe...</span></div>
+      <div class="result" id="fr-result">
+        <div class="result-head"><span class="result-head-label">Your Recipe</span></div>
+        <div class="result-body" id="fr-out"></div>
+        <div class="result-actions"><button class="btn-sm" onclick="dlFridge()">⬇ Save</button><button class="btn-sm" onclick="copyResult('fr-out')">⎘ Copy</button></div>
+      </div>
     </div>
 
     <!-- EATING OUT -->
@@ -1424,7 +1450,7 @@ Don't lean on stock lines. "Honestly", "massive", "game changer" and "boom" get 
 `;
 </script>
 <script>
-const TITLES={home:'Zenith AI',bot:'Mark AI',panic:'Panic Button',honesty:'Honesty Check-In',protein:'Protein Fixer',meal:'Create a Meal',recipe:'Create a Meal',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:'Create a Meal',eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide',hw:'Hormones (Women)',hm:'Hormones (Men)'};
+const TITLES={home:'Zenith AI',bot:'Mark AI',panic:'Panic Button',honesty:'Honesty Check-In',protein:'Protein Fixer',recipe:'Recipe Generator',plan:'Meal Planner',grocery:'Grocery List',food:'Food Checker',fridge:"What's In My Fridge?",eating:'Eating Out Guide',supp:'Supplement Checker',weekend:'Weekend Game Plan',travel:'Travel Game Plan',alcohol:'Alcohol Guide',hw:'Hormones (Women)',hm:'Hormones (Men)'};
 
 const TIPS=["Protein at every meal. Not most meals. Every meal. That one habit does a lot of the heavy lifting.", "Never miss twice. One bad meal doesn't matter. The second one in a row is where the slide starts, so get the next meal right.", "Your steps matter more than you think. They add up quietly, week after week. Get them in.", "Protect your sleep like you'd protect a session. Short nights make everything harder, hunger included.", "If it's not in the calendar, it won't happen. Book your sessions in like appointments.", "Something beats nothing. Every single time. A 10 minute walk on a bad day still counts.", "2 litres of water a day, minimum. Thirst can feel a lot like hunger, so drink first and see.", "80/20. 80% on it, 20% living your life. That's what sustainable looks like.", "Get a little stronger every week. One more rep, a bit more weight. That's how your body changes.", "Confidence comes from evidence. Stack small wins and watch what it does to how you see yourself.", "You don't rise to your motivation. You fall to your systems.", "What gets planned gets done. What doesn't gets skipped. Plan your week on a Sunday.", "Eating out's fine. Going in with no plan is what catches you out. Pick your meal before you sit down.", "The best plan is the one you'll actually stick to. Keep it simple and keep it going."];
 (function(){const idx=Math.floor(Date.now()/(1000*60*60*24))%TIPS.length;document.getElementById('tip-text').textContent=TIPS[idx];})();
@@ -1434,8 +1460,8 @@ function loadTargets(){
   const prot=localStorage.getItem('zf-prot')||'';
   document.getElementById('tbar-kcal').textContent=kcal?kcal+' kcal':'Not set';
   document.getElementById('tbar-prot').textContent=prot?prot+'g':'Not set';
-  if(kcal){['p-kcal'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=kcal;});}
-  if(prot){['p-prot','pf-target'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});}
+  if(kcal){['r-kcal','p-kcal','fr-kcal'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=kcal;});}
+  if(prot){['r-prot','p-prot','fr-prot','pf-target'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=prot;});}
 }
 function openTargets(){
   document.getElementById('t-kcal-in').value=localStorage.getItem('zf-kcal')||'';
@@ -1519,29 +1545,32 @@ One short paragraph in first person on the habit that fixes this for good, usual
 
 Never tell them to cut calories, skip meals, or eat less of anything to make room. Never moralise about their food. If their target looks unrealistic for their diet type, say so plainly and give a sensible working range. If what they described is very little food overall, don't praise it, flag that eating more is what fixes this, and tell them to message Mark directly.`;
 
-const MSYS=`TOOL: Create a Meal. Build one meal for a Zenith Fit client. Mark coaches busy people aged 35 to 60: protein in every meal, plenty of veg, carbs built around them, nothing extreme, no supplements, no protein powder unless they listed it. UK supermarket ingredients only.
+const RSYS=`TOOL: Recipe Generator. Write a recipe for a Zenith Fit client. Mark coaches busy people aged 35 to 60: protein at every meal, high volume foods, no extremes. UK ingredients only, from UK supermarkets like Tesco, Sainsbury's, Asda, Aldi, Lidl and Morrisons. Grams and kcal. Never use words like "delicious", "nutritious" or "wholesome". Make it sound like food a real person wants to eat. If the protein's high, say so plainly. If it takes under 15 minutes, say so. Follow the format you're given in the request exactly.`;
+const GSYS=`TOOL: Grocery List. Write a shopping list for a Zenith Fit client. UK supermarkets, specific quantities, category headings, nothing vague. Keep it tight, like a list from someone who actually does the big shop. Follow the format you're given in the request exactly.`;
+const FSYS=`TOOL: Food Checker. Give a Zenith Fit client a nutrition breakdown for a food. Kcal. Be specific and accurate. Protein matters most, whole foods beat processed foods, and eating smarter beats just eating less. Never moralise about food and never add guilt. If something's a poor choice for fat loss, say so plainly without preaching. If it's a solid choice, or genuinely fine, say that too. Follow the format you're given in the request exactly.`;
+const WSYS=`TOOL: Weekend Game Plan (tools hub). A client has told you their weekend plans, their goal, how strict they want to be and anything else worth knowing. Write them a plan for the weekend in first person as Mark.
 
-IF THEY LISTED FOODS. Use only what they listed, plus basic staples anyone has: salt, pepper, oil, dried herbs and spices, stock. If what they listed is short on protein, still make the best meal you can from it, then say in one line what 1 thing to add next time would make it a proper meal.
-IF THEY LISTED NOTHING. Give them a meal idea using everyday ingredients they'd find in any supermarket.
+Be specific to exactly what they've got planned. Say what to eat before the meal out, how to approach the drinks, and what to do the next morning to get straight back on track. 80/20 applies. Never miss twice. Never tell them to skip meals to save up, and never suggest extra training to make up for anything.`;
+const MSYS=`TOOL: Mark AI. You're the AI version of Mark Davies, founder of Zenith Fit, chatting with one of his clients inside Zenith HQ. Always call yourself Mark AI.
 
-Respect the time they've got and anything they want to avoid completely. Make it food a real person wants to eat on a weeknight. Never use the words delicious, nutritious, wholesome or guilt free.
+WHO MARK IS, for when it's relevant. Never volunteer the story, use it only when it genuinely helps someone. Overweight as a kid, then went the other way and developed an eating disorder as a teenager. Got very fit off the back of it and signed for Rochdale FC at 15 as a football scholar. Left at 17 because he was struggling badly, mentally and physically, rebuilt locally around good people, then signed professionally for TNS. Moved to America at 22, sorted his relationship with food and exercise, and came back knowing he wanted to work in health and fitness. Started Zenith Fit in his parents' garage, coaching 5:30am to 8am, working a factory shift, then coaching again 5:30pm to 10pm, for 2 to 3 years. He built Zenith Fit on every mistake you can make, so clients don't have to make them. 800+ people coached since 2014.
 
-TRACKING MODE. Grams for every ingredient and land close to the calories and protein you're given.
-SMART PLATE MODE. No calories, no grams, no macros anywhere. Use hand portions: a palm of protein, a fist of carbs, 2 fists of veg, a thumb of fats. Then one line on how the plate should look.
+WHAT MARK BELIEVES. Structure beats motivation, every single time. Most people don't have a fitness problem, they have a belief problem. 5 pillars: nutrition, training, daily movement, sleep and recovery, hydration. Never miss twice. 80/20. Something beats nothing. Minimum standards. Systems over motivation. Protein at every meal. No supplements, no extremes. The scale is one measure, not the only one. When someone isn't getting results, the first question is which parts of the system have quietly stopped happening.
 
-FORMAT. Plain text, these headings in capitals, each on its own line:
-MEAL
-[a short, normal name]
-WHY IT WORKS
-[1 sentence, practical]
-WHAT YOU NEED
-[one ingredient per line]
-HOW TO MAKE IT
-[numbered steps, short]
-THE NUMBERS (tracking mode only: Calories X kcal, Protein Xg, Carbs Xg, Fat Xg)
-THE PLATE (Smart Plate mode only: one line)
-NEXT TIME (only if one thing would make it better)
-`;
+THE ZENITH STANDARD every client has signed up to: Friday check in by 3pm, training logged, daily steps, daily food logging, never miss twice, one promise to themselves each day, tools and resources before messaging Mark, messaging hours 6am to 7pm Monday to Friday.
+
+PRICES, PLANS AND BILLING. Everyone here is already a client. Never mention prices, programme costs, upgrades, payment plans or billing, and never sell anything. If they ask about any of that, or about pausing, cancelling or moving programme, tell them that's one for Mark to sort with them directly and to drop him a message, then carry on helping.
+
+HOW TO ANSWER. Short paragraphs. No bullet points for anything emotional. This is a chat, so they can reply. UK foods and brands, stone for bodyweight (never pounds on their own), kcal for calories. If they're struggling emotionally, empathy before any practical advice. If a question has a clear evidence based answer, give it directly. If they're making excuses, call it out warmly and clearly.
+
+SAFEGUARDING, this overrides everything. If someone shows signs of genuine emotional crisis, self harm or an eating disorder rather than a normal wobble, stop coaching and respond with real care. Gently encourage them to talk to someone they trust or their GP. Share the Samaritans line 116 123 (free, any time) and, if it's specifically about food and eating, Beat on 0808 801 0677. Never give restrictive advice, calorie cuts or punishing exercise to anyone who seems to be struggling that way.`;
+const SSYS=`TOOL: Supplement Checker. Give an evidence based verdict on a supplement. You're not sponsored and you're not selling anything. Mark's view: Zenith Fit is a no supplements programme, so he never prescribes them and food and the basics always come first. Fat burners are largely a waste of money, detox teas are nonsense because the liver doesn't need help, BCAAs are redundant if protein intake is adequate, protein powder is just food in a different form. Creatine monohydrate has strong evidence, so if they ask about it, say so honestly, while making clear it's optional and nothing like as important as training, food and sleep. Never give medical advice, and if they mention a condition, medication or pregnancy, send them to their GP.
+FORMAT: THE VERDICT (one blunt sentence), WHAT THE EVIDENCE ACTUALLY SAYS, WHO IT'S ACTUALLY FOR, WHAT TO DO INSTEAD IF IT'S NOT WORTH IT, MARK'S TAKE (first person, specific).`;
+const ESYS=`TOOL: Eating Out Guide. A client is eating out. It's part of life, so no guilt, 80/20 applies, smart choices rather than sad ones. Anchor the meal in protein, add veg, go easy on sauces and the bread basket, enjoy one proper thing rather than half eating everything. If they're drinking, water alongside, eat something substantial before they go, and never skip meals beforehand to save calories, because it always backfires.
+FORMAT: THE APPROACH (2 sentences, the mindset), BEST CHOICES (3 to 5 specific dishes for that cuisine, each with a one line reason), WHAT TO WATCH OUT FOR (2 or 3 things specific to that cuisine), IF YOU'RE DRINKING (practical, never preaching abstinence), MARK'S TIP (one practical thing he actually does). Under 300 words in total.`;
+const TSYS=`TOOL: Travel Game Plan. A client is going away. Help them enjoy it without coming home feeling they've undone months of progress. The scale will go up when they travel and it's almost never real fat, it's water from flying, salty food, alcohol and broken sleep. Never miss twice. Back to basics the moment they land. Write in first person as Mark, specific to where they're actually going. Under 350 words. Never talk about earning food or a break.
+FORMAT: BEFORE YOU GO (2 or 3 practical things), GETTING THERE (flying, driving or the train, real tips), WHILE YOU'RE THERE (80/20, steps, food, specific to the destination and the type of trip), COMING HOME (what to expect on the scale and why, what to do in the first 48 hours).`;
+const FRSYS=`TOOL: What's In My Fridge? Write a recipe using only the ingredients the client listed, plus obvious staples like salt, pepper and oil. Kcal and grams. Make it sound like something a real person wants to eat. Format: RECIPE NAME, WHY THIS WORKS (one practical sentence), INGREDIENTS WITH QUANTITIES, METHOD IN NUMBERED STEPS, MACROS, OPTIONAL UPGRADE (one thing to add next time to make it better).`;
 
 const PNSYS=`TOOL: Panic Button. A client has tapped this at the exact moment they're about to break from their plan. They're tempted, stressed, or about to write off the day. Catch them, don't lecture them.
 
@@ -1630,42 +1659,18 @@ async function genProtein(){
   }catch(e){document.getElementById('pf-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
-let lastM='',mMode='';
-function mealShare(t){return {Breakfast:.25,Lunch:.3,Dinner:.35,Snack:.1}[t]||.3;}
-function mealFill(){
-  const kd=+localStorage.getItem('zf-kcal')||0,pd=+localStorage.getItem('zf-prot')||0,t=document.getElementById('m-type').value,sh=mealShare(t);
-  const k=document.getElementById('m-kcal'),p=document.getElementById('m-prot'),line=document.getElementById('m-tline'),fl=document.getElementById('m-tfields');
-  if(mMode==='plate'){line.textContent='I\u2019ll build it on your plate with hand portions. No numbers.';fl.style.display='none';return;}
-  if(kd&&!k.dataset.edited)k.value=Math.round(kd*sh/10)*10;
-  if(pd&&!p.dataset.edited)p.value=Math.round(pd*sh);
-  if(kd){line.innerHTML='Built for about <b>'+k.value+' kcal</b> and <b>'+(p.value||'?')+'g protein</b>, from your daily targets. <a href="#" onclick="document.getElementById(\'m-tfields\').style.display=\'grid\';this.remove();return false" style="color:#0F7D55">Change</a>';fl.style.display='none';}
-  else{line.textContent='Pop in what you want this meal to come to.';fl.style.display='grid';}
-}
-function mealMode(m){mMode=m;try{localStorage.setItem('zf-meal-mode',m);}catch(e){}
-  document.querySelectorAll('#m-mode .chip').forEach(c=>c.classList.toggle('on',c.dataset.v===m));
-  document.querySelectorAll('#m-mode .chip').forEach(c=>{c.style.background=c.dataset.v===m?'#111111':'';c.style.color=c.dataset.v===m?'#FFFFFF':'';c.style.borderColor=c.dataset.v===m?'#111111':'';});
-  mealFill();}
-(function(){try{
-  ['m-kcal','m-prot'].forEach(id=>document.getElementById(id).addEventListener('input',e=>{e.target.dataset.edited='1';}));
-  document.getElementById('m-type').addEventListener('change',mealFill);
-  const saved=localStorage.getItem('zf-meal-mode');mealMode(saved||(localStorage.getItem('zf-kcal')?'track':'plate'));
-}catch(e){}})();
-async function genMeal(another){
-  const foods=document.getElementById('m-foods').value.trim(),type=document.getElementById('m-type').value,time=document.getElementById('m-time').value,avoid=document.getElementById('m-avoid').value.trim();
-  const kcal=document.getElementById('m-kcal').value,prot=document.getElementById('m-prot').value;
-  if(mMode==='track'&&!kcal){document.getElementById('m-tfields').style.display='grid';document.getElementById('m-kcal').focus();return;}
-  document.getElementById('m-result').classList.remove('on');document.getElementById('m-load').classList.add('on');
+async function genRecipe(){
+  const kcal=document.getElementById('r-kcal').value;
+  if(!kcal){alert('Enter a calorie target first.');return;}
+  const prot=document.getElementById('r-prot').value,type=document.getElementById('r-type').value,time=document.getElementById('r-time').value,pref=document.getElementById('r-pref').value;
+  document.getElementById('r-result').classList.remove('on');document.getElementById('r-load').classList.add('on');
   try{
-    let req=(foods?'Foods they have: '+foods+'.':'They listed nothing, so give them an idea.')+' Meal: '+type+'. Time: '+time+'. Avoid: '+(avoid||'nothing')+'. ';
-    req+=mMode==='track'?'TRACKING MODE. Aim for '+kcal+' kcal and '+(prot?prot+'g':'as much')+' protein.':'SMART PLATE MODE.';
-    if(another&&lastM)req+='\nThey want a different meal from this one, so make it genuinely different: '+lastM.split('\n').slice(0,3).join(' ');
-    const reply=await ask(MSYS,req);
-    lastM=reply;
-    logToSheets('Create a Meal',{field1_label:'Foods',field1_value:foods||'(blank, wanted an idea)',field2_label:'Meal and time',field2_value:type+', '+time,field3_label:'Mode',field3_value:mMode==='track'?'Tracking '+kcal+' kcal / '+(prot||'?')+'g':'Smart Plate'});
-    document.getElementById('m-load').classList.remove('on');
-    document.getElementById('m-out').innerHTML=formatText(reply);document.getElementById('m-result').classList.add('on');
-    if(another)document.getElementById('m-result').scrollIntoView({behavior:'smooth',block:'start'});
-  }catch(e){document.getElementById('m-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+    const reply=await ask(RSYS,`Create a ${type} recipe. Target: ${kcal} kcal. Protein: ${prot?prot+'g min':'maximise'}. Prep: ${time}. Preferences: ${pref||'none'}.\n\nFormat:\nRECIPE NAME\n[name]\n\nWHY THIS WORKS\n[2 sentences]\n\nINGREDIENTS\n[quantities in grams]\n\nMETHOD\n[numbered steps]\n\nMACROS\nCalories: X kcal | Protein: Xg | Carbs: Xg | Fat: Xg\n\nWHERE TO BUY\n[UK supermarket for main ingredients]`);
+    lastR=reply;
+    logToSheets('Recipe Generator',{field1_label:'Calories',field1_value:kcal,field2_label:'Protein',field2_value:prot,field3_label:'Preferences',field3_value:pref});
+    document.getElementById('r-load').classList.remove('on');
+    document.getElementById('r-out').innerHTML=formatText(reply);document.getElementById('r-result').classList.add('on');
+  }catch(e){document.getElementById('r-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
 // v2 Meal Planner (29 Oct 2026). The AI writes the meals, the page does the maths.
@@ -1889,6 +1894,17 @@ async function checkFood(){
   }catch(e){document.getElementById('fc-load').classList.remove('on');alert('Something went wrong: '+e.message);}
 }
 
+async function genFridge(){
+  const ingredients=document.getElementById('fr-ingredients').value.trim();if(!ingredients){alert('Tell us what you have in the fridge first.');return;}
+  document.getElementById('fr-result').classList.remove('on');document.getElementById('fr-load').classList.add('on');
+  try{
+    const reply=await ask(FRSYS,`Create a ${document.getElementById('fr-meal').value} recipe using only these ingredients: ${ingredients}. Time: ${document.getElementById('fr-time').value}. Calories: ${document.getElementById('fr-kcal').value||'no target'}. Protein: ${document.getElementById('fr-prot').value||'maximise'}g. Avoid: ${document.getElementById('fr-avoid').value||'nothing'}.`);
+    lastFr=reply;
+    logToSheets("What's In My Fridge",{field1_label:'Ingredients',field1_value:ingredients,field2_label:'Meal type',field2_value:document.getElementById('fr-meal').value,field3_label:'Time',field3_value:document.getElementById('fr-time').value});
+    document.getElementById('fr-load').classList.remove('on');
+    document.getElementById('fr-out').innerHTML=formatText(reply);document.getElementById('fr-result').classList.add('on');
+  }catch(e){document.getElementById('fr-load').classList.remove('on');alert('Something went wrong: '+e.message);}
+}
 
 async function genEating(){
   document.getElementById('e-result').classList.remove('on');document.getElementById('e-load').classList.add('on');
@@ -2077,11 +2093,12 @@ function dl(content,filename){
   const w=window.open('','_blank');if(w){w.document.write(html);w.document.close();}
 }
 
-function dlMeal(){if(lastM)dl(lastM,'zenithfit-meal.html');}
+function dlRecipe(){if(lastR)dl(lastR,'zenithfit-recipe.html');}
 function dlPlan(){if(lastP)dl(lastP,'zenithfit-meal-plan.html');}
 function dlGrocery(){if(lastG)dl(lastG,'zenithfit-shopping-list.html');}
 function dlWeekend(){if(lastW)dl(lastW,'zenithfit-weekend-plan.html');}
 function dlTravel(){if(lastT)dl(lastT,'zenithfit-travel-plan.html');}
+function dlFridge(){if(lastFr)dl(lastFr,'zenithfit-fridge-recipe.html');}
 function dlAlcohol(){if(lastA)dl(lastA,'zenithfit-alcohol-plan.html');}
 function dlHW(){if(lastHW)dl(lastHW,'zenithfit-hormones-plan.html');}
 function dlHM(){if(lastHM)dl(lastHM,'zenithfit-hormones-plan.html');}
@@ -2094,7 +2111,7 @@ function dlProtein(){if(lastPf)dl(lastPf,'zenithfit-protein-fix.html');}
   try{
     var p=new URLSearchParams(location.search),tool=p.get('tool'),ask=p.get('ask');
     if(ask){goPage('bot');var c=document.getElementById('cin');if(c){c.value=ask;setTimeout(function(){c.focus();},300);}return;}
-    if(tool==='recipe'||tool==='fridge')tool='meal';if(tool&&document.getElementById('page-'+tool))goPage(tool);
+    if(tool&&document.getElementById('page-'+tool))goPage(tool);
   }catch(e){}
 })();
 </script>

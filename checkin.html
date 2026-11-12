@@ -743,7 +743,7 @@ $('submit').onclick=async()=>{
   ].filter(x=>x!=='').join('\n'));
   main.classList.add('out');await new Promise(r=>setTimeout(r,220));
   screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
-  $('home').classList.add('hide');
+  $('home').classList.add('hide');$('bar').classList.remove('on');
 
   let secs=20;const tick=setInterval(()=>{secs--;const el=$('lsec');if(!el){clearInterval(tick);return;}if(secs>0)el.textContent=secs;else{clearInterval(tick);const lb=el.parentNode;if(lb)lb.textContent='Nearly there';}},1000);
   let fb=null,failed=false;
@@ -756,7 +756,7 @@ $('submit').onclick=async()=>{
     try{const hh=JSON.parse(localStorage.getItem(HISTKEY)||'[]');const me=hh.find(h=>h.week===entry.week);if(me){me.next=finalPromise;localStorage.setItem(HISTKEY,JSON.stringify(hh));}}catch(e){}
   }
   const pl=$('planload');if(pl)pl.remove();
-  $('home').classList.remove('hide');
+  $('home').classList.remove('hide');$('bar').classList.add('on');
   const rc=$('result');if(rc){rc.classList.remove('wait');rc.classList.add('show');}
   const rp=$('reply');
   if(rp){
