@@ -22,3 +22,26 @@
   window.addEventListener('load',function(){setTimeout(scan,300)});
   setTimeout(scan,1200);
 })();
+
+/* Auto refresh (Nov 2026): when a new version of HQ goes up, phones pick it up on their own.
+   Each time HQ is opened or brought back to the screen, it checks version.txt (never cached).
+   If the number has changed since this phone last loaded, it reloads once with a fresh copy. */
+(function(){
+  try{
+    var KEY='zf_hq_ver';
+    function check(){
+      fetch('version.txt?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.ok?r.text():null;}).then(function(v){
+        if(!v)return; v=v.trim();
+        var have=localStorage.getItem(KEY);
+        if(!have){localStorage.setItem(KEY,v);return;}
+        if(have!==v){
+          localStorage.setItem(KEY,v);
+          var u=new URL(location.href);u.searchParams.set('v',v);
+          location.replace(u.toString());
+        }
+      }).catch(function(){});
+    }
+    check();
+    document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible')check();});
+  }catch(e){}
+})();
