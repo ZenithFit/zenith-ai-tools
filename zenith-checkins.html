@@ -157,8 +157,8 @@ async function loadWeek(){
         (rp.promise?'<h4>PROMISE FOR NEXT WEEK'+(rp.promise_changed?' (RESET)':'')+'</h4><div class="kv">'+esc(rp.promise)+'</div>':'')+
         '<h4>THEIR ANSWERS</h4><div class="kv">'+
         kv('Proud of',e.proud||e.well)+kv('Last promise',e.lastPromise)+kv('Kept',e.promiseKept)+kv('Got in the way',(e.blockers||[]).concat(e.blockerText?[e.blockerText]:[]))+
-        kv('Sessions',e.sessions)+kv('Steps',e.steps)+kv('Days logged',e.foodDays)+kv('Last weekend',e.lastWeekend)+kv('Weekend detail',(e.railsWhy||[]).concat(e.weekendText?[e.weekendText]:[]))+
-        kv('Sleep',e.sleep)+kv('Energy',e.energy)+kv('Stress',e.stress)+kv('Things are going',e.going)+
+        kv('Sessions',e.sessions)+kv('Steps',e.steps)+kv('Days logged',e.foodDays)+kv('Food quality',e.foodQuality)+kv('Last weekend',e.lastWeekend)+kv('Weekend detail',(e.railsWhy||[]).concat(e.weekendText?[e.weekendText]:[]))+
+        kv('Sleep',e.sleep)+kv('Energy',e.energy)+kv('Stress',e.stress)+kv('Water',e.water)+kv('Things are going',e.going)+
         kv('One moment',e.moment||e.hard)+kv('Would do instead',e.instead)+kv('Last week\'s question',e.lastQuestion)+kv('Their answer',e.lastqAnswer)+
         kv('On this weekend',e.weekendOn||e.weekend)+kv('Most likely to knock them off',e.trip)+
         kv('Their promise',e.next)+kv('When',e.when)+kv('Confidence',e.sure==null?'':e.sure+' out of 10')+kv('Sent',r.at)+

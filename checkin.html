@@ -305,7 +305,7 @@ function late(){const d=new Date(),day=d.getDay();return (day===5&&d.getHours()>
 
 // ---------- answers (v2, Nov 2026) ----------
 const A={name:'',email:'',lastPromise:'',lastQuestion:'',planned:null,stepTarget:null,
-  proud:'',promise:'',blockers:[],blockerText:'',sessions:'',steps:'',food:'',
+  proud:'',promise:'',blockers:[],blockerText:'',sessions:'',steps:'',food:'',foodQ:'',water:'',
   lastWeekend:'',railsWhy:[],weekendText:'',sleep:'',energy:'',stress:'',light:'',going:'',
   moment:'',instead:'',lastq:'',on:[],trip:'',next:'',when:'',sure:null,need:''};
 const MULTI={blockers:1,railsWhy:1,on:1};
@@ -413,10 +413,10 @@ function canNext(){
     case 'proud':return clean(A.proud).length>1;
     case 'promise':return !!A.promise;
     case 'blocker':return A.blockers.length>0;
-    case 'numbers':return A.sessions!==''&&A.steps!==''&&A.food!=='';
+    case 'numbers':return A.sessions!==''&&A.steps!==''&&A.food!==''&&!!A.foodQ;
     case 'weekend':return !!A.lastWeekend;
     case 'rails':return A.railsWhy.length>0;
-    case 'feel':return !!(A.sleep&&A.energy&&A.stress);
+    case 'feel':return !!(A.sleep&&A.energy&&A.stress&&A.water);
     case 'light':return !!A.light;
     case 'going':return !!A.going;
     case 'ahead':return A.on.length>0;
@@ -542,6 +542,7 @@ function render(){
       '<div class="trow"><b>Average daily steps'+(A.stepTarget?' <span>target '+Number(A.stepTarget).toLocaleString('en-GB')+'</span>':'')+'</b>'+row('steps',STEPS,2)+
         '<div class="r8" style="grid-template-columns:minmax(0,1fr)"><button type="button" class="rb'+(A.steps==="Don't track"?' on':'')+'" data-k="steps" data-v="Don\'t track">I don\'t track my steps</button></div></div>'+
       '<div class="trow"><b>Days you logged your food <span>photos count</span></b>'+row('food',['0','1','2','3','4','5','6','7'],8)+'</div>'+
+      '<div class="trow"><b>How was the quality of your food this week?</b>'+row('foodQ',['Really good','Mostly good','Hit and miss','Poor'],2)+'</div>'+
       '</div></div>';
   }
   else if(screen==='weekend'){
@@ -562,6 +563,7 @@ function render(){
       '<div class="trow"><b>Sleep</b>'+row('sleep',['Good','Okay','Poor'],3)+'</div>'+
       '<div class="trow"><b>Energy</b>'+row('energy',['Good','Okay','Poor'],3)+'</div>'+
       '<div class="trow"><b>Stress <span>outside of this</span></b>'+row('stress',['Low','Some','High'],3)+'</div>'+
+      '<div class="trow"><b>Water <span>did you hit your target?</span></b>'+row('water',['Most days','Some days','Rarely'],3)+'</div>'+
       '</div></div>';
   }
   else if(screen==='light'){
@@ -710,7 +712,7 @@ $('submit').onclick=async()=>{
   const entry={v:2,week:weekKey(),submitted:new Date().toISOString(),late:late(),
     proud:clean(A.proud),lastPromise:A.lastPromise,promiseKept:A.promise,
     blockers:partly?A.blockers.slice():[],blockerText:partly?clean(A.blockerText):'',
-    sessions:A.sessions,steps:A.steps,foodDays:A.food,
+    sessions:A.sessions,steps:A.steps,foodDays:A.food,foodQuality:A.foodQ,water:A.water,
     lastWeekend:wk,railsWhy:wk==='Off the rails'?A.railsWhy.slice():[],weekendText:wk==='On plan'?'':clean(A.weekendText),
     sleep:A.sleep,energy:A.energy,stress:A.stress,light:A.light,going:A.going,
     moment:clean(A.moment),instead:clean(A.instead),
@@ -735,7 +737,7 @@ $('submit').onclick=async()=>{
   logToSheets({
     field1_label:'Name',field1_value:who+(TEST?' (TEST)':''),
     field2_label:'Traffic light',field2_value:A.light+' | Feels: '+A.going+(R.noRun>=3?' | '+R.noRun+' NOs IN A ROW':''),
-    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+A.steps+' | Food days '+A.food+' | Last weekend '+wk+' | Sleep '+A.sleep+' | Energy '+A.energy+' | Stress '+A.stress
+    field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+A.steps+' | Food days '+A.food+' | Food quality '+A.foodQ+' | Water '+A.water+' | Last weekend '+wk+' | Sleep '+A.sleep+' | Energy '+A.energy+' | Stress '+A.stress
   },[
     'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
     '','Proud of: '+(entry.proud||'none'),'Last week\'s promise: '+(entry.lastPromise||'none on file'),
