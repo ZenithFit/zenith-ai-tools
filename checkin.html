@@ -446,13 +446,13 @@ function isOn(k,v){return MULTI[k]?A[k].indexOf(v)>=0:String(A[k])===String(v);}
 // big tiles, one answer, moves on by itself
 function tiles(k,opts,cols,size){
   return '<div class="grid" style="grid-template-columns:repeat('+cols+',minmax(0,1fr))">'+opts.map(v=>{const on=isOn(k,v);
-    return '<button type="button" class="tile'+(on?' on':'')+'" data-k="'+k+'" data-v="'+esc(v)+'" data-auto="1" aria-pressed="'+on+'"><span class="t"><span class="l" style="font-size:'+(size||17)+'px">'+esc(v)+'</span></span></button>';}).join('')+'</div>';
+    return '<button type="button" class="tile'+(on?' on':'')+'" data-k="'+k+'" data-v="'+esc(v)+'" aria-pressed="'+on+'"><span class="t"><span class="l" style="font-size:'+(size||17)+'px">'+esc(v)+'</span></span></button>';}).join('')+'</div>';
 }
 // list tiles with a coloured dot and a line of context
 function listTiles(k,opts,light,stay){
   const TL={Green:'63,212,148',Amber:'242,179,61',Red:'229,72,77'};
   return '<div class="grid" style="grid-template-columns:minmax(0,1fr)">'+opts.map(op=>{const on=isOn(k,op.l);const tl=light&&TL[op.l];
-    return '<button type="button" class="tile list'+(tl?' tl tl-'+op.l.toLowerCase():'')+(on?' on':'')+'"'+(tl?' style="--c:'+tl+'"':'')+' data-k="'+k+'" data-v="'+esc(op.l)+'"'+(stay?'':' data-auto="1"')+' aria-pressed="'+on+'">'+
+    return '<button type="button" class="tile list'+(tl?' tl tl-'+op.l.toLowerCase():'')+(on?' on':'')+'"'+(tl?' style="--c:'+tl+'"':'')+' data-k="'+k+'" data-v="'+esc(op.l)+'" aria-pressed="'+on+'">'+
       '<span class="dot" style="background:'+op.dot+'"></span><span class="t"><span class="l" style="font-size:16px">'+esc(op.l)+'</span><span class="s">'+esc(op.s)+'</span></span>'+TICK+'</button>';}).join('')+'</div>';
 }
 // chips, tap as many as fit
@@ -494,7 +494,7 @@ function render(){
     h='<div class="hero"><img src="checkin-hero.jpg" alt=""><div class="shade"></div><div class="in">'+
       '<span class="hi">'+hi+'</span><h1>CHECK IN</h1>'+
       (open
-        ?'<p>Right, let\'s have a look at your week. Be honest with it. That\'s how I can really help you.</p><p>It\'s going to take about 3 minutes. Most answers are just one tap of a button.</p>'+
+        ?'<p>Let\'s have a look at your week. Be honest with it. That\'s how I can really help you.</p><p>It\'s going to take about 3 minutes. Most answers are just one tap of a button.</p>'+
          (draft
            ?'<button type="button" class="glow pulse" id="resume" style="margin-top:10px">CONTINUE CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
             '<span class="small">You\'re part way through. Your answers are saved.</span>'+
@@ -572,7 +572,7 @@ function render(){
       {l:'Not where I want to be',s:"I'm doing the work but something's not clicking",dot:'#E5484D'}])+'</div>';
   }
   else if(screen==='struggle'){
-    h='<div class="screen">'+head('What was the biggest struggle for you this week?')+
+    h='<div class="screen">'+head('What was the biggest struggle for you this week? (if any)')+
       chips('struggle',['Food','Training','Steps','Sleep','Stress','Alcohol','Time','Motivation','Something else','None, it was fine'])+'<p class="help">Give me more context on this if you\'d like to share more.</p>'+area('struggleText','A bit more context...',true)+'</div>';
   }
   else if(screen==='moment'){
