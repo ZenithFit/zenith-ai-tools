@@ -305,10 +305,10 @@ function late(){const d=new Date(),day=d.getDay();return (day===5&&d.getHours()>
 
 // ---------- answers (v2, Nov 2026) ----------
 const A={name:'',email:'',lastPromise:'',lastQuestion:'',planned:null,stepTarget:null,
-  proud:'',promise:'',blockers:[],blockerText:'',sessions:'',steps:'',food:'',foodQ:'',water:'',
+  proud:'',promise:'',blockers:[],blockerText:'',struggle:[],struggleText:'',sessions:'',steps:'',food:'',foodQ:'',water:'',
   lastWeekend:'',railsWhy:[],weekendText:'',sleep:'',energy:'',stress:'',light:'',going:'',
   moment:'',instead:'',lastq:'',on:[],trip:'',next:'',when:'',sure:null,need:''};
-const MULTI={blockers:1,railsWhy:1,on:1};
+const MULTI={blockers:1,railsWhy:1,on:1,struggle:1};
 let known=false;
 try{const w=JSON.parse(localStorage.getItem(WHOKEY)||'null');if(w&&w.name&&w.email){A.name=w.name;A.email=w.email;known=true;}}catch(e){}
 const HISTKEY='zf_checkin_hist';
@@ -329,8 +329,8 @@ try{const dr=JSON.parse(localStorage.getItem(DRAFTKEY)||'null');if(dr&&dr.week==
 let doneThis=TEST?null:(localHist.find(h=>h&&h.week===weekKey())||null);
 let pastWeeks=localHist.filter(h=>h&&h.week&&h.week!==weekKey()).sort((x,y)=>String(y.week).localeCompare(String(x.week)));
 
-const SECTION={proud:'FIRST UP',promise:"LAST WEEK'S PROMISE",blocker:"LAST WEEK'S PROMISE",numbers:'THE NUMBERS',weekend:'THE NUMBERS',rails:'THE NUMBERS',loose:'THE NUMBERS',feel:'THE NUMBERS',
-  light:'THE HONEST BIT',going:'THE HONEST BIT',moment:'THE HONEST BIT',lastq:'THE HONEST BIT',ahead:'LOOKING AHEAD',next:'LOOKING AHEAD',need:'LAST ONE'};
+const SECTION={proud:'FIRST UP',promise:'LAST WEEK',blocker:'LAST WEEK',numbers:'THE NUMBERS',weekend:'LAST WEEKEND',rails:'LAST WEEKEND',loose:'LAST WEEKEND',feel:'THE NUMBERS',
+  light:'THE HONEST BIT',going:'THE HONEST BIT',struggle:'THE HONEST BIT',moment:'THE HONEST BIT',lastq:'THE HONEST BIT',ahead:'LOOKING AHEAD',next:'LOOKING AHEAD',need:'LAST ONE'};
 const SKIP={moment:"NOTHING I'D CHANGE",lastq:'SKIP THIS ONE'};
 const STEPS=['Under 4,000','4,000 to 6,000','6,000 to 8,000','8,000 to 10,000','10,000 to 12,000','Over 12,000'];
 
@@ -339,11 +339,7 @@ function order(){
   if(auth==='no'&&!known)o.push('who');
   o.push('proud','promise');
   if(A.promise==='Partly'||A.promise==='No')o.push('blocker');
-  o.push('numbers','weekend');
-  if(A.lastWeekend==='Off the rails')o.push('rails');
-  if(A.lastWeekend==='A bit loose')o.push('loose');
-  o.push('feel','light','going','moment');
-  if(A.lastQuestion)o.push('lastq');
+  o.push('numbers','feel','weekend','light','going','struggle','moment');
   o.push('ahead','next','need','done');
   return o;
 }
@@ -420,7 +416,8 @@ function canNext(){
     case 'light':return !!A.light;
     case 'going':return !!A.going;
     case 'ahead':return A.on.length>0;
-    case 'next':return clean(A.next).length>2&&A.sure!==null;
+    case 'struggle':return A.struggle.length>0;
+    case 'next':return clean(A.next).length>2;
     default:return true;
   }
 }
@@ -452,10 +449,10 @@ function tiles(k,opts,cols,size){
     return '<button type="button" class="tile'+(on?' on':'')+'" data-k="'+k+'" data-v="'+esc(v)+'" data-auto="1" aria-pressed="'+on+'"><span class="t"><span class="l" style="font-size:'+(size||17)+'px">'+esc(v)+'</span></span></button>';}).join('')+'</div>';
 }
 // list tiles with a coloured dot and a line of context
-function listTiles(k,opts,light){
+function listTiles(k,opts,light,stay){
   const TL={Green:'63,212,148',Amber:'242,179,61',Red:'229,72,77'};
   return '<div class="grid" style="grid-template-columns:minmax(0,1fr)">'+opts.map(op=>{const on=isOn(k,op.l);const tl=light&&TL[op.l];
-    return '<button type="button" class="tile list'+(tl?' tl tl-'+op.l.toLowerCase():'')+(on?' on':'')+'"'+(tl?' style="--c:'+tl+'"':'')+' data-k="'+k+'" data-v="'+esc(op.l)+'" data-auto="1" aria-pressed="'+on+'">'+
+    return '<button type="button" class="tile list'+(tl?' tl tl-'+op.l.toLowerCase():'')+(on?' on':'')+'"'+(tl?' style="--c:'+tl+'"':'')+' data-k="'+k+'" data-v="'+esc(op.l)+'"'+(stay?'':' data-auto="1"')+' aria-pressed="'+on+'">'+
       '<span class="dot" style="background:'+op.dot+'"></span><span class="t"><span class="l" style="font-size:16px">'+esc(op.l)+'</span><span class="s">'+esc(op.s)+'</span></span>'+TICK+'</button>';}).join('')+'</div>';
 }
 // chips, tap as many as fit
@@ -497,13 +494,13 @@ function render(){
     h='<div class="hero"><img src="checkin-hero.jpg" alt=""><div class="shade"></div><div class="in">'+
       '<span class="hi">'+hi+'</span><h1>CHECK IN</h1>'+
       (open
-        ?'<p>This check in is about reflection, ownership, and setting clear direction for the week ahead.</p><p>Be honest with it. That\'s how I can actually help you.</p>'+
+        ?'<p>Right, let\'s have a look at your week. Be honest with it. That\'s how I can really help you.</p><p>It\'s going to take about 3 minutes. Most answers are just one tap of a button.</p>'+
          (draft
            ?'<button type="button" class="glow pulse" id="resume" style="margin-top:10px">CONTINUE CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
             '<span class="small">You\'re part way through. Your answers are saved.</span>'+
             '<button type="button" class="restart" id="restart">Start again instead</button>'
            :'<button type="button" class="glow pulse" id="start" style="margin-top:10px">START CHECK IN'+ARROW+'<span class="sheen" aria-hidden="true"></span></button>'+
-            '<span class="small">About 3 minutes. Mostly one tap. Due by 3pm Friday.</span>'+
+            '<span class="small">Due by 3pm Friday.</span>'+
             (TEST?'<span class="small">TEST MODE. Nothing here counts as a real check in.</span>':'')+
             (auth==='no'&&known?'<button type="button" class="restart" id="notme">Not '+esc(first(A.name))+'? Tap here</button>':''))
         :'<p>Your check in opens on Thursday morning and stays open until Sunday night.</p><p>In the meantime, keep logging, keep moving, and keep the promise you made yourself.</p>'+
@@ -519,17 +516,14 @@ function render(){
       '<div class="note"><p>You\'ll only need to do this once. Next week it remembers you, and last week\'s promise is filled in for you.</p></div></div>';
   }
   else if(screen==='proud'){
-    h='<div class="screen">'+head('What are you most proud of this week?','Big or small. Something you did, not a number.')+talkCard()+area('proud','Got my session done even though...')+'</div>';
+    h='<div class="screen">'+head('What do you feel went really well this week?','1 or 2 things.')+talkCard()+area('proud','Got my session done even though...')+'</div>';
   }
   else if(screen==='promise'){
     h='<div class="screen"><span class="eyebrow">'+SECTION.promise+'</span>'+
       (A.lastPromise?'<div class="pcard"><span class="k">YOU PROMISED</span><p>'+esc(A.lastPromise)+'</p></div>':'')+
-      '<h2>Did you keep your promise from last week?</h2>'+
+      '<h2>Did you do what you said you were going to do last week?</h2>'+
       tiles('promise',['Yes','Partly','No'],3,17)+
-      (A.lastPromise
-        ?'<p class="sub">Partly and No are fine answers. They tell us where to look.</p>'
-        :'<button type="button" class="tile'+(A.promise==="Can't remember"?' on':'')+'" data-k="promise" data-v="Can\'t remember" data-auto="1"><span class="t"><span class="l" style="font-size:16px">I can\'t remember</span></span></button>'+
-         '<p class="sub">No problem if you can\'t. We\'ll set a fresh one at the end.</p>')+
+      '<p class="sub">Partly and No are fine answers. They tell us where to look.</p>'+
       '</div>';
   }
   else if(screen==='blocker'){
@@ -546,10 +540,10 @@ function render(){
       '</div></div>';
   }
   else if(screen==='weekend'){
-    h='<div class="screen">'+head('How did last weekend go?')+listTiles('lastWeekend',[
+    h='<div class="screen">'+head('Thinking back to last weekend, how do you feel it went?',"If it didn't go to plan, give me as much detail as possible below so I can help you with it.")+listTiles('lastWeekend',[
       {l:'On plan',s:'Pretty much how I wanted it',dot:'#3FD494'},
       {l:'A bit loose',s:"Some of it went, some of it didn't",dot:'#F2B33D'},
-      {l:'Off the rails',s:'It got away from me',dot:'#E5484D'}])+'</div>';
+      {l:'Off the rails',s:'It got away from me',dot:'#E5484D'}],false,true)+area('weekendText','Saturday was fine, then...',true)+'</div>';
   }
   else if(screen==='rails'){
     h='<div class="screen">'+head('Talk to me. What happened?',"I'm not going to judge. Tell me exactly what happened, then give me some more context below.")+
@@ -567,19 +561,23 @@ function render(){
       '</div></div>';
   }
   else if(screen==='light'){
-    h='<div class="screen">'+head('How would you rate your week?')+listTiles('light',[
+    h='<div class="screen">'+head('How do you think this week went?')+listTiles('light',[
       {l:'Green',s:'Had a really good week. Did pretty much exactly what I said I wanted to do.',dot:'#3FD494'},
       {l:'Amber',s:'A bit indifferent. Some days were good, some days were bad.',dot:'#F2B33D'},
       {l:'Red',s:'No, I really struggled this week.',dot:'#E5484D'}],true)+'</div>';
   }
   else if(screen==='going'){
-    h='<div class="screen">'+head('How do you feel things are going right now?',"The bigger picture, not just this week. How you feel in yourself, your clothes, your energy, your habits, and what you're building long term.")+listTiles('going',[
+    h='<div class="screen">'+head('How do you feel things are going overall for you right now?',"The bigger picture, not just this week. How you feel in yourself, your clothes, your energy, your habits, and what you're building long term.")+listTiles('going',[
       {l:'Really well',s:"I'm happy with where I'm at",dot:'#3FD494'},
       {l:'Steady',s:'Ticking along and keeping on track',dot:'#F2B33D'},
       {l:'Not where I want to be',s:"I'm doing the work but something's not clicking",dot:'#E5484D'}])+'</div>';
   }
+  else if(screen==='struggle'){
+    h='<div class="screen">'+head('What was the biggest struggle for you this week?','Tap what fits, then give me a bit more below.')+
+      chips('struggle',['Food','Training','Steps','Sleep','Stress','Alcohol','Time','Motivation','Something else','None, it was fine'])+area('struggleText','A bit more context...',true)+'</div>';
+  }
   else if(screen==='moment'){
-    h='<div class="screen">'+head('If you could redo one moment this week, which one?')+area('moment','Thursday night after...',true)+line('instead','What would you do instead?','Next time I would...')+'</div>';
+    h='<div class="screen">'+head('If you could redo one moment this week, what would it be?')+area('moment','Thursday night after...',true)+line('instead','What would you do instead?','Next time I would...')+'</div>';
   }
   else if(screen==='lastq'){
     h='<div class="screen"><span class="eyebrow">'+SECTION.lastq+'</span><h2>Last week I asked you a question</h2>'+
@@ -591,13 +589,11 @@ function render(){
       line('trip','Which moment is most likely to knock you off?','Saturday night at...')+'</div>';
   }
   else if(screen==='next'){
-    h='<div class="screen">'+head('Your one promise for next week',"One thing, specific and countable, that you'll definitely do. It's what we work from next week.")+
-      line('next',"I promise I'll",'Pre log my food every night')+line('when','When exactly?','Which days, what time')+
-      '<div class="conf"><b>How confident are you that you\'ll keep it?</b>'+row('sure',['1','2','3','4','5','6','7','8','9','10'],10)+
-      '<div class="ends"><span>1, not confident at all</span><span>10, I\'ll definitely do it</span></div></div></div>';
+    h='<div class="screen">'+head("What's the one promise you're going to keep for yourself this week, to keep progressing or to get back on track?","One thing, specific and countable, that you'll definitely do.")+
+      line('next',"I promise I'll",'Pre log my food every night')+line('when','When exactly?','Which days, what time')+'</div>';
   }
   else if(screen==='need'){
-    h='<div class="screen last">'+head('Is there anything you need from me this weekend, or in general?',"Optional. If it needs me, I'll pick it up with you myself.")+talkCard()+area('need','Could we look at...')+'</div>';
+    h='<div class="screen last">'+head('Is there anything you need from me this week, or in general?',"Optional. If it needs me, I'll pick it up with you myself.")+talkCard()+area('need','Could we look at...')+'</div>';
   }
   else if(screen==='done'){
     const fn=auth==='no'?first(A.name):first(authName);
@@ -605,7 +601,7 @@ function render(){
       '<div class="dcard"><div class="ok" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h2>Check in complete</h2><p id="dmsg">Thanks '+esc(fn)+'. Just hang around for 20 seconds and you\'ll get your instant feedback.</p></div>'+
       '<div class="lcard" id="planload" role="status" aria-live="polite"><div class="lring"><img src="zf-logo.png" alt=""></div><div class="lk">YOUR INSTANT FEEDBACK</div><div class="lbig">Hang around for <span id="lsec">20</span> seconds</div><div class="lnote">Stay on this page. It\'s on its way.</div><div class="lfact"><span class="k">WHILE YOU WAIT</span><p>'+esc(waitLine())+'</p></div></div>'+
             streakCard()+
-      '<div class="wcard wait" id="result"><div><div class="ttl">Your instant feedback</div><p class="sub" style="margin-top:4px">I go through every check in myself. If anything\'s urgent, you\'ll hear back from me ASAP.</p></div>'+
+      '<div class="wcard wait" id="result"><div><div class="ttl">Your instant feedback</div><p class="sub" style="margin-top:4px">Okay, this is your instant feedback. You\'ll be getting your main feedback from me ASAP.</p></div>'+
       '<div id="reply" class="loading"><i></i>Writing your feedback</div></div>'+
       '<div id="after"></div></div>';
   }
@@ -646,7 +642,7 @@ function bind(){
   const rs=$('resume');if(rs)rs.onclick=()=>{
     const keep={lastPromise:A.lastPromise,lastQuestion:A.lastQuestion,planned:A.planned,stepTarget:A.stepTarget,name:A.name,email:A.email};
     Object.assign(A,draft.a);
-    ['blockers','railsWhy','on'].forEach(k=>{if(!Array.isArray(A[k]))A[k]=[];});
+    ['blockers','railsWhy','on','struggle'].forEach(k=>{if(!Array.isArray(A[k]))A[k]=[];});
     // what the server told us today beats what was saved in the draft
     Object.keys(keep).forEach(k=>{if(keep[k])A[k]=keep[k];});
     const o=order();const to=o.indexOf(draft.screen)>0&&draft.screen!=='done'?draft.screen:o[1];
@@ -657,6 +653,8 @@ function bind(){
     const k=b.dataset.k,v=b.dataset.v;
     if(MULTI[k]){
       const i=A[k].indexOf(v);if(i>=0)A[k].splice(i,1);else A[k].push(v);
+      if(k==='struggle'){const none='None, it was fine';if(v===none&&i<0)A[k]=[none];else if(v!==none)A[k]=A[k].filter(x=>x!==none);
+        main.querySelectorAll('[data-k="struggle"]').forEach(x=>{const on=A[k].indexOf(x.dataset.v)>=0;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on);});syncBar();return;}
       b.classList.toggle('on');b.setAttribute('aria-pressed',b.classList.contains('on'));
       syncBar();return;
     }
@@ -713,8 +711,9 @@ $('submit').onclick=async()=>{
     proud:clean(A.proud),lastPromise:A.lastPromise,promiseKept:A.promise,
     blockers:partly?A.blockers.slice():[],blockerText:partly?clean(A.blockerText):'',
     sessions:A.sessions,steps:A.steps,foodDays:A.food,foodQuality:A.foodQ,water:A.water,
-    lastWeekend:wk,railsWhy:wk==='Off the rails'?A.railsWhy.slice():[],weekendText:wk==='On plan'?'':clean(A.weekendText),
+    lastWeekend:wk,railsWhy:[],weekendText:clean(A.weekendText),
     sleep:A.sleep,energy:A.energy,stress:A.stress,light:A.light,going:A.going,
+    struggle:A.struggle.slice(),struggleText:clean(A.struggleText),
     moment:clean(A.moment),instead:clean(A.instead),
     lastQuestion:A.lastQuestion,lastqAnswer:A.lastQuestion?clean(A.lastq):'',
     weekendOn:A.on.slice(),trip:clean(A.trip),next:clean(A.next),when:clean(A.when),sure:A.sure,need:clean(A.need)};
@@ -740,13 +739,14 @@ $('submit').onclick=async()=>{
     field3_label:'Numbers',field3_value:'Promise '+A.promise+' | Sessions '+A.sessions+' | Steps '+A.steps+' | Food days '+A.food+' | Food quality '+A.foodQ+' | Water '+A.water+' | Last weekend '+wk+' | Sleep '+A.sleep+' | Energy '+A.energy+' | Stress '+A.stress
   },[
     'Week of '+entry.week+' | Submitted '+stamp()+(R.streak>1?' | Promise streak '+R.streak:'')+(entry.late?' (after 3pm Friday)':'')+' | '+(auth==='no'?'Not logged in, email '+A.email:'HQ account'),
-    '','Proud of: '+(entry.proud||'none'),'Last week\'s promise: '+(entry.lastPromise||'none on file'),
+    '','Went well: '+(entry.proud||'none'),'Last week\'s promise: '+(entry.lastPromise||'none on file'),
     (entry.blockers.length||entry.blockerText?'Got in the way: '+entry.blockers.join(', ')+(entry.blockerText?'. '+entry.blockerText:''):''),
     (entry.weekendText||entry.railsWhy.length?'Last weekend: '+entry.railsWhy.join(', ')+(entry.weekendText?'. '+entry.weekendText:''):''),
+    'Biggest struggle: '+(entry.struggle.join(', ')||'none')+(entry.struggleText?'. '+entry.struggleText:''),
     'One moment: '+(entry.moment||'none')+(entry.instead?' | Instead: '+entry.instead:''),
     (entry.lastQuestion?'Asked last week: '+entry.lastQuestion+' | Answer: '+(entry.lastqAnswer||'skipped'):''),
     'This weekend: '+entry.weekend,'Needs from Mark: '+(entry.need||'nothing'),
-    'Next week\'s promise: '+entry.next+(entry.when?' ('+entry.when+')':'')+' | Confidence '+entry.sure+'/10'
+    'Next week\'s promise: '+entry.next+(entry.when?' ('+entry.when+')':'')
   ].filter(x=>x!=='').join('\n'));
   main.classList.add('out');await new Promise(r=>setTimeout(r,220));
   screen='done';render();main.scrollTop=0;requestAnimationFrame(()=>main.classList.remove('out'));
