@@ -348,13 +348,13 @@ tr.det td{background:#F7F9F8;padding:16px 18px}
   }
 
   // v17: Gone quiet. Anyone with nothing in HQ for 7 days (3 for brand new signups), plus a ready written message.
-  const GQ_DONE = { 'Daily Review': 'rated your day', 'Weekend Game Plan': 'did your Weekend Game Plan', 'Sunday Session Watched': 'watched a Sunday Session', 'Bonus Training Watched': 'watched a Sunday Session', 'Goal Builder': 'were in the Goal Builder' };
-  const GQ_META = { 'Daily Review': 'rated their day', 'Weekend Game Plan': 'did the Weekend Game Plan', 'Sunday Session Watched': 'watched a Sunday Session', 'Bonus Training Watched': 'watched bonus training', 'Goal Builder': 'used the Goal Builder', 'Method Watched': 'watched a Method video', 'App Videos Watched': 'watched an app video', 'HQ Welcome Watched': 'watched the HQ welcome', 'HQ Search': 'searched HQ', 'Zenith Standard': 'signed the Standard', 'Onboarding': 'onboarding' };
+  const GQ_DONE = { 'Daily Review': 'rated your day', 'Weekend Game Plan': 'did your Weekend Game Plan', 'Sunday Session Watched': 'watched a Zenith Masterclass', 'Bonus Training Watched': 'watched a Zenith Masterclass', 'Goal Builder': 'were in the Goal Builder' };
+  const GQ_META = { 'Daily Review': 'rated their day', 'Weekend Game Plan': 'did the Weekend Game Plan', 'Sunday Session Watched': 'watched a Zenith Masterclass', 'Bonus Training Watched': 'watched bonus training', 'Goal Builder': 'used the Goal Builder', 'Method Watched': 'watched a Method video', 'App Videos Watched': 'watched an app video', 'HQ Welcome Watched': 'watched the HQ welcome', 'HQ Search': 'searched HQ', 'Zenith Standard': 'signed the Standard', 'Onboarding': 'onboarding' };
   let GQ = [];
   function gqDay(d) { return d ? d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' }) : ''; }
   function gqMsg(c) {
     const first = String(c.name || '').split(' ')[0] || 'there';
-    if (c.gqNew) return 'Hey ' + first + ', saw you got yourself set up in HQ, love that. Have you had a proper look round yet? Start with this week\u2019s Sunday Session, it\u2019s right there on your Home.\n\nMark';
+    if (c.gqNew) return 'Hey ' + first + ', saw you got yourself set up in HQ, love that. Have you had a proper look round yet? Start with this week\u2019s Zenith Masterclass, it\u2019s right there on your Home.\n\nMark';
     const x = c.gqOpened ? 'were in HQ' : (GQ_DONE[c.gqTool] || 'were in HQ');
     const v = [
       'Hey ' + first + ', been a little while since you ' + x + ', so I\u2019m checking in. People think you should only lean on me when everything\u2019s going well. It\u2019s in fact quite the opposite. Which day\u2019s been the hardest one this week?\n\nMark',
