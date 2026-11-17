@@ -5,5 +5,13 @@ window.ZF_INVITES = {
   /* Transformation graphics for the Accelerator results strip.
      Upload the images into the invite/results folder, then list the file names here, e.g. ['joe-bloggs.jpg', 'client-2.jpg'].
      Leave it empty and that section stays hidden. */
-  results: []
+  results: [
+    'kaylee-before-after.png',
+    'kaylee-weight.png',
+    'jess.png',
+    'jayne.png',
+    'dan.png',
+    'glyn.png',
+    'caroline-adrian.png'
+  ]
 };
