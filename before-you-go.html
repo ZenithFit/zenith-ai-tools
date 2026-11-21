@@ -2,11 +2,12 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="light only">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Before You Go | Zenith Fit</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap"><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Archivo:wght@800&family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <style>
@@ -284,6 +285,8 @@ function send(){
   try{localStorage.setItem(NAMEKEY,name);}catch(e){}
 
   const msg=[
+    'Testimonial OK: '+(shareOk?('Yes, '+how.toLowerCase()):'No'),
+    'Check in OK: '+(checkinOk?'Yes':'No'),
     'Biggest win: '+($('win').value.trim()||'(blank)'),
     'Keeping: '+($('habit').value.trim()||'(blank)'),
     'Would have stayed: '+($('stay').value.trim()||'(blank)'),
