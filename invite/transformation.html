@@ -61,6 +61,63 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 #zfLoad img{width:64px;height:64px;animation:zfp 1.4s ease-in-out infinite}
 #zfLoad p{color:#BFC6C3;font-family:Inter Tight,Arial,sans-serif;font-size:16px;font-weight:600;margin:0}
 @keyframes zfp{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}</style>
+<style>
+/* slick pass 22 Nov */
+.eb{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#BFC6C3;margin:0 0 22px !important}
+.eb2{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#BFC6C3;margin:0 0 14px !important}
+.stats{display:inline-grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:36px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:20px;max-width:100%;min-width:min(100%,520px)}
+.stats > div{padding:20px 22px;text-align:center;border-left:1px solid rgba(255,255,255,.1)}
+.stats > div:first-child{border-left:0}
+.stats b{display:block;font-family:'Archivo',Impact,sans-serif;font-weight:800;color:#FFFFFF;font-size:34px;line-height:1}
+.stats span{display:block;margin-top:8px;font-size:14px;color:#BFC6C3;line-height:1.2}
+.rows{margin-top:36px;display:flex;flex-direction:column;max-width:860px}
+.rows.boxed{background:#FFFFFF;border-radius:24px;padding:6px 30px}
+.row{display:flex;gap:22px;align-items:flex-start;padding:26px 0;border-top:1px solid rgba(255,255,255,.12)}
+.rows > .row:first-child{border-top:0}
+.row .num{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-family:'Archivo',Impact,sans-serif;font-weight:800;font-size:14px;line-height:1}
+.row > div{min-width:0;display:flex;flex-direction:column;gap:8px}
+body .row h3{font-size:20px !important;line-height:1.15}
+.tl{position:relative;margin-top:36px;padding-left:36px;max-width:680px;display:flex;flex-direction:column;gap:30px}
+.tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:rgba(255,255,255,.12)}
+.tl-st{position:relative}
+.tl-st::before{content:"";position:absolute;left:-36px;top:5px;width:14px;height:14px;border-radius:50%;background:#D8B56A;box-shadow:0 0 0 5px #111518}
+.pcard{max-width:560px;margin:0 auto;text-align:left;background:#15191C;border:1px solid rgba(216,181,106,.45);border-radius:26px;padding:34px 30px 30px;box-shadow:0 0 60px rgba(216,181,106,.12)}
+.pcard .big{font-family:'Archivo',Impact,sans-serif;font-weight:800;color:#FFFFFF;font-size:84px;line-height:.9;letter-spacing:-.04em;margin:0;text-transform:none}
+.pcard .big small{font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-weight:500;font-size:18px;letter-spacing:0;color:#BFC6C3;margin-left:10px;text-transform:none}
+.pcard ul{list-style:none;margin:22px 0 0;padding:18px 0 0;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:10px}
+.pcard li{display:flex;gap:12px;align-items:center;color:#FFFFFF;font-size:17px}
+.pcard li svg{flex:0 0 16px;opacity:.85}
+.pcard .pbtns{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+.pcard .pbtns a{width:100%;justify-content:space-between}
+.pcard .pbtns a.plain{justify-content:center}
+.sticky-bar{align-items:center;justify-content:space-between !important;gap:14px}
+.sb-price{color:#FFFFFF;white-space:nowrap;line-height:1}
+.sb-price b{font-family:'Archivo',Impact,sans-serif;font-weight:800;font-size:22px}
+.sb-price span{color:#BFC6C3;font-size:13.5px;margin-left:7px}
+.sticky-bar .glow,.sticky-bar .gold{min-height:48px;padding:5px 5px 5px 20px}
+.sticky-bar .arrow{width:38px;height:38px}
+@media (max-width:760px){
+ .eb,.eb2{font-size:12px}
+ .stats{display:grid;width:100%;margin-top:26px;border-radius:16px}
+ .stats > div{padding:14px 6px}
+ .stats b{font-size:24px}
+ .stats span{font-size:12px;margin-top:5px}
+ .rows{margin-top:24px}
+ .rows.boxed{padding:2px 18px;border-radius:20px}
+ .row{gap:16px;padding:20px 0}
+ .row .num{flex-basis:36px;width:36px;height:36px;font-size:12.5px}
+ body .row h3{font-size:17px !important}
+ body .row p{font-size:16px !important}
+ .tl{margin-top:26px;padding-left:30px;gap:24px}
+ .tl-st::before{left:-30px;width:12px;height:12px}
+ .tl::before{left:5px}
+ body .tl-st h3{font-size:19px !important}
+ .pcard{padding:26px 22px 22px;border-radius:22px}
+ body .pcard .big{font-size:62px !important}
+ .pcard .big small{font-size:15px}
+ .pcard li{font-size:15.5px}
+}
+</style>
 <script src="config.js"></script>
 </head>
 <body>
@@ -88,12 +145,9 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 <div aria-hidden="true" style="position: absolute; width: 900px; height: 900px; left: -380px; bottom: -420px; border-radius: 50%; background: radial-gradient(circle, rgba(216,181,106,.26) 0%, rgba(216,181,106,0) 62%)"></div>
 <div aria-hidden="true" style="position: absolute; width: 640px; height: 640px; right: -200px; bottom: -260px; border-radius: 50%; background: repeating-radial-gradient(circle, rgba(216,181,106,.10) 0 1px, rgba(216,181,106,0) 1px 34px); -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 68%); mask-image: radial-gradient(circle, #000 0%, transparent 68%)"></div>
 <div class="wrap" style="position: relative">
-<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 30px"><span aria-hidden="true" style="width: 36px; height: 2px; background: #D8B56A; display: block"></span><p style="color: #D8B56A; font-weight: 700; font-size: 16px; letter-spacing: 0.02em">Zenith Transformation</p></div>
+<p class="eb">Zenith Transformation</p>
 <h1 class="hero-h" style="font-size: clamp(48px, 7.4vw, 100px); line-height: 0.95; max-width: 13ch"><span data-k="heroHeadline"></span></h1>
-<div class="cover-card" style="display: inline-flex; align-items: center; gap: 18px; margin-top: 40px; background: #15191C; border: 1px solid rgba(216,181,106,.35); border-radius: 22px; padding: 20px 30px 20px 22px; box-shadow: 0 0 0 1px rgba(216,181,106,.06), 0 18px 70px rgba(216,181,106,.20); max-width: 100%">
-<span aria-hidden="true" style="width: 54px; height: 54px; flex-shrink: 0; border-radius: 50%; border: 1px solid rgba(216,181,106,.45); background: rgba(216,181,106,.08); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#D8B56A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"></path></svg></span>
-<div style="min-width: 0"><p style="color: #BFC6C3; font-size: 15px; font-weight: 600">In depth one to one with me</p><p style="font-family: 'Archivo', Impact, sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.05; margin-top: 4px">Only 10 places</p></div>
-</div>
+<div class="stats"><div><b>10</b><span>places only</span></div><div><b>45</b><span>minute call monthly</span></div><div><b>90</b><span>day plan</span></div></div>
 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 600px; margin-top: 36px; color: #BFC6C3; font-size: 20px">
 <p>You've shown me what you can do over these last few weeks. Now I want to show you what the next 12 months could look like.</p>
 <p>I cap this at 10 people, and I'd like you to be one of them.</p>
@@ -139,23 +193,24 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 <!-- Goal and roadmap -->
 <section style="background: #111518; padding: 112px 0">
 <div class="wrap">
+<p class="eb2">The plan</p>
 <h2 style="font-size: clamp(34px, 4.6vw, 56px); line-height: 1">Where we're going</h2>
 <div id="goalCard" style="margin-top: 36px; border-radius: 24px; padding: 36px 34px; background: #0C0F11; border: 1px solid rgba(216,181,106,.3); box-shadow: 0 0 60px rgba(216,181,106,.08)">
 <p style="color: #D8B56A; font-weight: 600; font-size: 15px">Your goal, in your words</p>
 <p style="margin-top: 12px; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.35; color: #FFFFFF">"<span data-k="goal"></span>"</p>
 </div>
-<div class="three" style="margin-top: 20px">
-<div style="border-top: 2px solid #D8B56A; padding-top: 24px">
+<div class="tl">
+<div class="tl-st">
 <p style="color: #D8B56A; font-weight: 600; font-size: 15px">Months 1 to 3</p>
 <h3 style="font-size: 26px; margin-top: 6px">Foundation</h3>
 <p style="color: #BFC6C3; margin-top: 12px; font-size: 17px">We lock the basics in so they happen on autopilot, even in the busy weeks.</p>
 </div>
-<div style="border-top: 2px solid rgba(216,181,106,.6); padding-top: 24px">
+<div class="tl-st">
 <p style="color: #D8B56A; font-weight: 600; font-size: 15px">Months 4 to 6</p>
 <h3 style="font-size: 26px; margin-top: 6px">Momentum</h3>
 <p style="color: #BFC6C3; margin-top: 12px; font-size: 17px">We push your training on, and this is where people around you really start noticing.</p>
 </div>
-<div style="border-top: 2px solid rgba(216,181,106,.3); padding-top: 24px">
+<div class="tl-st">
 <p style="color: #D8B56A; font-weight: 600; font-size: 15px">Months 7 to 12</p>
 <h3 style="font-size: 26px; margin-top: 6px">Identity</h3>
 <p style="color: #BFC6C3; margin-top: 12px; font-size: 17px">By now it's just how you live. You trust yourself to do it, and that's the whole point.</p>
@@ -170,38 +225,38 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 <p class="quote" style="font-family: 'Archivo', Impact, sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(32px, 4.8vw, 60px); line-height: 1.02; max-width: 20ch">Momentum looks at your week after it's happened. Transformation looks at it before.</p>
 <p style="color: #BFC6C3; margin-top: 30px; font-size: 20px; max-width: 620px">We plan your month together before it's even started. The busy patch at work, the holiday, the week everyone's birthday lands at once. We've already got a plan for them before they get there.</p>
 <div style="margin-top: 56px; display: flex; flex-direction: column">
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+<div class="row"><span class="num" aria-hidden="true">01</span><div>
 <h3 style="font-size: 22px">Your monthly call with me</h3>
 <p style="color: #BFC6C3; font-size: 18px">45 minutes, one to one, every month. We go over how the month's been and set the game plan for the next one.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">02</span><div>
 <h3 style="font-size: 22px">A written summary after every call</h3>
 <p style="color: #BFC6C3; font-size: 18px">What we covered and the actions to take, with you within 24 hours.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">03</span><div>
 <h3 style="font-size: 22px">Your 90 day plan</h3>
 <p style="color: #BFC6C3; font-size: 18px">A brand new written plan every 90 days, so we both know exactly where you're heading and what you're trying to achieve.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">04</span><div>
 <h3 style="font-size: 22px">Your week, before it happens</h3>
 <p style="color: #BFC6C3; font-size: 18px">A check in with me every Monday to get you set for the week ahead, and another midweek to see how it's going.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">05</span><div>
 <h3 style="font-size: 22px">A progress report every 90 days</h3>
 <p style="color: #BFC6C3; font-size: 18px">Your measurements, your photos and what's changed, all on one page.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">06</span><div>
 <h3 style="font-size: 22px">The mindset work</h3>
 <p style="color: #BFC6C3; font-size: 18px">The stuff that's kept you stuck in the cycle for years gets proper time. That's where the real change happens.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">07</span><div>
 <h3 style="font-size: 22px">A starter kit, on me</h3>
 <p style="color: #BFC6C3; font-size: 18px">I'll get some equipment sent out to you, so you can train at home whenever life gets in the way.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 28px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">08</span><div>
 <h3 style="font-size: 22px">Everything you've already got</h3>
 <p style="color: #BFC6C3; font-size: 18px">Your Friday check in feedback, your programme, the group, Zenith HQ and Mark AI. All of it carries on.</p>
-</div>
+</div></div>
 </div>
 <p style="margin-top: 36px; font-size: 20px; font-weight: 600; color: #FFFFFF">I cap it at 10 people. That's the only way I can do it properly.</p>
 </div>
@@ -259,7 +314,8 @@ a{color:#FFFFFF}a:hover{color:#E9D29E}
 </footer>
 
 <div class="sticky-bar" style="position: sticky; bottom: 0; z-index: 30; padding: 12px 16px; background: rgba(12,15,17,.94); border-top: 1px solid rgba(216,181,106,.2); justify-content: center; margin-top: -84px">
-<a class="gold" href="#options" style="width: 100%; justify-content: space-between">See your options<span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D8B56A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
+<div class="sb-price"><b>£185</b><span>a month</span></div>
+<a class="gold" href="#options">See your options<span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D8B56A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 
 </div>

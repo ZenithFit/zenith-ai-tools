@@ -59,6 +59,63 @@ a{color:#111111}a:hover{color:#000000}
 #zfLoad img{width:64px;height:64px;animation:zfp 1.4s ease-in-out infinite}
 #zfLoad p{color:#BFC6C3;font-family:Inter Tight,Arial,sans-serif;font-size:16px;font-weight:600;margin:0}
 @keyframes zfp{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.08);opacity:1}}</style>
+<style>
+/* slick pass 22 Nov */
+.eb{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#BFC6C3;margin:0 0 22px !important}
+.eb2{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7C817F;margin:0 0 14px !important}
+.stats{display:inline-grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:36px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:20px;max-width:100%;min-width:min(100%,520px)}
+.stats > div{padding:20px 22px;text-align:center;border-left:1px solid rgba(255,255,255,.1)}
+.stats > div:first-child{border-left:0}
+.stats b{display:block;font-family:'Archivo',Impact,sans-serif;font-weight:800;color:#FFFFFF;font-size:34px;line-height:1}
+.stats span{display:block;margin-top:8px;font-size:14px;color:#BFC6C3;line-height:1.2}
+.rows{margin-top:36px;display:flex;flex-direction:column;max-width:860px}
+.rows.boxed{background:#FFFFFF;border-radius:24px;padding:6px 30px}
+.row{display:flex;gap:22px;align-items:flex-start;padding:26px 0;border-top:1px solid rgba(17,17,17,.12)}
+.rows > .row:first-child{border-top:0}
+.row .num{flex:0 0 44px;width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(17,17,17,.22);display:flex;align-items:center;justify-content:center;font-family:'Archivo',Impact,sans-serif;font-weight:800;font-size:14px;line-height:1}
+.row > div{min-width:0;display:flex;flex-direction:column;gap:8px}
+body .row h3{font-size:20px !important;line-height:1.15}
+.tl{position:relative;margin-top:36px;padding-left:36px;max-width:680px;display:flex;flex-direction:column;gap:30px}
+.tl::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:rgba(17,17,17,.12)}
+.tl-st{position:relative}
+.tl-st::before{content:"";position:absolute;left:-36px;top:5px;width:14px;height:14px;border-radius:50%;background:#111111;box-shadow:0 0 0 5px #FFFFFF}
+.pcard{max-width:560px;margin:0 auto;text-align:left;background:#15191C;border:1px solid rgba(63,212,148,.45);border-radius:26px;padding:34px 30px 30px;box-shadow:0 0 60px rgba(63,212,148,.12)}
+.pcard .big{font-family:'Archivo',Impact,sans-serif;font-weight:800;color:#FFFFFF;font-size:84px;line-height:.9;letter-spacing:-.04em;margin:0;text-transform:none}
+.pcard .big small{font-family:'Inter Tight','Helvetica Neue',Arial,sans-serif;font-weight:500;font-size:18px;letter-spacing:0;color:#BFC6C3;margin-left:10px;text-transform:none}
+.pcard ul{list-style:none;margin:22px 0 0;padding:18px 0 0;border-top:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:10px}
+.pcard li{display:flex;gap:12px;align-items:center;color:#FFFFFF;font-size:17px}
+.pcard li svg{flex:0 0 16px;opacity:.85}
+.pcard .pbtns{display:flex;flex-direction:column;gap:12px;margin-top:26px}
+.pcard .pbtns a{width:100%;justify-content:space-between}
+.pcard .pbtns a.plain{justify-content:center}
+.sticky-bar{align-items:center;justify-content:space-between !important;gap:14px}
+.sb-price{color:#FFFFFF;white-space:nowrap;line-height:1}
+.sb-price b{font-family:'Archivo',Impact,sans-serif;font-weight:800;font-size:22px}
+.sb-price span{color:#BFC6C3;font-size:13.5px;margin-left:7px}
+.sticky-bar .glow,.sticky-bar .gold{min-height:48px;padding:5px 5px 5px 20px}
+.sticky-bar .arrow{width:38px;height:38px}
+@media (max-width:760px){
+ .eb,.eb2{font-size:12px}
+ .stats{display:grid;width:100%;margin-top:26px;border-radius:16px}
+ .stats > div{padding:14px 6px}
+ .stats b{font-size:24px}
+ .stats span{font-size:12px;margin-top:5px}
+ .rows{margin-top:24px}
+ .rows.boxed{padding:2px 18px;border-radius:20px}
+ .row{gap:16px;padding:20px 0}
+ .row .num{flex-basis:36px;width:36px;height:36px;font-size:12.5px}
+ body .row h3{font-size:17px !important}
+ body .row p{font-size:16px !important}
+ .tl{margin-top:26px;padding-left:30px;gap:24px}
+ .tl-st::before{left:-30px;width:12px;height:12px}
+ .tl::before{left:5px}
+ body .tl-st h3{font-size:19px !important}
+ .pcard{padding:26px 22px 22px;border-radius:22px}
+ body .pcard .big{font-size:62px !important}
+ .pcard .big small{font-size:15px}
+ .pcard li{font-size:15.5px}
+}
+</style>
 <script src="config.js"></script>
 </head>
 <body>
@@ -86,12 +143,9 @@ a{color:#111111}a:hover{color:#000000}
 <div aria-hidden="true" style="position: absolute; width: 900px; height: 900px; left: -380px; bottom: -420px; border-radius: 50%; background: radial-gradient(circle, rgba(63,212,148,.26) 0%, rgba(63,212,148,0) 62%)"></div>
 <div aria-hidden="true" style="position: absolute; width: 640px; height: 640px; right: -200px; bottom: -260px; border-radius: 50%; background: repeating-radial-gradient(circle, rgba(63,212,148,.10) 0 1px, rgba(63,212,148,0) 1px 34px); -webkit-mask-image: radial-gradient(circle, #000 0%, transparent 68%); mask-image: radial-gradient(circle, #000 0%, transparent 68%)"></div>
 <div class="wrap" style="position: relative">
-<div style="display: flex; align-items: center; gap: 14px; margin-bottom: 30px"><span aria-hidden="true" style="width: 36px; height: 2px; background: #3FD494; display: block"></span><p style="color: #3FD494; font-weight: 700; font-size: 16px; letter-spacing: 0.02em">Zenith Momentum</p></div>
+<p class="eb">Zenith Momentum</p>
 <h1 class="hero-h" style="font-size: clamp(48px, 7.4vw, 100px); line-height: 0.95; max-width: 13ch"><span data-k="heroHeadline"></span></h1>
-<div class="cover-card" style="display: inline-flex; align-items: center; gap: 18px; margin-top: 40px; background: #15191C; border: 1px solid rgba(63,212,148,.35); border-radius: 22px; padding: 20px 30px 20px 22px; box-shadow: 0 0 0 1px rgba(63,212,148,.06), 0 18px 70px rgba(63,212,148,.20); max-width: 100%">
-<span aria-hidden="true" style="width: 54px; height: 54px; flex-shrink: 0; border-radius: 50%; border: 1px solid rgba(63,212,148,.45); background: rgba(63,212,148,.08); display: flex; align-items: center; justify-content: center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l5.5-5.5 4 4L20 9"></path><path d="M14 9h6v6"></path></svg></span>
-<div style="min-width: 0"><p style="color: #BFC6C3; font-size: 15px; font-weight: 600">Where we go next</p><p style="font-family: 'Archivo', Impact, sans-serif; font-weight: 800; text-transform: uppercase; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.05; margin-top: 4px">Your next 16 weeks</p></div>
-</div>
+<div class="stats"><div><b>16</b><span>weeks next</span></div><div><b>£129</b><span>a month</span></div><div><b>6</b><span>week refresh</span></div></div>
 <div style="display: flex; flex-direction: column; gap: 14px; max-width: 600px; margin-top: 36px; color: #BFC6C3; font-size: 20px">
 <p>6 weeks ago you made a decision. Have a look at what you've done with it since.</p>
 <p>The Accelerator was you proving you can do this. Momentum is where we keep it going, until it's just the way you live.</p>
@@ -137,23 +191,24 @@ a{color:#111111}a:hover{color:#000000}
 <!-- Goal and next 4 months -->
 <section style="background: #FFFFFF; padding: 104px 0">
 <div class="wrap">
+<p class="eb2">The plan</p>
 <h2 style="font-size: clamp(34px, 4.6vw, 56px); line-height: 1">Where we go next</h2>
 <div id="goalCard" style="margin-top: 36px; border-radius: 24px; padding: 36px 34px; background: #0C0F11; color: #FFFFFF; box-shadow: 0 0 60px rgba(63,212,148,.12)">
 <p style="color: #BFC6C3; font-weight: 600; font-size: 15px">Your goal, in your words</p>
 <p style="margin-top: 12px; font-size: clamp(22px, 2.6vw, 30px); font-weight: 600; line-height: 1.35">"<span data-k="goal"></span>"</p>
 </div>
-<div class="three" style="margin-top: 20px">
-<div style="background: #F4F6F5; border-radius: 20px; padding: 28px">
+<div class="tl">
+<div class="tl-st">
 <p style="color: #4A4F4D; font-weight: 600; font-size: 15px">Weeks 1 to 8</p>
 <h3 style="font-size: 24px; margin-top: 6px">Lock it in</h3>
 <p style="color: #4A4F4D; margin-top: 12px; font-size: 17px">Everything that's worked these 6 weeks keeps happening, even when life gets busy.</p>
 </div>
-<div style="background: #F4F6F5; border-radius: 20px; padding: 28px">
+<div class="tl-st">
 <p style="color: #4A4F4D; font-weight: 600; font-size: 15px">Weeks 9 to 16</p>
 <h3 style="font-size: 24px; margin-top: 6px">Step it up</h3>
 <p style="color: #4A4F4D; margin-top: 12px; font-size: 17px">Your programme moves on with you and we push things up a level.</p>
 </div>
-<div style="background: #F4F6F5; border-radius: 20px; padding: 28px">
+<div class="tl-st">
 <p style="color: #4A4F4D; font-weight: 600; font-size: 15px">Then</p>
 <h3 style="font-size: 24px; margin-top: 6px">Zoom out</h3>
 <p style="color: #4A4F4D; margin-top: 12px; font-size: 17px">We look back at how far you've come, and set what's next.</p>
@@ -165,37 +220,38 @@ a{color:#111111}a:hover{color:#000000}
 <!-- Everything keeps going -->
 <section style="background: #F4F6F5; padding: 104px 0">
 <div class="wrap">
+<p class="eb2">What you get</p>
 <h2 style="font-size: clamp(34px, 4.6vw, 56px); line-height: 1">Everything keeps going</h2>
 <p style="color: #4A4F4D; margin-top: 18px; font-size: 19px; max-width: 600px">No gap and no starting again on a Monday. You carry straight on from where you are now.</p>
-<div style="margin-top: 44px; display: flex; flex-direction: column">
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
+<div class="rows">
+<div class="row"><span class="num" aria-hidden="true">01</span><div>
 <h3 style="font-size: 21px">Your Friday check ins</h3>
 <p style="color: #4A4F4D; font-size: 18px">Same as now. You send me your week by 3pm, I go through every bit of it, and we set one focus for the week ahead.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">02</span><div>
 <h3 style="font-size: 21px">A programme that moves with you</h3>
 <p style="color: #4A4F4D; font-size: 18px">I refresh your training every 6 weeks, so you keep getting stronger and it never goes stale.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
-<h3 style="font-size: 21px">A message from me every week</h3>
-<p style="color: #4A4F4D; font-size: 18px">On top of your Friday check in. A touch point from me in the week to see how it's going.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">03</span><div>
+<h3 style="font-size: 21px">Contact with me every single week</h3>
+<p style="color: #4A4F4D; font-size: 18px">On top of your Friday check in. I check in with you through the week to see how it's going.</p>
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">04</span><div>
 <h3 style="font-size: 21px">Your 12 month roadmap</h3>
 <p style="color: #4A4F4D; font-size: 18px">Where you're heading, with your goal and your next milestone on it.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">05</span><div>
 <h3 style="font-size: 21px">The group</h3>
 <p style="color: #4A4F4D; font-size: 18px">Same people, same support, and the Wednesday Wins keep coming.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">06</span><div>
 <h3 style="font-size: 21px">Zenith HQ</h3>
 <p style="color: #4A4F4D; font-size: 18px">A new Sunday Session every week, the client podcast, your guides and Mark AI.</p>
-</div>
-<div style="display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 12px 40px; padding: 26px 0; border-top: 1px solid rgba(17,17,17,.12); border-bottom: 1px solid rgba(17,17,17,.12)">
+</div></div>
+<div class="row"><span class="num" aria-hidden="true">07</span><div>
 <h3 style="font-size: 21px">And me</h3>
 <p style="color: #4A4F4D; font-size: 18px">Messages answered the same working day, Monday to Friday.</p>
-</div>
+</div></div>
 </div>
 <div style="margin-top: 44px; background: #0C0F11; color: #FFFFFF; border-radius: 20px; padding: 36px 32px; box-shadow: 0 0 60px rgba(63,212,148,.12)">
 <h3 style="font-size: 26px; line-height: 1.05; color: #FFFFFF">What I need from you</h3>
@@ -216,14 +272,15 @@ a{color:#111111}a:hover{color:#000000}
 <section id="price" style="background: #0C0F11; color: #FFFFFF; padding: 112px 0; position: relative; overflow: hidden">
 <div aria-hidden="true" style="position: absolute; width: 900px; height: 900px; left: 50%; top: 50%; transform: translate(-50%, -50%); border-radius: 50%; background: radial-gradient(circle, rgba(63,212,148,.16) 0%, rgba(63,212,148,0) 62%)"></div>
 <div class="narrow" style="position: relative; text-align: center">
-<h2 style="font-size: clamp(48px, 8vw, 104px); line-height: 0.95">£129<br>a month.</h2>
-<p style="margin-top: 26px; font-size: 21px; font-weight: 600">That's about £4.30 a day. Less than a meal deal.</p>
-<p style="margin-top: 8px; color: #BFC6C3">4 month minimum, then 1 month's notice whenever you want to stop.</p>
-<div style="display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 40px">
+<div class="pcard"><h2 class="big">£129<small>a month</small></h2>
+<p style="margin-top: 16px; font-size: 19px; color: #FFFFFF; font-weight: 600">That's about £4.30 a day. Less than a meal deal.</p>
+<p style="margin-top: 6px; color: #BFC6C3; font-size: 16px">4 month minimum, then 1 month's notice whenever you want to stop.</p>
+<ul><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>Programme refreshed every 6 weeks</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>Friday check in with my reply</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>Contact with me every single week</span></li><li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg><span>The group, Zenith HQ and Mark AI</span></li></ul>
+<div class="pbtns">
 <a class="glow" href="https://buy.stripe.com/9B6dR99lfgw183334o97H0l" target="_blank" rel="noopener">Keep going on Momentum<span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
 <a class="plain on-dark" href="https://buy.stripe.com/fZucN540V3JfgzzfRa97H0J" target="_blank" rel="noopener">6 months up front, £645</a>
 </div>
-<p style="margin-top: 18px; color: #BFC6C3; font-size: 16px">Pay 6 months up front and you get 6 months for the price of 5.</p>
+<p style="margin-top: 16px; color: #BFC6C3; font-size: 15px; text-align: center">Pay 6 months up front and you get 6 months for the price of 5.</p></div>
 <p style="max-width: 540px; margin: 44px auto 0; color: #BFC6C3; font-size: 17px">Most of my clients live on Momentum. It's where the change you've started really starts to stick.</p>
 </div>
 </section>
@@ -251,7 +308,8 @@ a{color:#111111}a:hover{color:#000000}
 </footer>
 
 <div class="sticky-bar" style="position: sticky; bottom: 0; z-index: 30; padding: 12px 16px; background: rgba(12,15,17,.92); border-top: 1px solid rgba(255,255,255,.08); justify-content: center; margin-top: -84px">
-<a class="glow" href="#price" style="width: 100%; justify-content: space-between">Keep going<span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
+<div class="sb-price"><b>£129</b><span>a month</span></div>
+<a class="glow" href="#price">Keep going<span class="arrow"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3FD494" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg></span></a>
 </div>
 
 </div>
