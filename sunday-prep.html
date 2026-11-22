@@ -140,6 +140,12 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
     </div>
 
     <div class="field">
+      <label class="small" for="promise">Your promise for tomorrow</label>
+      <div class="hint">One small thing you'll definitely do. Keep it, then make a new one every day this week.</div>
+      <input type="text" id="promise" placeholder="Example: 10 minute walk after lunch">
+    </div>
+
+    <div class="field">
       <div class="small" id="train-lbl">Which days are you training?</div>
       <div class="hint">Tap every day a session's going in.</div>
       <div class="days" id="train" role="group" aria-labelledby="train-lbl"></div>
@@ -183,6 +189,11 @@ footer{padding:0 0 40px;text-align:center;font-size:12px;color:#9AA19E}
       <div class="r-block">
         <div class="r-lbl">Your focus</div>
         <div class="r-focus" id="r-focus"></div>
+      </div>
+
+      <div class="r-block" id="r-promise-block">
+        <div class="r-lbl">Your promise for tomorrow</div>
+        <div class="r-focus" id="r-promise"></div>
       </div>
 
       <div class="r-block">
@@ -304,6 +315,7 @@ function missing(){
   const out=[];
   if(auth==='no'&&!nameOk(document.getElementById('name').value))out.push('your name');
   if(!document.getElementById('focus').value.trim())out.push('your focus');
+  if(!document.getElementById('promise').value.trim())out.push('your promise');
   if(!training.size)out.push('training days');
   const m=meals();if(!m.b&&!m.l&&!m.d)out.push('some food');
   if(!toughest)out.push('your toughest day');
@@ -400,6 +412,8 @@ function showResult(data,first){
     wk.insertAdjacentHTML('beforeend','<div class="r-day"><div class="r-dot'+(t?' train':'')+(tough?' tough':'')+'">'+d.charAt(0)+'</div><div class="r-lab'+(tough?' tough':'')+'">'+(tough?'Tough':'')+'</div></div>');
   });
   document.getElementById('r-focus').textContent=data.focus;
+  document.getElementById('r-promise').textContent=data.promise||'';
+  document.getElementById('r-promise-block').style.display=data.promise?'':'none';
   document.getElementById('r-food-lbl').textContent=data.foodLabel;
   const f=[];
   if(data.food.b)f.push('<div><b>Breakfast</b>'+esc(data.food.b)+'</div>');
@@ -431,6 +445,7 @@ function submit(){
     week:WEEKKEY,
     date:ymd(new Date()),
     focus:document.getElementById('focus').value.trim(),
+    promise:document.getElementById('promise').value.trim(),
     training:DAYS.filter(d=>training.has(d)),
     food:meals(),
     foodLabel:FOODLABEL,
@@ -452,21 +467,21 @@ function submit(){
     field1_label:'Name',field1_value:fullName,
     field2_label:'Focus',field2_value:data.focus,
     field3_label:'Week',field3_value:'Training: '+data.training.join(', ')+' ('+data.training.length+' days) | Toughest: '+FULL[data.toughest]+(data.why?' ('+data.why+')':'')+' | Ready: '+data.ready+'/10'
-  },'Week of '+WEEKKEY+' | '+data.foodLabel+': '+foodTxt);
+  },'Week of '+WEEKKEY+' | Promise: '+data.promise+' | '+data.foodLabel+': '+foodTxt);
 
   showResult(data,firstName(fullName));
 }
 
 function copyText(){
   const p=JSON.parse(localStorage.getItem(PREPKEY)||'null');if(!p)return '';
-  const lines=['My week, sorted ✅','','Focus: '+p.focus,'Training: '+p.training.map(d=>FULL[d]).join(', ')];
+  const lines=['My week, sorted ✅','','Focus: '+p.focus];if(p.promise)lines.push('Promise for tomorrow: '+p.promise);lines.push('Training: '+p.training.map(d=>FULL[d]).join(', '));
   if(p.food.b||p.food.l||p.food.d){lines.push('',p.foodLabel+':');if(p.food.b)lines.push('Breakfast: '+p.food.b);if(p.food.l)lines.push('Lunch: '+p.food.l);if(p.food.d)lines.push('Dinner: '+p.food.d);}
   lines.push('','Toughest day: '+FULL[p.toughest]+(p.why?' ('+p.why+')':''));
   return lines.join('\n');
 }
 
 function resetForm(){
-  ['focus','m-b','m-l','m-d','why'].forEach(id=>document.getElementById(id).value='');
+  ['focus','promise','m-b','m-l','m-d','why'].forEach(id=>document.getElementById(id).value='');
   training.clear();toughest='';ready=0;
   document.querySelectorAll('.day,.scale button').forEach(b=>{b.classList.remove('on');b.setAttribute('aria-pressed','false');});
   document.getElementById('result').classList.remove('on');
@@ -481,7 +496,7 @@ document.getElementById('food-lbl').textContent='Plan '+FOODLABEL;
 buildDays('train',true);
 buildDays('tough',false);
 buildScale();
-['name','focus','m-b','m-l','m-d'].forEach(id=>document.getElementById(id).addEventListener('input',checkReady));
+['name','focus','promise','m-b','m-l','m-d'].forEach(id=>document.getElementById(id).addEventListener('input',checkReady));
 document.getElementById('submit').addEventListener('click',submit);
 document.getElementById('again').addEventListener('click',resetForm);
 document.getElementById('copy').addEventListener('click',()=>{
