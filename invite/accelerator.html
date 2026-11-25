@@ -563,6 +563,27 @@ var ZF=(function(){
   sync();
 })();
 
+/* Black Friday past client offer. Add &offer=bf to the link. Switches itself off after Fri 27 Nov 2026. */
+(function(){
+  if(ZF.P.get('offer')!=='bf'||new Date()>=new Date('2026-11-28T00:00:00Z'))return;
+  var BF='https://buy.stripe.com/4gM4gz6930x3errawQ97H0R';
+  var st=document.querySelectorAll('.stats > div')[1];
+  if(st){st.querySelector('b').textContent='£99';st.querySelector('span').textContent='was £149';}
+  var big=document.querySelector('.pcard h2.big');
+  if(big){big.firstChild.nodeValue='£99';
+    var ps=document.querySelectorAll('.pcard > p');
+    if(ps[0])ps[0].textContent='Black Friday, past clients only. £50 off the usual £149.';
+    if(ps[1]){ps[1].textContent='Closes Friday 27 November. Start Monday 30 November or Monday 4 January, your call.';}
+  }
+  var row=document.getElementById('payRow');
+  if(row){var as=row.querySelectorAll('a');
+    if(as[0]){as[0].href=BF;as[0].firstChild.nodeValue='Pay £99';}
+    if(as[1])as[1].style.display='none';
+  }
+  var sb=document.querySelector('.sb-price b');if(sb)sb.textContent='£99';
+  ZF.prefill(ZF.P.get('email'));
+})();
+
 </script>
 </body>
 </html>
